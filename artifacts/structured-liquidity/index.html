@@ -85,6 +85,11 @@
   /* pillar rule rows: the six operating rules folded into the three pillars */
   .pillar li > div{flex:1;min-width:0;}
   .pillar .rule-h{color:var(--ink);font-weight:700;}
+  /* larger, more legible bullet copy (was 0.76rem dim mono) */
+  .pillar li{font-size:0.9rem;line-height:1.55;color:color-mix(in srgb, var(--ink) 55%, var(--ink-dim));}
+
+  /* section eyebrow labels: larger, tighter tracking, higher contrast (was 0.72rem, 0.22em, dim) */
+  .eyebrow{font-size:0.84rem;letter-spacing:0.15em;color:color-mix(in srgb, var(--ink) 78%, var(--ink-dim));}
 
   /* navbar + marquee menubar — application navigation modeled on universe.audio */
   .sl-navbar{display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;padding:0.55rem 0.7rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);}
