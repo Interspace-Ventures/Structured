@@ -158,6 +158,9 @@
     width:1.05em;height:1.05em;flex:0 0 auto;stroke-width:2.25;}
   .sl-btn.icon svg{width:1.15em;height:1.15em;}
 
+  /* Proportional readability bump: nudge the root size so all rem-based text grows together (tweaker panel uses px and stays put). */
+  html{font-size:108%;}
+
   /* ── Body copy face: Outfit. Display/headings & brand keep --display (Archivo, tweaker-controlled) ── */
   :root{--body:"Outfit","Helvetica Neue",system-ui,sans-serif;}
   body{font-family:var(--body);}
