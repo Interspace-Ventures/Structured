@@ -14,19 +14,24 @@ import {
   ArrowRight,
   ArrowUp,
   Ban,
+  Bot,
+  Code,
   Compass,
   Copy,
   Download,
   ExternalLink,
+  FileText,
   Ghost,
   LayoutGrid,
   Library,
+  Palette,
   Play,
   Plus,
   Radio,
   Sparkles,
   Square,
   Trash2,
+  Type,
 } from "lucide";
 
 type Mode = "dark" | "light";
@@ -457,26 +462,70 @@ function mountIcons(): void {
       ArrowRight,
       ArrowUp,
       Ban,
+      Bot,
+      Code,
       Compass,
       Copy,
       Download,
       ExternalLink,
+      FileText,
       Ghost,
       LayoutGrid,
       Library,
+      Palette,
       Play,
       Plus,
       Radio,
       Sparkles,
       Square,
       Trash2,
+      Type,
     },
     attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
   });
 }
 
+/* Copy-to-clipboard for the "Adopt / Build with AI" section. Each .sl-copy
+   button names its source element via data-copy; we copy that element's text
+   and flash a "Copied" state. Falls back to a selection+execCommand copy when
+   the async clipboard API is unavailable. */
+function mountCopy(): void {
+  document.querySelectorAll<HTMLButtonElement>(".sl-copy[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const sel = btn.getAttribute("data-copy");
+      const target = sel ? document.querySelector<HTMLElement>(sel) : null;
+      if (!target) return;
+      const text = target.innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(target);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        try {
+          document.execCommand("copy");
+        } catch {
+          /* clipboard unavailable; nothing more we can do */
+        }
+        selection?.removeAllRanges();
+      }
+      const label = btn.querySelector<HTMLElement>(".copy-label");
+      const prev = label?.textContent ?? "Copy";
+      if (label) label.textContent = "Copied";
+      btn.classList.add("copied");
+      window.setTimeout(() => {
+        if (label) label.textContent = prev;
+        btn.classList.remove("copied");
+      }, 1400);
+    });
+  });
+}
+
 function init(): void {
   mountIcons();
+  mountCopy();
   const state = load();
   apply(state);
 

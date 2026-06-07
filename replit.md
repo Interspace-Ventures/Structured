@@ -22,7 +22,9 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
   - `structured-liquidity.css` — **token source of truth** (`:root` knobs + fixed palette), backdrop, hero
   - `structured-liquidity-components.css`, `structured-liquidity-kit.css` — component styles
   - `structured-liquidity.js` (reveal-on-scroll, nav), `structured-liquidity-kit.js` (interactive components), `liquid-word.js` (the `[data-liquid]` wordmark)
-- `artifacts/structured-liquidity/src/main.ts` — **new** vanilla-TS live theme tweaker (replaces the original React/Babel panel that was coupled to a proprietary in-editor host) + Lucide icon hydration (`createIcons` over `[data-lucide]` placeholders)
+  - **agent-accessibility data files (new, not original):** `llms.txt` (AI-discoverable spec, served at `/llms.txt`), `design-tokens.json` (W3C Design Tokens format — every token carries its CSS var in `$extensions.cssVar`), `registry.json` (16 copy-paste component recipes). These are *data*, not the verbatim CSS/JS — safe to edit.
+- `artifacts/structured-liquidity/src/main.ts` — **new** vanilla-TS live theme tweaker (replaces the original React/Babel panel that was coupled to a proprietary in-editor host) + Lucide icon hydration (`createIcons` over `[data-lucide]` placeholders) + `mountCopy()` (clipboard for the `#adopt` copy buttons)
+- `.agents/skills/structured-liquidity/SKILL.md` — **new** Replit Skill so an agent can apply the design language in any project (the hard rules, `:root` tokens, font pairings, component class list).
 
 ## Architecture decisions
 
@@ -34,6 +36,15 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
 ## Product
 
 A single-page specimen + reference for the Structured Liquidity design language: it explains the three pillars and six principles, demonstrates a full component kit, and lets visitors retheme it live (accent, glass blur, corner radius, border weight, flat-shadow offset, display font, dark/light mode).
+
+## Agent accessibility (make the language adoptable by AI)
+
+So the design language gets incorporated into more designs, it ships in machine-readable formats plus an on-page guide:
+
+- `public/llms.txt`, `public/design-tokens.json`, `public/registry.json` — served at the site root for AI tools to read directly.
+- `.agents/skills/structured-liquidity/SKILL.md` — a Replit Skill any agent can load to apply the language.
+- On-page `#adopt` section (in `index.html`, before the footer CTA; nav link "For AI") — resource cards linking the three files, a paste-ready AI prompt + a `:root` token block (each with a copy button wired by `mountCopy()` in `src/main.ts`), and the recommended font pairings.
+- **Recommended font pairings** (display · body · mono): `Archivo · Outfit · Space Mono` (canonical default), `Space Grotesk · Inter · IBM Plex Mono`, `Syne · Outfit · Space Mono`, `Archivo · Figtree · JetBrains Mono`. Rules: never two display faces; never body copy in the display face; mono only for labels/data/code.
 
 ## Design language tokens (the knobs the page reads)
 

@@ -1,1 +1,1 @@
-- [Structured Liquidity design language](structured-liquidity.md) — the SL UI language (tokens, pillars, how to apply it) lives in artifacts/structured-liquidity; reuse it for on-brand work.
+- [Structured Liquidity adoption files](structured-liquidity-adoption-files.md) — registry/skill must only document components styled by the 3 distributable public CSS files; verify kit-JS DOM contracts before writing recipes.

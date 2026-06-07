@@ -238,6 +238,28 @@
   .sl-drawer{width:100%;padding:1.3rem 1.6rem 1.7rem;background:var(--bg-2);border-top:var(--border-w) solid rgb(var(--edge));box-shadow:0 -10px 0 0 rgba(0,0,0,0.2);transform:translateY(100%);transition:transform 0.28s cubic-bezier(.2,.9,.2,1);}
   .sl-drawer-overlay.open .sl-drawer{transform:none;}
   .sl-drawer .dr-grip{display:block;width:46px;height:5px;background:rgb(var(--edge));margin:0 auto 1rem;}
+
+  /* ── Adopt / Build with AI: agent-readable resources, paste prompt, token block ── */
+  .adopt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;align-items:start;margin-bottom:0.8rem;}
+  .adopt-cols{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;align-items:start;margin-bottom:0.8rem;}
+  @media (max-width:900px){.adopt-grid{grid-template-columns:1fr;}.adopt-cols{grid-template-columns:1fr;}}
+  #adopt .kit-cell p{color:var(--ink-dim);font-size:0.92rem;line-height:1.5;margin:0;flex:1;}
+  #adopt .kit-cap{display:inline-flex;align-items:center;gap:0.45em;}
+  #adopt .kit-cap svg{width:1.05em;height:1.05em;color:var(--accent);flex:0 0 auto;}
+  #adopt .kit-cell .sl-btn{align-self:flex-start;}
+  .adopt-h{display:flex;align-items:center;justify-content:space-between;gap:0.7rem;}
+  .code-block{margin:0;font-family:var(--mono);font-size:0.74rem;line-height:1.55;color:var(--ink);
+    background:rgba(var(--glass-tint),0.06);border:var(--border-w) solid rgb(var(--edge));
+    border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);
+    padding:0.8rem 0.9rem;overflow:auto;max-height:320px;white-space:pre;}
+  #adopt .sl-copy.copied{background:var(--accent);color:var(--accent-ink);}
+  .pairings-card{margin-top:0;}
+  .pairings{display:flex;flex-direction:column;gap:0;}
+  .pairings .pair{display:flex;flex-wrap:wrap;align-items:baseline;gap:0.15rem 0.8rem;
+    padding:0.55rem 0;border-top:1px solid rgba(var(--edge),0.15);}
+  .pairings .pair:first-child{border-top:none;}
+  .pairings .pair-roles{font-family:var(--display);font-weight:700;font-size:0.96rem;letter-spacing:-0.01em;}
+  .pairings .pair-note{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);}
 </style>
 </head>
 <body>
@@ -258,6 +280,7 @@
     <a href="#manifesto"><i data-lucide="compass"></i>Principles</a>
     <a href="#components"><i data-lucide="layout-grid"></i>Components</a>
     <a href="#showcase"><i data-lucide="sparkles"></i>Showcase</a>
+    <a href="#adopt"><i data-lucide="bot"></i>For AI</a>
     <a class="btn solid nav-cta" href="#components" style="padding:0.5rem 1.1rem; --hard-x:3px; --hard-y:3px;"><i data-lucide="download"></i>Install</a>
   </div>
 </nav>
@@ -1083,6 +1106,80 @@
         <a class="sl-btn default" href="https://universe.audio" target="_blank" rel="noopener">Visit universe.audio <span>→</span></a>
         <span class="mono" style="font-size:0.72rem; color:var(--ink-dim);">More products soon</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ADOPT / BUILD WITH AI ===== -->
+<section id="adopt" class="wrap">
+  <div class="section-head reveal">
+    <span class="eyebrow">Agent-ready · adopt the language</span>
+    <h2 class="section-title">Built to be read by machines.</h2>
+    <p class="lead">Structured Liquidity ships its rules, tokens, and components in formats an AI agent can read directly — so the language travels into new products without losing its grammar. Point any AI tool at the files below, or paste the prompt into your assistant.</p>
+  </div>
+
+  <div class="adopt-grid reveal">
+    <div class="glass kit-cell">
+      <span class="kit-cap"><i data-lucide="file-text"></i>llms.txt</span>
+      <p>The AI-discoverable summary: the three pillars, the hard rules, the tokens, and the font pairings — one Markdown file at the site root.</p>
+      <a class="sl-btn default" href="llms.txt" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Open llms.txt</a>
+    </div>
+    <div class="glass kit-cell">
+      <span class="kit-cap"><i data-lucide="palette"></i>design-tokens.json</span>
+      <p>Every token in the W3C Design Tokens format, each carrying its exact CSS variable name. Import it instead of guessing values.</p>
+      <a class="sl-btn default" href="design-tokens.json" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Open tokens</a>
+    </div>
+    <div class="glass kit-cell">
+      <span class="kit-cap"><i data-lucide="layout-grid"></i>registry.json</span>
+      <p>Copy-paste recipes for the kit — class names, variants, and ready-to-paste HTML for the core components.</p>
+      <a class="sl-btn default" href="registry.json" target="_blank" rel="noopener"><i data-lucide="external-link"></i>Open registry</a>
+    </div>
+  </div>
+
+  <div class="adopt-cols reveal">
+    <div class="glass kit-cell">
+      <div class="adopt-h">
+        <span class="kit-cap"><i data-lucide="bot"></i>Paste into your AI</span>
+        <button class="sl-btn secondary sl-copy" data-copy="#ai-prompt"><i data-lucide="copy"></i><span class="copy-label">Copy</span></button>
+      </div>
+      <pre id="ai-prompt" class="code-block">You are designing in the Structured Liquidity UI language.
+Rules:
+- Square corners (border-radius: 0).
+- Flat offset shadows only: box-shadow: 7px 7px 0 0 #000 — never blurred.
+- Solid 2px black borders; the edge defines the object.
+- Exactly one accent (#a388ee) carries all emphasis.
+- Liquid glass = backdrop-filter blur over translucent white rgba(255,255,255,0.07).
+- Destructive surfaces are neutral gray (#3c3f4b), never red.
+- Type: Archivo for headings/buttons/brand, Outfit for body, Space Mono for labels and data.
+- Leading icons (Lucide) on nav links and buttons.
+Use the tokens in design-tokens.json and the component markup in registry.json.
+Full spec: llms.txt.</pre>
+    </div>
+    <div class="glass kit-cell">
+      <div class="adopt-h">
+        <span class="kit-cap"><i data-lucide="code"></i>:root tokens</span>
+        <button class="sl-btn secondary sl-copy" data-copy="#root-tokens"><i data-lucide="copy"></i><span class="copy-label">Copy</span></button>
+      </div>
+      <pre id="root-tokens" class="code-block">:root{
+  --accent:#a388ee; --accent-ink:#000000;
+  --bg:#272933; --bg-2:#1f2028; --ink:#e6e6e6; --ink-dim:#9da0ab;
+  --edge:0 0 0; --hard-shadow:#000000; --neg:#3c3f4b; --neg-ink:#f0f0f2;
+  --glass-blur:18px; --glass-tint:255 255 255; --glass-alpha:0.07;
+  --border-w:2px; --hard-x:7px; --hard-y:7px; --radius:0px;
+  --display:"Archivo","Helvetica Neue",system-ui,sans-serif;
+  --body:"Outfit","Helvetica Neue",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,"SFMono-Regular",monospace;
+}</pre>
+    </div>
+  </div>
+
+  <div class="glass kit-cell reveal pairings-card">
+    <span class="kit-cap"><i data-lucide="type"></i>Recommended font pairings</span>
+    <div class="pairings">
+      <div class="pair"><span class="pair-roles">Archivo · Outfit · Space Mono</span><span class="pair-note">Canonical default — confident display, warm body, technical mono.</span></div>
+      <div class="pair"><span class="pair-roles">Space Grotesk · Inter · IBM Plex Mono</span><span class="pair-note">Quieter and neutral — good for dense, data-heavy products.</span></div>
+      <div class="pair"><span class="pair-roles">Syne · Outfit · Space Mono</span><span class="pair-note">Expressive, editorial display for marketing and brand surfaces.</span></div>
+      <div class="pair"><span class="pair-roles">Archivo · Figtree · JetBrains Mono</span><span class="pair-note">Friendlier body with a developer-tool mono — docs and dashboards.</span></div>
     </div>
   </div>
 </section>

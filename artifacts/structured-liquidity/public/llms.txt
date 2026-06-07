@@ -1,0 +1,66 @@
+# Structured Liquidity
+
+> An open UI design language that pairs **rigid containment** (sharp 90° corners, flat blurless offset shadows, a strict grid) with **liquid depth** (semi-transparent, light-reflecting glass) and **semantic clarity** (one accent, intentional type). This file makes the language machine-readable so an AI agent can adopt it faithfully. Theme it live on the page; every visual is driven by CSS custom properties.
+
+## The three pillars
+
+1. **Structured Containment** — Sharp 90° corners, flat unblurred shadows, a strict grid. Boundaries are never ambiguous. Shadows are an offset solid fact (never a soft blur). Borders carry weight (2–3px) and define the object.
+2. **Liquid Depth** — Inside the rigid boxes sits an organic translucent glass: light-reflecting, tactile, alive. Depth comes from stacking translucent surfaces, each with a real border and flat shadow. Motion proves mass — a pressed surface settles into its own shadow.
+3. **Semantic Clarity** — Liquidity delights but never at the expense of reading. Function leads. A single accent carries emphasis; glass stays neutral so it lands. Heavy display type for impact, monospace for labels and data, a humanist sans for body.
+
+## Hard rules (follow these literally to stay on-brand)
+
+- Corners are square. `border-radius` is `0` by default; only raise it deliberately via the `--radius` token.
+- Shadows are **flat and offset** — `box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)`. Never use a blur radius on a structural shadow.
+- Borders are solid and load-bearing: `var(--border-w) solid rgb(var(--edge))`. The edge (`--edge`) is black in both light and dark mode.
+- **Exactly one accent.** `--accent` carries all emphasis. Do not introduce a second hue to compete with it.
+- Glass surfaces use `backdrop-filter: blur(var(--glass-blur))` over `rgba(var(--glass-tint), var(--glass-alpha))`. Glass stays neutral/translucent — it is depth, not color.
+- Destructive surfaces use a neutral gray (`--neg`), never red. Error *text* may use a warning color, but destructive *containers* stay neutral.
+- Type roles are fixed: **display** = headings/buttons/brand (`--display`), **mono** = labels, captions, data, eyebrows (`--mono`), **body** = paragraph/reading copy (`--body`).
+- Leading icons are the default for nav links and buttons (Lucide). Put the icon first, then the label.
+- Press/hover feedback nudges the element toward its shadow (translate by ~1px and grow the offset) — motion proves mass.
+
+## Tokens (source of truth)
+
+All visuals read from CSS custom properties on `:root`. The machine-readable token set (W3C Design Tokens Community Group format, with the CSS variable name in each `$extensions.cssVar`) is at:
+
+- [design-tokens.json](design-tokens.json): the full token set — color, glass, border, radius, flat shadow, font families, plus light-mode overrides.
+
+Core defaults:
+
+- `--accent` `#a388ee`, `--accent-ink` `#000000` (auto black/white by luminance)
+- `--bg` `#272933`, `--bg-2` `#1f2028`, `--ink` `#e6e6e6`, `--ink-dim` `#9da0ab`
+- `--edge` `0 0 0` (rgb channels), `--hard-shadow` `#000000`, `--neg` `#3c3f4b`
+- `--glass-blur` `18px`, `--glass-tint` `255 255 255`, `--glass-alpha` `0.07`
+- `--border-w` `2px`, `--hard-x` / `--hard-y` `7px`, `--radius` `0px`
+- `--display` Archivo, `--body` Outfit, `--mono` Space Mono
+- Light mode: set `data-mode="light"` on `<html>` (flips `--bg`, `--ink`, `--ink-dim`, `--glass-alpha`, etc.)
+
+## Recommended font pairings
+
+The language fixes three roles — a **display** face (headlines, buttons, brand), a **body** face (reading copy), and a **mono** face (labels, data, captions). Keep the display heavy and tight; keep the body humanist and legible; keep mono for anything tabular or label-like.
+
+- **Archivo · Outfit · Space Mono** — the canonical Structured Liquidity pairing. Confident grotesk display, warm geometric body, technical mono. Use this unless you have a reason not to.
+- **Space Grotesk · Inter · IBM Plex Mono** — quieter and more neutral; good for dense, data-heavy products.
+- **Syne · Outfit · Space Mono** — expressive, editorial display for marketing and brand surfaces.
+- **Archivo · Figtree · JetBrains Mono** — friendlier body with a developer-tool mono; good for docs and dashboards.
+
+Rules of thumb: never pair two display faces; never set body copy in the display face (it gets tiring); use mono only for labels, code, numbers, and metadata — not for long paragraphs.
+
+## Components
+
+A complete kit of 40+ components, each a rigid container holding liquid glass. Copy-paste recipes (class names + markup) are in the machine-readable registry:
+
+- [registry.json](registry.json): component name, description, variants/sizes, and ready-to-paste HTML for buttons, badges, toggles, switches, checkboxes, radios, inputs, sliders, progress, avatars, tabs, cards (glass), and dialog/sheet overlays.
+
+To adopt the kit, include the three stylesheets and the kit script, then use the documented classes:
+
+- `structured-liquidity.css` (tokens + base), `structured-liquidity-components.css`, `structured-liquidity-kit.css`
+- `structured-liquidity-kit.js` (interactive behavior: toggles, overlays, toasts)
+
+## How an agent should use this
+
+1. Read [design-tokens.json](design-tokens.json) and apply the tokens as CSS custom properties on `:root` (each token's `$extensions.cssVar` gives the exact variable name).
+2. Follow the **Hard rules** above when generating any new component, so output stays on-brand.
+3. Pull component markup from [registry.json](registry.json) instead of inventing class names.
+4. Pick a font pairing from the list above (default: Archivo · Outfit · Space Mono).
