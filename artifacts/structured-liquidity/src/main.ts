@@ -523,7 +523,95 @@ function mountCopy(): void {
   });
 }
 
+/* Components gallery: collapse the per-category kit groups into a single
+   filtered gallery, where chips toggle which component cards are shown
+   (in the spirit of a portfolio filter). The verbatim kit markup and styles
+   are untouched — we relocate the existing cells and tag each with its
+   category, so if this script never runs the grouped layout still renders. */
+function mountGallery(): void {
+  const groups = document.querySelector<HTMLElement>("#components .kit-groups");
+  if (!groups) return;
+
+  // Map the original (sometimes near-duplicate) group names to a tight,
+  // non-redundant set of filters.
+  const CAT: Record<string, { key: string; label: string }> = {
+    Actions: { key: "actions", label: "Actions" },
+    Navigation: { key: "navigation", label: "Navigation" },
+    "Forms & inputs": { key: "forms", label: "Forms" },
+    "Data display": { key: "data", label: "Data" },
+    "Navigation & disclosure": { key: "disclosure", label: "Disclosure" },
+    "Overlays & feedback": { key: "overlays", label: "Overlays" },
+    "Layout & structure": { key: "layout", label: "Layout" },
+    "Fields & controls": { key: "forms", label: "Forms" },
+    "Content & data": { key: "data", label: "Data" },
+    "Menus & overlays": { key: "overlays", label: "Overlays" },
+  };
+
+  const order: string[] = [];
+  const labels: Record<string, string> = {};
+  const grid = document.createElement("div");
+  grid.className = "kit-grid gallery";
+
+  groups.querySelectorAll<HTMLElement>(".kit-group").forEach((group) => {
+    const name = group.querySelector(".kg-name")?.textContent?.trim() ?? "";
+    const cat = CAT[name] ?? { key: "other", label: name || "Other" };
+    if (!order.includes(cat.key)) {
+      order.push(cat.key);
+      labels[cat.key] = cat.label;
+    }
+    group.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
+      cell.setAttribute("data-cat", cat.key);
+      grid.appendChild(cell);
+    });
+  });
+
+  const bar = document.createElement("div");
+  bar.className = "kit-filters";
+  bar.setAttribute("role", "group");
+  bar.setAttribute("aria-label", "Filter components by type");
+
+  const makeChip = (
+    key: string,
+    label: string,
+    active = false,
+  ): HTMLButtonElement => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "kit-filter" + (active ? " active" : "");
+    b.dataset.filter = key;
+    b.setAttribute("aria-pressed", active ? "true" : "false");
+    b.textContent = label;
+    return b;
+  };
+
+  bar.appendChild(makeChip("all", "All", true));
+  order.forEach((k) => bar.appendChild(makeChip(k, labels[k] ?? k)));
+
+  groups.replaceWith(bar, grid);
+
+  const applyFilter = (f: string): void => {
+    bar.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((x) => {
+      const on = x.dataset.filter === f;
+      x.classList.toggle("active", on);
+      x.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    grid.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
+      const show = f === "all" || cell.getAttribute("data-cat") === f;
+      cell.classList.toggle("is-hidden", !show);
+    });
+  };
+
+  bar.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+      ".kit-filter",
+    );
+    if (!btn || !btn.dataset.filter) return;
+    applyFilter(btn.dataset.filter);
+  });
+}
+
 function init(): void {
+  mountGallery();
   mountIcons();
   mountCopy();
   const state = load();

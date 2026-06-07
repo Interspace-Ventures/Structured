@@ -34,6 +34,13 @@ Deep-linking to a hash (`/#anchor`) and screenshotting lands on blank space for 
 
 **Gotcha:** specificity — `#components .kit-group` (id+class) outranks a bare `#TARGET` (id only) even with `!important`, so the target itself stays hidden; qualify it as `#components #TARGET` to win. Strip all temp rules + any temp `id` afterward (grep `TEMP-VERIFY`).
 
+## Components section is a runtime-built filtered gallery
+The `#components` section ships as the original per-category `.kit-group` blocks in `index.html`, but `mountGallery()` in `src/main.ts` rewrites it at runtime into one `.kit-grid.gallery` with `.kit-filters` chips (toggle `.is-hidden` per `data-cat`).
+
+**Why:** keeps the verbatim `public/*` kit untouched and degrades gracefully (grouped layout still renders if JS fails); moving existing cells via `appendChild` preserves the kit-JS listeners (kit.js attaches on `DOMContentLoaded` before main.ts's handler runs).
+
+**How to apply:** the 10 original group names are consolidated to 7 filters (Actions, Navigation, Forms, Data, Disclosure, Overlays, Layout) via a name→key map in `mountGallery()` — edit that map if group names change. Chip styling is inline in `index.html` (`.kit-filters`/`.kit-filter`).
+
 ## Partner icon library = Lucide (vanilla, not lucide-react)
 Leading icons are the design-language **default** for navbars and buttons. They are real inline SVGs from the vanilla `lucide` package, hydrated from `<i data-lucide="kebab-name">` placeholders by `createIcons()` in `src/main.ts` (`mountIcons()`), called at the top of `init()`.
 
