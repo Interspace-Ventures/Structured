@@ -104,6 +104,24 @@
   .kit-grid{align-items:start;gap:0.8rem;}
   .kit-cell{padding:1rem 1.1rem;gap:0.7rem;}
 
+  /* Strict 3-column component grid: every cell occupies one column (span 4 of 12).
+     Width is uniform per the design philosophy; depth is expressed through height, not span. */
+  #components .kit-cell.w6,
+  #components .kit-cell.w8,
+  #components .kit-cell.w12{grid-column:span 4;}
+  @media (max-width: 900px){
+    #components .kit-cell,
+    #components .kit-cell.w6,
+    #components .kit-cell.w8,
+    #components .kit-cell.w12{grid-column:span 6;}
+  }
+  @media (max-width: 600px){
+    #components .kit-cell,
+    #components .kit-cell.w6,
+    #components .kit-cell.w8,
+    #components .kit-cell.w12{grid-column:span 12;}
+  }
+
   /* ── shadcn coverage: additional component opinions (all styling lives here) ── */
   .sl-sep{height:var(--border-w);background:rgb(var(--edge));border:none;width:100%;margin:0;}
   .sl-sep.vert{width:var(--border-w);height:1.1em;align-self:center;margin:0 0.7rem;}
