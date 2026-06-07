@@ -106,10 +106,13 @@ const PANEL_CSS = `
   .twk-row{display:flex;flex-direction:column;gap:6px}
   .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:var(--ink-dim)}
   .twk-val{color:var(--ink);font-variant-numeric:tabular-nums}
-  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:4px 0;
-    background:rgba(var(--glass-tint),.2);outline:none;cursor:pointer}
-  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:18px;margin:4px 0;
+    background:transparent;outline:none;cursor:pointer}
+  .twk-slider::-webkit-slider-runnable-track{height:4px;
+    background:rgba(var(--glass-tint),.25)}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-7px;
     width:14px;height:14px;background:var(--accent);border:2px solid rgb(var(--edge));cursor:pointer}
+  .twk-slider::-moz-range-track{height:4px;background:rgba(var(--glass-tint),.25)}
   .twk-slider::-moz-range-thumb{width:12px;height:12px;background:var(--accent);
     border:2px solid rgb(var(--edge));cursor:pointer}
   .twk-seg{display:flex;border:1px solid rgba(var(--glass-tint),.2)}
@@ -445,13 +448,13 @@ function init(): void {
   const fab = el(
     "button",
     { class: "sl-tweaks-fab", "aria-label": "Open theme tweaks" },
-    `<span class="knob-ic"></span>Tweak`,
+    `<span class="knob-ic"></span>Mods`,
   );
   document.body.appendChild(fab);
 
   // Panel shell
   const panel = el("div", { class: "twk-panel", role: "dialog", "aria-label": "Theme tweaks" });
-  const head = el("div", { class: "twk-hd" }, `<b>Modifications</b>`);
+  const head = el("div", { class: "twk-hd" }, `<b>Mods</b>`);
   const close = el("button", { class: "twk-x", "aria-label": "Close" }, "✕");
   head.appendChild(close);
   const body = el("div", { class: "twk-body" });
