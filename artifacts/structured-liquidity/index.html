@@ -71,6 +71,11 @@
     -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;overflow:visible;}
   .brand .glyph.is-cube .lw-cube-shell,
   .brand .glyph.is-cube .lw-cube-edge{stroke:var(--ink);}
+
+  /* Each kit cell is its own stacking context, so a hover tooltip/hover-card
+     would paint behind later sibling cells. The kit CSS lifts the host cell
+     for click-open menus/popovers (aria-expanded) but not for hover — add it. */
+  .kit-cell:has(.sl-tip-wrap:hover){z-index:40;}
 </style>
 </head>
 <body>
