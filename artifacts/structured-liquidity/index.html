@@ -81,6 +81,10 @@
 
   /* "Structured" / "Liquidity" wordmark lines sat too tight (line-height .84) */
   .wordmark{line-height:0.96;}
+
+  /* pillar rule rows: the six operating rules folded into the three pillars */
+  .pillar li > div{flex:1;min-width:0;}
+  .pillar .rule-h{color:var(--ink);font-weight:700;}
 </style>
 </head>
 <body>
@@ -98,7 +102,7 @@
     <span class="name">Structured Liquidity</span>
   </a>
   <div class="links">
-    <a href="#principles">Principles</a>
+    <a href="#manifesto">Principles</a>
     <a href="#components">Components</a>
     <a href="#showcase">Showcase</a>
     <a class="btn solid nav-cta" href="#components" style="padding:0.5rem 1.1rem; --hard-x:3px; --hard-y:3px;">Get the kit</a>
@@ -131,86 +135,40 @@
 <!-- ===== MANIFESTO + PILLARS ===== -->
 <section id="manifesto" class="wrap">
   <div class="section-head reveal">
-    <span class="eyebrow">The Foundation: Three Pillars</span>
+    <span class="eyebrow">The foundation · three pillars, six rules</span>
     <h2 class="section-title">Structure holds it. Liquidity fills it.</h2>
-    <p class="lead">Most systems pick a side — pure flat utility, or pure glossy depth. Structured Liquidity refuses the choice: the grid stays rigid and unambiguous, the material inside stays fluid and alive. Three pillars hold the tension together.</p>
+    <p class="lead">Most systems pick a side — flat utility or glossy depth. Structured Liquidity refuses the choice: a rigid, unambiguous grid holding a fluid, living material. Three pillars, each with the working rules that keep it honest.</p>
   </div>
 
   <div class="pillars">
     <div class="glass pillar reveal">
       <span class="pnum">Pillar 01</span>
       <h3>Rigid Containment</h3>
-      <p>Sharp 90° corners and flat, unblurred shadows. The layout never compromises on grid discipline — ensuring absolute usability and unambiguous boundaries.</p>
+      <p>Sharp 90° corners, flat unblurred shadows, a strict grid. Boundaries are never ambiguous.</p>
       <ul>
-        <li>Sharp, squared 90° edges</li>
-        <li>Flat offset shadows, zero blur</li>
-        <li>Strict, predictable grid</li>
-        <li>Load-bearing 2–3px borders</li>
+        <li><div><strong class="rule-h">Shadows stay flat</strong> — offset, solid, hard-edged. A structural fact, not a mood.</div></li>
+        <li><div><strong class="rule-h">Borders carry weight</strong> — 2–3px, never decorative. The edge defines the object.</div></li>
       </ul>
     </div>
 
     <div class="glass pillar reveal">
       <span class="pnum">Pillar 02</span>
       <h3>Liquid Depth</h3>
-      <p>Inside those rigid boxes lies an organic, semi-transparent glass. It reflects light, mimics liquid, and gives a premium, tactile feel to every interactive element.</p>
+      <p>Inside the rigid boxes, an organic translucent glass — light-reflecting, tactile, alive.</p>
       <ul>
-        <li>Semi-transparent liquid glass</li>
-        <li>Backdrop blur + saturation</li>
-        <li>Specular light reflections</li>
-        <li>Premium, tactile depth</li>
+        <li><div><strong class="rule-h">Depth through layers</strong> — stack translucent surfaces, each with a real border and flat shadow.</div></li>
+        <li><div><strong class="rule-h">Motion proves mass</strong> — press a surface and it settles into its own shadow.</div></li>
       </ul>
     </div>
 
     <div class="glass pillar reveal">
       <span class="pnum">Pillar 03</span>
       <h3>Semantic Clarity</h3>
-      <p>High scannability driven by strict text-and-icon pairings. The interface stays deeply functional — liquidity is for visual delight and depth, never at the expense of clarity.</p>
+      <p>Liquidity delights, but never at the expense of reading. Function leads.</p>
       <ul>
-        <li>Strict text + icon pairings</li>
-        <li>High, immediate scannability</li>
-        <li>Function over decoration</li>
-        <li>Clarity is non-negotiable</li>
+        <li><div><strong class="rule-h">One accent, clearly</strong> — a single accent carries emphasis; glass stays neutral so it lands.</div></li>
+        <li><div><strong class="rule-h">Type with intent</strong> — heavy grotesk for impact, monospace for labels and data.</div></li>
       </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PRINCIPLES ===== -->
-<section id="principles" class="wrap">
-  <div class="section-head reveal">
-    <span class="eyebrow">The system · operating principles</span>
-    <h2 class="section-title">Six rules that<br />keep it honest.</h2>
-  </div>
-  <div class="principles">
-    <div class="glass principle reveal">
-      <span class="num">P-01</span>
-      <h3>Depth through layers</h3>
-      <p>Stack translucent surfaces for depth — but every layer still carries a real border and a flat shadow.</p>
-    </div>
-    <div class="glass principle reveal">
-      <span class="num">P-02</span>
-      <h3>Shadows stay flat</h3>
-      <p>Offset, solid, hard-edged. A shadow is a structural fact, never an atmospheric mood.</p>
-    </div>
-    <div class="glass principle reveal">
-      <span class="num">P-03</span>
-      <h3>One accent, clearly</h3>
-      <p>A single accent carries emphasis. Glass stays neutral so the accent lands without competition.</p>
-    </div>
-    <div class="glass principle reveal">
-      <span class="num">P-04</span>
-      <h3>Borders carry weight</h3>
-      <p>2–3px, never decorative. The edge defines the object even through the blur.</p>
-    </div>
-    <div class="glass principle reveal">
-      <span class="num">P-05</span>
-      <h3>Type with intent</h3>
-      <p>Heavy grotesk for impact, monospace for labels and data. No apologetic small print.</p>
-    </div>
-    <div class="glass principle reveal">
-      <span class="num">P-06</span>
-      <h3>Motion proves mass</h3>
-      <p>Press a surface and it settles into its own shadow. Interaction confirms the object is solid.</p>
     </div>
   </div>
 </section>
