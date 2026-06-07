@@ -132,7 +132,13 @@
   .kit-filter:hover{color:var(--ink);transform:translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--hard-shadow);}
   .kit-filter.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
   .kit-filter.active:hover{color:var(--accent-ink);}
-  .kit-grid.gallery{grid-auto-flow:row dense;}
+  /* Masonry columns: uniform-width cards pack tight vertically (no ragged empty
+     space under short cards) and get a clear horizontal gap between columns. */
+  .kit-grid.gallery{display:block;column-count:3;column-gap:1.1rem;}
+  .kit-grid.gallery .kit-cell{width:100%;margin:0 0 0.85rem;
+    -webkit-column-break-inside:avoid;break-inside:avoid;}
+  @media (max-width:900px){.kit-grid.gallery{column-count:2;}}
+  @media (max-width:600px){.kit-grid.gallery{column-count:1;}}
   .kit-cell.is-hidden{display:none;}
 
   /* Optical centering: the wordmark's cap-height rides above its line-box center
