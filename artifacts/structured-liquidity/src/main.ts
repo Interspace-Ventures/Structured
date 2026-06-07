@@ -140,6 +140,291 @@ function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
+/* ============================================================
+   LIVING LIQUID — dynamic, non-repeating wordmark fill.
+
+   The original liquid-word.js fills "Liquidity" with a single
+   sine wave translated by CSS keyframes (a clean, repeating
+   loop). This takes ownership of the hero wordmark and drives
+   the surface from a rAF loop that superimposes several
+   incommensurate travelling waves with drifting amplitudes,
+   a slow wandering level, scroll-driven slosh, and rising
+   bubbles — so the liquid never settles into the same shape
+   twice. liquid-word.js still renders the logo cube; we only
+   pull the hero out of its hands (by dropping data-liquid) and
+   re-apply the .is-liquid look inline so theming still flows
+   from --accent / --edge.
+   ============================================================ */
+const SVGNS = "http://www.w3.org/2000/svg";
+
+function svgEl(name: string, attrs: Record<string, string> = {}): SVGElement {
+  const node = document.createElementNS(SVGNS, name) as SVGElement;
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  return node;
+}
+
+interface WaveComp {
+  k: number; // spatial angular frequency (rad/px)
+  sp: number; // temporal speed (rad/s)
+  amp: number; // base amplitude (px)
+  br: number; // amplitude-breathing depth (0..1)
+  brsp: number; // breathing speed (rad/s)
+  ph: number; // spatial phase
+  bph: number; // breathing phase
+}
+
+interface Bubble {
+  x0: number;
+  r: number;
+  speed: number;
+  phase: number;
+  wob: number;
+}
+
+let relayoutLiquid: () => void = () => {};
+
+function initLiquidWord(): void {
+  const span = document.querySelector<HTMLElement>(
+    ".wordmark .glas[data-liquid]",
+  );
+  if (!span) return;
+
+  // Take the hero away from liquid-word.js and re-apply the is-liquid look,
+  // which normally keys off [data-liquid].is-liquid in the stylesheet.
+  span.removeAttribute("data-liquid");
+  const s = span.style;
+  s.setProperty("display", "inline-block");
+  s.setProperty("position", "relative");
+  s.setProperty("color", "transparent");
+  s.setProperty("-webkit-text-stroke", "0");
+  s.setProperty("background", "none");
+  s.setProperty("text-shadow", "none");
+
+  const reduce =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // bubble tint (themed off --accent) — injected once
+  if (!document.getElementById("lw-live-style")) {
+    const st = document.createElement("style");
+    st.id = "lw-live-style";
+    st.textContent =
+      ".lw-bubble{fill:color-mix(in srgb, white 80%, var(--accent));}";
+    document.head.appendChild(st);
+  }
+
+  const hero: HTMLElement = span;
+  let raf = 0;
+  const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+
+  function build(): void {
+    cancelAnimationFrame(raf);
+    const old = hero.querySelector("svg.liquid-svg");
+    if (old) old.remove();
+
+    const cs = getComputedStyle(hero);
+    const w = hero.offsetWidth;
+    const h = hero.offsetHeight;
+    if (!w || !h) return;
+    const fs = parseFloat(cs.fontSize);
+
+    const makeText = (): SVGElement => {
+      const t = svgEl("text", {
+        x: "0",
+        y: (h * 0.5).toFixed(1),
+        "dominant-baseline": "central",
+        textLength: w.toFixed(1),
+        lengthAdjust: "spacingAndGlyphs",
+        "font-family": cs.fontFamily,
+        "font-weight": cs.fontWeight,
+        "font-size": String(fs),
+      });
+      (t as SVGTextElement).style.fontStretch = cs.fontStretch;
+      (t as SVGTextElement).style.letterSpacing = cs.letterSpacing;
+      t.textContent = (hero.textContent || "").trim();
+      return t;
+    };
+
+    const uid = "lwx-" + Math.random().toString(36).slice(2, 8);
+    const svg = svgEl("svg", {
+      class: "liquid-svg",
+      viewBox: `0 0 ${w} ${h}`,
+      preserveAspectRatio: "none",
+      "aria-hidden": "true",
+    });
+
+    const defs = svgEl("defs");
+    const clip = svgEl("clipPath", { id: uid });
+    clip.appendChild(makeText());
+    defs.appendChild(clip);
+    svg.appendChild(defs);
+
+    const g = svgEl("g", { "clip-path": `url(#${uid})` });
+    // glass tint sits INSIDE the clip group so it fills the letterforms,
+    // not a full rectangle behind the word (matches liquid-word.js)
+    g.appendChild(
+      svgEl("rect", {
+        class: "lw-glass",
+        x: "0",
+        y: "0",
+        width: String(w),
+        height: String(h),
+      }),
+    );
+    const back = svgEl("path", { class: "lw-wave-back" });
+    const front = svgEl("path", { class: "lw-wave-front" });
+    const shine = svgEl("path", { class: "lw-shine" });
+    // we animate via JS — silence the CSS keyframe translation
+    [back, front, shine].forEach((p) => (p as SVGElement).setAttribute("style", "animation:none"));
+    g.append(back, front, shine);
+
+    // rising bubbles, only visible while submerged
+    const bubbleEls: SVGElement[] = [];
+    const bubbles: Bubble[] = [];
+    const nB = Math.max(5, Math.min(10, Math.round(w / 70)));
+    for (let i = 0; i < nB; i++) {
+      const b: Bubble = {
+        x0: rnd(0.04, 0.96) * w,
+        r: rnd(0.012, 0.03) * h,
+        speed: rnd(0.06, 0.16),
+        phase: Math.random(),
+        wob: rnd(0.8, 2.0),
+      };
+      bubbles.push(b);
+      const c = svgEl("circle", { class: "lw-bubble", r: b.r.toFixed(2) });
+      g.appendChild(c);
+      bubbleEls.push(c);
+    }
+    svg.appendChild(g);
+
+    const outline = makeText();
+    outline.setAttribute("class", "lw-outline");
+    svg.appendChild(outline);
+
+    hero.appendChild(svg);
+    hero.classList.add("is-liquid");
+
+    // ---- surface model ----
+    const restLevel = h * 0.46;
+    const comps: WaveComp[] = [
+      { cyc: 1.3, sp: 0.55, amp: 0.05, br: 0.35, brsp: 0.13 },
+      { cyc: 2.7, sp: -0.85, amp: 0.032, br: 0.5, brsp: 0.19 },
+      { cyc: 4.6, sp: 1.25, amp: 0.022, br: 0.6, brsp: 0.27 },
+      { cyc: 7.9, sp: -1.8, amp: 0.012, br: 0.7, brsp: 0.4 },
+    ].map((c) => ({
+      k: (2 * Math.PI * c.cyc) / w,
+      sp: c.sp,
+      amp: c.amp * h,
+      br: c.br,
+      brsp: c.brsp,
+      ph: Math.random() * Math.PI * 2,
+      bph: Math.random() * Math.PI * 2,
+    }));
+
+    const drift = (t: number): number =>
+      h * 0.03 * Math.sin(0.17 * t) + h * 0.02 * Math.sin(0.0723 * t + 1.3);
+
+    let slosh = 0;
+    const surf = (x: number, t: number, dy: number, tph: number): number => {
+      let y = restLevel + dy + drift(t);
+      for (const c of comps) {
+        const amp = c.amp * (1 + c.br * Math.sin(c.brsp * t + c.bph));
+        y += amp * Math.sin(c.k * x + (c.sp + tph) * t + c.ph);
+      }
+      y += slosh * (x / w - 0.5); // tilt with scroll momentum
+      return y;
+    };
+
+    const step = Math.max(2, w / 72);
+    const bottom = h * 1.6;
+    const wavePath = (t: number, dy: number, tph: number): string => {
+      let d = "M 0 " + surf(0, t, dy, tph).toFixed(2);
+      for (let x = step; x <= w; x += step) {
+        d += " L " + x.toFixed(2) + " " + surf(x, t, dy, tph).toFixed(2);
+      }
+      d += " L " + w.toFixed(2) + " " + surf(w, t, dy, tph).toFixed(2);
+      d += " L " + w.toFixed(2) + " " + bottom.toFixed(2);
+      d += " L 0 " + bottom.toFixed(2) + " Z";
+      return d;
+    };
+    const shinePath = (t: number): string => {
+      let d = "M 0 " + (surf(0, t, -h * 0.012, 0) ).toFixed(2);
+      for (let x = step; x <= w; x += step) {
+        d += " L " + x.toFixed(2) + " " + surf(x, t, -h * 0.012, 0).toFixed(2);
+      }
+      return d;
+    };
+
+    if (reduce) {
+      back.setAttribute("d", wavePath(0, h * 0.05, 0.7));
+      front.setAttribute("d", wavePath(0, 0, 0));
+      shine.setAttribute("d", shinePath(0));
+      bubbleEls.forEach((c) => c.setAttribute("opacity", "0"));
+      return;
+    }
+
+    const t0 = performance.now();
+    let lastScroll = window.scrollY || 0;
+    let sloshV = 0;
+    const cap = h * 0.13;
+
+    const frame = (now: number): void => {
+      const t = (now - t0) / 1000;
+
+      // scroll momentum -> slosh tilt
+      const y = window.scrollY || 0;
+      const dv = y - lastScroll;
+      lastScroll = y;
+      sloshV += dv * 0.5;
+      sloshV += -slosh * 0.08;
+      sloshV *= 0.85;
+      slosh += sloshV;
+      if (slosh > cap) slosh = cap;
+      else if (slosh < -cap) slosh = -cap;
+
+      front.setAttribute("d", wavePath(t, 0, 0));
+      back.setAttribute("d", wavePath(t, h * 0.05, 0.7));
+      shine.setAttribute("d", shinePath(t));
+
+      for (let i = 0; i < bubbles.length; i++) {
+        const b = bubbles[i];
+        const prog = (t * b.speed + b.phase) % 1;
+        const by = h * 1.04 - prog * h * 0.92;
+        const bx = b.x0 + Math.sin(t * b.wob + b.phase * 6.28) * w * 0.012;
+        const sLvl = surf(bx, t, 0, 0);
+        const el = bubbleEls[i];
+        if (by > sLvl + b.r) {
+          // submerged: fade in from bottom, fade out near surface
+          const depth = (by - sLvl) / h;
+          const op = Math.max(0, Math.min(0.6, depth * 2.2)) * (1 - prog * 0.3);
+          el.setAttribute("cx", bx.toFixed(2));
+          el.setAttribute("cy", by.toFixed(2));
+          el.setAttribute("opacity", op.toFixed(3));
+        } else {
+          el.setAttribute("opacity", "0");
+        }
+      }
+
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+  }
+
+  relayoutLiquid = build;
+  build();
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => build());
+  }
+  let rt = 0;
+  window.addEventListener("resize", () => {
+    clearTimeout(rt);
+    rt = window.setTimeout(build, 160);
+  });
+  // defensively stop the loop when the page is hidden/unloaded
+  window.addEventListener("pagehide", () => cancelAnimationFrame(raf));
+}
+
 function init(): void {
   const state = load();
   apply(state);
@@ -149,6 +434,7 @@ function init(): void {
     apply(state);
     save(state);
     render();
+    if (key === "font") requestAnimationFrame(() => relayoutLiquid());
   };
 
   const style = document.createElement("style");
@@ -274,6 +560,11 @@ function init(): void {
 
   render();
 }
+
+// Claim the hero wordmark before liquid-word.js's DOMContentLoaded handler
+// fires (module scripts run after parse but before that event), so the
+// original skips it and only our living-liquid renderer drives it.
+initLiquidWord();
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
