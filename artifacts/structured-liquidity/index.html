@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="structured-liquidity.css" />
 <link rel="stylesheet" href="structured-liquidity-components.css" />
 <link rel="stylesheet" href="structured-liquidity-kit.css" />
@@ -127,6 +127,14 @@
   .btn svg, .sl-btn svg, .nav .links a svg, .sl-navbar .nb-links a svg{
     width:1.05em;height:1.05em;flex:0 0 auto;stroke-width:2.25;}
   .sl-btn.icon svg{width:1.15em;height:1.15em;}
+
+  /* ── Body copy face: Outfit. Display/headings & brand keep --display (Archivo, tweaker-controlled) ── */
+  :root{--body:"Outfit","Helvetica Neue",system-ui,sans-serif;}
+  body{font-family:var(--body);}
+  h1, h2, h3, .wordmark, .brand .name{font-family:var(--display);}
+
+  /* Pillar body copy: larger & more approachable */
+  .pillar > p{font-size:1.02rem;line-height:1.55;}
 
   /* ── shadcn coverage: additional component opinions (all styling lives here) ── */
   .sl-sep{height:var(--border-w);background:rgb(var(--edge));border:none;width:100%;margin:0;}

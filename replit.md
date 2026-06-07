@@ -42,7 +42,7 @@ Defined in `public/structured-liquidity.css` `:root`; overridable live by `src/m
 - `--accent` (default `#a388ee`) + `--accent-ink` (luminance-derived black/white)
 - `--glass-blur` (18px), `--glass-tint` (rgb), `--glass-alpha`
 - `--border-w` (2px), `--hard-x`/`--hard-y` (7px, flat offset shadow), `--radius` (0px)
-- `--display` (Archivo), `--mono` (Space Mono)
+- `--display` (Archivo, headings/buttons/brand — controlled by the live tweaker), `--mono` (Space Mono), `--body` (Outfit — body/paragraph copy; defined in `index.html`'s inline `<style>`, not in `public/`)
 - `data-mode` attribute on `<html>`: `dark` | `light`
 - Tweaker ranges: blur 0–40, radius 0–40, border 0–5, shadow 0–16; accents `#a388ee #7c9cff #3dd7c8 #ffb454 #ff7a90`; fonts Archivo / Space Grotesk / Syne
 
