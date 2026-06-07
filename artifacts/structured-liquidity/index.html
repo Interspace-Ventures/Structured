@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;700&family=Figtree:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="structured-liquidity.css" />
 <link rel="stylesheet" href="structured-liquidity-components.css" />
 <link rel="stylesheet" href="structured-liquidity-kit.css" />
@@ -282,6 +282,16 @@
   .pairings .pair:first-child{border-top:none;}
   .pairings .pair-roles{font-family:var(--display);font-weight:700;font-size:0.96rem;letter-spacing:-0.01em;}
   .pairings .pair-note{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);}
+  /* Show each pairing name set in its own typeface so the face is visible at a glance. */
+  .ff-archivo{font-family:"Archivo","Helvetica Neue",sans-serif;}
+  .ff-outfit{font-family:"Outfit","Helvetica Neue",sans-serif;}
+  .ff-spacegrotesk{font-family:"Space Grotesk","Helvetica Neue",sans-serif;}
+  .ff-syne{font-family:"Syne","Helvetica Neue",sans-serif;}
+  .ff-inter{font-family:"Inter","Helvetica Neue",sans-serif;}
+  .ff-figtree{font-family:"Figtree","Helvetica Neue",sans-serif;}
+  .ff-spacemono{font-family:"Space Mono",ui-monospace,monospace;font-weight:400;}
+  .ff-ibmplexmono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:400;}
+  .ff-jetbrainsmono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;}
 </style>
 </head>
 <body>
@@ -1198,10 +1208,10 @@ Full spec: llms.txt.</pre>
   <div class="glass kit-cell reveal pairings-card">
     <span class="kit-cap"><i data-lucide="type"></i>Recommended font pairings</span>
     <div class="pairings">
-      <div class="pair"><span class="pair-roles">Archivo · Outfit · Space Mono</span><span class="pair-note">Canonical default — confident display, warm body, technical mono.</span></div>
-      <div class="pair"><span class="pair-roles">Space Grotesk · Inter · IBM Plex Mono</span><span class="pair-note">Quieter and neutral — good for dense, data-heavy products.</span></div>
-      <div class="pair"><span class="pair-roles">Syne · Outfit · Space Mono</span><span class="pair-note">Expressive, editorial display for marketing and brand surfaces.</span></div>
-      <div class="pair"><span class="pair-roles">Archivo · Figtree · JetBrains Mono</span><span class="pair-note">Friendlier body with a developer-tool mono — docs and dashboards.</span></div>
+      <div class="pair"><span class="pair-roles"><span class="ff-archivo">Archivo</span> · <span class="ff-outfit">Outfit</span> · <span class="ff-spacemono">Space Mono</span></span><span class="pair-note">Canonical default — confident display, warm body, technical mono.</span></div>
+      <div class="pair"><span class="pair-roles"><span class="ff-spacegrotesk">Space Grotesk</span> · <span class="ff-inter">Inter</span> · <span class="ff-ibmplexmono">IBM Plex Mono</span></span><span class="pair-note">Quieter and neutral — good for dense, data-heavy products.</span></div>
+      <div class="pair"><span class="pair-roles"><span class="ff-syne">Syne</span> · <span class="ff-outfit">Outfit</span> · <span class="ff-spacemono">Space Mono</span></span><span class="pair-note">Expressive, editorial display for marketing and brand surfaces.</span></div>
+      <div class="pair"><span class="pair-roles"><span class="ff-archivo">Archivo</span> · <span class="ff-figtree">Figtree</span> · <span class="ff-jetbrainsmono">JetBrains Mono</span></span><span class="pair-note">Friendlier body with a developer-tool mono — docs and dashboards.</span></div>
     </div>
   </div>
 </section>
