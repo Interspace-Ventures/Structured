@@ -44,7 +44,7 @@ So the design language gets incorporated into more designs, it ships in machine-
 - `public/llms.txt`, `public/design-tokens.json`, `public/registry.json` — served at the site root for AI tools to read directly.
 - `.agents/skills/structured-liquidity/SKILL.md` — a Replit Skill any agent can load to apply the language.
 - On-page `#adopt` section (in `index.html`, before the footer CTA; nav link "For AI") — resource cards linking the three files, a paste-ready AI prompt + a `:root` token block (each with a copy button wired by `mountCopy()` in `src/main.ts`), and the recommended font pairings.
-- **Recommended font pairings** — three sets, each with a Header · Body · Accent role: `Archivo · Outfit · Space Mono` (Set 01 Canonical, default), `Syne · Inter · IBM Plex Mono` (Set 02 Editorial), `Bricolage Grotesque · Plus Jakarta Sans · JetBrains Mono` (Set 03 Modern). Rules: never two header faces; never body copy in the header face; accent mono only for labels/data/code. Choices grounded in neobrutalist/brutalist font references.
+- **Recommended font pairings** — three sets, each with a Header · Body · Detail role (Detail = the monospace face for labels/data/code): `Archivo · Outfit · Space Mono` (Set 01 Canonical, default), `Syne · Inter · IBM Plex Mono` (Set 02 Editorial), `Bricolage Grotesque · Plus Jakarta Sans · JetBrains Mono` (Set 03 Modern). Rules: never two header faces; never body copy in the header face; detail mono only for labels/data/code. Choices grounded in neobrutalist/brutalist font references.
 
 ## Design language tokens (the knobs the page reads)
 

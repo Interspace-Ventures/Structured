@@ -44,7 +44,7 @@ The canonical machine-readable set is `design-tokens.json` (W3C Design Tokens fo
 
 ## Recommended font pairings
 
-Three roles — header / body / accent (display / body / mono). Never pair two header faces; never set body copy in the header face; use the accent mono only for labels/data/code.
+Three roles — header / body / detail (display / body / mono). Never pair two header faces; never set body copy in the header face; use the detail mono only for labels/data/code.
 
 - **Set 01 · Canonical — Archivo · Outfit · Space Mono** — canonical default.
 - **Set 02 · Editorial — Syne · Inter · IBM Plex Mono** — expressive/editorial.

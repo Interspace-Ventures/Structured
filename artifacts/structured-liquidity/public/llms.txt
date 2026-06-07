@@ -40,9 +40,9 @@ Core defaults:
 
 The language fixes three roles — a **display** face (headlines, buttons, brand), a **body** face (reading copy), and a **mono** face (labels, data, captions). Keep the display heavy and tight; keep the body humanist and legible; keep mono for anything tabular or label-like.
 
-- **Set 01 · Canonical — Archivo (header) · Outfit (body) · Space Mono (accent)** — the canonical Structured Liquidity pairing. Confident grotesk header, warm geometric body, technical mono accent. Use this unless you have a reason not to.
-- **Set 02 · Editorial — Syne (header) · Inter (body) · IBM Plex Mono (accent)** — expressive display over a neutral workhorse body; good for marketing and brand surfaces.
-- **Set 03 · Modern — Bricolage Grotesque (header) · Plus Jakarta Sans (body) · JetBrains Mono (accent)** — quirky contemporary grotesque with a clean body and a developer-tool mono accent.
+- **Set 01 · Canonical — Archivo (header) · Outfit (body) · Space Mono (detail)** — the canonical Structured Liquidity pairing. Confident grotesk header, warm geometric body, technical mono for detail. Use this unless you have a reason not to.
+- **Set 02 · Editorial — Syne (header) · Inter (body) · IBM Plex Mono (detail)** — expressive display over a neutral workhorse body; good for marketing and brand surfaces.
+- **Set 03 · Modern — Bricolage Grotesque (header) · Plus Jakarta Sans (body) · JetBrains Mono (detail)** — quirky contemporary grotesque with a clean body and a developer-tool mono for detail.
 
 Rules of thumb: never pair two display faces; never set body copy in the display face (it gets tiring); use mono only for labels, code, numbers, and metadata — not for long paragraphs.
 
