@@ -122,6 +122,11 @@
     #components .kit-cell.w12{grid-column:span 12;}
   }
 
+  /* Optical centering: the wordmark's cap-height rides above its line-box center
+     (descenders + leading), so nudge it down a hair to sit centered on the cube glyph. */
+  .nav .brand{align-items:center;}
+  .nav .brand .name{line-height:1;transform:translateY(1px);}
+
   /* ── Partner icon library (Lucide): leading icons are the default for navbars & buttons ── */
   .nav .links a, .sl-navbar .nb-links a{display:inline-flex;align-items:center;gap:0.5em;}
   .btn svg, .sl-btn svg, .nav .links a svg, .sl-navbar .nb-links a svg{
