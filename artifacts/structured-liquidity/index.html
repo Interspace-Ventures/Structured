@@ -85,6 +85,20 @@
   /* pillar rule rows: the six operating rules folded into the three pillars */
   .pillar li > div{flex:1;min-width:0;}
   .pillar .rule-h{color:var(--ink);font-weight:700;}
+
+  /* navbar + marquee menubar — application navigation modeled on universe.audio */
+  .sl-navbar{display:flex;align-items:center;gap:0.7rem;flex-wrap:wrap;padding:0.55rem 0.7rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);}
+  .sl-navbar .nb-brand{display:flex;align-items:center;gap:0.5rem;font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:1rem;}
+  .sl-navbar .nb-links{display:flex;gap:0.15rem;flex-wrap:wrap;}
+  .sl-navbar .nb-links a{font-family:var(--mono);font-size:0.76rem;padding:0.4rem 0.7rem;color:var(--ink-dim);text-decoration:none;border-radius:var(--radius);}
+  .sl-navbar .nb-links a:hover{color:var(--ink);}
+  .sl-navbar .nb-links a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);}
+  .sl-navbar .nb-right{margin-left:auto;display:flex;align-items:center;gap:0.55rem;}
+  @media (max-width:600px){ .sl-navbar .nb-right{margin-left:0;width:100%;flex-wrap:wrap;} }
+
+  .sl-marquee{display:flex;align-items:center;flex-wrap:wrap;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:700;letter-spacing:-0.01em;overflow:hidden;}
+  .sl-marquee > span{padding:0.5rem 0.7rem;}
+  .sl-marquee .di{opacity:0.55;padding:0.5rem 0.1rem;}
 </style>
 </head>
 <body>
@@ -253,6 +267,58 @@
           <span class="kit-cap">Menubar</span>
           <div class="sl-menubar">
             <button>File</button><button>Edit</button><button>View</button><button>Help</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── NAVIGATION ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Navigation</span><span class="kg-rule"></span><span class="kg-count">Navbar · Menubar · Marquee</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w12">
+          <span class="kit-cap">Navigation bar</span>
+          <div class="sl-navbar">
+            <span class="nb-brand"><span class="glyph" style="--s:22px;" aria-hidden="true"></span>universe.audio</span>
+            <div class="nb-links">
+              <a href="#" aria-current="page">Discover</a>
+              <a href="#">Library</a>
+              <a href="#">Radio</a>
+            </div>
+            <div class="sl-pop-wrap">
+              <button class="sl-trigger" data-pop aria-expanded="false" aria-haspopup="menu"><span>Browse</span><span class="chev">▾</span></button>
+              <div class="sl-menu">
+                <div class="lbl">Catalog</div>
+                <div class="item">New releases</div>
+                <div class="item">Genres</div>
+                <div class="sep"></div>
+                <div class="item">Languages</div>
+              </div>
+            </div>
+            <div class="nb-right">
+              <div class="sl-toggle-group" data-toggle-group>
+                <button aria-pressed="true" aria-label="Grid view">▦</button>
+                <button aria-pressed="false" aria-label="List view">≡</button>
+              </div>
+              <span class="sl-ava">U</span>
+              <button class="sl-btn ghost sm">Demo</button>
+              <button class="sl-btn default sm">Join waitlist</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w12">
+          <span class="kit-cap">Menubar — marquee</span>
+          <div class="sl-marquee" role="list" aria-label="Supported languages">
+            <span role="listitem">日本語</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">Māori</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">中文</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">English</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">Español</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">Français</span><span class="di" aria-hidden="true">✦</span>
+            <span role="listitem">हिन्दी</span>
           </div>
         </div>
 
