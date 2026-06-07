@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Structured Liquidity"
+version = "1.0.0"
+id = "artifacts/structured-liquidity"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23310
+
+[services.development]
+run = "pnpm --filter @workspace/structured-liquidity run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/structured-liquidity", "run", "build" ]
+publicDir = "artifacts/structured-liquidity/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23310"
+BASE_PATH = "/"
