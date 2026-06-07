@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;700&family=Figtree:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Outfit:wght@300..700&family=Space+Grotesk:wght@400..700&family=Syne:wght@600..800&family=Space+Mono:wght@400;700&family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Plus+Jakarta+Sans:wght@400..800&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="structured-liquidity.css" />
 <link rel="stylesheet" href="structured-liquidity-components.css" />
 <link rel="stylesheet" href="structured-liquidity-kit.css" />
@@ -290,18 +290,21 @@
   #adopt .sl-copy.copied{background:var(--accent);color:var(--accent-ink);}
   .pairings-card{margin-top:0;}
   .pairings{display:flex;flex-direction:column;gap:0;}
-  .pairings .pair{display:flex;flex-wrap:wrap;align-items:baseline;gap:0.15rem 0.8rem;
-    padding:0.55rem 0;border-top:1px solid rgba(var(--edge),0.15);}
-  .pairings .pair:first-child{border-top:none;}
-  .pairings .pair-roles{font-family:var(--display);font-weight:700;font-size:0.96rem;letter-spacing:-0.01em;}
-  .pairings .pair-note{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);}
-  /* Show each pairing name set in its own typeface so the face is visible at a glance. */
+  .pairings .pair{padding:0.95rem 0;border-top:1px solid rgba(var(--edge),0.15);}
+  .pairings .pair:first-child{border-top:none;padding-top:0.2rem;}
+  .pairings .pair-title{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
+  .pairings .pair-fonts{display:flex;flex-wrap:wrap;gap:0.7rem 1.6rem;}
+  .pairings .pf{display:flex;flex-direction:column;gap:0.12rem;min-width:0;}
+  .pairings .pf-role{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);}
+  .pairings .pf-name{font-size:1.14rem;font-weight:700;letter-spacing:-0.01em;line-height:1.1;}
+  .pairings .pair-note{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);margin-top:0.6rem;}
+  /* Show each face in its own typeface so it's visible at a glance. */
   .ff-archivo{font-family:"Archivo","Helvetica Neue",sans-serif;}
   .ff-outfit{font-family:"Outfit","Helvetica Neue",sans-serif;}
-  .ff-spacegrotesk{font-family:"Space Grotesk","Helvetica Neue",sans-serif;}
   .ff-syne{font-family:"Syne","Helvetica Neue",sans-serif;}
   .ff-inter{font-family:"Inter","Helvetica Neue",sans-serif;}
-  .ff-figtree{font-family:"Figtree","Helvetica Neue",sans-serif;}
+  .ff-bricolage{font-family:"Bricolage Grotesque","Helvetica Neue",sans-serif;}
+  .ff-jakarta{font-family:"Plus Jakarta Sans","Helvetica Neue",sans-serif;}
   .ff-spacemono{font-family:"Space Mono",ui-monospace,monospace;font-weight:400;}
   .ff-ibmplexmono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:400;}
   .ff-jetbrainsmono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;}
@@ -1218,10 +1221,33 @@ Full spec: llms.txt.</pre>
     <div class="glass kit-cell pairings-card">
     <span class="kit-cap"><i data-lucide="type"></i>Recommended font pairings</span>
     <div class="pairings">
-      <div class="pair"><span class="pair-roles"><span class="ff-archivo">Archivo</span> · <span class="ff-outfit">Outfit</span> · <span class="ff-spacemono">Space Mono</span></span><span class="pair-note">Canonical default — confident display, warm body, technical mono.</span></div>
-      <div class="pair"><span class="pair-roles"><span class="ff-spacegrotesk">Space Grotesk</span> · <span class="ff-inter">Inter</span> · <span class="ff-ibmplexmono">IBM Plex Mono</span></span><span class="pair-note">Quieter and neutral — good for dense, data-heavy products.</span></div>
-      <div class="pair"><span class="pair-roles"><span class="ff-syne">Syne</span> · <span class="ff-outfit">Outfit</span> · <span class="ff-spacemono">Space Mono</span></span><span class="pair-note">Expressive, editorial display for marketing and brand surfaces.</span></div>
-      <div class="pair"><span class="pair-roles"><span class="ff-archivo">Archivo</span> · <span class="ff-figtree">Figtree</span> · <span class="ff-jetbrainsmono">JetBrains Mono</span></span><span class="pair-note">Friendlier body with a developer-tool mono — docs and dashboards.</span></div>
+      <div class="pair">
+        <div class="pair-title">Set 01 · Canonical</div>
+        <div class="pair-fonts">
+          <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-archivo">Archivo</span></span>
+          <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-outfit">Outfit</span></span>
+          <span class="pf"><span class="pf-role">Accent</span><span class="pf-name ff-spacemono">Space Mono</span></span>
+        </div>
+        <div class="pair-note">Confident grotesque header, warm body, technical mono — the default.</div>
+      </div>
+      <div class="pair">
+        <div class="pair-title">Set 02 · Editorial</div>
+        <div class="pair-fonts">
+          <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-syne">Syne</span></span>
+          <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-inter">Inter</span></span>
+          <span class="pf"><span class="pf-role">Accent</span><span class="pf-name ff-ibmplexmono">IBM Plex Mono</span></span>
+        </div>
+        <div class="pair-note">Expressive display over a neutral workhorse — marketing and brand surfaces.</div>
+      </div>
+      <div class="pair">
+        <div class="pair-title">Set 03 · Modern</div>
+        <div class="pair-fonts">
+          <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-bricolage">Bricolage Grotesque</span></span>
+          <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-jakarta">Plus Jakarta Sans</span></span>
+          <span class="pf"><span class="pf-role">Accent</span><span class="pf-name ff-jetbrainsmono">JetBrains Mono</span></span>
+        </div>
+        <div class="pair-note">Quirky contemporary grotesque with a clean body and developer mono.</div>
+      </div>
     </div>
     </div>
   </div>
