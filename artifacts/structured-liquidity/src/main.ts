@@ -131,15 +131,19 @@ const PANEL_CSS = `
   .twk-row{display:flex;flex-direction:column;gap:6px}
   .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:var(--ink-dim)}
   .twk-val{color:var(--ink);font-variant-numeric:tabular-nums}
-  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:18px;margin:4px 0;
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:22px;margin:4px 0;
     background:transparent;outline:none;cursor:pointer}
-  .twk-slider::-webkit-slider-runnable-track{height:4px;
-    background:rgba(var(--glass-tint),.25)}
-  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-7px;
-    width:14px;height:14px;background:var(--accent);border:2px solid rgb(var(--edge));cursor:pointer}
-  .twk-slider::-moz-range-track{height:4px;background:rgba(var(--glass-tint),.25)}
-  .twk-slider::-moz-range-thumb{width:12px;height:12px;background:var(--accent);
-    border:2px solid rgb(var(--edge));cursor:pointer}
+  .twk-slider::-webkit-slider-runnable-track{height:8px;box-sizing:border-box;
+    border:2px solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgba(var(--glass-tint),.22)}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-5px;
+    width:16px;height:16px;background:var(--accent);border:2px solid rgb(var(--edge));
+    box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
+  .twk-slider::-moz-range-track{height:8px;box-sizing:border-box;
+    border:2px solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgba(var(--glass-tint),.22)}
+  .twk-slider::-moz-range-thumb{width:16px;height:16px;background:var(--accent);
+    border:2px solid rgb(var(--edge));box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
   .twk-seg{display:flex;border:1px solid rgba(var(--glass-tint),.2)}
   .twk-seg button{appearance:none;flex:1;border:0;background:transparent;color:var(--ink-dim);
     font:inherit;padding:6px 4px;cursor:pointer;text-transform:capitalize}
