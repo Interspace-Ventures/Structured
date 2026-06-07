@@ -593,23 +593,103 @@ function mountGallery(): void {
 
   groups.replaceWith(bar, grid);
 
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  const PLAY_MS = 440;
+  let flipRun = 0; // bumped per filter; stale cleanups no-op against the latest
+
+  const clearFlip = (c: HTMLElement): void => {
+    c.style.transition = "";
+    c.style.transform = "";
+    c.style.opacity = "";
+    c.style.willChange = "";
+  };
+
   const applyFilter = (f: string): void => {
     bar.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((x) => {
       const on = x.dataset.filter === f;
       x.classList.toggle("active", on);
       x.setAttribute("aria-pressed", on ? "true" : "false");
     });
-    grid.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
-      const show = f === "all" || cell.getAttribute("data-cat") === f;
-      cell.classList.toggle("is-hidden", !show);
+
+    const cells = Array.from(grid.querySelectorAll<HTMLElement>(".kit-cell"));
+    const matches = (c: HTMLElement): boolean =>
+      f === "all" || c.getAttribute("data-cat") === f;
+
+    if (reduceMotion) {
+      cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+      return;
+    }
+
+    const run = ++flipRun;
+
+    // Settle any in-flight FLIP first so the "first" measurement reads real
+    // flow positions, not mid-animation transforms (fixes rapid re-filtering).
+    cells.forEach((c) => {
+      c.style.transition = "none";
+      c.style.transform = "";
+      c.style.opacity = "";
     });
+    void grid.offsetHeight;
+
+    // FLIP: measure where the kept cards are now, re-pack the masonry, then
+    // play each card from its old spot to its new one so matching components
+    // slot into place instead of the layout teleporting.
+    const first = new Map<HTMLElement, DOMRect>();
+    cells.forEach((c) => {
+      if (!c.classList.contains("is-hidden"))
+        first.set(c, c.getBoundingClientRect());
+    });
+
+    cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+
+    const last = new Map<HTMLElement, DOMRect>();
+    cells.forEach((c) => {
+      if (!c.classList.contains("is-hidden"))
+        last.set(c, c.getBoundingClientRect());
+    });
+
+    cells.forEach((c) => {
+      const lr = last.get(c);
+      if (!lr) return; // filtered out — drop without animating
+      const fr = first.get(c);
+      if (fr) {
+        const dx = fr.left - lr.left;
+        const dy = fr.top - lr.top;
+        if (dx || dy) c.style.transform = `translate(${dx}px, ${dy}px)`;
+      } else {
+        // newly matched — fade/rise into its slot
+        c.style.transform = "translateY(10px) scale(0.985)";
+        c.style.opacity = "0";
+      }
+      c.style.willChange = "transform, opacity";
+    });
+
+    void grid.offsetHeight; // commit the inverted state before playing
+
+    cells.forEach((c) => {
+      if (!last.has(c)) return;
+      c.style.transition =
+        "transform .44s cubic-bezier(.2,.7,.2,1), opacity .34s ease";
+      c.style.transform = "";
+      c.style.opacity = "1";
+    });
+
+    // Deterministic cleanup (doesn't depend on a transitionend that may never
+    // fire for cards that didn't move); a newer run cancels this one.
+    window.setTimeout(() => {
+      if (run !== flipRun) return;
+      cells.forEach(clearFlip);
+    }, PLAY_MS + 80);
   };
 
   bar.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
       ".kit-filter",
     );
-    if (!btn || !btn.dataset.filter) return;
+    if (!btn || !btn.dataset.filter || btn.classList.contains("active")) return;
     applyFilter(btn.dataset.filter);
   });
 }
