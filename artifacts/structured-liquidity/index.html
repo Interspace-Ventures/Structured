@@ -122,6 +122,12 @@
     #components .kit-cell.w12{grid-column:span 12;}
   }
 
+  /* ── Partner icon library (Lucide): leading icons are the default for navbars & buttons ── */
+  .nav .links a, .sl-navbar .nb-links a{display:inline-flex;align-items:center;gap:0.5em;}
+  .btn svg, .sl-btn svg, .nav .links a svg, .sl-navbar .nb-links a svg{
+    width:1.05em;height:1.05em;flex:0 0 auto;stroke-width:2.25;}
+  .sl-btn.icon svg{width:1.15em;height:1.15em;}
+
   /* ── shadcn coverage: additional component opinions (all styling lives here) ── */
   .sl-sep{height:var(--border-w);background:rgb(var(--edge));border:none;width:100%;margin:0;}
   .sl-sep.vert{width:var(--border-w);height:1.1em;align-self:center;margin:0 0.7rem;}
@@ -241,10 +247,10 @@
     <span class="name">Structured Liquidity</span>
   </a>
   <div class="links">
-    <a href="#manifesto">Principles</a>
-    <a href="#components">Components</a>
-    <a href="#showcase">Showcase</a>
-    <a class="btn solid nav-cta" href="#components" style="padding:0.5rem 1.1rem; --hard-x:3px; --hard-y:3px;">Install</a>
+    <a href="#manifesto"><i data-lucide="compass"></i>Principles</a>
+    <a href="#components"><i data-lucide="layout-grid"></i>Components</a>
+    <a href="#showcase"><i data-lucide="sparkles"></i>Showcase</a>
+    <a class="btn solid nav-cta" href="#components" style="padding:0.5rem 1.1rem; --hard-x:3px; --hard-y:3px;"><i data-lucide="download"></i>Install</a>
   </div>
 </nav>
 
@@ -264,8 +270,8 @@
         <span class="tag">Tactile glass</span>
       </div>
       <div class="hero-cta reveal">
-        <a class="btn solid" href="#components">Install <span class="arrow">→</span></a>
-        <a class="btn glassy" href="#showcase">Showcase</a>
+        <a class="btn solid" href="#components"><i data-lucide="download"></i>Install <span class="arrow">→</span></a>
+        <a class="btn glassy" href="#showcase"><i data-lucide="sparkles"></i>Showcase</a>
       </div>
     </div>
   </div>
@@ -330,20 +336,20 @@
         <div class="glass kit-cell w8">
           <span class="kit-cap">Button — variants &amp; sizes</span>
           <div class="kit-row">
-            <button class="sl-btn default">Primary</button>
-            <button class="sl-btn secondary">Secondary</button>
-            <button class="sl-btn outline">Outline</button>
-            <button class="sl-btn ghost">Ghost</button>
-            <button class="sl-btn destructive">Delete</button>
-            <button class="sl-btn link">Link</button>
+            <button class="sl-btn default"><i data-lucide="plus"></i>Primary</button>
+            <button class="sl-btn secondary"><i data-lucide="copy"></i>Secondary</button>
+            <button class="sl-btn outline"><i data-lucide="square"></i>Outline</button>
+            <button class="sl-btn ghost"><i data-lucide="ghost"></i>Ghost</button>
+            <button class="sl-btn destructive"><i data-lucide="trash-2"></i>Delete</button>
+            <button class="sl-btn link"><i data-lucide="external-link"></i>Link</button>
           </div>
           <div class="kit-row">
-            <button class="sl-btn default sm">Small</button>
-            <button class="sl-btn default">Default</button>
-            <button class="sl-btn default lg">Large</button>
-            <button class="sl-btn secondary icon" aria-label="Add">+</button>
+            <button class="sl-btn default sm"><i data-lucide="plus"></i>Small</button>
+            <button class="sl-btn default"><i data-lucide="plus"></i>Default</button>
+            <button class="sl-btn default lg"><i data-lucide="plus"></i>Large</button>
+            <button class="sl-btn secondary icon" aria-label="Add"><i data-lucide="plus"></i></button>
             <button class="sl-btn default"><span class="sl-spinner"></span> Loading</button>
-            <button class="sl-btn default" disabled>Disabled</button>
+            <button class="sl-btn default" disabled><i data-lucide="ban"></i>Disabled</button>
           </div>
         </div>
 
@@ -408,9 +414,9 @@
           <div class="sl-navbar">
             <span class="nb-brand"><span class="glyph" style="--s:22px;" aria-hidden="true"></span>universe.audio</span>
             <div class="nb-links">
-              <a href="#" aria-current="page">Discover</a>
-              <a href="#">Library</a>
-              <a href="#">Radio</a>
+              <a href="#" aria-current="page"><i data-lucide="compass"></i>Discover</a>
+              <a href="#"><i data-lucide="library"></i>Library</a>
+              <a href="#"><i data-lucide="radio"></i>Radio</a>
             </div>
             <div class="sl-pop-wrap">
               <button class="sl-trigger" data-pop aria-expanded="false" aria-haspopup="menu"><span>Browse</span><span class="chev">▾</span></button>
@@ -428,8 +434,8 @@
                 <button aria-pressed="false" aria-label="List view">≡</button>
               </div>
               <span class="sl-ava">U</span>
-              <button class="sl-btn ghost sm">Demo</button>
-              <button class="sl-btn default sm">Join waitlist</button>
+              <button class="sl-btn ghost sm"><i data-lucide="play"></i>Demo</button>
+              <button class="sl-btn default sm"><i data-lucide="arrow-right"></i>Join waitlist</button>
             </div>
           </div>
         </div>
@@ -1080,8 +1086,8 @@
     <h2>Build with structure.<br />Move with liquidity.</h2>
     <p class="lead" style="text-align:center;">Structured Liquidity is an open UI language — a complete kit of rigid containers and liquid glass. Take the three pillars, theme the accent, and build something rigorous, tactile, and unmistakably clear.</p>
     <div class="hero-cta" style="justify-content:center;">
-      <a class="btn solid" href="#components">Browse the kit <span class="arrow">→</span></a>
-      <a class="btn glassy" href="#top">Back to top</a>
+      <a class="btn solid" href="#components"><i data-lucide="layout-grid"></i>Browse the kit <span class="arrow">→</span></a>
+      <a class="btn glassy" href="#top"><i data-lucide="arrow-up"></i>Back to top</a>
     </div>
   </div>
 </section>

@@ -13,6 +13,7 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - Static site served by Vite (React scaffold stripped — no React/Babel/UMD)
 - Original design system shipped as plain HTML + CSS + vanilla JS
+- Icons: **Lucide** (the vanilla `lucide` package, not `lucide-react`) — the design-language partner icon set
 
 ## Where things live
 
@@ -21,7 +22,7 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
   - `structured-liquidity.css` — **token source of truth** (`:root` knobs + fixed palette), backdrop, hero
   - `structured-liquidity-components.css`, `structured-liquidity-kit.css` — component styles
   - `structured-liquidity.js` (reveal-on-scroll, nav), `structured-liquidity-kit.js` (interactive components), `liquid-word.js` (the `[data-liquid]` wordmark)
-- `artifacts/structured-liquidity/src/main.ts` — **new** vanilla-TS live theme tweaker (replaces the original React/Babel panel that was coupled to a proprietary in-editor host)
+- `artifacts/structured-liquidity/src/main.ts` — **new** vanilla-TS live theme tweaker (replaces the original React/Babel panel that was coupled to a proprietary in-editor host) + Lucide icon hydration (`createIcons` over `[data-lucide]` placeholders)
 
 ## Architecture decisions
 
@@ -52,6 +53,7 @@ Defined in `public/structured-liquidity.css` `:root`; overridable live by `src/m
 ## Gotchas
 
 - The three files in `public/*.js` and `*.css` are the **original** artifacts — keep them verbatim; put any new behavior/styles in `src/main.ts` or `index.html`, not in those files.
+- **Icons are the design-language default for navbars & buttons:** add a leading `<i data-lucide="kebab-name"></i>` inside nav links / `.btn` / `.sl-btn`, import the icon in `src/main.ts` and add it to the `mountIcons()` map, then it hydrates on load. Use the vanilla `lucide` package — `lucide-react` (still listed in `package.json` from the stripped React scaffold) is unused and will NOT work here.
 - Content blocks use a `reveal` class animated on scroll by `structured-liquidity.js`. Deep-linking to a hash (e.g. `#showcase`) and screenshotting immediately can capture before the reveal fires — scroll the live page to verify.
 
 ## Pointers

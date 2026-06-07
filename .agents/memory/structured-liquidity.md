@@ -33,3 +33,10 @@ Deep-linking to a hash (`/#anchor`) and screenshotting lands on blank space for 
 **Why:** static screenshots can't scroll; forcing reveal alone isn't enough because the deep-anchor scroll still lands on emptiness.
 
 **Gotcha:** specificity — `#components .kit-group` (id+class) outranks a bare `#TARGET` (id only) even with `!important`, so the target itself stays hidden; qualify it as `#components #TARGET` to win. Strip all temp rules + any temp `id` afterward (grep `TEMP-VERIFY`).
+
+## Partner icon library = Lucide (vanilla, not lucide-react)
+Leading icons are the design-language **default** for navbars and buttons. They are real inline SVGs from the vanilla `lucide` package, hydrated from `<i data-lucide="kebab-name">` placeholders by `createIcons()` in `src/main.ts` (`mountIcons()`), called at the top of `init()`.
+
+**Why:** the SL language mirrors shadcn, whose canonical icon partner is Lucide. The site is plain HTML/CSS/JS, so the vanilla `lucide` package fits; the React-era deps (`lucide-react`, radix, react, etc.) still listed in `package.json` are leftovers from the stripped scaffold and are **unused / non-functional** here.
+
+**How to apply:** to add an icon — drop `<i data-lucide="name"></i>` as the first child of the nav link / `.btn` / `.sl-btn`, then `import { Name }` and add it to the `mountIcons()` icons map (PascalCase). Sizing/alignment is one inline `<style>` block in `index.html` (`.btn svg`, `.sl-btn svg`, `.nav .links a` made inline-flex). `.btn`/`.sl-btn` already are inline-flex with a gap, so icons align for free.

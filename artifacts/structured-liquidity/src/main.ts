@@ -9,6 +9,26 @@
    real time. Values persist to localStorage.
    ============================================================ */
 
+import {
+  createIcons,
+  ArrowRight,
+  ArrowUp,
+  Ban,
+  Compass,
+  Copy,
+  Download,
+  ExternalLink,
+  Ghost,
+  LayoutGrid,
+  Library,
+  Play,
+  Plus,
+  Radio,
+  Sparkles,
+  Square,
+  Trash2,
+} from "lucide";
+
 type Mode = "dark" | "light";
 
 interface Tweaks {
@@ -428,7 +448,35 @@ function initLiquidWord(): void {
   window.addEventListener("pagehide", () => cancelAnimationFrame(raf));
 }
 
+/* Partner icon library (Lucide). Hydrate every [data-lucide] placeholder in the
+   static markup into an inline SVG. Leading icons are the design-language default
+   for navbars and buttons, so the placeholders live directly in index.html. */
+function mountIcons(): void {
+  createIcons({
+    icons: {
+      ArrowRight,
+      ArrowUp,
+      Ban,
+      Compass,
+      Copy,
+      Download,
+      ExternalLink,
+      Ghost,
+      LayoutGrid,
+      Library,
+      Play,
+      Plus,
+      Radio,
+      Sparkles,
+      Square,
+      Trash2,
+    },
+    attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
+  });
+}
+
 function init(): void {
+  mountIcons();
   const state = load();
   apply(state);
 
