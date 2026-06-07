@@ -127,6 +127,10 @@
   .nav .brand{align-items:center;}
   .nav .brand .name{line-height:1;transform:translateY(1px);}
 
+  /* Anchor scroll offset: the nav is fixed, so jump targets must stop below it
+     instead of sliding under it. */
+  section[id], header[id]{scroll-margin-top:clamp(86px, 9vw, 104px);}
+
   /* ── Partner icon library (Lucide): leading icons are the default for navbars & buttons ── */
   .nav .links a, .sl-navbar .nb-links a{display:inline-flex;align-items:center;gap:0.5em;}
   .btn svg, .sl-btn svg, .nav .links a svg, .sl-navbar .nb-links a svg{
