@@ -24,3 +24,12 @@ The hero "Liquidity" wordmark is driven by a richer JS renderer in `src/main.ts`
 **Why:** lets us evolve one specific behavior while keeping `public/*.js` byte-for-byte verbatim and avoiding duplicate SVGs / timer races.
 
 **How to apply:** reuse the same CSS classes (`lw-glass`, `lw-wave-back/front`, `lw-shine`, `lw-outline`) so theming keeps flowing from `--accent`/`--edge`; keep the glass rect *inside* the clip group (clipped to letters, not a full rectangle); silence the CSS keyframes on JS-animated paths via inline `animation:none`; rebuild on `fonts.ready`/resize/font-tweak and cancel the rAF on `pagehide`.
+
+## Screenshotting reveal-gated content deep in the page
+Deep-linking to a hash (`/#anchor`) and screenshotting lands on blank space for content far down the page: the scroll-reveal keeps `.reveal{opacity:0}` and the deep-anchor jump doesn't reliably trigger the IntersectionObserver before capture (there is a ~1800ms fallback that reveals all, but screenshots fire sooner).
+
+**The trick (temp inline `<style>` in `index.html`, removed after):** force `.reveal{opacity:1!important;transform:none!important}`, set `html{scroll-behavior:auto!important}`, then *pull the target to the top of its section* by hiding its siblings — e.g. `#components .kit-group{display:none!important}` + `#components #TARGET, #components #TARGET ~ .kit-group{display:block!important}`. So it fits one viewport at the section anchor.
+
+**Why:** static screenshots can't scroll; forcing reveal alone isn't enough because the deep-anchor scroll still lands on emptiness.
+
+**Gotcha:** specificity — `#components .kit-group` (id+class) outranks a bare `#TARGET` (id only) even with `!important`, so the target itself stays hidden; qualify it as `#components #TARGET` to win. Strip all temp rules + any temp `id` afterward (grep `TEMP-VERIFY`).
