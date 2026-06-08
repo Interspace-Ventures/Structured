@@ -16,37 +16,11 @@
 <link rel="stylesheet" href="structured-liquidity-components.css" />
 <link rel="stylesheet" href="structured-liquidity-kit.css" />
 <style>
-  /* In-language static showcase visual (replaces the editor-only drop slot) */
-  .verse-mock{position:absolute;inset:0;display:flex;flex-direction:column;
-    background:linear-gradient(160deg,#1b1430 0%,#241a3d 45%,#171225 100%);overflow:hidden;}
-  .verse-mock .vm-glow{position:absolute;inset:0;
-    background:radial-gradient(60% 50% at 18% 12%,rgba(163,136,238,.45),transparent 70%),
-      radial-gradient(50% 45% at 88% 80%,rgba(61,215,200,.28),transparent 72%);
-    pointer-events:none;}
-  .verse-mock .vm-top{display:flex;align-items:center;gap:.6rem;
-    padding:.85rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.1);}
-  .verse-mock .vm-dot{width:26px;height:26px;background:var(--accent);
-    color:var(--accent-ink);display:grid;place-items:center;font-weight:800;
-    font-family:var(--display);font-size:.8rem;}
-  .verse-mock .vm-title{font-weight:700;font-size:.92rem;color:#fff;letter-spacing:.01em;}
-  .verse-mock .vm-sub{font-family:var(--mono);font-size:.64rem;color:rgba(255,255,255,.55);}
-  .verse-mock .vm-pill{margin-left:auto;font-family:var(--mono);font-size:.6rem;
-    padding:.2rem .55rem;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.7);}
-  .verse-mock .vm-stage{position:relative;flex:1;display:flex;align-items:flex-end;
-    gap:3px;padding:1.4rem 1.1rem 1rem;}
-  .verse-mock .vm-bar{flex:1;min-width:0;background:linear-gradient(180deg,
-    rgba(163,136,238,.95),rgba(124,156,255,.45));}
-  .verse-mock .vm-bar.alt{background:linear-gradient(180deg,
-    rgba(61,215,200,.9),rgba(61,215,200,.35));}
-  .verse-mock .vm-trans{display:flex;align-items:center;gap:.7rem;
-    padding:.75rem 1.1rem;border-top:1px solid rgba(255,255,255,.1);
-    background:rgba(0,0,0,.18);}
-  .verse-mock .vm-play{width:30px;height:30px;background:var(--accent);
-    color:var(--accent-ink);display:grid;place-items:center;font-size:.7rem;}
-  .verse-mock .vm-scrub{flex:1;height:4px;background:rgba(255,255,255,.16);position:relative;}
-  .verse-mock .vm-scrub::after{content:"";position:absolute;left:0;top:0;bottom:0;
-    width:42%;background:var(--accent);}
-  .verse-mock .vm-time{font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.6);}
+  /* Showcase visual = live screenshot of the product, clickable through to it */
+  .verse-shot{display:block;width:100%;height:100%;line-height:0;cursor:pointer;}
+  .verse-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .4s ease;}
+  .verse-shot:hover img{transform:scale(1.02);}
+  .verse-shot:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
   /* Floating Tweaks launcher (panel UI is injected by src/main.ts) */
   .sl-tweaks-fab{position:fixed;right:18px;bottom:18px;z-index:2147483645;
@@ -1235,36 +1209,9 @@
         <span class="url">universe.audio</span>
       </div>
       <div class="browser-shot">
-        <div class="verse-mock" role="img" aria-label="universe.audio interface built on Structured Liquidity">
-          <div class="vm-glow" aria-hidden="true"></div>
-          <div class="vm-top">
-            <span class="vm-dot">U</span>
-            <div>
-              <div class="vm-title">universe.audio</div>
-              <div class="vm-sub">spectral mixer · session 04</div>
-            </div>
-            <span class="vm-pill">LIVE</span>
-          </div>
-          <div class="vm-stage" aria-hidden="true">
-            <span class="vm-bar" style="height:34%"></span><span class="vm-bar" style="height:58%"></span>
-            <span class="vm-bar alt" style="height:80%"></span><span class="vm-bar" style="height:46%"></span>
-            <span class="vm-bar" style="height:67%"></span><span class="vm-bar alt" style="height:92%"></span>
-            <span class="vm-bar" style="height:40%"></span><span class="vm-bar" style="height:71%"></span>
-            <span class="vm-bar alt" style="height:55%"></span><span class="vm-bar" style="height:84%"></span>
-            <span class="vm-bar" style="height:38%"></span><span class="vm-bar" style="height:63%"></span>
-            <span class="vm-bar alt" style="height:77%"></span><span class="vm-bar" style="height:49%"></span>
-            <span class="vm-bar" style="height:88%"></span><span class="vm-bar alt" style="height:60%"></span>
-            <span class="vm-bar" style="height:43%"></span><span class="vm-bar" style="height:73%"></span>
-            <span class="vm-bar alt" style="height:52%"></span><span class="vm-bar" style="height:81%"></span>
-            <span class="vm-bar" style="height:36%"></span><span class="vm-bar" style="height:66%"></span>
-          </div>
-          <div class="vm-trans">
-            <span class="vm-play" aria-hidden="true">▶</span>
-            <span class="vm-time">1:24</span>
-            <span class="vm-scrub" aria-hidden="true"></span>
-            <span class="vm-time">3:18</span>
-          </div>
-        </div>
+        <a class="verse-shot" href="https://universe.audio" target="_blank" rel="noopener" aria-label="Visit universe.audio — a product built on Structured Liquidity (opens in a new tab)">
+          <img src="universe-audio.png" width="1920" height="1080" loading="lazy" decoding="async" alt="Screenshot of the universe.audio homepage, an interface built on Structured Liquidity" />
+        </a>
       </div>
     </div>
     <div class="show-meta">
