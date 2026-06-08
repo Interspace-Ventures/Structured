@@ -16,11 +16,38 @@
 <link rel="stylesheet" href="structured-liquidity-components.css" />
 <link rel="stylesheet" href="structured-liquidity-kit.css" />
 <style>
-  /* Showcase visual = live screenshot of the product, clickable through to it */
-  .verse-shot{display:block;width:100%;height:100%;line-height:0;cursor:pointer;}
-  .verse-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .4s ease;}
-  .verse-shot:hover img{transform:scale(1.02);}
-  .verse-shot:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  /* Showcase product grid — cards auto-flow 1→4 across; description + CTA reveal on hover/focus,
+     name/badge stay visible so the wall of screenshots is still scannable. */
+  .show-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;align-items:start;}
+  .show-card{display:flex;flex-direction:column;width:100%;max-width:520px;margin-inline:auto;text-decoration:none;color:inherit;overflow:hidden;cursor:pointer;transition:transform .25s ease;}
+  .show-card:hover,.show-card:focus-visible{transform:translateY(-4px);}
+  .show-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  .show-card.glass::after{opacity:.4;}
+  .show-card-shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:var(--border-w) solid rgb(var(--edge));}
+  .show-card-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s ease;}
+  .show-card:hover .show-card-shot img,.show-card:focus-visible .show-card-shot img{transform:scale(1.04);}
+  .show-card-veil{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:1.1rem;background:rgba(39,41,51,.82);backdrop-filter:blur(calc(var(--glass-blur) * .5));
+    -webkit-backdrop-filter:blur(calc(var(--glass-blur) * .5));opacity:0;transition:opacity .3s ease;}
+  [data-mode="light"] .show-card-veil{background:rgba(223,229,242,.86);}
+  .show-card:hover .show-card-veil,.show-card:focus-visible .show-card-veil{opacity:1;}
+  .show-card-veil .vbody{transform:translateY(8px);transition:transform .3s ease;}
+  .show-card:hover .vbody,.show-card:focus-visible .vbody{transform:translateY(0);}
+  .show-card-desc{margin:0 0 .7rem;font-size:.85rem;line-height:1.45;color:var(--ink);}
+  .show-card-cta{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--display);font-weight:700;font-size:.8rem;color:var(--accent);}
+  .show-card-foot{display:flex;align-items:center;gap:.6rem;padding:.8rem .9rem;}
+  .show-card-foot .show-id{display:flex;flex-direction:column;line-height:1.25;min-width:0;}
+  .show-card-foot .show-id .show-name{font-size:.95rem;}
+  .show-card-foot .show-id .mono{font-size:.68rem;color:var(--ink-dim);}
+  .show-card-foot .sl-badge{margin-left:auto;flex:none;}
+  /* Touch devices have no hover/focus state before navigation — show the description
+     as a persistent bottom panel so it stays reachable, leaving the screenshot top visible. */
+  @media (hover:none){
+    .show-card-veil{opacity:1;inset:auto 0 0 0;padding-top:2.2rem;
+      background:linear-gradient(180deg,transparent,rgba(39,41,51,.9) 42%);backdrop-filter:none;-webkit-backdrop-filter:none;}
+    [data-mode="light"] .show-card-veil{background:linear-gradient(180deg,transparent,rgba(223,229,242,.92) 42%);}
+    .show-card-veil .vbody{transform:none;}
+  }
 
   /* Floating Tweaks launcher (panel UI is injected by src/main.ts) */
   .sl-tweaks-fab{position:fixed;right:18px;bottom:18px;z-index:2147483645;
@@ -1202,27 +1229,36 @@
     <p class="lead">The system is product-agnostic — the same rigid grid and liquid glass that document the language run unchanged in shipping work. <strong>universe.audio</strong> is the first product built on it, here in production rather than in a spec sheet.</p>
   </div>
 
-  <div class="glass show-feature reveal">
-    <div class="show-browser">
+  <div class="show-grid reveal">
+    <a class="show-card glass" href="https://universe.audio" target="_blank" rel="noopener"
+       aria-label="Visit universe.audio — a product built on Structured Liquidity (opens in a new tab)">
       <div class="browser-bar">
         <span class="tl"></span><span class="tl"></span><span class="tl"></span>
         <span class="url">universe.audio</span>
       </div>
-      <div class="browser-shot">
-        <a class="verse-shot" href="https://universe.audio" target="_blank" rel="noopener" aria-label="Visit universe.audio — a product built on Structured Liquidity (opens in a new tab)">
-          <img src="universe-audio.png" width="1920" height="1080" loading="lazy" decoding="async" alt="Screenshot of the universe.audio homepage, an interface built on Structured Liquidity" />
-        </a>
+      <div class="show-card-shot">
+        <img src="universe-audio.png" width="1920" height="1080" loading="lazy" decoding="async"
+             alt="Screenshot of the universe.audio homepage, an interface built on Structured Liquidity" />
+        <div class="show-card-veil">
+          <div class="vbody">
+            <p class="show-card-desc">Spectral mixing, streaming, and an acoustic-first interface — every surface a rigid container holding liquid glass, themed on the universe accent.</p>
+            <span class="show-card-cta">Visit universe.audio <span aria-hidden="true">→</span></span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="show-meta">
-      <div class="kit-row" style="gap:0.6rem;">
+      <div class="show-card-foot">
         <span class="sl-ava">U</span>
-        <div><div class="show-name" style="font-size:1.1rem;">universe.audio</div><div class="mono" style="font-size:0.72rem; color:var(--ink-dim);">Audio platform</div></div>
-        <span class="sl-badge default" style="margin-left:auto;">Live</span>
+        <div class="show-id">
+          <span class="show-name">universe.audio</span>
+          <span class="mono">Audio platform</span>
+        </div>
+        <span class="sl-badge default">Live</span>
       </div>
-      <p class="lead" style="font-size:0.95rem; margin:0;">Spectral mixing, streaming, and an acoustic-first interface — every surface a rigid container holding liquid glass, themed on the universe accent.</p>
-      <a class="sl-btn default" href="https://universe.audio" target="_blank" rel="noopener" style="width:100%; justify-content:center;">Visit universe.audio <span>→</span></a>
-    </div>
+    </a>
+
+    <!-- Add a product: copy one .show-card block above. Drop its screenshot in public/, then update
+         href + aria-label, the .url text, the <img> src/alt, the .sl-ava letter, .show-name, the .mono
+         tag, and .show-card-desc. The grid auto-flows to fit 1–4 cards across; nothing else to change. -->
   </div>
 </section>
 

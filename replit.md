@@ -31,7 +31,7 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
 
 - **Faithful port, not a redesign.** The original CSS/JS are copied byte-for-byte into `public/`. Only the React/Babel runtime, the `<image-slot>` custom element, and the two `.jsx` files were dropped — all three depended on a proprietary in-editor "omelette" host bridge (`postMessage` / `__edit_mode_*`) that does not exist in a deployment.
 - **Tweaker rebuilt in vanilla TS** so the "living" theme editor actually works for visitors. It writes the same CSS custom properties the page reads and persists to `localStorage` (key `sl-tweaks`).
-- **Showcase drop-slot replaced** with an on-brand CSS `.verse-mock` visual (styles inline in `index.html` `<head>`), because the original `<image-slot>` only rendered a "drop a screenshot" placeholder outside the editor.
+- **Showcase is a scalable product-card grid** (`.show-grid` of `.show-card`, styles inline in `index.html` `<head>`), replacing the original `<image-slot>` "drop a screenshot" placeholder. Each card is one clickable `<a class="show-card glass">` (browser-bar + real screenshot from `public/` + always-visible foot: avatar/name/tag/badge); the description + Visit CTA reveal on hover/focus, and show as a persistent bottom panel on touch (`@media (hover:none)`). Grid auto-flows 1→4 across. Add a product = copy one `.show-card` block + drop its screenshot in `public/`.
 - Asset references in `index.html` are relative (no leading slash) and the artifact is served at base `/`.
 
 ## Product
