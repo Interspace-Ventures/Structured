@@ -173,6 +173,10 @@
 
   /* A little more breathing room between the navbar and the hero */
   .hero{padding-top:clamp(6.5rem,12vh,8.5rem);}
+  /* Hero tagline: an imperative line echoing the two pillars, under the wordmark. */
+  .hero-tagline{font-family:var(--display);font-weight:800;letter-spacing:-0.01em;
+    font-size:clamp(1.1rem,2.4vw,1.55rem);line-height:1.25;margin:0.35rem 0 1.1rem;color:var(--ink);}
+  .hero-tagline b{font-weight:inherit;color:var(--accent);}
 
   /* Pillar body copy: larger & more approachable */
   .pillar > p{font-size:1.02rem;line-height:1.55;}
@@ -346,6 +350,7 @@
       <h1 class="wordmark reveal">
         <span class="brutal">Structured</span><br /><span class="glas" data-liquid>Liquidity</span>
       </h1>
+      <p class="hero-tagline reveal">Build with <b>Structure</b>. Flow with <b>Liquidity</b>.</p>
       <p class="lead reveal">Rigid containers with sharp, uncompromising edges. Inside them, a liquid glass that reflects light and lends every surface tactile depth. <em>Structured Liquidity</em> is the discipline of the grid married to the delight of the material — a complete UI language, not a single product's skin.</p>
       <div class="hero-tags reveal">
         <span class="tag">Structured containment</span>
