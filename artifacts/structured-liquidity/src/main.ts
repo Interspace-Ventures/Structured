@@ -768,9 +768,34 @@ function mountCarousel(): void {
   });
 }
 
+/* Marquee: the kit ships a static wrapped run of languages. Wrap it in a
+   track, append a trailing separator + a full duplicate run (so the seam
+   reads continuously), then let CSS stream it left at -50%. Skipped under
+   reduced-motion and degrades to the static wrapped layout if JS never runs
+   (the animation is gated on the .is-streaming class added here). */
+function mountMarquee(): void {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll<HTMLElement>(".sl-marquee").forEach((m) => {
+    const track = m.querySelector<HTMLElement>(".sl-marquee-track");
+    if (!track || track.dataset.streaming) return;
+    track.dataset.streaming = "1";
+    const sep = el("span", { class: "di", "aria-hidden": "true" });
+    sep.textContent = "✦";
+    track.appendChild(sep);
+    Array.from(track.children).forEach((node) => {
+      const clone = node.cloneNode(true) as HTMLElement;
+      clone.setAttribute("aria-hidden", "true");
+      clone.removeAttribute("role");
+      track.appendChild(clone);
+    });
+    m.classList.add("is-streaming");
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
+  mountMarquee();
   mountIcons();
   mountCopy();
   const state = load();

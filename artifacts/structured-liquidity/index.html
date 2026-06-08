@@ -115,9 +115,17 @@
   .sl-navbar .nb-right{margin-left:auto;display:flex;align-items:center;gap:0.55rem;}
   @media (max-width:600px){ .sl-navbar .nb-right{margin-left:0;width:100%;flex-wrap:wrap;} }
 
-  .sl-marquee{display:flex;align-items:center;flex-wrap:wrap;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:700;letter-spacing:-0.01em;overflow:hidden;}
-  .sl-marquee > span{padding:0.5rem 0.7rem;}
+  .sl-marquee{display:flex;align-items:center;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);font-family:var(--display);font-weight:700;letter-spacing:-0.01em;overflow:hidden;}
+  .sl-marquee-track{display:flex;align-items:center;flex-wrap:wrap;}
+  .sl-marquee-track > span{padding:0.5rem 0.7rem;}
   .sl-marquee .di{opacity:0.55;padding:0.5rem 0.1rem;}
+  /* mountMarquee() in src/main.ts duplicates the run + adds .is-streaming;
+     without JS the track just wraps and shows every language statically. */
+  .sl-marquee.is-streaming{flex-wrap:nowrap;}
+  .sl-marquee.is-streaming .sl-marquee-track{flex-wrap:nowrap;width:max-content;animation:sl-marquee-scroll 24s linear infinite;}
+  .sl-marquee.is-streaming:hover .sl-marquee-track{animation-play-state:paused;}
+  @keyframes sl-marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion:reduce){ .sl-marquee.is-streaming .sl-marquee-track{animation:none;} }
 
   /* Density: cells hug their content instead of stretching to the tallest cell in each row */
   .kit-grid{align-items:start;gap:0;}
@@ -560,13 +568,15 @@
         <div class="glass kit-cell w12">
           <span class="kit-cap">Menubar — marquee</span>
           <div class="sl-marquee" role="list" aria-label="Supported languages">
-            <span role="listitem">日本語</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">Māori</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">中文</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">English</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">Español</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">Français</span><span class="di" aria-hidden="true">✦</span>
-            <span role="listitem">हिन्दी</span>
+            <div class="sl-marquee-track" role="presentation">
+              <span role="listitem">日本語</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Māori</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">中文</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">English</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Español</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Français</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">हिन्दी</span>
+            </div>
           </div>
         </div>
 
