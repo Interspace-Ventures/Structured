@@ -536,44 +536,103 @@ function mountGallery(): void {
   const groups = document.querySelector<HTMLElement>("#components .kit-groups");
   if (!groups) return;
 
-  // Map the original (sometimes near-duplicate) group names to a tight,
-  // non-redundant set of filters.
-  const CAT: Record<string, { key: string; label: string }> = {
-    Actions: { key: "actions", label: "Actions" },
-    Navigation: { key: "navigation", label: "Navigation" },
-    "Forms & inputs": { key: "forms", label: "Forms" },
-    "Data display": { key: "data", label: "Data" },
-    "Navigation & disclosure": { key: "disclosure", label: "Disclosure" },
-    "Overlays & feedback": { key: "overlays", label: "Overlays" },
-    "Layout & structure": { key: "layout", label: "Layout" },
-    "Fields & controls": { key: "forms", label: "Forms" },
-    "Content & data": { key: "data", label: "Data" },
-    "Menus & overlays": { key: "overlays", label: "Overlays" },
+  // Component taxonomy — single source of truth. Categories are assigned per
+  // component (keyed by its caption) rather than inherited from the markup's
+  // original group nesting, which had a few counter-intuitive placements
+  // (e.g. Menubar filed under Actions, the Marquee under Navigation). This
+  // array is also the filter-chip order.
+  const CATS: { key: string; label: string }[] = [
+    { key: "actions", label: "Actions" },
+    { key: "navigation", label: "Navigation" },
+    { key: "forms", label: "Forms" },
+    { key: "data", label: "Data" },
+    { key: "disclosure", label: "Disclosure" },
+    { key: "overlays", label: "Overlays" },
+    { key: "layout", label: "Layout" },
+  ];
+  const labelOf = (k: string): string =>
+    CATS.find((c) => c.key === k)?.label ?? k;
+
+  // Exact .kit-cap text -> category key. A cell is categorised by its first
+  // (primary) caption; secondary captions sharing a cell ride along with it.
+  const CAT_OF: Record<string, string> = {
+    // Actions — controls you activate to do something
+    "Button — variants & sizes": "actions",
+    "Toggle & toggle group": "actions",
+    "Button group": "actions",
+    // Navigation — move between views, sections or pages
+    "Navigation bar": "navigation",
+    Menubar: "navigation",
+    "Navigation menu": "navigation",
+    Tabs: "navigation",
+    Breadcrumb: "navigation",
+    Pagination: "navigation",
+    Sidebar: "navigation",
+    // Forms — collect user input
+    "Input · label · textarea": "forms",
+    Select: "forms",
+    "Native select": "forms",
+    "Command / combobox": "forms",
+    Checkbox: "forms",
+    "Radio group": "forms",
+    "Switch · slider": "forms",
+    "Input OTP": "forms",
+    Field: "forms",
+    "Input group": "forms",
+    // Data — display content, data or status
+    Card: "data",
+    Avatar: "data",
+    Badge: "data",
+    "Table / data table": "data",
+    "Calendar / date picker": "data",
+    Chart: "data",
+    Carousel: "data",
+    Item: "data",
+    Typography: "data",
+    Fonts: "data",
+    Kbd: "data",
+    Marquee: "data",
+    "Progress · skeleton": "data",
+    Spinner: "data",
+    Empty: "data",
+    Alert: "data",
+    "Tooltip · hover card": "data",
+    // Disclosure — reveal/hide content in place
+    Accordion: "disclosure",
+    Collapsible: "disclosure",
+    // Overlays — float above the page / transient layers
+    Dialog: "overlays",
+    Sheet: "overlays",
+    Drawer: "overlays",
+    Popover: "overlays",
+    "Dropdown menu": "overlays",
+    "Context menu": "overlays",
+    "Toast / sonner": "overlays",
+    "Alert dialog": "overlays",
+    // Layout — structure and divide space
+    Separator: "layout",
+    "Aspect ratio": "layout",
+    "Scroll area": "layout",
+    Resizable: "layout",
   };
 
-  const order: string[] = [];
-  const labels: Record<string, string> = {};
   const grid = document.createElement("div");
   grid.className = "kit-grid gallery";
+  const present = new Set<string>();
 
-  groups.querySelectorAll<HTMLElement>(".kit-group").forEach((group) => {
-    const name = group.querySelector(".kg-name")?.textContent?.trim() ?? "";
-    const cat = CAT[name] ?? { key: "other", label: name || "Other" };
-    if (!order.includes(cat.key)) {
-      order.push(cat.key);
-      labels[cat.key] = cat.label;
+  groups.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
+    const cap = cell.querySelector<HTMLElement>(".kit-cap");
+    const capText = cap?.textContent?.trim() ?? "";
+    const key = CAT_OF[capText] ?? "other";
+    cell.setAttribute("data-cat", key);
+    present.add(key);
+    // Prefix the primary caption with its category, e.g. "Navigation — Menubar".
+    // Guarded so a re-run doesn't stack the prefix; skips capless spacers.
+    if (cap && capText && cap.dataset.cat !== key) {
+      cap.textContent = `${labelOf(key)} — ${capText}`;
+      cap.dataset.cat = key;
     }
-    group.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
-      cell.setAttribute("data-cat", cat.key);
-      // Prefix each card's caption with its category, e.g. "Actions — Badge".
-      // Guarded so a re-run doesn't stack the prefix; skips capless spacers.
-      const cap = cell.querySelector<HTMLElement>(".kit-cap");
-      if (cap && cap.dataset.cat !== cat.key) {
-        cap.textContent = `${cat.label} — ${cap.textContent?.trim() ?? ""}`;
-        cap.dataset.cat = cat.key;
-      }
-      grid.appendChild(cell);
-    });
+    grid.appendChild(cell);
   });
 
   const bar = document.createElement("div");
@@ -596,7 +655,9 @@ function mountGallery(): void {
   };
 
   bar.appendChild(makeChip("all", "All", true));
-  order.forEach((k) => bar.appendChild(makeChip(k, labels[k] ?? k)));
+  CATS.forEach((c) => {
+    if (present.has(c.key)) bar.appendChild(makeChip(c.key, c.label));
+  });
 
   groups.replaceWith(bar, grid);
 
