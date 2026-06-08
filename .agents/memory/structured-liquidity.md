@@ -54,3 +54,12 @@ The hypercube mark = base `.glyph` glass tile + SVG hypercube/liquid added by `l
 **Gotcha 1 — sizing:** `.glyph` is a `<span>` (display:inline); its `width/height:var(--s)` only take effect when it's a flex/grid *item*. It renders elsewhere only because `.brand`/CTA parents are flex. A new instance in a plain block collapses to a sliver — wrap it in a `display:flex` container.
 
 **Gotcha 2 — big sizes:** cube strokes use `vector-effect:non-scaling-stroke`, so a blown-up cube gets hair-thin wireframe. For a large hero cube, override `vector-effect:none` (strokes then scale with the square viewBox) and set explicit stroke-widths. Make the override win specificity with `.hero-cube.is-cube .lw-cube-*` (ties the global 3-class rule, later in source).
+
+## Carousel (and other CSS-only kit stubs) need JS wired in main.ts
+The verbatim kit ships several components as static CSS-only stubs — e.g. the Carousel was a bare `.sl-carousel` scroll-snap strip with no buttons/dots, which reads as broken on desktop. Their *styles* live inline in `index.html` (NOT in `public/*.css`), so edit those freely; add the *behavior* (prev/next + dots, scroll-snap paging, active-state on a rAF-throttled scroll handler) in a `mount*()` in `src/main.ts` called from `init()` after `mountGallery()` (the gallery relocates cells via appendChild but keeps them intact).
+
+**Gotcha — graceful degradation when hiding a native affordance:** if your JS enhancement *removes* a built-in affordance (e.g. hiding the scrollbar because you added buttons), gate the hiding behind a class the JS adds (`.sl-carousel-wrap.is-enhanced .sl-carousel{scrollbar-width:none}`), not unconditional CSS. Otherwise a no-JS visitor loses both the controls *and* the scrollbar and can't reach later slides.
+
+**Why:** matches the project's standing rule that the page must still work if `main.ts` never runs (same reason `mountGallery` keeps the grouped fallback).
+
+**How to apply:** TS narrowing of a null-checked `const` does NOT carry into nested closures — alias it (`const view = track;`) after the guard. Add an idempotency guard (skip if already `.is-enhanced`) and update the index optimistically in the paging fn so rapid clicks step instead of stalling on the async scroll handler.

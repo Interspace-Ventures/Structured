@@ -694,8 +694,83 @@ function mountGallery(): void {
   });
 }
 
+/* Carousel: the verbatim kit ships a CSS-only scroll-snap strip with no
+   controls, which reads as broken on desktop (no buttons, ends mid-slide).
+   Inject prev/next arrows + clickable dots and page one slide at a time.
+   Degrades to a plain horizontal scroller if this never runs. */
+function mountCarousel(): void {
+  document.querySelectorAll<HTMLElement>(".sl-carousel-wrap").forEach((wrap) => {
+    if (wrap.classList.contains("is-enhanced")) return;
+    const track = wrap.querySelector<HTMLElement>(".sl-carousel");
+    if (!track) return;
+    const view = track;
+    const slides = Array.from(view.querySelectorAll<HTMLElement>(".slide"));
+    if (slides.length < 2) return;
+    // Past this point controls are guaranteed; hide the native scrollbar.
+    wrap.classList.add("is-enhanced");
+
+    const prev = el("button", { class: "sl-carousel-btn prev", type: "button", "aria-label": "Previous slide" });
+    prev.textContent = "‹";
+    const next = el("button", { class: "sl-carousel-btn next", type: "button", "aria-label": "Next slide" });
+    next.textContent = "›";
+    const dots = el("div", { class: "sl-carousel-dots" });
+    const dotBtns = slides.map((_, i) => {
+      const d = el("button", { type: "button", "aria-label": `Go to slide ${i + 1}` });
+      d.addEventListener("click", () => go(i));
+      dots.appendChild(d);
+      return d;
+    });
+    wrap.append(prev, next, dots);
+
+    const base = slides[0].offsetLeft;
+    let current = 0;
+
+    function go(i: number): void {
+      const idx = Math.max(0, Math.min(slides.length - 1, i));
+      current = idx; // optimistic, so rapid clicks step instead of stalling
+      view.scrollTo({ left: slides[idx].offsetLeft - base, behavior: "smooth" });
+    }
+    prev.addEventListener("click", () => go(current - 1));
+    next.addEventListener("click", () => go(current + 1));
+
+    function update(): void {
+      const top = `${Math.round(view.clientHeight / 2 - 17)}px`;
+      prev.style.top = top;
+      next.style.top = top;
+      const center = view.scrollLeft + view.clientWidth / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((s, i) => {
+        const c = s.offsetLeft - base + s.clientWidth / 2;
+        const dist = Math.abs(c - center);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      current = best;
+      dotBtns.forEach((d, i) => d.classList.toggle("is-active", i === best));
+      prev.disabled = best === 0;
+      next.disabled = best === slides.length - 1;
+    }
+
+    let ticking = false;
+    view.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    });
+    window.addEventListener("resize", update);
+    update();
+  });
+}
+
 function init(): void {
   mountGallery();
+  mountCarousel();
   mountIcons();
   mountCopy();
   const state = load();

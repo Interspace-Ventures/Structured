@@ -245,10 +245,24 @@
   .sl-chart{display:flex;align-items:flex-end;gap:4px;height:128px;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);padding:0.7rem;}
   .sl-chart .bar{flex:1;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 35%,transparent));border:1px solid rgb(var(--edge));border-bottom:none;}
 
-  .sl-carousel{display:flex;gap:0.6rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:0.5rem;}
-  .sl-carousel .slide{scroll-snap-align:start;flex:0 0 62%;aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--accent-ink);}
-  .sl-carousel::-webkit-scrollbar{height:8px;}
-  .sl-carousel::-webkit-scrollbar-thumb{background:var(--accent);border:1px solid rgb(var(--edge));}
+  /* One slide at a time, paged by the prev/next + dots that mountCarousel()
+     in src/main.ts injects (which also adds .is-enhanced to the wrap). */
+  .sl-carousel-wrap{position:relative;}
+  .sl-carousel{display:flex;gap:0.6rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:0.5rem;}
+  /* Hide the scrollbar only once JS adds the controls, so a no-JS visitor
+     keeps a native horizontal scroller and can still reach every slide. */
+  .sl-carousel-wrap.is-enhanced .sl-carousel{scrollbar-width:none;-ms-overflow-style:none;}
+  .sl-carousel-wrap.is-enhanced .sl-carousel::-webkit-scrollbar{display:none;}
+  .sl-carousel .slide{scroll-snap-align:start;flex:0 0 100%;aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--accent-ink);}
+  .sl-carousel-btn{position:absolute;width:34px;height:34px;display:grid;place-items:center;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgba(var(--glass-tint),0.16);backdrop-filter:blur(8px) saturate(160%);-webkit-backdrop-filter:blur(8px) saturate(160%);box-shadow:2px 2px 0 0 var(--hard-shadow);color:var(--ink);font-family:var(--mono);font-size:1.25rem;line-height:1;cursor:pointer;transition:transform .12s ease,background .2s ease,opacity .2s ease;z-index:2;}
+  .sl-carousel-btn:hover{background:rgba(var(--glass-tint),0.26);}
+  .sl-carousel-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 0 var(--hard-shadow);}
+  .sl-carousel-btn:disabled{opacity:0.3;cursor:default;}
+  .sl-carousel-btn.prev{left:0.45rem;}
+  .sl-carousel-btn.next{right:0.45rem;}
+  .sl-carousel-dots{display:flex;justify-content:center;gap:0.45rem;margin-top:0.65rem;}
+  .sl-carousel-dots button{width:9px;height:9px;padding:0;border:1.5px solid rgb(var(--edge));border-radius:var(--radius);background:transparent;cursor:pointer;transition:background .2s ease;}
+  .sl-carousel-dots button.is-active{background:var(--accent);}
 
   .sl-item{display:flex;align-items:center;gap:0.7rem;padding:0.55rem 0.6rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);}
   .sl-item .it-body{flex:1;min-width:0;}
@@ -1015,11 +1029,13 @@
 
         <div class="glass kit-cell w6">
           <span class="kit-cap">Carousel</span>
-          <div class="sl-carousel">
-            <div class="slide">01</div>
-            <div class="slide">02</div>
-            <div class="slide">03</div>
-            <div class="slide">04</div>
+          <div class="sl-carousel-wrap">
+            <div class="sl-carousel">
+              <div class="slide">01</div>
+              <div class="slide">02</div>
+              <div class="slide">03</div>
+              <div class="slide">04</div>
+            </div>
           </div>
         </div>
 
