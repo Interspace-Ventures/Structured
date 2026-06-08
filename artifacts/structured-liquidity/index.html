@@ -72,19 +72,28 @@
   .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,rgb(var(--edge)) 80%,transparent);stroke-width:1.7;}
   .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 22%,transparent);}
 
-  /* Big hero hypercube on the right. The cube SVG uses non-scaling strokes
-     that look hair-thin blown up this large, so let the wireframe scale with
-     the tile and give it the language's flat offset shadow. */
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(2rem,5vw,4rem);align-items:center;max-width:1100px;}
-  .hero-cube-wrap{display:flex;align-items:center;justify-content:center;}
-  .hero-cube{--s:clamp(190px,24vw,300px);border-width:3px;
-    box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow), inset 0 1px 0 rgba(255,255,255,0.5);}
+  /* Big hero hypercube — container-less, oversized, sitting behind the hero
+     copy as a translucent background mark. No glass tile (border/fill/shadow/
+     blur/gloss stripped); the SVG's non-scaling strokes look hair-thin blown
+     up this large, so let the wireframe scale instead. */
+  .hero{position:relative;overflow:hidden;}
+  .hero-grid{display:block;max-width:1100px;}
+  .hero-grid > div:first-child{max-width:640px;position:relative;z-index:1;}
+  .hero-cube-wrap{position:absolute;top:50%;right:clamp(-40px,2vw,40px);
+    transform:translateY(-50%);z-index:0;pointer-events:none;display:block;}
+  .hero-cube{--s:clamp(300px,42vw,560px);display:block;
+    border:0;background:none;box-shadow:none;backdrop-filter:none;
+    -webkit-backdrop-filter:none;overflow:visible;opacity:.7;}
+  .hero-cube::after{content:none;}
+  /* No tile backdrop now, so the faint 22% fill + black edges vanish on the
+     dark hero — strengthen the glass faces so the mark reads as a watermark. */
+  .hero-cube.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 52%,transparent);}
   .hero-cube.is-cube .lw-cube-shell,.hero-cube.is-cube .lw-cube-edge{vector-effect:none;}
   .hero-cube.is-cube .lw-cube-shell{stroke-width:1.8;}
   .hero-cube.is-cube .lw-cube-edge{stroke-width:1.1;}
   @media (max-width:680px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-cube{--s:clamp(150px,42vw,230px);}
+    .hero-grid > div:first-child{max-width:none;}
+    .hero-cube{--s:clamp(220px,58vw,360px);opacity:.28;}
   }
 
   /* Each kit cell is its own stacking context, so a hover tooltip/hover-card
@@ -395,7 +404,7 @@
         <a class="btn glassy" href="#showcase"><i data-lucide="sparkles"></i>Showcase</a>
       </div>
     </div>
-    <div class="hero-cube-wrap reveal" aria-hidden="true">
+    <div class="hero-cube-wrap" aria-hidden="true">
       <span class="glyph hero-cube"></span>
     </div>
   </div>
