@@ -65,11 +65,11 @@
 
   /* Unified hypercube logo — a glass tile holding the liquid-filled
      hypercube, rendered identically everywhere (nav, hero, CTA, footer) so
-     the mark matches across the whole page. The default wireframe is --edge
-     (black) and vanishes on dark surfaces, so recolor it to --ink and lift
-     the inner edges/links so the cube-in-cube reads at every size. */
-  .glyph.is-cube .lw-cube-shell{stroke:var(--ink);stroke-width:2.6;}
-  .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,var(--ink) 80%,transparent);stroke-width:1.7;}
+     the mark matches across the whole page. Wireframe is the language's
+     --edge black (read against the accent inner-glass fill); boost the
+     stroke widths + inner-glass alpha so the cube-in-cube reads at every size. */
+  .glyph.is-cube .lw-cube-shell{stroke:rgb(var(--edge));stroke-width:2.6;}
+  .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,rgb(var(--edge)) 80%,transparent);stroke-width:1.7;}
   .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 22%,transparent);}
 
   /* Big hero hypercube on the right. The cube SVG uses non-scaling strokes
