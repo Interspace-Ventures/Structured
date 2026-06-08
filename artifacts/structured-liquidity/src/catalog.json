@@ -1,0 +1,513 @@
+{
+  "name": "Structured Liquidity component catalog",
+  "description": "Single source of truth for the component inventory and how the live gallery is organized (category, status, tags). The gallery in src/main.ts derives its filter chips and grouping from this file; each component's `cap` must match its .kit-cap text in index.html.",
+  "categories": [
+    {
+      "key": "actions",
+      "label": "Actions"
+    },
+    {
+      "key": "data",
+      "label": "Data"
+    },
+    {
+      "key": "disclosure",
+      "label": "Disclosure"
+    },
+    {
+      "key": "forms",
+      "label": "Forms"
+    },
+    {
+      "key": "layout",
+      "label": "Layout"
+    },
+    {
+      "key": "navigation",
+      "label": "Navigation"
+    },
+    {
+      "key": "overlays",
+      "label": "Overlays"
+    }
+  ],
+  "components": [
+    {
+      "name": "Button",
+      "cap": "Button — variants & sizes",
+      "category": "actions",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "Button group",
+      "cap": "Button group",
+      "category": "actions",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "Toggle & toggle group",
+      "cap": "Toggle & toggle group",
+      "category": "actions",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "Alert",
+      "cap": "Alert",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Avatar",
+      "cap": "Avatar",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Badge",
+      "cap": "Badge",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Calendar / date picker",
+      "cap": "Calendar / date picker",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Card",
+      "cap": "Card",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cap": "Carousel",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Chart",
+      "cap": "Chart",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Empty",
+      "cap": "Empty",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Fonts",
+      "cap": "Fonts",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Item",
+      "cap": "Item",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Kbd",
+      "cap": "Kbd",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Marquee",
+      "cap": "Marquee",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Progress · skeleton",
+      "cap": "Progress · skeleton",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Spinner",
+      "cap": "Spinner",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Table / data table",
+      "cap": "Table / data table",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Tooltip · hover card",
+      "cap": "Tooltip · hover card",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Typography",
+      "cap": "Typography",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Accordion",
+      "cap": "Accordion",
+      "category": "disclosure",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "Collapsible",
+      "cap": "Collapsible",
+      "category": "disclosure",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "cap": "Checkbox",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Command / combobox",
+      "cap": "Command / combobox",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Field",
+      "cap": "Field",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Input group",
+      "cap": "Input group",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Input OTP",
+      "cap": "Input OTP",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Input · label · textarea",
+      "cap": "Input · label · textarea",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Native select",
+      "cap": "Native select",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Radio group",
+      "cap": "Radio group",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Select",
+      "cap": "Select",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Switch · slider",
+      "cap": "Switch · slider",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Aspect ratio",
+      "cap": "Aspect ratio",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "layout"
+      ]
+    },
+    {
+      "name": "Resizable",
+      "cap": "Resizable",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "layout"
+      ]
+    },
+    {
+      "name": "Scroll area",
+      "cap": "Scroll area",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "layout"
+      ]
+    },
+    {
+      "name": "Separator",
+      "cap": "Separator",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "layout"
+      ]
+    },
+    {
+      "name": "Breadcrumb",
+      "cap": "Breadcrumb",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Menubar",
+      "cap": "Menubar",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Navigation bar",
+      "cap": "Navigation bar",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Navigation menu",
+      "cap": "Navigation menu",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Pagination",
+      "cap": "Pagination",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Sidebar",
+      "cap": "Sidebar",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "cap": "Tabs",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "Alert dialog",
+      "cap": "Alert dialog",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Context menu",
+      "cap": "Context menu",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Dialog",
+      "cap": "Dialog",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "cap": "Drawer",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Dropdown menu",
+      "cap": "Dropdown menu",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Popover",
+      "cap": "Popover",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Sheet",
+      "cap": "Sheet",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Toast / sonner",
+      "cap": "Toast / sonner",
+      "category": "overlays",
+      "status": "stable",
+      "tags": [
+        "overlay",
+        "interactive"
+      ]
+    }
+  ]
+}

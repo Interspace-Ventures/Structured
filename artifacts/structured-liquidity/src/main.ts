@@ -9,6 +9,8 @@
    real time. Values persist to localStorage.
    ============================================================ */
 
+import catalog from "./catalog.json";
+
 import {
   createIcons,
   ArrowRight,
@@ -536,85 +538,18 @@ function mountGallery(): void {
   const groups = document.querySelector<HTMLElement>("#components .kit-groups");
   if (!groups) return;
 
-  // Component taxonomy — single source of truth. Categories are assigned per
-  // component (keyed by its caption) rather than inherited from the markup's
-  // original group nesting, which had a few counter-intuitive placements
-  // (e.g. Menubar filed under Actions, the Marquee under Navigation). Kept in
-  // alphabetical order — this array is also the filter-chip order.
-  const CATS: { key: string; label: string }[] = [
-    { key: "actions", label: "Actions" },
-    { key: "data", label: "Data" },
-    { key: "disclosure", label: "Disclosure" },
-    { key: "forms", label: "Forms" },
-    { key: "layout", label: "Layout" },
-    { key: "navigation", label: "Navigation" },
-    { key: "overlays", label: "Overlays" },
-  ];
+  // Component taxonomy comes from the catalog (src/catalog.json) — the single
+  // source of truth for the component inventory and how the gallery is
+  // organized. The filter-chip order is the catalog's category order
+  // (alphabetical); a cell is categorised by its first (primary) caption, and
+  // each component's `cap` must match its .kit-cap text in index.html.
+  const CATS: { key: string; label: string }[] = catalog.categories;
   const labelOf = (k: string): string =>
     CATS.find((c) => c.key === k)?.label ?? k;
 
-  // Exact .kit-cap text -> category key. A cell is categorised by its first
-  // (primary) caption; secondary captions sharing a cell ride along with it.
-  const CAT_OF: Record<string, string> = {
-    // Actions — controls you activate to do something
-    "Button — variants & sizes": "actions",
-    "Toggle & toggle group": "actions",
-    "Button group": "actions",
-    // Navigation — move between views, sections or pages
-    "Navigation bar": "navigation",
-    Menubar: "navigation",
-    "Navigation menu": "navigation",
-    Tabs: "navigation",
-    Breadcrumb: "navigation",
-    Pagination: "navigation",
-    Sidebar: "navigation",
-    // Forms — collect user input
-    "Input · label · textarea": "forms",
-    Select: "forms",
-    "Native select": "forms",
-    "Command / combobox": "forms",
-    Checkbox: "forms",
-    "Radio group": "forms",
-    "Switch · slider": "forms",
-    "Input OTP": "forms",
-    Field: "forms",
-    "Input group": "forms",
-    // Data — display content, data or status
-    Card: "data",
-    Avatar: "data",
-    Badge: "data",
-    "Table / data table": "data",
-    "Calendar / date picker": "data",
-    Chart: "data",
-    Carousel: "data",
-    Item: "data",
-    Typography: "data",
-    Fonts: "data",
-    Kbd: "data",
-    Marquee: "data",
-    "Progress · skeleton": "data",
-    Spinner: "data",
-    Empty: "data",
-    Alert: "data",
-    "Tooltip · hover card": "data",
-    // Disclosure — reveal/hide content in place
-    Accordion: "disclosure",
-    Collapsible: "disclosure",
-    // Overlays — float above the page / transient layers
-    Dialog: "overlays",
-    Sheet: "overlays",
-    Drawer: "overlays",
-    Popover: "overlays",
-    "Dropdown menu": "overlays",
-    "Context menu": "overlays",
-    "Toast / sonner": "overlays",
-    "Alert dialog": "overlays",
-    // Layout — structure and divide space
-    Separator: "layout",
-    "Aspect ratio": "layout",
-    "Scroll area": "layout",
-    Resizable: "layout",
-  };
+  const CAT_OF: Record<string, string> = Object.fromEntries(
+    catalog.components.map((c) => [c.cap, c.category] as const),
+  );
 
   const grid = document.createElement("div");
   grid.className = "kit-grid gallery";
@@ -638,6 +573,11 @@ function mountGallery(): void {
     const cap = cell.querySelector<HTMLElement>(".kit-cap");
     const capText = cap?.textContent?.trim() ?? "";
     const key = CAT_OF[capText] ?? "other";
+    if (import.meta.env.DEV && capText && !(capText in CAT_OF)) {
+      console.warn(
+        `[catalog] component "${capText}" is missing from src/catalog.json — add it so it's tracked and categorised.`,
+      );
+    }
     cell.setAttribute("data-cat", key);
     present.add(key);
     // Prefix the primary caption with its category, e.g. "Navigation — Menubar".
