@@ -178,15 +178,24 @@
   /* Styled scrollbars in the design language: an accent thumb with a solid edge
      border riding a faint glass track. Corners follow the live --radius token,
      and colours read the current mode tokens (so dark/light + accent retheme
-     the scrollbar too). Firefox uses the two-value scrollbar-color form. */
-  *{scrollbar-width:thin;scrollbar-color:var(--accent) rgba(var(--glass-tint),0.08);}
+     the scrollbar too).
+     IMPORTANT: do NOT set scrollbar-width / scrollbar-color globally — modern
+     Chrome then switches to the native thin scrollbar and IGNORES every
+     ::-webkit-scrollbar rule below (that left a default grey bar). So drive
+     WebKit (Chrome + Safari) with the pseudo-elements, and feed Firefox the
+     standard two-value form only where ::-webkit-scrollbar is unsupported.
+     Colours use modern rgb( r g b / a ) slash syntax because --glass-tint is a
+     space-separated triplet. */
   ::-webkit-scrollbar{width:12px;height:12px;}
-  ::-webkit-scrollbar-track{background:rgba(var(--glass-tint),0.06);}
+  ::-webkit-scrollbar-track{background:rgb(var(--glass-tint) / 0.06);}
   ::-webkit-scrollbar-thumb{background:var(--accent);border:2px solid rgb(var(--edge));
     border-radius:var(--radius);background-clip:padding-box;}
   ::-webkit-scrollbar-thumb:hover{background:color-mix(in srgb,var(--accent) 82%,#fff);
     border:2px solid rgb(var(--edge));background-clip:padding-box;}
-  ::-webkit-scrollbar-corner{background:rgba(var(--glass-tint),0.06);}
+  ::-webkit-scrollbar-corner{background:rgb(var(--glass-tint) / 0.06);}
+  @supports not selector(::-webkit-scrollbar){
+    html{scrollbar-width:thin;scrollbar-color:var(--accent) rgb(var(--glass-tint) / 0.16);}
+  }
   /* Component names: a touch larger and higher-contrast than the default dim caption. */
   #components .kit-cap{font-size:0.82rem;color:var(--ink);font-weight:700;}
 
