@@ -539,16 +539,16 @@ function mountGallery(): void {
   // Component taxonomy — single source of truth. Categories are assigned per
   // component (keyed by its caption) rather than inherited from the markup's
   // original group nesting, which had a few counter-intuitive placements
-  // (e.g. Menubar filed under Actions, the Marquee under Navigation). This
-  // array is also the filter-chip order.
+  // (e.g. Menubar filed under Actions, the Marquee under Navigation). Kept in
+  // alphabetical order — this array is also the filter-chip order.
   const CATS: { key: string; label: string }[] = [
     { key: "actions", label: "Actions" },
-    { key: "navigation", label: "Navigation" },
-    { key: "forms", label: "Forms" },
     { key: "data", label: "Data" },
     { key: "disclosure", label: "Disclosure" },
-    { key: "overlays", label: "Overlays" },
+    { key: "forms", label: "Forms" },
     { key: "layout", label: "Layout" },
+    { key: "navigation", label: "Navigation" },
+    { key: "overlays", label: "Overlays" },
   ];
   const labelOf = (k: string): string =>
     CATS.find((c) => c.key === k)?.label ?? k;
@@ -620,7 +620,21 @@ function mountGallery(): void {
   grid.className = "kit-grid gallery";
   const present = new Set<string>();
 
-  groups.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
+  // Order the gallery alphabetically by category label, then by component name,
+  // so it reads consistently regardless of the markup's source ordering. Keyed
+  // off each cell's primary caption (read before it gets the category prefix).
+  const primaryCap = (cell: HTMLElement): string =>
+    cell.querySelector<HTMLElement>(".kit-cap")?.textContent?.trim() ?? "";
+  const cells = Array.from(groups.querySelectorAll<HTMLElement>(".kit-cell"));
+  cells.sort((a, b) => {
+    const la = labelOf(CAT_OF[primaryCap(a)] ?? "other").toLowerCase();
+    const lb = labelOf(CAT_OF[primaryCap(b)] ?? "other").toLowerCase();
+    return la === lb
+      ? primaryCap(a).toLowerCase().localeCompare(primaryCap(b).toLowerCase())
+      : la.localeCompare(lb);
+  });
+
+  cells.forEach((cell) => {
     const cap = cell.querySelector<HTMLElement>(".kit-cap");
     const capText = cap?.textContent?.trim() ?? "";
     const key = CAT_OF[capText] ?? "other";

@@ -496,8 +496,21 @@
 
     <!-- ───── ACTIONS ───── -->
     <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Actions</span><span class="kg-rule"></span><span class="kg-count">Button · Badge · Toggle · Dropdown</span></div>
+      <div class="kit-group-head"><span class="kg-name">Actions</span><span class="kg-rule"></span><span class="kg-count">Badge · Button · Dropdown · Toggle</span></div>
       <div class="kit-grid">
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Badge</span>
+          <div class="kit-row">
+            <span class="sl-badge default">Default</span>
+            <span class="sl-badge secondary">Secondary</span>
+            <span class="sl-badge outline">Outline</span>
+          </div>
+          <div class="kit-row">
+            <span class="sl-badge default"><span class="ico"></span>Live</span>
+            <span class="sl-badge destructive">Error</span>
+          </div>
+        </div>
 
         <div class="glass kit-cell w8">
           <span class="kit-cap">Button — variants &amp; sizes</span>
@@ -516,32 +529,6 @@
             <button class="sl-btn secondary icon" aria-label="Add"><i data-lucide="plus"></i></button>
             <button class="sl-btn default"><span class="sl-spinner"></span> Loading</button>
             <button class="sl-btn default" disabled><i data-lucide="ban"></i>Disabled</button>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Badge</span>
-          <div class="kit-row">
-            <span class="sl-badge default">Default</span>
-            <span class="sl-badge secondary">Secondary</span>
-            <span class="sl-badge outline">Outline</span>
-          </div>
-          <div class="kit-row">
-            <span class="sl-badge default"><span class="ico"></span>Live</span>
-            <span class="sl-badge destructive">Error</span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Toggle &amp; toggle group</span>
-          <div class="kit-row">
-            <button class="sl-toggle" data-toggle-aria="pressed" aria-pressed="false">B</button>
-            <button class="sl-toggle" data-toggle-aria="pressed" aria-pressed="true">I</button>
-            <div class="sl-toggle-group" data-toggle-group>
-              <button aria-pressed="true" aria-label="Left">⌶</button>
-              <button aria-pressed="false" aria-label="Center">≡</button>
-              <button aria-pressed="false" aria-label="Right">⌷</button>
-            </div>
           </div>
         </div>
 
@@ -567,13 +554,531 @@
           </div>
         </div>
 
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Toggle &amp; toggle group</span>
+          <div class="kit-row">
+            <button class="sl-toggle" data-toggle-aria="pressed" aria-pressed="false">B</button>
+            <button class="sl-toggle" data-toggle-aria="pressed" aria-pressed="true">I</button>
+            <div class="sl-toggle-group" data-toggle-group>
+              <button aria-pressed="true" aria-label="Left">⌶</button>
+              <button aria-pressed="false" aria-label="Center">≡</button>
+              <button aria-pressed="false" aria-label="Right">⌷</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── CONTENT & DATA ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Content &amp; data</span><span class="kg-rule"></span><span class="kg-count">Carousel · Chart · Collapsible · Empty · Fonts · Item · Typography</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Carousel</span>
+          <div class="sl-carousel-wrap">
+            <div class="sl-carousel">
+              <div class="slide">01</div>
+              <div class="slide">02</div>
+              <div class="slide">03</div>
+              <div class="slide">04</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w8">
+          <span class="kit-cap">Chart</span>
+          <div class="sl-chart">
+            <span class="bar" style="height:38%"></span>
+            <span class="bar" style="height:62%"></span>
+            <span class="bar" style="height:48%"></span>
+            <span class="bar" style="height:80%"></span>
+            <span class="bar" style="height:55%"></span>
+            <span class="bar" style="height:92%"></span>
+            <span class="bar" style="height:70%"></span>
+            <span class="bar" style="height:44%"></span>
+            <span class="bar" style="height:66%"></span>
+            <span class="bar" style="height:30%"></span>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Collapsible</span>
+          <details class="sl-collapsible">
+            <summary>Theme tokens</summary>
+            <div class="cc-body">Accent, blur, border weight, corner radius, and flat-shadow offset — every knob behind the language.</div>
+          </details>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Empty</span>
+          <div class="sl-empty">
+            <span class="em-ic">♪</span>
+            <span class="em-t">No tracks yet</span>
+            <span class="em-d">Import audio to start a library.</span>
+            <button class="sl-btn default sm">Import</button>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6 pairings-card">
+          <span class="kit-cap">Fonts</span>
+          <div class="pairings">
+            <div class="pair">
+              <div class="pair-title">Set 01 · Canonical</div>
+              <div class="pair-fonts">
+                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-archivo">Archivo</span></span>
+                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-outfit">Outfit</span></span>
+                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-spacemono">Space Mono</span></span>
+              </div>
+              <div class="pair-note">Confident grotesque header, warm body, technical mono — the default.</div>
+            </div>
+            <div class="pair">
+              <div class="pair-title">Set 02 · Editorial</div>
+              <div class="pair-fonts">
+                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-syne">Syne</span></span>
+                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-inter">Inter</span></span>
+                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-ibmplexmono">IBM Plex Mono</span></span>
+              </div>
+              <div class="pair-note">Expressive display over a neutral workhorse — marketing and brand surfaces.</div>
+            </div>
+            <div class="pair">
+              <div class="pair-title">Set 03 · Modern</div>
+              <div class="pair-fonts">
+                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-bricolage">Bricolage Grotesque</span></span>
+                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-jakarta">Plus Jakarta Sans</span></span>
+                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-jetbrainsmono">JetBrains Mono</span></span>
+              </div>
+              <div class="pair-note">Quirky contemporary grotesque with a clean body and developer mono.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Item</span>
+          <div class="kit-col" style="gap:0.6rem;">
+            <div class="sl-item">
+              <span class="sl-ava">U</span>
+              <div class="it-body"><div class="it-title">universe.audio</div><div class="it-sub">Audio platform · Live</div></div>
+              <button class="sl-btn outline sm">Open</button>
+            </div>
+            <div class="sl-item">
+              <span class="sl-ava" style="background:rgba(var(--glass-tint),0.1); color:var(--ink);">SL</span>
+              <div class="it-body"><div class="it-title">Structured Liquidity</div><div class="it-sub">Design language</div></div>
+              <button class="sl-btn outline sm">Open</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w8">
+          <span class="kit-cap">Typography</span>
+          <div class="sl-type">
+            <h4 class="tg">Structure holds it.</h4>
+            <p class="tg">Heavy grotesk for impact, monospace for labels, and a measured body that stays legible through the glass. Inline <code class="tg">--accent</code> tokens carry the system.</p>
+            <blockquote>Liquidity is for depth, never at the expense of clarity.</blockquote>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── DATA DISPLAY ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Data display</span><span class="kg-rule"></span><span class="kg-count">Alert · Avatar · Calendar · Card · Table</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Alert</span>
+          <div class="kit-col">
+            <div class="sl-alert">
+              <svg class="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <div><p class="at">Heads up</p><p class="ad">Tokens sync every deploy.</p></div>
+            </div>
+            <div class="sl-alert destructive">
+              <svg class="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+              <div><p class="at">Build failed</p><p class="ad">Border weight must be ≥ 1px.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Avatar</span>
+          <div class="kit-row">
+            <span class="sl-ava">SL</span>
+            <span class="sl-ava" style="background:rgba(var(--glass-tint),0.1); color:var(--ink);">JD</span>
+            <div class="sl-ava-group">
+              <span class="sl-ava">A</span><span class="sl-ava" style="background:#ffffff; color:#111111;">B</span><span class="sl-ava" style="background:#8a8a93; color:#ffffff;">C</span><span class="sl-ava" style="background:#111111; color:#ffffff;">+5</span>
+            </div>
+          </div>
+          <span class="kit-cap" style="margin-top:0.4rem;">Tooltip · hover card</span>
+          <div class="kit-row">
+            <span class="sl-tip-wrap"><button class="sl-btn outline sm">Hover me</button><span class="sl-tip">Flat offset shadow</span></span>
+            <span class="sl-tip-wrap"><button class="sl-btn ghost sm">@universe</button>
+              <span class="sl-hover-card"><div class="kit-row" style="gap:0.6rem;"><span class="sl-ava">U</span><div><div style="font-weight:700; font-size:0.85rem;">universe.audio</div><div class="mono" style="font-size:0.7rem; color:var(--ink-dim);">Built on SL</div></div></div></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Calendar / date picker</span>
+          <div class="sl-cal">
+            <div class="sl-cal-head"><button aria-label="Previous">‹</button><span>June 2026</span><button aria-label="Next">›</button></div>
+            <div class="sl-cal-grid">
+              <span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span>
+              <span class="day muted">31</span><span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span><span class="day sel">6</span>
+              <span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span><span class="day">13</span>
+              <span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span><span class="day">20</span>
+              <span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span><span class="day">26</span><span class="day">27</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Card</span>
+          <div class="sl-card-demo">
+            <div class="cd-media"></div>
+            <div class="cd-body">
+              <h4>Waveform v2</h4>
+              <p>Real-time spectral display with glass overlays.</p>
+              <button class="sl-btn default sm">Open <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w8">
+          <span class="kit-cap">Table / data table</span>
+          <table class="sl-table">
+            <thead><tr><th>Token</th><th>Value</th><th>Surface</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>--accent</td><td>#a388ee</td><td>Solid</td><td><span class="sl-badge default">Live</span></td></tr>
+              <tr><td>--glass-alpha</td><td>0.07</td><td>Glass</td><td><span class="sl-badge default">Live</span></td></tr>
+              <tr><td>--hard-x</td><td>7px</td><td>Shadow</td><td><span class="sl-badge secondary">Draft</span></td></tr>
+              <tr><td>--radius</td><td>0px</td><td>Edge</td><td><span class="sl-badge default">Live</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── FIELDS & CONTROLS ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Fields &amp; controls</span><span class="kg-rule"></span><span class="kg-count">Button group · Field · Input group · Kbd · Native select · Spinner</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Button group</span>
+          <div class="sl-btn-group">
+            <button>Day</button>
+            <button class="on">Week</button>
+            <button>Month</button>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Field</span>
+          <div class="sl-field invalid">
+            <label class="sl-label">Workspace URL</label>
+            <input class="sl-input" value="universe" />
+            <span class="fd-err">Already taken — try another.</span>
+          </div>
+          <div class="sl-field">
+            <label class="sl-label">Display name</label>
+            <input class="sl-input" placeholder="universe.audio" />
+            <span class="fd-desc">Shown on your public profile.</span>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Input group</span>
+          <div class="sl-input-group">
+            <span class="ig-addon">https://</span>
+            <input value="universe.audio" />
+          </div>
+          <div class="sl-input-group">
+            <input placeholder="Search tracks" />
+            <span class="ig-addon suffix">⌘K</span>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Kbd</span>
+          <div class="kit-row" style="justify-content:space-between;">
+            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);">Command</span>
+            <span><kbd class="sl-kbd">⌘</kbd> <kbd class="sl-kbd">K</kbd></span>
+          </div>
+          <div class="kit-row" style="justify-content:space-between;">
+            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);">Save</span>
+            <span><kbd class="sl-kbd">⌘</kbd> <kbd class="sl-kbd">S</kbd></span>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Native select</span>
+          <span class="sl-native-wrap">
+            <select class="sl-native">
+              <option>Solid surface</option>
+              <option>Glass surface</option>
+              <option>Liquid surface</option>
+            </select>
+          </span>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Spinner</span>
+          <div class="kit-row" style="align-items:center; gap:1rem;">
+            <span class="sl-spinner"></span>
+            <span class="sl-spinner" style="width:20px; height:20px;"></span>
+            <span class="sl-spinner" style="width:28px; height:28px; border-width:3px; color:var(--accent);"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── FORMS ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Forms &amp; inputs</span><span class="kg-rule"></span><span class="kg-count">Checkbox · Input · OTP · Select · Slider · Switch</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Checkbox</span>
+          <div class="kit-col">
+            <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
+              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Liquid glass surfaces
+            </div>
+            <div class="sl-check" data-toggle-aria="checked" aria-checked="false" tabindex="0">
+              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Flat shadows
+            </div>
+            <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
+              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Sharp 90° corners
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Input OTP</span>
+          <div class="sl-otp">
+            <input maxlength="1" value="4" /><input maxlength="1" value="2" /><input maxlength="1" value="0" />
+            <input maxlength="1" placeholder="•" /><input maxlength="1" placeholder="•" /><input maxlength="1" placeholder="•" />
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Input · label · textarea</span>
+          <div class="kit-col">
+            <label class="sl-label">Email</label>
+            <input class="sl-input" type="email" placeholder="you@studio.com" />
+            <label class="sl-label">Message</label>
+            <textarea class="sl-textarea" placeholder="Tell us about the build…"></textarea>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Progress · skeleton</span>
+          <div class="sl-progress"><span style="width:68%"></span></div>
+          <div class="kit-row" style="gap:0.7rem; width:100%; flex-wrap:nowrap;">
+            <div class="sl-skel" style="width:44px; height:44px;"></div>
+            <div class="kit-col" style="flex:1; gap:0.45rem;">
+              <div class="sl-skel" style="height:11px; width:70%;"></div>
+              <div class="sl-skel" style="height:11px; width:45%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Radio group</span>
+          <div class="kit-col" data-radio-group>
+            <div class="sl-radio-item" aria-checked="true" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>Dark mode</div>
+            <div class="sl-radio-item" aria-checked="false" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>Light mode</div>
+            <div class="sl-radio-item" aria-checked="false" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>System</div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Select</span>
+          <div class="sl-pop-wrap">
+            <button class="sl-trigger" data-pop aria-expanded="false"><span data-select-label>Choose a surface</span><span class="chev">▾</span></button>
+            <div class="sl-menu">
+              <div class="item" data-value="Glass">Glass</div>
+              <div class="item" data-value="Hybrid">Hybrid</div>
+              <div class="item" data-value="Solid">Solid</div>
+              <div class="item" data-value="Flat">Flat</div>
+            </div>
+          </div>
+          <span class="kit-cap" style="margin-top:0.6rem;">Command / combobox</span>
+          <div class="sl-pop-wrap">
+            <button class="sl-trigger" data-pop aria-expanded="false"><span>Search commands…</span><span class="chev">▾</span></button>
+            <div class="sl-menu" style="min-width:220px;">
+              <input class="sl-cmd-search" placeholder="Type a command…" />
+              <div class="lbl">Suggestions</div>
+              <div class="item">New file</div>
+              <div class="item">Open project</div>
+              <div class="item">Toggle theme</div>
+              <div class="item">Export tokens</div>
+              <div class="item">Copy CSS variables</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Switch · slider</span>
+          <div class="kit-row" style="justify-content:space-between;">
+            <span class="mono" style="font-size:0.8rem;">Notifications</span>
+            <div class="sl-switch" data-toggle-aria="checked" aria-checked="true" tabindex="0"><span class="knob"></span></div>
+          </div>
+          <div class="kit-row" style="justify-content:space-between;">
+            <span class="mono" style="font-size:0.8rem;">Reduced motion</span>
+            <div class="sl-switch" data-toggle-aria="checked" aria-checked="false" tabindex="0"><span class="knob"></span></div>
+          </div>
+          <div class="kit-row" style="gap:0.8rem;">
+            <div class="sl-slider"><div class="trk"><div class="fl" style="width:60%"></div><div class="th" style="left:60%"></div></div></div>
+            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);"><span data-slider-out>60</span>%</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── LAYOUT & STRUCTURE ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Layout &amp; structure</span><span class="kg-rule"></span><span class="kg-count">Aspect ratio · Resizable · Scroll area · Separator · Sidebar</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Aspect ratio</span>
+          <div class="sl-aspect">16 / 9</div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Resizable</span>
+          <div class="sl-resize">
+            <div class="pane a">Drag the corner →</div>
+            <div class="pane b">Liquid fills the rest</div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Scroll area</span>
+          <div class="sl-scroll">
+            <div class="row">Track 01 — Aurora</div>
+            <div class="row">Track 02 — Meniscus</div>
+            <div class="row">Track 03 — Offset</div>
+            <div class="row">Track 04 — Specular</div>
+            <div class="row">Track 05 — Viscosity</div>
+            <div class="row">Track 06 — Containment</div>
+            <div class="row">Track 07 — Refraction</div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Separator</span>
+          <div class="kit-row" style="gap:0;">
+            <span class="mono" style="font-size:0.8rem;">Docs</span>
+            <span class="sl-sep vert"></span>
+            <span class="mono" style="font-size:0.8rem;">API</span>
+            <span class="sl-sep vert"></span>
+            <span class="mono" style="font-size:0.8rem;">Tokens</span>
+          </div>
+          <hr class="sl-sep" />
+          <p class="mono" style="font-size:0.76rem; color:var(--ink-dim); margin:0;">A hairline at full border weight — horizontal or vertical.</p>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Sidebar</span>
+          <div class="sl-sidebar-demo">
+            <nav class="sb">
+              <span class="sb-h">Workspace</span>
+              <a href="#" class="active">Overview</a>
+              <a href="#">Library</a>
+              <a href="#">Tokens</a>
+              <span class="sb-h">Account</span>
+              <a href="#">Settings</a>
+            </nav>
+            <div class="sb-main">A structural rail — rigid border, glass fill, one accent for the active route.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ───── MENUS & OVERLAYS ───── -->
+    <div class="kit-group reveal">
+      <div class="kit-group-head"><span class="kg-name">Menus &amp; overlays</span><span class="kg-rule"></span><span class="kg-count">Alert dialog · Context menu · Drawer · Navigation menu</span></div>
+      <div class="kit-grid">
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Alert dialog</span>
+          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A blocking confirm for destructive actions.</p>
+          <button class="sl-btn destructive" data-open-overlay="sl-alert-1">Delete project</button>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Context menu</span>
+          <div class="kit-row" style="align-items:flex-start; gap:0.8rem;">
+            <div class="sl-ctx-area" style="flex:1;">Right-click surface</div>
+            <div class="sl-ctx-menu">
+              <div class="item">Play<span class="k">↵</span></div>
+              <div class="item">Add to queue<span class="k">⌘Q</span></div>
+              <div class="sep"></div>
+              <div class="item">Share</div>
+              <div class="item">Remove</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Drawer</span>
+          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A panel that rises from the bottom edge.</p>
+          <button class="sl-btn secondary" data-open-overlay="sl-drawer-1">Open drawer</button>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Navigation menu</span>
+          <nav class="sl-navmenu">
+            <div class="nm-item">
+              <button>Products <span class="chev">▾</span></button>
+              <div class="nm-panel">
+                <a href="#">universe.audio</a>
+                <a href="#">Structured Liquidity</a>
+                <a href="#">Interspace</a>
+              </div>
+            </div>
+            <div class="nm-item">
+              <button>Resources <span class="chev">▾</span></button>
+              <div class="nm-panel">
+                <a href="#">Documentation</a>
+                <a href="#">Tokens</a>
+                <a href="#">Changelog</a>
+              </div>
+            </div>
+            <div class="nm-item"><button>Pricing</button></div>
+          </nav>
+          <span class="mono" style="font-size:0.74rem; color:var(--ink-dim);">Hover an item for its flyout.</span>
+        </div>
+
       </div>
     </div>
 
     <!-- ───── NAVIGATION ───── -->
     <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Navigation</span><span class="kg-rule"></span><span class="kg-count">Navbar · Menubar · Marquee</span></div>
+      <div class="kit-group-head"><span class="kg-name">Navigation</span><span class="kg-rule"></span><span class="kg-count">Marquee · Menubar · Navbar</span></div>
       <div class="kit-grid">
+
+        <div class="glass kit-cell w12">
+          <span class="kit-cap">Marquee</span>
+          <div class="sl-marquee" role="list" aria-label="Supported languages">
+            <div class="sl-marquee-track" role="presentation">
+              <span role="listitem">日本語</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Māori</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">中文</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">English</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Español</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">Français</span><span class="di" aria-hidden="true">✦</span>
+              <span role="listitem">हिन्दी</span>
+            </div>
+          </div>
+        </div>
 
         <div class="glass kit-cell w12">
           <span class="kit-cap">Navigation bar</span>
@@ -606,225 +1111,13 @@
           </div>
         </div>
 
-        <div class="glass kit-cell w12">
-          <span class="kit-cap">Marquee</span>
-          <div class="sl-marquee" role="list" aria-label="Supported languages">
-            <div class="sl-marquee-track" role="presentation">
-              <span role="listitem">日本語</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">Māori</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">中文</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">English</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">Español</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">Français</span><span class="di" aria-hidden="true">✦</span>
-              <span role="listitem">हिन्दी</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── FORMS ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Forms &amp; inputs</span><span class="kg-rule"></span><span class="kg-count">Input · Select · Checkbox · Switch · Slider · OTP</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Input · label · textarea</span>
-          <div class="kit-col">
-            <label class="sl-label">Email</label>
-            <input class="sl-input" type="email" placeholder="you@studio.com" />
-            <label class="sl-label">Message</label>
-            <textarea class="sl-textarea" placeholder="Tell us about the build…"></textarea>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Select</span>
-          <div class="sl-pop-wrap">
-            <button class="sl-trigger" data-pop aria-expanded="false"><span data-select-label>Choose a surface</span><span class="chev">▾</span></button>
-            <div class="sl-menu">
-              <div class="item" data-value="Glass">Glass</div>
-              <div class="item" data-value="Hybrid">Hybrid</div>
-              <div class="item" data-value="Solid">Solid</div>
-              <div class="item" data-value="Flat">Flat</div>
-            </div>
-          </div>
-          <span class="kit-cap" style="margin-top:0.6rem;">Command / combobox</span>
-          <div class="sl-pop-wrap">
-            <button class="sl-trigger" data-pop aria-expanded="false"><span>Search commands…</span><span class="chev">▾</span></button>
-            <div class="sl-menu" style="min-width:220px;">
-              <input class="sl-cmd-search" placeholder="Type a command…" />
-              <div class="lbl">Suggestions</div>
-              <div class="item">New file</div>
-              <div class="item">Open project</div>
-              <div class="item">Toggle theme</div>
-              <div class="item">Export tokens</div>
-              <div class="item">Copy CSS variables</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Checkbox</span>
-          <div class="kit-col">
-            <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Liquid glass surfaces
-            </div>
-            <div class="sl-check" data-toggle-aria="checked" aria-checked="false" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Flat shadows
-            </div>
-            <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Sharp 90° corners
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Radio group</span>
-          <div class="kit-col" data-radio-group>
-            <div class="sl-radio-item" aria-checked="true" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>Dark mode</div>
-            <div class="sl-radio-item" aria-checked="false" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>Light mode</div>
-            <div class="sl-radio-item" aria-checked="false" tabindex="0"><span class="sl-radio"><span class="dot"></span></span>System</div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Switch · slider</span>
-          <div class="kit-row" style="justify-content:space-between;">
-            <span class="mono" style="font-size:0.8rem;">Notifications</span>
-            <div class="sl-switch" data-toggle-aria="checked" aria-checked="true" tabindex="0"><span class="knob"></span></div>
-          </div>
-          <div class="kit-row" style="justify-content:space-between;">
-            <span class="mono" style="font-size:0.8rem;">Reduced motion</span>
-            <div class="sl-switch" data-toggle-aria="checked" aria-checked="false" tabindex="0"><span class="knob"></span></div>
-          </div>
-          <div class="kit-row" style="gap:0.8rem;">
-            <div class="sl-slider"><div class="trk"><div class="fl" style="width:60%"></div><div class="th" style="left:60%"></div></div></div>
-            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);"><span data-slider-out>60</span>%</span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Input OTP</span>
-          <div class="sl-otp">
-            <input maxlength="1" value="4" /><input maxlength="1" value="2" /><input maxlength="1" value="0" />
-            <input maxlength="1" placeholder="•" /><input maxlength="1" placeholder="•" /><input maxlength="1" placeholder="•" />
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Progress · skeleton</span>
-          <div class="sl-progress"><span style="width:68%"></span></div>
-          <div class="kit-row" style="gap:0.7rem; width:100%; flex-wrap:nowrap;">
-            <div class="sl-skel" style="width:44px; height:44px;"></div>
-            <div class="kit-col" style="flex:1; gap:0.45rem;">
-              <div class="sl-skel" style="height:11px; width:70%;"></div>
-              <div class="sl-skel" style="height:11px; width:45%;"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── DATA DISPLAY ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Data display</span><span class="kg-rule"></span><span class="kg-count">Card · Avatar · Alert · Table · Calendar</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Card</span>
-          <div class="sl-card-demo">
-            <div class="cd-media"></div>
-            <div class="cd-body">
-              <h4>Waveform v2</h4>
-              <p>Real-time spectral display with glass overlays.</p>
-              <button class="sl-btn default sm">Open <span>→</span></button>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Avatar</span>
-          <div class="kit-row">
-            <span class="sl-ava">SL</span>
-            <span class="sl-ava" style="background:rgba(var(--glass-tint),0.1); color:var(--ink);">JD</span>
-            <div class="sl-ava-group">
-              <span class="sl-ava">A</span><span class="sl-ava" style="background:#ffffff; color:#111111;">B</span><span class="sl-ava" style="background:#8a8a93; color:#ffffff;">C</span><span class="sl-ava" style="background:#111111; color:#ffffff;">+5</span>
-            </div>
-          </div>
-          <span class="kit-cap" style="margin-top:0.4rem;">Tooltip · hover card</span>
-          <div class="kit-row">
-            <span class="sl-tip-wrap"><button class="sl-btn outline sm">Hover me</button><span class="sl-tip">Flat offset shadow</span></span>
-            <span class="sl-tip-wrap"><button class="sl-btn ghost sm">@universe</button>
-              <span class="sl-hover-card"><div class="kit-row" style="gap:0.6rem;"><span class="sl-ava">U</span><div><div style="font-weight:700; font-size:0.85rem;">universe.audio</div><div class="mono" style="font-size:0.7rem; color:var(--ink-dim);">Built on SL</div></div></div></span>
-            </span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Alert</span>
-          <div class="kit-col">
-            <div class="sl-alert">
-              <svg class="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
-              <div><p class="at">Heads up</p><p class="ad">Tokens sync every deploy.</p></div>
-            </div>
-            <div class="sl-alert destructive">
-              <svg class="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
-              <div><p class="at">Build failed</p><p class="ad">Border weight must be ≥ 1px.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w8">
-          <span class="kit-cap">Table / data table</span>
-          <table class="sl-table">
-            <thead><tr><th>Token</th><th>Value</th><th>Surface</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>--accent</td><td>#a388ee</td><td>Solid</td><td><span class="sl-badge default">Live</span></td></tr>
-              <tr><td>--glass-alpha</td><td>0.07</td><td>Glass</td><td><span class="sl-badge default">Live</span></td></tr>
-              <tr><td>--hard-x</td><td>7px</td><td>Shadow</td><td><span class="sl-badge secondary">Draft</span></td></tr>
-              <tr><td>--radius</td><td>0px</td><td>Edge</td><td><span class="sl-badge default">Live</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Calendar / date picker</span>
-          <div class="sl-cal">
-            <div class="sl-cal-head"><button aria-label="Previous">‹</button><span>June 2026</span><button aria-label="Next">›</button></div>
-            <div class="sl-cal-grid">
-              <span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span>
-              <span class="day muted">31</span><span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span><span class="day sel">6</span>
-              <span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span><span class="day">13</span>
-              <span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span><span class="day">20</span>
-              <span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span><span class="day">26</span><span class="day">27</span>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
     <!-- ───── NAVIGATION & DISCLOSURE ───── -->
     <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Navigation &amp; disclosure</span><span class="kg-rule"></span><span class="kg-count">Tabs · Accordion · Breadcrumb · Pagination</span></div>
+      <div class="kit-group-head"><span class="kg-name">Navigation &amp; disclosure</span><span class="kg-rule"></span><span class="kg-count">Accordion · Breadcrumb · Pagination · Tabs</span></div>
       <div class="kit-grid">
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Tabs</span>
-          <div class="sl-tabs">
-            <div class="tablist">
-              <button aria-selected="true">Preview</button>
-              <button aria-selected="false">Code</button>
-              <button aria-selected="false">Tokens</button>
-            </div>
-            <div class="panel show">A glass surface in a rigid frame — what you see in the preview pane.</div>
-            <div class="panel">Copy-paste markup with utility classes, ready to drop in.</div>
-            <div class="panel">Every value exposed as a CSS custom property you can theme.</div>
-          </div>
-        </div>
 
         <div class="glass kit-cell w6">
           <span class="kit-cap">Accordion</span>
@@ -866,24 +1159,32 @@
           </div>
         </div>
 
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Tabs</span>
+          <div class="sl-tabs">
+            <div class="tablist">
+              <button aria-selected="true">Preview</button>
+              <button aria-selected="false">Code</button>
+              <button aria-selected="false">Tokens</button>
+            </div>
+            <div class="panel show">A glass surface in a rigid frame — what you see in the preview pane.</div>
+            <div class="panel">Copy-paste markup with utility classes, ready to drop in.</div>
+            <div class="panel">Every value exposed as a CSS custom property you can theme.</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- ───── OVERLAYS ───── -->
     <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Overlays &amp; feedback</span><span class="kg-rule"></span><span class="kg-count">Dialog · Sheet · Popover · Toast</span></div>
+      <div class="kit-group-head"><span class="kg-name">Overlays &amp; feedback</span><span class="kg-rule"></span><span class="kg-count">Dialog · Popover · Sheet · Toast</span></div>
       <div class="kit-grid">
 
         <div class="glass kit-cell w4">
           <span class="kit-cap">Dialog</span>
           <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A modal that settles into its shadow on open.</p>
           <button class="sl-btn default" data-open-overlay="sl-dialog-1">Open dialog</button>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Sheet</span>
-          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A side panel that slides in from the edge.</p>
-          <button class="sl-btn secondary" data-open-overlay="sl-sheet-1">Open sheet</button>
         </div>
 
         <div class="glass kit-cell w4">
@@ -898,6 +1199,12 @@
           </div>
         </div>
 
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Sheet</span>
+          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A side panel that slides in from the edge.</p>
+          <button class="sl-btn secondary" data-open-overlay="sl-sheet-1">Open sheet</button>
+        </div>
+
         <div class="glass kit-cell w12">
           <span class="kit-cap">Toast / sonner</span>
           <div class="kit-row">
@@ -905,313 +1212,6 @@
             <button class="sl-btn outline" data-toast="Tokens exported to clipboard." data-toast-title="Copied">Copy tokens</button>
             <span class="mono" style="font-size:0.76rem; color:var(--ink-dim);">Stacks bottom-right, auto-dismisses.</span>
           </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── LAYOUT & STRUCTURE ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Layout &amp; structure</span><span class="kg-rule"></span><span class="kg-count">Separator · Aspect ratio · Scroll area · Resizable · Sidebar</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Separator</span>
-          <div class="kit-row" style="gap:0;">
-            <span class="mono" style="font-size:0.8rem;">Docs</span>
-            <span class="sl-sep vert"></span>
-            <span class="mono" style="font-size:0.8rem;">API</span>
-            <span class="sl-sep vert"></span>
-            <span class="mono" style="font-size:0.8rem;">Tokens</span>
-          </div>
-          <hr class="sl-sep" />
-          <p class="mono" style="font-size:0.76rem; color:var(--ink-dim); margin:0;">A hairline at full border weight — horizontal or vertical.</p>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Aspect ratio</span>
-          <div class="sl-aspect">16 / 9</div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Scroll area</span>
-          <div class="sl-scroll">
-            <div class="row">Track 01 — Aurora</div>
-            <div class="row">Track 02 — Meniscus</div>
-            <div class="row">Track 03 — Offset</div>
-            <div class="row">Track 04 — Specular</div>
-            <div class="row">Track 05 — Viscosity</div>
-            <div class="row">Track 06 — Containment</div>
-            <div class="row">Track 07 — Refraction</div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Resizable</span>
-          <div class="sl-resize">
-            <div class="pane a">Drag the corner →</div>
-            <div class="pane b">Liquid fills the rest</div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Sidebar</span>
-          <div class="sl-sidebar-demo">
-            <nav class="sb">
-              <span class="sb-h">Workspace</span>
-              <a href="#" class="active">Overview</a>
-              <a href="#">Library</a>
-              <a href="#">Tokens</a>
-              <span class="sb-h">Account</span>
-              <a href="#">Settings</a>
-            </nav>
-            <div class="sb-main">A structural rail — rigid border, glass fill, one accent for the active route.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── FIELDS & CONTROLS ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Fields &amp; controls</span><span class="kg-rule"></span><span class="kg-count">Field · Input group · Native select · Button group · Kbd · Spinner</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Field</span>
-          <div class="sl-field invalid">
-            <label class="sl-label">Workspace URL</label>
-            <input class="sl-input" value="universe" />
-            <span class="fd-err">Already taken — try another.</span>
-          </div>
-          <div class="sl-field">
-            <label class="sl-label">Display name</label>
-            <input class="sl-input" placeholder="universe.audio" />
-            <span class="fd-desc">Shown on your public profile.</span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Input group</span>
-          <div class="sl-input-group">
-            <span class="ig-addon">https://</span>
-            <input value="universe.audio" />
-          </div>
-          <div class="sl-input-group">
-            <input placeholder="Search tracks" />
-            <span class="ig-addon suffix">⌘K</span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Native select</span>
-          <span class="sl-native-wrap">
-            <select class="sl-native">
-              <option>Solid surface</option>
-              <option>Glass surface</option>
-              <option>Liquid surface</option>
-            </select>
-          </span>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Button group</span>
-          <div class="sl-btn-group">
-            <button>Day</button>
-            <button class="on">Week</button>
-            <button>Month</button>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Kbd</span>
-          <div class="kit-row" style="justify-content:space-between;">
-            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);">Command</span>
-            <span><kbd class="sl-kbd">⌘</kbd> <kbd class="sl-kbd">K</kbd></span>
-          </div>
-          <div class="kit-row" style="justify-content:space-between;">
-            <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);">Save</span>
-            <span><kbd class="sl-kbd">⌘</kbd> <kbd class="sl-kbd">S</kbd></span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Spinner</span>
-          <div class="kit-row" style="align-items:center; gap:1rem;">
-            <span class="sl-spinner"></span>
-            <span class="sl-spinner" style="width:20px; height:20px;"></span>
-            <span class="sl-spinner" style="width:28px; height:28px; border-width:3px; color:var(--accent);"></span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── CONTENT & DATA ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Content &amp; data</span><span class="kg-rule"></span><span class="kg-count">Chart · Carousel · Item · Empty · Collapsible · Typography · Fonts</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w8">
-          <span class="kit-cap">Chart</span>
-          <div class="sl-chart">
-            <span class="bar" style="height:38%"></span>
-            <span class="bar" style="height:62%"></span>
-            <span class="bar" style="height:48%"></span>
-            <span class="bar" style="height:80%"></span>
-            <span class="bar" style="height:55%"></span>
-            <span class="bar" style="height:92%"></span>
-            <span class="bar" style="height:70%"></span>
-            <span class="bar" style="height:44%"></span>
-            <span class="bar" style="height:66%"></span>
-            <span class="bar" style="height:30%"></span>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Empty</span>
-          <div class="sl-empty">
-            <span class="em-ic">♪</span>
-            <span class="em-t">No tracks yet</span>
-            <span class="em-d">Import audio to start a library.</span>
-            <button class="sl-btn default sm">Import</button>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Carousel</span>
-          <div class="sl-carousel-wrap">
-            <div class="sl-carousel">
-              <div class="slide">01</div>
-              <div class="slide">02</div>
-              <div class="slide">03</div>
-              <div class="slide">04</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Item</span>
-          <div class="kit-col" style="gap:0.6rem;">
-            <div class="sl-item">
-              <span class="sl-ava">U</span>
-              <div class="it-body"><div class="it-title">universe.audio</div><div class="it-sub">Audio platform · Live</div></div>
-              <button class="sl-btn outline sm">Open</button>
-            </div>
-            <div class="sl-item">
-              <span class="sl-ava" style="background:rgba(var(--glass-tint),0.1); color:var(--ink);">SL</span>
-              <div class="it-body"><div class="it-title">Structured Liquidity</div><div class="it-sub">Design language</div></div>
-              <button class="sl-btn outline sm">Open</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w4">
-          <span class="kit-cap">Collapsible</span>
-          <details class="sl-collapsible">
-            <summary>Theme tokens</summary>
-            <div class="cc-body">Accent, blur, border weight, corner radius, and flat-shadow offset — every knob behind the language.</div>
-          </details>
-        </div>
-
-        <div class="glass kit-cell w8">
-          <span class="kit-cap">Typography</span>
-          <div class="sl-type">
-            <h4 class="tg">Structure holds it.</h4>
-            <p class="tg">Heavy grotesk for impact, monospace for labels, and a measured body that stays legible through the glass. Inline <code class="tg">--accent</code> tokens carry the system.</p>
-            <blockquote>Liquidity is for depth, never at the expense of clarity.</blockquote>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6 pairings-card">
-          <span class="kit-cap">Fonts</span>
-          <div class="pairings">
-            <div class="pair">
-              <div class="pair-title">Set 01 · Canonical</div>
-              <div class="pair-fonts">
-                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-archivo">Archivo</span></span>
-                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-outfit">Outfit</span></span>
-                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-spacemono">Space Mono</span></span>
-              </div>
-              <div class="pair-note">Confident grotesque header, warm body, technical mono — the default.</div>
-            </div>
-            <div class="pair">
-              <div class="pair-title">Set 02 · Editorial</div>
-              <div class="pair-fonts">
-                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-syne">Syne</span></span>
-                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-inter">Inter</span></span>
-                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-ibmplexmono">IBM Plex Mono</span></span>
-              </div>
-              <div class="pair-note">Expressive display over a neutral workhorse — marketing and brand surfaces.</div>
-            </div>
-            <div class="pair">
-              <div class="pair-title">Set 03 · Modern</div>
-              <div class="pair-fonts">
-                <span class="pf"><span class="pf-role">Header</span><span class="pf-name ff-bricolage">Bricolage Grotesque</span></span>
-                <span class="pf"><span class="pf-role">Body</span><span class="pf-name ff-jakarta">Plus Jakarta Sans</span></span>
-                <span class="pf"><span class="pf-role">Detail</span><span class="pf-name ff-jetbrainsmono">JetBrains Mono</span></span>
-              </div>
-              <div class="pair-note">Quirky contemporary grotesque with a clean body and developer mono.</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ───── MENUS & OVERLAYS ───── -->
-    <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Menus &amp; overlays</span><span class="kg-rule"></span><span class="kg-count">Navigation menu · Context menu · Alert dialog · Drawer</span></div>
-      <div class="kit-grid">
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Navigation menu</span>
-          <nav class="sl-navmenu">
-            <div class="nm-item">
-              <button>Products <span class="chev">▾</span></button>
-              <div class="nm-panel">
-                <a href="#">universe.audio</a>
-                <a href="#">Structured Liquidity</a>
-                <a href="#">Interspace</a>
-              </div>
-            </div>
-            <div class="nm-item">
-              <button>Resources <span class="chev">▾</span></button>
-              <div class="nm-panel">
-                <a href="#">Documentation</a>
-                <a href="#">Tokens</a>
-                <a href="#">Changelog</a>
-              </div>
-            </div>
-            <div class="nm-item"><button>Pricing</button></div>
-          </nav>
-          <span class="mono" style="font-size:0.74rem; color:var(--ink-dim);">Hover an item for its flyout.</span>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Context menu</span>
-          <div class="kit-row" style="align-items:flex-start; gap:0.8rem;">
-            <div class="sl-ctx-area" style="flex:1;">Right-click surface</div>
-            <div class="sl-ctx-menu">
-              <div class="item">Play<span class="k">↵</span></div>
-              <div class="item">Add to queue<span class="k">⌘Q</span></div>
-              <div class="sep"></div>
-              <div class="item">Share</div>
-              <div class="item">Remove</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Alert dialog</span>
-          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A blocking confirm for destructive actions.</p>
-          <button class="sl-btn destructive" data-open-overlay="sl-alert-1">Delete project</button>
-        </div>
-
-        <div class="glass kit-cell w6">
-          <span class="kit-cap">Drawer</span>
-          <p class="mono" style="font-size:0.78rem; color:var(--ink-dim); margin:0;">A panel that rises from the bottom edge.</p>
-          <button class="sl-btn secondary" data-open-overlay="sl-drawer-1">Open drawer</button>
         </div>
 
       </div>
