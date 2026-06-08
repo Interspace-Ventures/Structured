@@ -72,6 +72,15 @@
   .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,rgb(var(--edge)) 80%,transparent);stroke-width:1.7;}
   .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 22%,transparent);}
 
+  /* Navbar logo — container-less: strip the glass tile (border / fill / blur /
+     hard shadow / specular gloss) so only the liquid hypercube wireframe shows.
+     Scoped to .nav .brand so the hero/CTA/footer marks keep their tiles. The
+     faint 22% inner-glass vanishes without the tile, so boost it like the hero. */
+  .nav .brand .glyph{border:0;background:none;box-shadow:none;
+    backdrop-filter:none;-webkit-backdrop-filter:none;overflow:visible;}
+  .nav .brand .glyph::after{content:none;}
+  .nav .brand .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 50%,transparent);}
+
   /* Big hero hypercube — container-less, oversized, sitting behind the hero
      copy as a translucent background mark. No glass tile (border/fill/shadow/
      blur/gloss stripped); the SVG's non-scaling strokes look hair-thin blown
