@@ -565,6 +565,13 @@ function mountGallery(): void {
     }
     group.querySelectorAll<HTMLElement>(".kit-cell").forEach((cell) => {
       cell.setAttribute("data-cat", cat.key);
+      // Prefix each card's caption with its category, e.g. "Actions — Badge".
+      // Guarded so a re-run doesn't stack the prefix; skips capless spacers.
+      const cap = cell.querySelector<HTMLElement>(".kit-cap");
+      if (cap && cap.dataset.cat !== cat.key) {
+        cap.textContent = `${cat.label} — ${cap.textContent?.trim() ?? ""}`;
+        cap.dataset.cat = cat.key;
+      }
       grid.appendChild(cell);
     });
   });
