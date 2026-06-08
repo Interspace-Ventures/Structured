@@ -69,8 +69,9 @@
      --ink (adapts per mode, matches the wordmark) to keep it crisp. */
   .brand .glyph.is-cube{--s:40px;border:0;background:none;
     -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;overflow:visible;}
-  .brand .glyph.is-cube .lw-cube-shell,
-  .brand .glyph.is-cube .lw-cube-edge{stroke:var(--ink);}
+  .brand .glyph.is-cube .lw-cube-shell{stroke:var(--ink);stroke-width:3.2;}
+  .brand .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,var(--ink) 50%,transparent);stroke-width:1.5;}
+  .brand .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 24%,transparent);}
   /* drop the square specular gloss too, else a faint square remains */
   .brand .glyph.is-cube::after{content:none;}
 
