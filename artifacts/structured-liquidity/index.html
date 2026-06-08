@@ -63,17 +63,30 @@
     border-radius:50%;}
   @media (prefers-reduced-motion:reduce){.sl-tweaks-fab:hover{transform:none}}
 
-  /* Brand logo: drop the outer square container, leave just the hypercube.
-     The cube wireframe is --edge (black in both modes), which would vanish
-     on the dark nav once the glass container is gone — so recolor it to
-     --ink (adapts per mode, matches the wordmark) to keep it crisp. */
-  .brand .glyph.is-cube{--s:40px;border:0;background:none;
-    -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;overflow:visible;}
-  .brand .glyph.is-cube .lw-cube-shell{stroke:var(--ink);stroke-width:3;}
-  .brand .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,var(--ink) 90%,transparent);stroke-width:2;}
-  .brand .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 32%,transparent);}
-  /* drop the square specular gloss too, else a faint square remains */
-  .brand .glyph.is-cube::after{content:none;}
+  /* Unified hypercube logo — a glass tile holding the liquid-filled
+     hypercube, rendered identically everywhere (nav, hero, CTA, footer) so
+     the mark matches across the whole page. The default wireframe is --edge
+     (black) and vanishes on dark surfaces, so recolor it to --ink and lift
+     the inner edges/links so the cube-in-cube reads at every size. */
+  .glyph.is-cube .lw-cube-shell{stroke:var(--ink);stroke-width:2.6;}
+  .glyph.is-cube .lw-cube-edge{stroke:color-mix(in srgb,var(--ink) 80%,transparent);stroke-width:1.7;}
+  .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 22%,transparent);}
+
+  /* Big hero hypercube on the right. The cube SVG uses non-scaling strokes
+     that look hair-thin blown up this large, so let the wireframe scale with
+     the tile and give it the language's flat offset shadow. */
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(2rem,5vw,4rem);align-items:center;max-width:1100px;}
+  .hero-cube-wrap{display:flex;align-items:center;justify-content:center;}
+  .hero-cube{--s:clamp(190px,24vw,300px);border-width:3px;
+    box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow), inset 0 1px 0 rgba(255,255,255,0.5);}
+  .hero-cube.is-cube .lw-cube-shell,.hero-cube.is-cube .lw-cube-edge{vector-effect:none;}
+  .hero-cube.is-cube .lw-cube-shell{stroke-width:1.8;}
+  .hero-cube.is-cube .lw-cube-edge{stroke-width:1.1;}
+  @media (max-width:940px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-cube-wrap{order:-1;}
+    .hero-cube{--s:clamp(150px,42vw,230px);}
+  }
 
   /* Each kit cell is its own stacking context, so a hover tooltip/hover-card
      would paint behind later sibling cells. The kit CSS lifts the host cell
@@ -360,6 +373,9 @@
         <a class="btn solid" href="#components"><i data-lucide="download"></i>Install</a>
         <a class="btn glassy" href="#showcase"><i data-lucide="sparkles"></i>Showcase</a>
       </div>
+    </div>
+    <div class="hero-cube-wrap reveal" aria-hidden="true">
+      <span class="glyph hero-cube"></span>
     </div>
   </div>
 </header>

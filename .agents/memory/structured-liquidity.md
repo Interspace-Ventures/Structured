@@ -47,3 +47,10 @@ Leading icons are the design-language **default** for navbars and buttons. They 
 **Why:** the SL language mirrors shadcn, whose canonical icon partner is Lucide. The site is plain HTML/CSS/JS, so the vanilla `lucide` package fits; the React-era deps (`lucide-react`, radix, react, etc.) still listed in `package.json` are leftovers from the stripped scaffold and are **unused / non-functional** here.
 
 **How to apply:** to add an icon — drop `<i data-lucide="name"></i>` as the first child of the nav link / `.btn` / `.sl-btn`, then `import { Name }` and add it to the `mountIcons()` icons map (PascalCase). Sizing/alignment is one inline `<style>` block in `index.html` (`.btn svg`, `.sl-btn svg`, `.nav .links a` made inline-flex). `.btn`/`.sl-btn` already are inline-flex with a gap, so icons align for free.
+
+## Cube logo (`.glyph`) reuse gotchas
+The hypercube mark = base `.glyph` glass tile + SVG hypercube/liquid added by `liquid-word.js buildCube()` (sets `.is-cube`, removes the CSS `::before` liquid). To make the mark identical everywhere, style `.glyph.is-cube` globally (light `--ink` shell/edge strokes + accent innerglass) instead of scoping to `.brand` — the base tile then stays on nav/footer/CTA/hero alike.
+
+**Gotcha 1 — sizing:** `.glyph` is a `<span>` (display:inline); its `width/height:var(--s)` only take effect when it's a flex/grid *item*. It renders elsewhere only because `.brand`/CTA parents are flex. A new instance in a plain block collapses to a sliver — wrap it in a `display:flex` container.
+
+**Gotcha 2 — big sizes:** cube strokes use `vector-effect:non-scaling-stroke`, so a blown-up cube gets hair-thin wireframe. For a large hero cube, override `vector-effect:none` (strokes then scale with the square viewBox) and set explicit stroke-widths. Make the override win specificity with `.hero-cube.is-cube .lw-cube-*` (ties the global 3-class rule, later in source).
