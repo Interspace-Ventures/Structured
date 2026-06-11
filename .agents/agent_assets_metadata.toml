@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "XghPKSfL-ueIYAYC-Z92x"
+uri = "file://exports/structured-liquidity-mark.png"
+type = "image"
+title = "Structured Liquidity icon mark (1024×1024 PNG)"
