@@ -250,6 +250,32 @@
   .sl-sep{height:var(--border-w);background:rgb(var(--edge));border:none;width:100%;margin:0;}
   .sl-sep.vert{width:var(--border-w);height:1.1em;align-self:center;margin:0 0.7rem;}
 
+  /* ── Neobrutalist loading spinner ──────────────────────────────────────────
+     Override the round border-ring from the verbatim kit CSS with a blocky
+     square that ratchets in hard discrete steps above a flat offset shadow —
+     sharp 90° corners, one accent, flat (never blurred) shadow, mechanical
+     motion. The empty <span class="sl-spinner"> markup is unchanged, so the
+     button, the kit demo, and every size/color override still work. */
+  .sl-spinner{
+    position:relative; display:inline-block; vertical-align:middle;
+    width:14px; height:14px;
+    border:0; border-radius:0; background:transparent;
+    animation:none; color:var(--accent); box-sizing:border-box;
+  }
+  .sl-spinner::before, .sl-spinner::after{ content:""; position:absolute; inset:0; box-sizing:border-box; }
+  /* grounded flat offset shadow (light source is fixed — never rotates) */
+  .sl-spinner::before{ background:rgb(var(--edge)); transform:translate(2.5px,2.5px); }
+  /* the solid block that tumbles corner-over-corner in 8 hard steps */
+  .sl-spinner::after{
+    background:currentColor; border:2px solid rgb(var(--edge));
+    transform-origin:50% 50%;
+    animation:sl-ratchet 0.8s steps(8,end) infinite;
+  }
+  @keyframes sl-ratchet{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){
+    .sl-spinner::after{ animation-duration:2.8s; }
+  }
+
   .sl-aspect{aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--mono);font-size:0.78rem;color:var(--accent-ink);}
 
   .sl-scroll{max-height:128px;overflow-y:auto;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);}
