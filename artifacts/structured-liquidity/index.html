@@ -366,6 +366,10 @@
   #adopt .kit-cap{display:inline-flex;align-items:center;gap:0.45em;}
   #adopt .kit-cap svg{width:1.05em;height:1.05em;color:var(--accent);flex:0 0 auto;}
   #adopt .kit-cell .sl-btn{align-self:flex-start;}
+  /* OTP cells shrink to fit their cell so they never spill out on narrow columns
+     (kit CSS is verbatim; this overrides the fixed 42px width, capping it as a max). */
+  .sl-otp{min-width:0;}
+  .sl-otp input{flex:1 1 0;min-width:0;max-width:42px;box-sizing:border-box;}
   .adopt-h{display:flex;align-items:center;justify-content:space-between;gap:0.7rem;}
   .code-block{margin:0;font-family:var(--mono);font-size:0.74rem;line-height:1.55;color:var(--ink);
     background:rgba(var(--glass-tint),0.06);border:var(--border-w) solid rgb(var(--edge));
