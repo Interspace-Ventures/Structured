@@ -63,3 +63,7 @@ To adopt the kit, include the three stylesheets and the kit script, then use the
 2. Follow the **Hard rules** above when generating any new component, so output stays on-brand.
 3. Pull component markup from [registry.json](registry.json) instead of inventing class names.
 4. Pick a font pairing from the list above (default: Archivo · Outfit · Space Mono).
+
+## Source
+
+The full source — this specimen page, the three stylesheets, the kit script, and these machine-readable files — is on GitHub: https://github.com/heyinterspace/Structured

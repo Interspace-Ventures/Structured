@@ -1,6 +1,6 @@
 # Structured Liquidity
 
-A live, deployable landing page for **Structured Liquidity** — an open UI design language that pairs rigid containment (sharp 90° corners, flat blurless offset shadows, strict grid) with viscous depth (semi-transparent light-reflecting glass) and semantic clarity. The page is both the specimen and the documentation of the language, with a live in-page theme tweaker.
+A live, deployable landing page for **Structured Liquidity** — an open UI design language that pairs rigid containment (sharp 90° corners, flat blurless offset shadows, strict grid) with viscous depth (semi-transparent light-reflecting glass) and semantic clarity. The page is both the specimen and the documentation of the language, with a live in-page theme tweaker. Structured Liquidity is an Interspace Venture (est. 2026); the source is on GitHub at https://github.com/heyinterspace/Structured — the in-page **Install** CTAs link there.
 
 ## Run & Operate
 
@@ -17,7 +17,7 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
 
 ## Where things live
 
-- `artifacts/structured-liquidity/index.html` — the full specimen markup (nav, hero, three pillars, six principles, 40+ component kit, showcase, footer, overlays, toast stack)
+- `artifacts/structured-liquidity/index.html` — the full specimen markup (nav, hero, three pillars with their working rules, 40+ component kit, showcase, footer, overlays, toast stack)
 - `artifacts/structured-liquidity/public/` — the original design system, copied verbatim:
   - `structured-liquidity.css` — **token source of truth** (`:root` knobs + fixed palette), backdrop, hero
   - `structured-liquidity-components.css`, `structured-liquidity-kit.css` — component styles
@@ -36,7 +36,7 @@ A live, deployable landing page for **Structured Liquidity** — an open UI desi
 
 ## Product
 
-A single-page specimen + reference for the Structured Liquidity design language: it explains the three pillars and six principles, demonstrates a full component kit, and lets visitors retheme it live (accent, glass blur, corner radius, border weight, flat-shadow offset, display font, dark/light mode).
+A single-page specimen + reference for the Structured Liquidity design language: it explains the three pillars (each with its working rules), demonstrates a full component kit, and lets visitors retheme it live (accent, glass blur, corner radius, border weight, flat-shadow offset, display font, dark/light mode).
 
 ## Agent accessibility (make the language adoptable by AI)
 
