@@ -24,6 +24,7 @@ import {
   ExternalLink,
   FileText,
   Ghost,
+  Info,
   LayoutGrid,
   Library,
   Palette,
@@ -33,6 +34,7 @@ import {
   Sparkles,
   Square,
   Trash2,
+  TriangleAlert,
   Type,
 } from "lucide";
 
@@ -476,6 +478,7 @@ function mountIcons(): void {
       ExternalLink,
       FileText,
       Ghost,
+      Info,
       LayoutGrid,
       Library,
       Palette,
@@ -485,6 +488,7 @@ function mountIcons(): void {
       Sparkles,
       Square,
       Trash2,
+      TriangleAlert,
       Type,
     },
     attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
