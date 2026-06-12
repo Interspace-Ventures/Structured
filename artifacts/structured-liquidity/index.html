@@ -270,6 +270,10 @@
   @media (prefers-reduced-motion: reduce){
     .sl-spinner{ animation-duration:9s; }
   }
+  /* Inside a button the accent fill would vanish against the accent background,
+     so the spinner inherits the button's ink (--accent-ink → black on the
+     default accent, and re-themes with it). */
+  .sl-btn .sl-spinner, .btn .sl-spinner{ color:inherit; }
 
   .sl-aspect{aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--mono);font-size:0.78rem;color:var(--accent-ink);}
 
