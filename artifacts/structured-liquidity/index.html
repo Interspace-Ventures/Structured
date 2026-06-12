@@ -370,6 +370,14 @@
      (kit CSS is verbatim; this overrides the fixed 42px width, capping it as a max). */
   .sl-otp{min-width:0;}
   .sl-otp input{flex:1 1 0;min-width:0;max-width:42px;box-sizing:border-box;}
+  /* Gallery overflow guards: these cards hold non-wrapping / intrinsic-width content
+     that spills past a narrow masonry column. The verbatim kit/components CSS only
+     wraps them at viewport <=600px, but media queries don't fire per-column — so cap
+     them here (scoped to the gallery). */
+  #components .sl-navbar .nb-right{flex-wrap:wrap;}
+  #components .sl-navmenu{flex-wrap:wrap;max-width:100%;}
+  #components .sl-table{table-layout:fixed;}
+  #components .sl-table th,#components .sl-table td{overflow-wrap:anywhere;}
   .adopt-h{display:flex;align-items:center;justify-content:space-between;gap:0.7rem;}
   .code-block{margin:0;font-family:var(--mono);font-size:0.74rem;line-height:1.55;color:var(--ink);
     background:rgba(var(--glass-tint),0.06);border:var(--border-w) solid rgb(var(--edge));
