@@ -250,30 +250,25 @@
   .sl-sep{height:var(--border-w);background:rgb(var(--edge));border:none;width:100%;margin:0;}
   .sl-sep.vert{width:var(--border-w);height:1.1em;align-self:center;margin:0 0.7rem;}
 
-  /* ── Neobrutalist loading spinner ──────────────────────────────────────────
-     Override the round border-ring from the verbatim kit CSS with a blocky
-     square that ratchets in hard discrete steps above a flat offset shadow —
-     sharp 90° corners, one accent, flat (never blurred) shadow, mechanical
-     motion. The empty <span class="sl-spinner"> markup is unchanged, so the
-     button, the kit demo, and every size/color override still work. */
+  /* ── Hypercube loading spinner ──────────────────────────────────────────────
+     Override the round border-ring from the verbatim kit CSS with the Structured
+     Liquidity mark itself — the isometric hypercube wireframe (same path geometry
+     as the site favicon) — turning slowly. Drawn as an alpha mask so
+     background:currentColor tints it in the accent, and the demo spans' inline
+     width/height/color overrides still apply. The <span class="sl-spinner">
+     markup is unchanged. */
   .sl-spinner{
-    position:relative; display:inline-block; vertical-align:middle;
-    width:14px; height:14px;
-    border:0; border-radius:0; background:transparent;
-    animation:none; color:var(--accent); box-sizing:border-box;
+    --sl-hypercube:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='8' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M50 18 L77.71 34 L77.71 66 L50 82 L22.29 66 L22.29 34 Z'/%3E%3Cpath d='M50 36.56 L61.64 43.28 L61.64 56.72 L50 63.44 L38.36 56.72 L38.36 43.28 Z'/%3E%3Cpath d='M50 18 L50 36.56 M77.71 34 L61.64 43.28 M77.71 66 L61.64 56.72 M50 82 L50 63.44 M22.29 66 L38.36 56.72 M22.29 34 L38.36 43.28'/%3E%3C/g%3E%3C/svg%3E");
+    display:inline-block; vertical-align:middle;
+    width:18px; height:18px;
+    border:0; border-radius:0; background:currentColor; color:var(--accent);
+    -webkit-mask:var(--sl-hypercube) center / contain no-repeat;
+    mask:var(--sl-hypercube) center / contain no-repeat;
+    animation:sl-hypercube-turn 3s linear infinite;
   }
-  .sl-spinner::before, .sl-spinner::after{ content:""; position:absolute; inset:0; box-sizing:border-box; }
-  /* grounded flat offset shadow (light source is fixed — never rotates) */
-  .sl-spinner::before{ background:rgb(var(--edge)); transform:translate(2.5px,2.5px); }
-  /* the solid block that tumbles corner-over-corner in 8 hard steps */
-  .sl-spinner::after{
-    background:currentColor; border:2px solid rgb(var(--edge));
-    transform-origin:50% 50%;
-    animation:sl-ratchet 0.8s steps(8,end) infinite;
-  }
-  @keyframes sl-ratchet{ to{ transform:rotate(360deg); } }
+  @keyframes sl-hypercube-turn{ to{ transform:rotate(360deg); } }
   @media (prefers-reduced-motion: reduce){
-    .sl-spinner::after{ animation-duration:2.8s; }
+    .sl-spinner{ animation-duration:9s; }
   }
 
   .sl-aspect{aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--mono);font-size:0.78rem;color:var(--accent-ink);}
@@ -887,13 +882,13 @@
           <span class="kit-cap">Checkbox</span>
           <div class="kit-col">
             <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Liquid glass surfaces
+              <span class="sl-box"><i data-lucide="check" class="tick"></i></span>Liquid glass surfaces
             </div>
             <div class="sl-check" data-toggle-aria="checked" aria-checked="false" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Flat shadows
+              <span class="sl-box"><i data-lucide="check" class="tick"></i></span>Flat shadows
             </div>
             <div class="sl-check" data-toggle-aria="checked" aria-checked="true" tabindex="0">
-              <span class="sl-box"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 13l4 4L19 7"/></svg></span>Sharp 90° corners
+              <span class="sl-box"><i data-lucide="check" class="tick"></i></span>Sharp 90° corners
             </div>
           </div>
         </div>
