@@ -254,6 +254,42 @@
       ]
     },
     {
+      "name": "Skeleton · card",
+      "cap": "Skeleton · card",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ],
+      "kinds": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "Skeleton · text",
+      "cap": "Skeleton · text",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ],
+      "kinds": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "Skeleton · list",
+      "cap": "Skeleton · list",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ],
+      "kinds": [
+        "feedback"
+      ]
+    },
+    {
       "name": "Spinner",
       "cap": "Spinner",
       "category": "data",
