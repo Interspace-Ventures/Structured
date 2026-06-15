@@ -642,7 +642,8 @@ function mountGallery(): void {
   // chip clears that axis. Markup degrades gracefully if this never runs.
   const makeRow = (axis: string, axisLabel: string): HTMLElement => {
     const row = document.createElement("div");
-    row.className = "kit-filter-row";
+    row.className =
+      "kit-filter-row " + (axis === "cat" ? "is-primary" : "is-secondary");
     const lbl = document.createElement("span");
     lbl.className = "kit-filter-axis";
     lbl.textContent = axisLabel;
@@ -669,11 +670,28 @@ function mountGallery(): void {
     if (presentFacets.has(f.key)) facetBar.appendChild(makeChip(f.key, f.label));
   });
 
+  // Live count of how many cards the current filters show — makes a filter
+  // change unmistakable (esp. for the secondary axis) and announces to AT.
+  const count = document.createElement("p");
+  count.className = "kit-result-count";
+  count.setAttribute("aria-live", "polite");
+  count.setAttribute("aria-atomic", "true");
+
   const filters = document.createElement("div");
   filters.className = "kit-filterbars";
-  filters.append(catRow, facetRow);
+  filters.append(catRow, facetRow, count);
 
   groups.replaceWith(filters, grid);
+
+  const updateCount = (): void => {
+    const total = grid.querySelectorAll(".kit-cell").length;
+    const shown = grid.querySelectorAll(".kit-cell:not(.is-hidden)").length;
+    count.innerHTML =
+      shown === total
+        ? `<b>${total}</b> components`
+        : `<b>${shown}</b> of ${total} shown`;
+  };
+  updateCount();
 
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
@@ -717,6 +735,7 @@ function mountGallery(): void {
 
     if (reduceMotion) {
       cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+      updateCount();
       return;
     }
 
@@ -741,6 +760,7 @@ function mountGallery(): void {
     });
 
     cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+    updateCount();
 
     const last = new Map<HTMLElement, DOMRect>();
     cells.forEach((c) => {
