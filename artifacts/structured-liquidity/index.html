@@ -299,8 +299,14 @@
   .sl-meter .mt-fill.warn{background:var(--neg);}
 
   /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
-  .sl-toolbar{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;padding:0.45rem 0.5rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);}
-  .sl-toolbar .sl-sep.vert{width:var(--border-w);align-self:stretch;min-height:1.4em;background:rgb(var(--edge));margin:0 0.15rem;}
+  .sl-toolbar{display:flex;align-items:center;gap:0.3rem;flex-wrap:nowrap;padding:0.4rem 0.45rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);overflow-x:auto;scrollbar-width:none;}
+  .sl-toolbar::-webkit-scrollbar{display:none;}
+  .sl-toolbar > *{flex:0 0 auto;}
+  .sl-toolbar .sl-sep.vert{width:var(--border-w);align-self:stretch;min-height:1.4em;background:rgb(var(--edge));margin:0 0.1rem;}
+  /* keep the bar compact so it sits on one tidy row inside the demo card */
+  .sl-toolbar .sl-toggle-group button{padding:0.4rem 0.44rem;}
+  .sl-toolbar .sl-btn.sm{padding:0.4rem 0.55rem;}
+  .sl-toolbar :is([data-lucide],svg){width:16px;height:16px;}
 
   .sl-aspect{aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--mono);font-size:0.78rem;color:var(--accent-ink);}
 
