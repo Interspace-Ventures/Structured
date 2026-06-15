@@ -461,6 +461,78 @@
   .ff-spacemono{font-family:"Space Mono",ui-monospace,monospace;font-weight:400;}
   .ff-ibmplexmono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:400;}
   .ff-jetbrainsmono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;}
+
+  /* ============================================================
+     LIQUID MOTION LAYER  (specimen-only; layered over the verbatim public CSS)
+     Principle: the rigid container holds — sharp corners, flat offset shadow,
+     grid never bounce or morph. The liquid INSIDE reacts: it ripples, floods,
+     settles with viscous overshoot, and catches light. One shared easing so
+     every motion feels like the same material. All gated behind
+     prefers-reduced-motion so it's accessibility-safe.
+     ============================================================ */
+  :root{
+    --ease-liquid:cubic-bezier(.22,1,.36,1);        /* settle, no overshoot */
+    --ease-liquid-over:cubic-bezier(.34,1.4,.5,1);  /* viscous overshoot     */
+    --motion-fast:.16s; --motion:.34s; --motion-slow:.5s;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    /* --- press ripple: liquid radial from the click point --- */
+    .btn, .sl-btn{ position:relative; overflow:hidden; }
+    .sl-ripple{
+      position:absolute; border-radius:50%; pointer-events:none; z-index:0;
+      transform:translate(-50%,-50%) scale(0); opacity:.5;
+      background:radial-gradient(circle, rgba(255,255,255,.5), rgba(255,255,255,0) 70%);
+      animation:sl-ripple .6s var(--ease-liquid) forwards;
+    }
+    @keyframes sl-ripple{ to{ transform:translate(-50%,-50%) scale(1); opacity:0; } }
+
+    /* --- liquid checkbox: box floods, tick draws in with overshoot --- */
+    .sl-box{ transition:background var(--motion) var(--ease-liquid); }
+    .sl-box .tick{ transform:scale(.3); transition:opacity var(--motion-fast) var(--ease-liquid), transform var(--motion) var(--ease-liquid-over); }
+    .sl-check[aria-checked="true"] .sl-box .tick{ transform:scale(1); }
+
+    /* --- liquid switch: smooth flood + a sheen sweep when it activates --- */
+    .sl-switch{ overflow:hidden; transition:background var(--motion) var(--ease-liquid); }
+    .sl-switch::after{
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:0; z-index:2;
+      background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+      transform:translateX(-120%);
+    }
+    .sl-switch[aria-checked="true"]::after{ animation:sl-sheen .55s var(--ease-liquid); }
+    @keyframes sl-sheen{ 0%{ opacity:.9; transform:translateX(-120%);} 100%{ opacity:0; transform:translateX(120%);} }
+
+    /* --- flowing tab marker: the accent glides between tabs (FLIP) --- */
+    .sl-tabs.is-flowing .tablist{ position:relative; }
+    .sl-tabs.is-flowing .tablist button{ position:relative; z-index:1; background:transparent; transition:color var(--motion) var(--ease-liquid); }
+    .sl-tabs.is-flowing .tablist button[aria-selected="true"]{ background:transparent; color:var(--accent-ink); }
+    .sl-tab-marker{ position:absolute; top:0; bottom:0; left:0; z-index:0; background:var(--accent);
+      width:var(--tab-w,0); transform:translateX(var(--tab-x,0));
+      transition:transform var(--motion) var(--ease-liquid-over), width var(--motion) var(--ease-liquid); }
+
+    /* --- settling menus / popovers: coalesce in (blur ramp + overshoot) --- */
+    .sl-menu{ filter:blur(7px); transition:opacity var(--motion-fast) var(--ease-liquid), transform var(--motion) var(--ease-liquid-over), filter var(--motion) var(--ease-liquid); }
+    .sl-menu.open{ filter:blur(0); }
+
+    /* --- settling dialog: blur ramp + unified liquid easing --- */
+    .sl-dialog{ filter:blur(8px); transition:transform var(--motion) var(--ease-liquid-over), filter var(--motion) var(--ease-liquid); }
+    .sl-overlay.open .sl-dialog{ filter:blur(0); }
+    .sl-sheet{ transition:transform var(--motion-slow) var(--ease-liquid); }
+
+    /* --- accordion: viscous height expand + content settles in --- */
+    .sl-acc-body{ transition:max-height var(--motion) var(--ease-liquid); }
+    .sl-acc-body > p{ opacity:0; transform:translateY(-6px); transition:opacity var(--motion) var(--ease-liquid), transform var(--motion) var(--ease-liquid); }
+    .sl-acc-item.open .sl-acc-body > p{ opacity:1; transform:none; }
+
+    /* --- hover refraction: pointer-tracked specular highlight on cards --- */
+    .kit-cell, .show-card{ position:relative; }
+    .kit-cell::after, .show-card::after{
+      content:""; position:absolute; inset:0; pointer-events:none; z-index:2; opacity:0;
+      border-radius:inherit;
+      background:radial-gradient(200px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.07), transparent 55%);
+      transition:opacity var(--motion) var(--ease-liquid);
+    }
+    .kit-cell:hover::after, .show-card:hover::after{ opacity:1; }
+  }
 </style>
 </head>
 <body>

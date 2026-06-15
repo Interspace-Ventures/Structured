@@ -873,11 +873,86 @@ function mountNumberFields(): void {
   });
 }
 
+/** Liquid motion layer — press ripples, flowing tab marker, hover refraction.
+ *  CSS lives in index.html's inline <style> (gated on prefers-reduced-motion);
+ *  this only wires the pointer coordinates / FLIP geometry. */
+const prefersReducedMotion = (): boolean =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function mountRipples(): void {
+  if (prefersReducedMotion()) return;
+  document.addEventListener("pointerdown", (e) => {
+    const target = (e.target as HTMLElement | null)?.closest<HTMLElement>(".btn, .sl-btn");
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2.4;
+    const span = document.createElement("span");
+    span.className = "sl-ripple";
+    span.setAttribute("aria-hidden", "true");
+    span.style.width = `${size}px`;
+    span.style.height = `${size}px`;
+    span.style.left = `${e.clientX - rect.left}px`;
+    span.style.top = `${e.clientY - rect.top}px`;
+    target.appendChild(span);
+    span.addEventListener("animationend", () => span.remove());
+  });
+}
+
+function mountTabFlow(): void {
+  if (prefersReducedMotion()) return;
+  document.querySelectorAll<HTMLElement>(".sl-tabs").forEach((tabs) => {
+    const list = tabs.querySelector<HTMLElement>(".tablist");
+    if (!list) return;
+    const btns = Array.from(list.querySelectorAll<HTMLButtonElement>("button"));
+    if (!btns.length) return;
+    tabs.classList.add("is-flowing");
+    const marker = document.createElement("span");
+    marker.className = "sl-tab-marker";
+    marker.setAttribute("aria-hidden", "true");
+    list.insertBefore(marker, list.firstChild);
+    const move = (): void => {
+      const active = btns.find((b) => b.getAttribute("aria-selected") === "true") ?? btns[0];
+      list.style.setProperty("--tab-x", `${active.offsetLeft}px`);
+      list.style.setProperty("--tab-w", `${active.offsetWidth}px`);
+    };
+    btns.forEach((b) => b.addEventListener("click", () => requestAnimationFrame(move)));
+    move();
+    window.addEventListener("resize", move);
+    void document.fonts.ready.then(move);
+  });
+}
+
+function mountRefraction(): void {
+  if (prefersReducedMotion()) return;
+  let raf = 0;
+  let pending: { el: HTMLElement; x: number; y: number } | null = null;
+  const flush = (): void => {
+    raf = 0;
+    if (!pending) return;
+    pending.el.style.setProperty("--mx", `${pending.x}%`);
+    pending.el.style.setProperty("--my", `${pending.y}%`);
+  };
+  document.addEventListener("pointermove", (e) => {
+    const card = (e.target as HTMLElement | null)?.closest<HTMLElement>(".kit-cell, .show-card");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    pending = {
+      el: card,
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
+    };
+    if (!raf) raf = requestAnimationFrame(flush);
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
   mountMarquee();
   mountNumberFields();
+  mountRipples();
+  mountTabFlow();
+  mountRefraction();
   mountIcons();
   mountCopy();
   const state = load();
