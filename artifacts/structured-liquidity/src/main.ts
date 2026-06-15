@@ -730,6 +730,33 @@ function mountGallery(): void {
     });
   };
 
+  // The secondary "Kind" chips depend on the primary "Type": a kind is only
+  // meaningful if some component of the active Type has it, so chips that don't
+  // apply just drop off. If the currently-active Kind becomes inapplicable, fall
+  // back to "all" so the gallery never filters down to nothing.
+  const syncKindChips = (): void => {
+    const avail = new Set<string>();
+    grid.querySelectorAll<HTMLElement>(".kit-cell").forEach((c) => {
+      if (activeCat !== "all" && c.getAttribute("data-cat") !== activeCat)
+        return;
+      (c.getAttribute("data-kinds") ?? "")
+        .split(" ")
+        .filter(Boolean)
+        .forEach((k) => avail.add(k));
+    });
+    facetBar
+      .querySelectorAll<HTMLButtonElement>(".kit-filter")
+      .forEach((chip) => {
+        const key = chip.dataset.filter ?? "";
+        if (key === "all") return; // the reset chip always stays
+        chip.hidden = !avail.has(key);
+      });
+    if (activeKind !== "all" && !avail.has(activeKind)) {
+      activeKind = "all";
+      setActive(facetBar, "all");
+    }
+  };
+
   const applyFilter = (): void => {
     const cells = Array.from(grid.querySelectorAll<HTMLElement>(".kit-cell"));
 
@@ -811,6 +838,7 @@ function mountGallery(): void {
     if (axis === "cat") {
       activeCat = btn.dataset.filter;
       setActive(catBar, activeCat);
+      syncKindChips();
     } else if (axis === "kind") {
       activeKind = btn.dataset.filter;
       setActive(facetBar, activeKind);
