@@ -60,6 +60,15 @@
       ]
     },
     {
+      "name": "Toolbar",
+      "cap": "Toolbar",
+      "category": "actions",
+      "status": "stable",
+      "tags": [
+        "interactive"
+      ]
+    },
+    {
       "name": "Alert",
       "cap": "Alert",
       "category": "data",
@@ -161,6 +170,15 @@
     {
       "name": "Marquee",
       "cap": "Marquee",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display"
+      ]
+    },
+    {
+      "name": "Meter",
+      "cap": "Meter",
       "category": "data",
       "status": "stable",
       "tags": [
@@ -291,8 +309,27 @@
       ]
     },
     {
+      "name": "Fieldset",
+      "cap": "Fieldset",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form"
+      ]
+    },
+    {
       "name": "Native select",
       "cap": "Native select",
+      "category": "forms",
+      "status": "stable",
+      "tags": [
+        "form",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Number field",
+      "cap": "Number field",
       "category": "forms",
       "status": "stable",
       "tags": [

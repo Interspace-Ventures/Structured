@@ -275,6 +275,33 @@
      default accent, and re-themes with it). */
   .sl-btn .sl-spinner, .btn .sl-spinner{ color:inherit; }
 
+  /* ── Number field: numeric input flanked by hard stepper buttons.
+     Behaviour (clamp, steppers, ↑/↓ keys) lives in src/main.ts. ── */
+  .sl-numfield{display:inline-flex;align-items:stretch;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);overflow:hidden;}
+  .sl-numfield .nf-step{width:2.3rem;border:0;background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background 0.12s,color 0.12s;}
+  .sl-numfield .nf-step:hover{background:var(--accent);color:var(--accent-ink);}
+  .sl-numfield .nf-step:first-child{border-right:var(--border-w) solid rgb(var(--edge));}
+  .sl-numfield .nf-step:last-child{border-left:var(--border-w) solid rgb(var(--edge));}
+  .sl-numfield .nf-step svg{width:1em;height:1em;}
+  .sl-numfield .nf-input{width:3.4rem;border:0;background:transparent;text-align:center;font-family:var(--mono);font-size:0.9rem;color:var(--ink);outline:none;}
+
+  /* ── Fieldset: bordered group of fields with a boxed accent legend ── */
+  .sl-fieldset{border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);padding:0.9rem 1rem 1rem;margin:0;display:flex;flex-direction:column;gap:0.7rem;}
+  .sl-fieldset .sl-legend{font-family:var(--display);font-weight:700;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.04em;padding:0.22rem 0.5rem;background:var(--accent);color:var(--accent-ink);border:var(--border-w) solid rgb(var(--edge));}
+
+  /* ── Meter: a labelled gauge of a value within a range (vs. task Progress) ── */
+  .sl-meter{display:flex;flex-direction:column;gap:0.4rem;width:100%;}
+  .sl-meter + .sl-meter{margin-top:0.7rem;}
+  .sl-meter .mt-head{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--ink-dim);}
+  .sl-meter .mt-head .mono{font-family:var(--mono);}
+  .sl-meter .mt-track{height:14px;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgba(var(--glass-tint),0.06);overflow:hidden;}
+  .sl-meter .mt-fill{height:100%;background:var(--accent);border-right:var(--border-w) solid rgb(var(--edge));}
+  .sl-meter .mt-fill.warn{background:var(--neg);}
+
+  /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
+  .sl-toolbar{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;padding:0.45rem 0.5rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);}
+  .sl-toolbar .sl-sep.vert{width:var(--border-w);align-self:stretch;min-height:1.4em;background:rgb(var(--edge));margin:0 0.15rem;}
+
   .sl-aspect{aspect-ratio:16/9;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 50%,transparent),rgba(var(--glass-tint),0.1));display:grid;place-items:center;font-family:var(--mono);font-size:0.78rem;color:var(--accent-ink);}
 
   .sl-scroll{max-height:128px;overflow-y:auto;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.05);}
@@ -608,6 +635,25 @@
           </div>
         </div>
 
+        <div class="glass kit-cell w8">
+          <span class="kit-cap">Toolbar</span>
+          <div class="sl-toolbar" role="toolbar" aria-label="Text formatting">
+            <div class="sl-toggle-group" data-toggle-group>
+              <button aria-pressed="true" aria-label="Bold"><i data-lucide="bold"></i></button>
+              <button aria-pressed="false" aria-label="Italic"><i data-lucide="italic"></i></button>
+              <button aria-pressed="false" aria-label="Underline"><i data-lucide="underline"></i></button>
+            </div>
+            <span class="sl-sep vert"></span>
+            <div class="sl-toggle-group" data-toggle-group>
+              <button aria-pressed="true" aria-label="Align left"><i data-lucide="align-left"></i></button>
+              <button aria-pressed="false" aria-label="Align center"><i data-lucide="align-center"></i></button>
+              <button aria-pressed="false" aria-label="Align right"><i data-lucide="align-right"></i></button>
+            </div>
+            <span class="sl-sep vert"></span>
+            <button class="sl-btn ghost sm"><i data-lucide="link"></i>Link</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -799,6 +845,18 @@
           </table>
         </div>
 
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Meter</span>
+          <div class="sl-meter" role="meter" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Storage used">
+            <div class="mt-head"><span>Storage</span><span class="mono">72 / 100 GB</span></div>
+            <div class="mt-track"><div class="mt-fill" style="width:72%;"></div></div>
+          </div>
+          <div class="sl-meter" role="meter" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" aria-label="API quota used">
+            <div class="mt-head"><span>API quota</span><span class="mono">93%</span></div>
+            <div class="mt-track"><div class="mt-fill warn" style="width:93%;"></div></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -976,6 +1034,31 @@
             <div class="sl-slider"><div class="trk"><div class="fl" style="width:60%"></div><div class="th" style="left:60%"></div></div></div>
             <span class="mono" style="font-size:0.78rem; color:var(--ink-dim);"><span data-slider-out>60</span>%</span>
           </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Number field</span>
+          <div class="sl-numfield" data-numfield data-min="0" data-max="99" data-step="1">
+            <button type="button" class="nf-step" data-nf="dec" aria-label="Decrease"><i data-lucide="minus"></i></button>
+            <input class="nf-input" type="text" inputmode="numeric" value="3" role="spinbutton" aria-valuemin="0" aria-valuemax="99" aria-valuenow="3" aria-label="Quantity" />
+            <button type="button" class="nf-step" data-nf="inc" aria-label="Increase"><i data-lucide="plus"></i></button>
+          </div>
+          <span class="mono" style="font-size:0.72rem; color:var(--ink-dim); margin-top:0.55rem;">Steppers or ↑ ↓ arrow keys</span>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Fieldset</span>
+          <fieldset class="sl-fieldset">
+            <legend class="sl-legend">Billing address</legend>
+            <div class="sl-field">
+              <label class="sl-label">City</label>
+              <input class="sl-input" placeholder="San Francisco" />
+            </div>
+            <div class="sl-field">
+              <label class="sl-label">Postal code</label>
+              <input class="sl-input" placeholder="94103" />
+            </div>
+          </fieldset>
         </div>
 
       </div>

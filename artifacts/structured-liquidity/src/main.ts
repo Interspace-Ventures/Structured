@@ -13,9 +13,13 @@ import catalog from "./catalog.json";
 
 import {
   createIcons,
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
   ArrowRight,
   ArrowUp,
   Ban,
+  Bold,
   Bot,
   Check,
   Code,
@@ -26,8 +30,11 @@ import {
   FileText,
   Ghost,
   Info,
+  Italic,
   LayoutGrid,
   Library,
+  Link,
+  Minus,
   Palette,
   Play,
   Plus,
@@ -37,6 +44,7 @@ import {
   Trash2,
   TriangleAlert,
   Type,
+  Underline,
 } from "lucide";
 
 type Mode = "dark" | "light";
@@ -468,9 +476,13 @@ function initLiquidWord(): void {
 function mountIcons(): void {
   createIcons({
     icons: {
+      AlignCenter,
+      AlignLeft,
+      AlignRight,
       ArrowRight,
       ArrowUp,
       Ban,
+      Bold,
       Bot,
       Check,
       Code,
@@ -481,8 +493,11 @@ function mountIcons(): void {
       FileText,
       Ghost,
       Info,
+      Italic,
       LayoutGrid,
       Library,
+      Link,
+      Minus,
       Palette,
       Play,
       Plus,
@@ -492,6 +507,7 @@ function mountIcons(): void {
       Trash2,
       TriangleAlert,
       Type,
+      Underline,
     },
     attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
   });
@@ -820,10 +836,48 @@ function mountMarquee(): void {
   });
 }
 
+/* Number field: clamp the value, wire the −/+ steppers and ↑/↓ arrow keys.
+   Behaviour lives here (not the verbatim kit JS); styles are inline in index.html. */
+function mountNumberFields(): void {
+  document.querySelectorAll<HTMLElement>("[data-numfield]").forEach((nf) => {
+    const input = nf.querySelector<HTMLInputElement>(".nf-input");
+    if (!input) return;
+    const min = Number(nf.dataset.min ?? "-Infinity");
+    const max = Number(nf.dataset.max ?? "Infinity");
+    const step = Number(nf.dataset.step ?? "1");
+    const clamp = (n: number): number => Math.min(max, Math.max(min, n));
+    const read = (): number => {
+      const v = parseFloat(input.value);
+      return Number.isFinite(v) ? v : 0;
+    };
+    const write = (n: number): void => {
+      const v = clamp(n);
+      input.value = String(v);
+      input.setAttribute("aria-valuenow", String(v));
+    };
+    nf.querySelectorAll<HTMLButtonElement>("[data-nf]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        write(read() + (btn.dataset.nf === "inc" ? step : -step));
+      });
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        write(read() + step);
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        write(read() - step);
+      }
+    });
+    input.addEventListener("blur", () => write(read()));
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
   mountMarquee();
+  mountNumberFields();
   mountIcons();
   mountCopy();
   const state = load();

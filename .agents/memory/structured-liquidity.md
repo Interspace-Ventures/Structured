@@ -16,6 +16,8 @@ The original framework's "live tweaks" panel and its `<image-slot>` showcase ele
 
 **How to apply:** if you ever re-import omelette/host-coupled artifacts (anything referencing `__edit_mode_*`, `__activate_edit_mode`, or `window.parent.postMessage` to a host), expect it to be dead outside the editor — reimplement the behavior standalone. Don't edit the verbatim files in `public/`; extend via `index.html` or `src/main.ts`.
 
+**Verbatim-public guard covers BINARIES too, not just `*.css`/`*.js`:** `public/opengraph.jpg` has silently drifted (tooling/editor re-encoded it). When verifying the constraint, check the WHOLE `public/` dir (`git --no-optional-locks status --porcelain public/`), and restore any unintended change — including binaries — with `git --no-optional-locks show HEAD:<path> > <path>` (checkout/restore are sandbox-blocked).
+
 ## Overriding `liquid-word.js` without editing it
 The hero "Liquidity" wordmark is driven by a richer JS renderer in `src/main.ts` (multi-wave, non-repeating, bubbles) that *takes the hero away from* the verbatim `liquid-word.js`.
 
