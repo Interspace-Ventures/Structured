@@ -573,9 +573,18 @@ function mountGallery(): void {
     catalog.components.map((c) => [c.cap, c.category] as const),
   );
 
+  // Secondary axis: cross-cutting "kind" facets (orthogonal to category), so a
+  // component can be found by what it *is* (category) and by how it *behaves*
+  // (kind). Both axes AND-combine. Order/labels come from catalog.facets.
+  const FACETS: { key: string; label: string }[] = catalog.facets;
+  const KINDS_OF: Record<string, string[]> = Object.fromEntries(
+    catalog.components.map((c) => [c.cap, c.kinds] as const),
+  );
+
   const grid = document.createElement("div");
   grid.className = "kit-grid gallery";
   const present = new Set<string>();
+  const presentFacets = new Set<string>();
 
   // Order the gallery alphabetically by category label, then by component name,
   // so it reads consistently regardless of the markup's source ordering. Keyed
@@ -602,6 +611,9 @@ function mountGallery(): void {
     }
     cell.setAttribute("data-cat", key);
     present.add(key);
+    const kinds = KINDS_OF[capText] ?? [];
+    if (kinds.length) cell.setAttribute("data-kinds", kinds.join(" "));
+    kinds.forEach((k) => presentFacets.add(k));
     // Prefix the primary caption with its category, e.g. "Navigation — Menubar".
     // Guarded so a re-run doesn't stack the prefix; skips capless spacers.
     if (cap && capText && cap.dataset.cat !== key) {
@@ -610,11 +622,6 @@ function mountGallery(): void {
     }
     grid.appendChild(cell);
   });
-
-  const bar = document.createElement("div");
-  bar.className = "kit-filters";
-  bar.setAttribute("role", "group");
-  bar.setAttribute("aria-label", "Filter components by type");
 
   const makeChip = (
     key: string,
@@ -630,12 +637,43 @@ function mountGallery(): void {
     return b;
   };
 
-  bar.appendChild(makeChip("all", "All", true));
+  // Two chip rows: a primary "Type" axis (category) and a secondary "Kind"
+  // axis (cross-cutting facet). Each row is its own toggle group; an "All"
+  // chip clears that axis. Markup degrades gracefully if this never runs.
+  const makeRow = (axis: string, axisLabel: string): HTMLElement => {
+    const row = document.createElement("div");
+    row.className = "kit-filter-row";
+    const lbl = document.createElement("span");
+    lbl.className = "kit-filter-axis";
+    lbl.textContent = axisLabel;
+    const b = document.createElement("div");
+    b.className = "kit-filters";
+    b.dataset.axis = axis;
+    b.setAttribute("role", "group");
+    b.setAttribute("aria-label", `Filter components by ${axisLabel.toLowerCase()}`);
+    row.append(lbl, b);
+    return row;
+  };
+
+  const catRow = makeRow("cat", "Type");
+  const catBar = catRow.querySelector<HTMLElement>(".kit-filters")!;
+  catBar.appendChild(makeChip("all", "All", true));
   CATS.forEach((c) => {
-    if (present.has(c.key)) bar.appendChild(makeChip(c.key, c.label));
+    if (present.has(c.key)) catBar.appendChild(makeChip(c.key, c.label));
   });
 
-  groups.replaceWith(bar, grid);
+  const facetRow = makeRow("kind", "Kind");
+  const facetBar = facetRow.querySelector<HTMLElement>(".kit-filters")!;
+  facetBar.appendChild(makeChip("all", "All", true));
+  FACETS.forEach((f) => {
+    if (presentFacets.has(f.key)) facetBar.appendChild(makeChip(f.key, f.label));
+  });
+
+  const filters = document.createElement("div");
+  filters.className = "kit-filterbars";
+  filters.append(catRow, facetRow);
+
+  groups.replaceWith(filters, grid);
 
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
@@ -651,16 +689,31 @@ function mountGallery(): void {
     c.style.willChange = "";
   };
 
-  const applyFilter = (f: string): void => {
-    bar.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((x) => {
-      const on = x.dataset.filter === f;
+  // Active selection per axis ("all" = no constraint on that axis); a card is
+  // shown only when it satisfies both.
+  let activeCat = "all";
+  let activeKind = "all";
+
+  const matches = (c: HTMLElement): boolean => {
+    if (activeCat !== "all" && c.getAttribute("data-cat") !== activeCat)
+      return false;
+    if (activeKind !== "all") {
+      const kinds = (c.getAttribute("data-kinds") ?? "").split(" ");
+      if (!kinds.includes(activeKind)) return false;
+    }
+    return true;
+  };
+
+  const setActive = (b: HTMLElement, val: string): void => {
+    b.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((x) => {
+      const on = x.dataset.filter === val;
       x.classList.toggle("active", on);
       x.setAttribute("aria-pressed", on ? "true" : "false");
     });
+  };
 
+  const applyFilter = (): void => {
     const cells = Array.from(grid.querySelectorAll<HTMLElement>(".kit-cell"));
-    const matches = (c: HTMLElement): boolean =>
-      f === "all" || c.getAttribute("data-cat") === f;
 
     if (reduceMotion) {
       cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
@@ -729,13 +782,170 @@ function mountGallery(): void {
     }, PLAY_MS + 80);
   };
 
-  bar.addEventListener("click", (e) => {
+  filters.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
       ".kit-filter",
     );
     if (!btn || !btn.dataset.filter || btn.classList.contains("active")) return;
-    applyFilter(btn.dataset.filter);
+    const axis = btn.closest<HTMLElement>(".kit-filters")?.dataset.axis;
+    if (axis === "cat") {
+      activeCat = btn.dataset.filter;
+      setActive(catBar, activeCat);
+    } else if (axis === "kind") {
+      activeKind = btn.dataset.filter;
+      setActive(facetBar, activeKind);
+    } else {
+      return;
+    }
+    applyFilter();
   });
+}
+
+/* Autocomplete: a text input with a live-filtered suggestion list. Reuses the
+   kit's .sl-pop-wrap/.sl-menu dropdown, but manages its own open state and stops
+   the field's clicks from reaching the kit's document-level close-all-menus
+   handler. Degrades to a plain input if this never runs. */
+function mountAutocomplete(): void {
+  document
+    .querySelectorAll<HTMLElement>("[data-autocomplete]")
+    .forEach((wrap, wi) => {
+      const input = wrap.querySelector<HTMLInputElement>(".sl-input");
+      const menu = wrap.querySelector<HTMLElement>(".sl-menu");
+      if (!input || !menu) return;
+      const items = Array.from(
+        menu.querySelectorAll<HTMLElement>(".item"),
+      ).filter((i) => !i.classList.contains("ac-empty"));
+      const empty = menu.querySelector<HTMLElement>(".ac-empty");
+
+      // Wire up combobox semantics so the listbox is keyboard-navigable.
+      menu.id = menu.id || `ac-menu-${wi}`;
+      input.setAttribute("aria-controls", menu.id);
+      items.forEach((it, i) => {
+        it.id = it.id || `${menu.id}-opt-${i}`;
+      });
+
+      let active = -1; // index into `items` of the highlighted option, or -1
+
+      const visible = (): HTMLElement[] =>
+        items.filter((it) => it.style.display !== "none");
+
+      const highlight = (it: HTMLElement | null): void => {
+        items.forEach((x) => {
+          x.classList.remove("active");
+          x.removeAttribute("aria-selected");
+        });
+        if (it) {
+          it.classList.add("active");
+          it.setAttribute("aria-selected", "true");
+          input.setAttribute("aria-activedescendant", it.id);
+          it.scrollIntoView({ block: "nearest" });
+        } else {
+          input.removeAttribute("aria-activedescendant");
+        }
+      };
+
+      const open = (): void => {
+        menu.classList.add("open");
+        input.setAttribute("aria-expanded", "true");
+      };
+      const close = (): void => {
+        menu.classList.remove("open");
+        input.setAttribute("aria-expanded", "false");
+        active = -1;
+        highlight(null);
+      };
+      const filter = (): void => {
+        const q = input.value.trim().toLowerCase();
+        let n = 0;
+        items.forEach((it) => {
+          const hit = (it.textContent ?? "").toLowerCase().includes(q);
+          it.style.display = hit ? "" : "none";
+          if (hit) n++;
+        });
+        if (empty) empty.style.display = n ? "none" : "flex";
+        active = -1;
+        highlight(null);
+      };
+      const pick = (it: HTMLElement): void => {
+        input.value = it.textContent ?? "";
+        filter();
+        close();
+      };
+
+      const openFiltered = (): void => {
+        filter();
+        open();
+      };
+      input.addEventListener("click", (e) => {
+        e.stopPropagation(); // keep the kit's document closer from firing
+        openFiltered();
+      });
+      input.addEventListener("focus", openFiltered);
+      input.addEventListener("input", openFiltered);
+      input.addEventListener("blur", () => window.setTimeout(close, 120));
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          if (!menu.classList.contains("open")) openFiltered();
+          const vis = visible();
+          if (!vis.length) return;
+          const cur = active >= 0 ? vis.indexOf(items[active]) : -1;
+          const next =
+            e.key === "ArrowDown"
+              ? (cur + 1) % vis.length
+              : (cur - 1 + vis.length) % vis.length;
+          active = items.indexOf(vis[next]);
+          highlight(vis[next]);
+        } else if (e.key === "Enter") {
+          if (active >= 0 && items[active].style.display !== "none") {
+            e.preventDefault();
+            pick(items[active]);
+          }
+        } else if (e.key === "Escape") {
+          close();
+        }
+      });
+
+      items.forEach((it) => {
+        it.addEventListener("mousedown", (e) => {
+          e.preventDefault(); // hold focus so blur doesn't pre-empt the pick
+          pick(it);
+        });
+      });
+    });
+}
+
+/* Demo form: validates the email + terms checkbox on submit and reveals an
+   inline error or success note. The checkbox toggling is the kit's job
+   (data-toggle-aria); here we only read its state. */
+function mountDemoForm(): void {
+  document
+    .querySelectorAll<HTMLFormElement>("[data-demo-form]")
+    .forEach((form) => {
+      const email = form.querySelector<HTMLInputElement>('input[name="email"]');
+      const err = form.querySelector<HTMLElement>("[data-err]");
+      const agreeErr = form.querySelector<HTMLElement>("[data-agree-err]");
+      const agree = form.querySelector<HTMLElement>("[data-agree]");
+      const ok = form.querySelector<HTMLElement>("[data-ok]");
+      if (!email) return;
+
+      const reset = (): void => {
+        if (err) err.hidden = true;
+        if (agreeErr) agreeErr.hidden = true;
+        if (ok) ok.hidden = true;
+      };
+      email.addEventListener("input", reset);
+      agree?.addEventListener("click", reset);
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        const agreed = agree?.getAttribute("aria-checked") === "true";
+        if (err) err.hidden = validEmail;
+        if (agreeErr) agreeErr.hidden = agreed;
+        if (ok) ok.hidden = !(validEmail && agreed);
+      });
+    });
 }
 
 /* Carousel: the verbatim kit ships a CSS-only scroll-snap strip with no
@@ -955,6 +1165,8 @@ function init(): void {
   mountRefraction();
   mountIcons();
   mountCopy();
+  mountAutocomplete();
+  mountDemoForm();
   const state = load();
   apply(state);
 
