@@ -1220,8 +1220,9 @@ function accentPour(x: number, y: number, hex: string): void {
   node.setAttribute("aria-hidden", "true");
   node.style.left = `${x}px`;
   node.style.top = `${y}px`;
-  node.style.width = `${far * 2}px`;
-  node.style.height = `${far * 2}px`;
+  // oversize a touch so the morphing/rotating liquid blob still covers the corners
+  node.style.width = `${far * 2.5}px`;
+  node.style.height = `${far * 2.5}px`;
   node.style.background = hex;
   document.body.appendChild(node);
   node.addEventListener("animationend", () => node.remove());
