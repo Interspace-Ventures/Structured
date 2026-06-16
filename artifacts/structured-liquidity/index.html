@@ -535,6 +535,32 @@
     }
     @keyframes sl-ripple{ to{ transform:translate(-50%,-50%) scale(1); opacity:0; } }
 
+    /* --- accent pour: picking an accent floods the new colour across the page
+       from the click point like liquid filling in, then drains away. The page
+       has already switched to the new accent underneath; this is the flourish.
+       (mountAccentPour() in src/main.ts injects the node; reduced-motion skips it.) --- */
+    .sl-accent-pour{
+      position:fixed; z-index:2147483640; border-radius:50%; pointer-events:none;
+      transform:translate(-50%,-50%) scale(0);
+      mask-image:radial-gradient(circle, #000 58%, transparent 72%);
+      -webkit-mask-image:radial-gradient(circle, #000 58%, transparent 72%);
+      animation:sl-accent-pour .82s var(--ease-liquid) forwards;
+    }
+    @keyframes sl-accent-pour{
+      0%{ transform:translate(-50%,-50%) scale(0); opacity:.5; }
+      55%{ opacity:.42; }
+      100%{ transform:translate(-50%,-50%) scale(1); opacity:0; }
+    }
+
+    /* --- hero cube parallax: the glass cube leans toward the pointer. Its tile
+       is stripped (border/bg/shadow:none above), so only the liquid mark tilts —
+       the rigid-container rule holds. (mountHeroTilt() drives --rx/--ry.) --- */
+    .hero-cube{
+      transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+      transform-origin:center; transition:transform var(--motion) var(--ease-liquid-over);
+      will-change:transform;
+    }
+
     /* --- liquid checkbox: box floods, tick draws in with overshoot --- */
     .sl-box{ transition:background var(--motion) var(--ease-liquid); }
     .sl-box .tick{ transform:scale(.3); transition:opacity var(--motion-fast) var(--ease-liquid), transform var(--motion) var(--ease-liquid-over); }

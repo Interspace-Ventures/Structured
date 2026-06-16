@@ -1203,6 +1203,57 @@ function mountRefraction(): void {
   });
 }
 
+/* Accent pour: floods the freshly-picked accent across the viewport from the
+   click point like liquid filling in, then drains. The page has already switched
+   accent underneath (apply() ran first); this is the celebratory flourish. */
+function accentPour(x: number, y: number, hex: string): void {
+  if (prefersReducedMotion()) return;
+  // diameter must reach the farthest viewport corner from the origin
+  const far = Math.max(
+    Math.hypot(x, y),
+    Math.hypot(window.innerWidth - x, y),
+    Math.hypot(x, window.innerHeight - y),
+    Math.hypot(window.innerWidth - x, window.innerHeight - y),
+  );
+  const node = document.createElement("span");
+  node.className = "sl-accent-pour";
+  node.setAttribute("aria-hidden", "true");
+  node.style.left = `${x}px`;
+  node.style.top = `${y}px`;
+  node.style.width = `${far * 2}px`;
+  node.style.height = `${far * 2}px`;
+  node.style.background = hex;
+  document.body.appendChild(node);
+  node.addEventListener("animationend", () => node.remove());
+}
+
+/* Hero cube parallax: the glass cube leans toward the pointer (rigid tile holds —
+   the hero cube's tile is stripped, so only the liquid mark tilts). Writes --rx/--ry
+   that the CSS transform reads; reduced-motion / touch skip it. */
+function mountHeroTilt(): void {
+  if (prefersReducedMotion()) return;
+  const cube = document.querySelector<HTMLElement>(".hero-cube");
+  if (!cube) return;
+  const MAX = 12;
+  let raf = 0;
+  let rx = 0;
+  let ry = 0;
+  const flush = (): void => {
+    raf = 0;
+    cube.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
+    cube.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
+  };
+  document.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    const r = cube.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+    const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+    ry = Math.max(-MAX, Math.min(MAX, dx * 2 * MAX));
+    rx = Math.max(-MAX, Math.min(MAX, -dy * 2 * MAX));
+    if (!raf) raf = requestAnimationFrame(flush);
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
@@ -1211,6 +1262,7 @@ function init(): void {
   mountRipples();
   mountTabFlow();
   mountRefraction();
+  mountHeroTilt();
   mountIcons();
   mountCopy();
   mountAutocomplete();
@@ -1328,7 +1380,18 @@ function init(): void {
         "aria-pressed": String(hex === state.accent),
         "aria-label": `Accent ${hex}`,
       });
-      chip.addEventListener("click", () => set("accent", hex));
+      chip.addEventListener("click", (e) => {
+        set("accent", hex);
+        let x = e.clientX;
+        let y = e.clientY;
+        if (!x && !y) {
+          // keyboard-activated: pour from the chip's own centre
+          const r = chip.getBoundingClientRect();
+          x = r.left + r.width / 2;
+          y = r.top + r.height / 2;
+        }
+        accentPour(x, y, hex);
+      });
       chips.appendChild(chip);
     });
     accRow.appendChild(chips);

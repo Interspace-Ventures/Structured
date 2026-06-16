@@ -21,3 +21,13 @@ The "accent glides between tabs" effect: JS adds `.is-flowing` + a `.sl-tab-mark
 **Why scoped to `.is-flowing` (JS-added):** the transparent-active-bg rule only exists once JS has added the class and is about to position the marker — so a no-JS / reduced-motion visitor keeps the verbatim accent button background (the marker fn early-returns under reduced motion). Never make the active bg transparent unconditionally.
 **A11y:** the marker is purely visual (`aria-hidden`); the verbatim kit JS still owns `aria-selected`, so AT semantics are unaffected.
 **How to apply:** recompute marker geometry on `click` (via rAF, after kit JS flips `aria-selected`), `resize`, and `document.fonts.ready` (font swap changes button widths).
+
+## Pattern — accent-pour ripple (celebratory flood on accent change)
+Picking an accent chip in the tweaker switches `--accent` as before, then `accentPour(x,y,hex)` appends a transient `<span class="sl-accent-pour">` to `<body>`: a `position:fixed` circle whose diameter = 2× the farthest viewport-corner distance from the click, masked with a `radial-gradient` so it reads as liquid filling in, then self-removes on `animationend`. CSS in the `prefers-reduced-motion: no-preference` block; JS helper early-returns under reduced motion. Keyboard activation (Enter on chip) gives `clientX/Y === 0` → fall back to the chip's `getBoundingClientRect()` centre so the pour doesn't launch from the top-left corner.
+
+## Pattern — hero cube parallax tilt
+`mountHeroTilt()` listens on **document** `pointermove` (skips `pointerType === "touch"`), rAF-throttles, and writes `--rx`/`--ry` (clamped ±12deg) onto `.hero-cube`; CSS `transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry))` reads them.
+**Why tilting the whole `.hero-cube` is OK here (doesn't break the rigid-frame rule):** this specific element's tile is already stripped in `index.html` (`border:0;background:none;box-shadow:none`), so there is no rigid frame to morph — only the liquid mark leans. Do NOT copy this onto a glyph/tile that still has its container chrome; tilt the inner glass, not the tile, in that case.
+
+## Gotcha — `public/opengraph.jpg` silently drifts during dev/e2e
+The binary `public/opengraph.jpg` gets rewritten by the dev server / e2e run even when you never touch it, breaking the verbatim-`public/*` contract. Restore byte-for-byte with `git --no-optional-locks show HEAD:<path> > <path>` (plain `git checkout`/`restore` and any op touching `.git/index.lock` are blocked for the main agent). Always re-run `git --no-optional-locks status --porcelain` at the end and confirm only `index.html` + `src/main.ts` remain modified.
