@@ -614,10 +614,13 @@ function mountGallery(): void {
     const kinds = KINDS_OF[capText] ?? [];
     if (kinds.length) cell.setAttribute("data-kinds", kinds.join(" "));
     kinds.forEach((k) => presentFacets.add(k));
-    // Prefix the primary caption with its category, e.g. "Navigation — Menubar".
+    // Prefix the primary caption with its category as a breadcrumb, e.g.
+    // "Navigation › Menubar" (the chevron marks the category › component
+    // hierarchy; a component's own caption may still carry an em-dash
+    // sub-label, e.g. "Data › Stat — metric display").
     // Guarded so a re-run doesn't stack the prefix; skips capless spacers.
     if (cap && capText && cap.dataset.cat !== key) {
-      cap.textContent = `${labelOf(key)} — ${capText}`;
+      cap.textContent = `${labelOf(key)} › ${capText}`;
       cap.dataset.cat = key;
     }
     grid.appendChild(cell);
