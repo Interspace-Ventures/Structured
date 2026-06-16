@@ -367,6 +367,37 @@
   .sl-profile-role{font-family:var(--display);font-weight:700;font-size:0.8rem;color:var(--ink);}
   .sl-meter .mt-fill.warn{background:var(--neg);}
 
+  /* ── Media controls internalized from universe.audio: equalizer waveform + now-playing player.
+     Bars are built by mountWaveform() in src/main.ts from [data-waveform] (data-bars / data-played). ── */
+  .sl-waveform{display:flex;align-items:flex-end;gap:2px;height:52px;width:100%;}
+  .sl-waveform .wf-bar{flex:1 1 0;min-width:2px;height:var(--h,40%);background:var(--accent);transform-origin:bottom;}
+  .sl-waveform .wf-bar.is-future{background:rgb(var(--glass-tint) / 0.22);}
+  @media (prefers-reduced-motion: no-preference){
+    .sl-waveform .wf-bar{animation:sl-wf 1.25s var(--d,0s) ease-in-out infinite alternate;}
+  }
+  @keyframes sl-wf{from{transform:scaleY(0.34);}to{transform:scaleY(1);}}
+  /* The Card demo's media area doubles as the "Waveform v2" spectral display. */
+  #components .sl-card-demo .cd-media{display:flex;align-items:flex-end;padding:0.7rem 0.8rem;}
+  .sl-card-demo .cd-media .cd-wave{height:100%;}
+  /* Now-playing player: meta · waveform seek · transport · volume. */
+  .sl-player{display:flex;flex-direction:column;gap:0.85rem;width:100%;}
+  .sl-player .pl-top{display:flex;align-items:center;gap:0.7rem;}
+  .sl-player .pl-art{width:46px;height:46px;flex:none;display:grid;place-items:center;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);}
+  .sl-player .pl-art svg{width:1.3rem;height:1.3rem;}
+  .sl-player .pl-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:0.1rem;}
+  .sl-player .pl-eyebrow{font-family:var(--mono);font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);}
+  .sl-player .pl-title{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sl-player .pl-artist{font-size:0.8rem;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .sl-player .pl-scrub{display:flex;align-items:center;gap:0.6rem;}
+  .sl-player .pl-time{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);flex:none;}
+  .sl-player .pl-transport{display:flex;align-items:center;justify-content:center;gap:0.3rem;flex:1;}
+  .sl-player .pl-ic{padding:0.4rem;}
+  .sl-player .pl-play{padding:0.5rem 0.65rem;}
+  .sl-player .pl-ic svg,.sl-player .pl-play svg{width:1.05rem;height:1.05rem;display:block;}
+  .sl-player .pl-vol{display:flex;align-items:center;gap:0.6rem;}
+  .sl-player .pl-vol svg{width:1.05rem;height:1.05rem;color:var(--ink-dim);flex:none;}
+  .sl-player .pl-vol .sl-slider{flex:1;}
+
   /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
   .sl-toolbar{display:flex;align-items:center;gap:0.3rem;flex-wrap:nowrap;padding:0.4rem 0.45rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);overflow-x:auto;scrollbar-width:none;}
   .sl-toolbar::-webkit-scrollbar{display:none;}
@@ -1004,7 +1035,7 @@
 
     <!-- ───── DATA DISPLAY ───── -->
     <div class="kit-group reveal">
-      <div class="kit-group-head"><span class="kg-name">Data display</span><span class="kg-rule"></span><span class="kg-count">Alert · Avatar · Calendar · Card · Stat · Table</span></div>
+      <div class="kit-group-head"><span class="kg-name">Data display</span><span class="kg-rule"></span><span class="kg-count">Alert · Avatar · Calendar · Card · Media player · Stat · Table · Waveform</span></div>
       <div class="kit-grid">
 
         <div class="glass kit-cell w8">
@@ -1069,11 +1100,47 @@
         <div class="glass kit-cell w4">
           <span class="kit-cap">Card</span>
           <div class="sl-card-demo">
-            <div class="cd-media"></div>
+            <div class="cd-media"><div class="sl-waveform cd-wave" data-waveform data-bars="34" data-played="13" aria-hidden="true"></div></div>
             <div class="cd-body">
               <h4>Waveform v2</h4>
               <p>Real-time spectral display with glass overlays.</p>
               <button class="sl-btn default sm">Open <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w4">
+          <span class="kit-cap">Waveform</span>
+          <div class="sl-waveform" data-waveform data-bars="48" data-played="20" role="img" aria-label="Audio waveform — 42% played"></div>
+        </div>
+
+        <div class="glass kit-cell w8">
+          <span class="kit-cap">Media player · now playing</span>
+          <div class="sl-player">
+            <div class="pl-top">
+              <span class="pl-art" aria-hidden="true"><i data-lucide="radio"></i></span>
+              <div class="pl-meta">
+                <span class="pl-eyebrow">Now playing</span>
+                <span class="pl-title">Gracias a la Vida</span>
+                <span class="pl-artist">Violeta Parra</span>
+              </div>
+              <span class="sl-badge default">Live</span>
+            </div>
+            <div class="sl-waveform pl-wave" data-waveform data-bars="56" data-played="22" role="img" aria-label="Playback position — 39% elapsed"></div>
+            <div class="pl-scrub">
+              <span class="pl-time">1:48</span>
+              <div class="pl-transport">
+                <button type="button" class="sl-btn ghost pl-ic" aria-label="Shuffle"><i data-lucide="shuffle"></i></button>
+                <button type="button" class="sl-btn ghost pl-ic" aria-label="Previous track"><i data-lucide="skip-back"></i></button>
+                <button type="button" class="sl-btn default pl-play" aria-label="Pause"><i data-lucide="pause"></i></button>
+                <button type="button" class="sl-btn ghost pl-ic" aria-label="Next track"><i data-lucide="skip-forward"></i></button>
+                <button type="button" class="sl-btn ghost pl-ic" aria-label="Repeat"><i data-lucide="repeat"></i></button>
+              </div>
+              <span class="pl-time">4:38</span>
+            </div>
+            <div class="pl-vol">
+              <i data-lucide="volume-2" aria-hidden="true"></i>
+              <div class="sl-slider"><div class="trk"><div class="fl" style="width:72%"></div><div class="th" style="left:72%"></div></div></div>
             </div>
           </div>
         </div>

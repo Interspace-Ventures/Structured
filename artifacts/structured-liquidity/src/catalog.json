@@ -143,6 +143,34 @@
       ]
     },
     {
+      "name": "Waveform",
+      "cap": "Waveform",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display",
+        "media"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
+      "name": "Media player",
+      "cap": "Media player · now playing",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display",
+        "media",
+        "interactive"
+      ],
+      "kinds": [
+        "interactive",
+        "display"
+      ]
+    },
+    {
       "name": "Carousel",
       "cap": "Carousel",
       "category": "data",

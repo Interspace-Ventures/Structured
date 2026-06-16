@@ -36,15 +36,21 @@ import {
   Link,
   Minus,
   Palette,
+  Pause,
   Play,
   Plus,
   Radio,
+  Repeat,
+  Shuffle,
+  SkipBack,
+  SkipForward,
   Sparkles,
   Square,
   Trash2,
   TriangleAlert,
   Type,
   Underline,
+  Volume2,
 } from "lucide";
 
 type Mode = "dark" | "light";
@@ -473,6 +479,27 @@ function initLiquidWord(): void {
 /* Partner icon library (Lucide). Hydrate every [data-lucide] placeholder in the
    static markup into an inline SVG. Leading icons are the design-language default
    for navbars and buttons, so the placeholders live directly in index.html. */
+/* Build the equalizer bars for any [data-waveform] container (media controls
+   internalized from universe.audio). data-bars = bar count, data-played = how
+   many leading bars are "played" (solid accent) vs upcoming (dim). Heights come
+   from layered sines so it reads like an audio envelope, not a bar chart; the
+   CSS animates them under prefers-reduced-motion: no-preference only. */
+function mountWaveform(): void {
+  document.querySelectorAll<HTMLElement>("[data-waveform]").forEach((el) => {
+    const bars = Math.max(1, Math.min(200, Number(el.dataset.bars) || 40));
+    const played = Math.max(0, Math.min(bars, Number(el.dataset.played) || 0));
+    el.replaceChildren();
+    for (let i = 0; i < bars; i += 1) {
+      const bar = document.createElement("span");
+      bar.className = i < played ? "wf-bar" : "wf-bar is-future";
+      const env = Math.abs(Math.sin(i * 0.45) * 0.6 + Math.sin(i * 0.17 + 1) * 0.4);
+      bar.style.setProperty("--h", `${(22 + env * 70).toFixed(1)}%`);
+      bar.style.setProperty("--d", `${(-(i % 7) * 0.13).toFixed(2)}s`);
+      el.appendChild(bar);
+    }
+  });
+}
+
 function mountIcons(): void {
   createIcons({
     icons: {
@@ -499,15 +526,21 @@ function mountIcons(): void {
       Link,
       Minus,
       Palette,
+      Pause,
       Play,
       Plus,
       Radio,
+      Repeat,
+      Shuffle,
+      SkipBack,
+      SkipForward,
       Sparkles,
       Square,
       Trash2,
       TriangleAlert,
       Type,
       Underline,
+      Volume2,
     },
     attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
   });
@@ -1291,6 +1324,7 @@ function init(): void {
   mountTabFlow();
   mountRefraction();
   mountHeroTilt();
+  mountWaveform();
   mountIcons();
   mountCopy();
   mountAutocomplete();
