@@ -835,6 +835,58 @@
         "form",
         "display"
       ]
+    },
+    {
+      "name": "Stat — metric display",
+      "cap": "Stat — metric display",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "display",
+        "metric"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
+      "name": "Section header",
+      "cap": "Section header",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "display",
+        "heading"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
+      "name": "Keycap tiles",
+      "cap": "Keycap tiles",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "display",
+        "branding"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
+      "name": "Profile header",
+      "cap": "Profile header",
+      "category": "layout",
+      "status": "stable",
+      "tags": [
+        "display",
+        "identity"
+      ],
+      "kinds": [
+        "display"
+      ]
     }
   ],
   "facets": [
