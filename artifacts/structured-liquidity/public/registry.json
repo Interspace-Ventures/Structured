@@ -50,7 +50,7 @@
     },
     {
       "name": "radio-group",
-      "description": "Mutually exclusive radio items. The [data-radio-group] wrapper is required — the kit script enforces single selection within it.",
+      "description": "Mutually exclusive radio items. The [data-radio-group] wrapper is required. The kit script enforces single selection within it.",
       "html": "<div class=\"kit-col\" data-radio-group>\n  <div class=\"sl-radio-item\" aria-checked=\"true\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>Dark mode</div>\n  <div class=\"sl-radio-item\" aria-checked=\"false\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>Light mode</div>\n  <div class=\"sl-radio-item\" aria-checked=\"false\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>System</div>\n</div>"
     },
     {
@@ -75,7 +75,7 @@
     },
     {
       "name": "card",
-      "description": "Glass card — the canonical rigid container holding liquid glass. Use .glass for depth.",
+      "description": "Glass card: the canonical rigid container holding liquid glass. Use .glass for depth.",
       "html": "<div class=\"glass kit-cell\">\n  <span class=\"kit-cap\">Card title</span>\n  <p>Body copy inside a rigid container holding liquid glass.</p>\n</div>"
     },
     {

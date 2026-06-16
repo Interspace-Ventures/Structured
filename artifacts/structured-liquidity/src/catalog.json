@@ -34,7 +34,7 @@
   "components": [
     {
       "name": "Button",
-      "cap": "Button — variants & sizes",
+      "cap": "Button · variants & sizes",
       "category": "actions",
       "status": "stable",
       "tags": [
@@ -865,8 +865,8 @@
       ]
     },
     {
-      "name": "Stat — metric display",
-      "cap": "Stat — metric display",
+      "name": "Stat · metric display",
+      "cap": "Stat · metric display",
       "category": "data",
       "status": "stable",
       "tags": [

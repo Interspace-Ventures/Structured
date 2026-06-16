@@ -99,7 +99,7 @@
         "spread": "0px",
         "color": "#000000"
       },
-      "$description": "The flat offset shadow. Blur is always 0 — structural, never soft. Offset is driven by --hard-x / --hard-y.",
+      "$description": "The flat offset shadow. Blur is always 0, structural, never soft. Offset is driven by --hard-x / --hard-y.",
       "$extensions": { "cssVar": "--hard-x / --hard-y", "css": "var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)" }
     }
   },

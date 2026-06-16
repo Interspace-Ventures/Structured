@@ -4,27 +4,27 @@
 
 ## The three pillars
 
-1. **Structured Containment** — Sharp 90° corners, flat unblurred shadows, a strict grid. Boundaries are never ambiguous. Shadows are an offset solid fact (never a soft blur). Borders carry weight (2–3px) and define the object.
-2. **Liquid Depth** — Inside the rigid boxes sits an organic translucent glass: light-reflecting, tactile, alive. Depth comes from stacking translucent surfaces, each with a real border and flat shadow. Motion proves mass — a pressed surface settles into its own shadow.
-3. **Semantic Clarity** — Liquidity delights but never at the expense of reading. Function leads. A single accent carries emphasis; glass stays neutral so it lands. Heavy display type for impact, monospace for labels and data, a humanist sans for body.
+1. **Structured Containment**: Sharp 90° corners, flat unblurred shadows, a strict grid. Boundaries are never ambiguous. Shadows are an offset solid fact (never a soft blur). Borders carry weight (2–3px) and define the object.
+2. **Liquid Depth**: Inside the rigid boxes sits an organic translucent glass: light-reflecting, tactile, alive. Depth comes from stacking translucent surfaces, each with a real border and flat shadow. Motion proves mass: a pressed surface settles into its own shadow.
+3. **Semantic Clarity**: Liquidity delights but never at the expense of reading. Function leads. A single accent carries emphasis; glass stays neutral so it lands. Heavy display type for impact, monospace for labels and data, a humanist sans for body.
 
 ## Hard rules (follow these literally to stay on-brand)
 
 - Corners are square. `border-radius` is `0` by default; only raise it deliberately via the `--radius` token.
-- Shadows are **flat and offset** — `box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)`. Never use a blur radius on a structural shadow.
+- Shadows are **flat and offset**: `box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)`. Never use a blur radius on a structural shadow.
 - Borders are solid and load-bearing: `var(--border-w) solid rgb(var(--edge))`. The edge (`--edge`) is black in both light and dark mode.
 - **Exactly one accent.** `--accent` carries all emphasis. Do not introduce a second hue to compete with it.
-- Glass surfaces use `backdrop-filter: blur(var(--glass-blur))` over `rgba(var(--glass-tint), var(--glass-alpha))`. Glass stays neutral/translucent — it is depth, not color.
+- Glass surfaces use `backdrop-filter: blur(var(--glass-blur))` over `rgba(var(--glass-tint), var(--glass-alpha))`. Glass stays neutral/translucent: it is depth, not color.
 - Destructive surfaces use a neutral gray (`--neg`), never red. Error *text* may use a warning color, but destructive *containers* stay neutral.
 - Type roles are fixed: **display** = headings/buttons/brand (`--display`), **mono** = labels, captions, data, eyebrows (`--mono`), **body** = paragraph/reading copy (`--body`).
 - Leading icons are the default for nav links and buttons (Lucide). Put the icon first, then the label.
-- Press/hover feedback nudges the element toward its shadow (translate by ~1px and grow the offset) — motion proves mass.
+- Press/hover feedback nudges the element toward its shadow (translate by ~1px and grow the offset). Motion proves mass.
 
 ## Tokens (source of truth)
 
 All visuals read from CSS custom properties on `:root`. The machine-readable token set (W3C Design Tokens Community Group format, with the CSS variable name in each `$extensions.cssVar`) is at:
 
-- [design-tokens.json](design-tokens.json): the full token set — color, glass, border, radius, flat shadow, font families, plus light-mode overrides.
+- [design-tokens.json](design-tokens.json): the full token set, covering color, glass, border, radius, flat shadow, font families, plus light-mode overrides.
 
 Core defaults:
 
@@ -38,13 +38,13 @@ Core defaults:
 
 ## Recommended font pairings
 
-The language fixes three roles — a **display** face (headlines, buttons, brand), a **body** face (reading copy), and a **mono** face (labels, data, captions). Keep the display heavy and tight; keep the body humanist and legible; keep mono for anything tabular or label-like.
+The language fixes three roles: a **display** face (headlines, buttons, brand), a **body** face (reading copy), and a **mono** face (labels, data, captions). Keep the display heavy and tight; keep the body humanist and legible; keep mono for anything tabular or label-like.
 
-- **Set 01 · Canonical — Archivo (header) · Outfit (body) · Space Mono (detail)** — the canonical Structured Liquidity pairing. Confident grotesk header, warm geometric body, technical mono for detail. Use this unless you have a reason not to.
-- **Set 02 · Editorial — Syne (header) · Inter (body) · IBM Plex Mono (detail)** — expressive display over a neutral workhorse body; good for marketing and brand surfaces.
-- **Set 03 · Modern — Bricolage Grotesque (header) · Plus Jakarta Sans (body) · JetBrains Mono (detail)** — quirky contemporary grotesque with a clean body and a developer-tool mono for detail.
+- **Set 01 · Canonical · Archivo (header) · Outfit (body) · Space Mono (detail)**: the canonical Structured Liquidity pairing. Confident grotesk header, warm geometric body, technical mono for detail. Use this unless you have a reason not to.
+- **Set 02 · Editorial · Syne (header) · Inter (body) · IBM Plex Mono (detail)**: expressive display over a neutral workhorse body; good for marketing and brand surfaces.
+- **Set 03 · Modern · Bricolage Grotesque (header) · Plus Jakarta Sans (body) · JetBrains Mono (detail)**: quirky contemporary grotesque with a clean body and a developer-tool mono for detail.
 
-Rules of thumb: never pair two display faces; never set body copy in the display face (it gets tiring); use mono only for labels, code, numbers, and metadata — not for long paragraphs.
+Rules of thumb: never pair two display faces; never set body copy in the display face (it gets tiring); use mono only for labels, code, numbers, and metadata, never for long paragraphs.
 
 ## Components
 
@@ -66,4 +66,4 @@ To adopt the kit, include the three stylesheets and the kit script, then use the
 
 ## Source
 
-The full source — this specimen page, the three stylesheets, the kit script, and these machine-readable files — is on GitHub: https://github.com/heyinterspace/Structured
+The full source (this specimen page, the three stylesheets, the kit script, and these machine-readable files) is on GitHub: https://github.com/heyinterspace/Structured
