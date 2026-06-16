@@ -507,7 +507,24 @@
   #components .sl-navbar .nb-right{flex-wrap:wrap;}
   #components .sl-navmenu{flex-wrap:wrap;max-width:100%;}
   #components .sl-table{table-layout:fixed;}
-  #components .sl-table th,#components .sl-table td{overflow-wrap:anywhere;}
+  /* Narrow tables: abbreviate headers and ellipsis-truncate text cells (full value
+     stays in the title tooltip) instead of wrapping per-character. A container query
+     on .sl-table-wrap makes each table react to its OWN column width, so it stays
+     legible whether the gallery is 1-, 2- or 3-up. Badge cells keep overflow visible
+     so the flat offset shadow isn't clipped. */
+  .sl-table-wrap{container-type:inline-size;}
+  #components .sl-table th{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #components .sl-table th .th-abbr{display:none;}
+  #components .sl-table td:not(:has(.sl-badge)){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #components .sl-table td:has(.sl-badge){white-space:nowrap;}
+  #components .sl-table .sl-badge{white-space:nowrap;}
+  @container (max-width:340px){
+    #components .sl-table th .th-full{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);border:0;}
+    #components .sl-table th .th-abbr{display:inline;}
+    #components .sl-table th{letter-spacing:0.01em;font-size:0.6rem;padding:0.55rem 0.45rem;}
+    #components .sl-table td{padding:0.6rem 0.45rem;}
+    #components .sl-table .sl-badge{font-size:0.6rem;padding:0.18rem 0.42rem;}
+  }
   .adopt-h{display:flex;align-items:center;justify-content:space-between;gap:0.7rem;}
   .code-block{margin:0;font-family:var(--mono);font-size:0.74rem;line-height:1.55;color:var(--ink);
     background:rgba(var(--glass-tint),0.06);border:var(--border-w) solid rgb(var(--edge));
@@ -1063,15 +1080,23 @@
 
         <div class="glass kit-cell w8">
           <span class="kit-cap">Table / data table</span>
-          <table class="sl-table">
-            <thead><tr><th>Token</th><th>Value</th><th>Surface</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>--accent</td><td>#a388ee</td><td>Solid</td><td><span class="sl-badge default">Live</span></td></tr>
-              <tr><td>--glass-alpha</td><td>0.07</td><td>Glass</td><td><span class="sl-badge default">Live</span></td></tr>
-              <tr><td>--hard-x</td><td>7px</td><td>Shadow</td><td><span class="sl-badge secondary">Draft</span></td></tr>
-              <tr><td>--radius</td><td>0px</td><td>Edge</td><td><span class="sl-badge default">Live</span></td></tr>
-            </tbody>
-          </table>
+          <div class="sl-table-wrap">
+            <table class="sl-table">
+              <colgroup><col style="width:30%" /><col style="width:22%" /><col style="width:22%" /><col style="width:26%" /></colgroup>
+              <thead><tr>
+                <th><span class="th-full">Token</span><span class="th-abbr" aria-hidden="true">Tok</span></th>
+                <th><span class="th-full">Value</span><span class="th-abbr" aria-hidden="true">Val</span></th>
+                <th><span class="th-full">Surface</span><span class="th-abbr" aria-hidden="true">Surf</span></th>
+                <th><span class="th-full">Status</span><span class="th-abbr" aria-hidden="true">Stat</span></th>
+              </tr></thead>
+              <tbody>
+                <tr><td title="--accent">--accent</td><td title="#a388ee">#a388ee</td><td title="Solid">Solid</td><td><span class="sl-badge default">Live</span></td></tr>
+                <tr><td title="--glass-alpha">--glass-alpha</td><td title="0.07">0.07</td><td title="Glass">Glass</td><td><span class="sl-badge default">Live</span></td></tr>
+                <tr><td title="--hard-x">--hard-x</td><td title="7px">7px</td><td title="Shadow">Shadow</td><td><span class="sl-badge secondary">Draft</span></td></tr>
+                <tr><td title="--radius">--radius</td><td title="0px">0px</td><td title="Edge">Edge</td><td><span class="sl-badge default">Live</span></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="glass kit-cell w4">
