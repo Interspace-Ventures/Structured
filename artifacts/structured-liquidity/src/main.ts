@@ -1255,6 +1255,30 @@ function mountHeroTilt(): void {
   });
 }
 
+/* Demo-only navigation: the component-kit demos (sidebar, navbar, nav menu,
+   breadcrumb) use placeholder href="#" links purely to illustrate the component.
+   Left alone, clicking them jumps the whole page to the top. Suppress that, and
+   where the component has an active-route concept, move the highlight in-place. */
+function mountDemoNav(): void {
+  document.querySelectorAll<HTMLAnchorElement>('.kit-cell a[href="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sidebar = a.closest<HTMLElement>(".sl-sidebar-demo");
+      if (sidebar) {
+        sidebar.querySelectorAll(".sb a.active").forEach((el) => el.classList.remove("active"));
+        a.classList.add("active");
+        return;
+      }
+      if (a.closest(".nb-links")) {
+        const links = a.closest<HTMLElement>(".nb-links");
+        links?.querySelectorAll("a[aria-current]").forEach((el) => el.removeAttribute("aria-current"));
+        a.setAttribute("aria-current", "page");
+      }
+      // nav-menu flyout + breadcrumb have no active concept — navigation is just suppressed
+    });
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
@@ -1268,6 +1292,7 @@ function init(): void {
   mountCopy();
   mountAutocomplete();
   mountDemoForm();
+  mountDemoNav();
   const state = load();
   apply(state);
 
