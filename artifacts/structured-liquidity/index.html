@@ -339,6 +339,8 @@
   .sl-meter .mt-head .mono{font-family:var(--mono);}
   .sl-meter .mt-track{height:14px;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgba(var(--glass-tint),0.06);overflow:hidden;}
   .sl-meter .mt-fill{height:100%;background:var(--accent);border-right:var(--border-w) solid rgb(var(--edge));}
+  /* .sl-skel (verbatim kit CSS) uses legacy rgba(var(--glass-tint),a)/rgba(var(--edge),a); --glass-tint & --edge are space-separated triplets here, so that syntax is invalid and the shimmer renders transparent. Restore the gradient via background-image (keeps the verbatim background-size/animation) + border, mode-aware off --ink so it shows in both modes. */
+  .sl-skel{background-image:linear-gradient(90deg,color-mix(in srgb,var(--ink) 6%,transparent) 25%,color-mix(in srgb,var(--ink) 14%,transparent) 37%,color-mix(in srgb,var(--ink) 6%,transparent) 63%);border:1px solid rgb(var(--edge) / 0.18);}
   .sl-meter .mt-fill.warn{background:var(--neg);}
 
   /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
