@@ -482,8 +482,8 @@ function initLiquidWord(): void {
 /* Build the equalizer bars for any [data-waveform] container (media controls
    internalized from universe.audio). data-bars = bar count, data-played = how
    many leading bars are "played" (solid accent) vs upcoming (dim). Heights come
-   from layered sines so it reads like an audio envelope, not a bar chart; the
-   CSS animates them under prefers-reduced-motion: no-preference only. */
+   from layered sines so it reads like an audio envelope, not a bar chart. The
+   bars are static (no animation) so the waveform reads as a calm seek display. */
 function mountWaveform(): void {
   document.querySelectorAll<HTMLElement>("[data-waveform]").forEach((el) => {
     const bars = Math.max(1, Math.min(200, Number(el.dataset.bars) || 40));
