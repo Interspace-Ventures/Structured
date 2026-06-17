@@ -375,16 +375,16 @@
   /* ── Media controls internalized from universe.audio: equalizer waveform + now-playing player.
      Bars are built by mountWaveform() in src/main.ts from [data-waveform] (data-bars / data-played). ── */
   .sl-waveform{display:flex;align-items:flex-end;gap:2px;height:52px;width:100%;}
-  .sl-waveform .wf-bar{flex:1 1 0;min-width:2px;height:var(--h,40%);background:var(--accent);transform-origin:bottom;}
+  .sl-waveform .wf-bar{flex:1 1 0;min-width:3px;height:var(--h,40%);background:var(--accent);border:1px solid rgb(var(--edge));box-sizing:border-box;transform-origin:bottom;}
   .sl-waveform .wf-bar.is-future{background:rgb(var(--glass-tint) / 0.22);}
   /* The Card demo's media area is a branded cover panel: rigid frame, accent gradient, single glyph. */
   #components .sl-card-demo .cd-media{display:flex;align-items:center;justify-content:center;padding:0;min-height:88px;margin-bottom:0.7rem;background:linear-gradient(135deg, rgb(var(--glass-tint) / 0.10), var(--accent));border-bottom:var(--border-w) solid rgb(var(--edge));}
   #components .sl-card-demo .cd-media svg{width:1.9rem;height:1.9rem;color:var(--accent-ink);}
   /* Now-playing player: meta, then a waveform seek with its times, then a controls block.
-     pl-controls is a single stacked column by default and splits into transport + volume
-     columns once the player itself is wide enough (container query on .sl-player). The
-     transport buttons sit in their own bordered deck that wraps rather than overflowing. */
-  .sl-player{display:flex;flex-direction:column;gap:0.85rem;width:100%;container-type:inline-size;}
+     pl-controls stacks full-width rows: the transport deck (buttons spread across the full
+     container width) above the volume row, so the controls always span the whole player.
+     The transport buttons sit in their own bordered deck that wraps rather than overflowing. */
+  .sl-player{display:flex;flex-direction:column;gap:0.85rem;width:100%;}
   .sl-player .pl-top{display:flex;align-items:center;gap:0.7rem;}
   .sl-player .pl-art{width:46px;height:46px;flex:none;display:grid;place-items:center;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);}
   .sl-player .pl-art svg{width:1.3rem;height:1.3rem;}
@@ -396,17 +396,13 @@
   .sl-player .pl-times{display:flex;justify-content:space-between;}
   .sl-player .pl-time{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);}
   .sl-player .pl-controls{display:grid;grid-template-columns:1fr;gap:0.7rem;align-items:center;}
-  .sl-player .pl-transport{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.25rem;justify-self:center;padding:0.3rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgb(var(--glass-tint) / 0.06);}
+  .sl-player .pl-transport{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.25rem;padding:0.3rem 0.5rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgb(var(--glass-tint) / 0.06);}
   .sl-player .pl-ic{padding:0.4rem;}
   .sl-player .pl-play{padding:0.5rem 0.65rem;}
   .sl-player .pl-ic svg,.sl-player .pl-play svg{width:1.05rem;height:1.05rem;display:block;}
   .sl-player .pl-vol{display:flex;align-items:center;gap:0.6rem;min-width:0;}
   .sl-player .pl-vol svg{width:1.05rem;height:1.05rem;color:var(--ink-dim);flex:none;}
   .sl-player .pl-vol .sl-slider{flex:1;min-width:0;}
-  @container (min-width:360px){
-    .sl-player .pl-controls{grid-template-columns:auto 1fr;}
-    .sl-player .pl-transport{justify-self:start;}
-  }
 
   /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
   .sl-toolbar{display:flex;align-items:center;gap:0.3rem;flex-wrap:nowrap;padding:0.4rem 0.45rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);overflow-x:auto;scrollbar-width:none;}
