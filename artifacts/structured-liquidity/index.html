@@ -376,11 +376,14 @@
     .sl-waveform .wf-bar{animation:sl-wf 1.25s var(--d,0s) ease-in-out infinite alternate;}
   }
   @keyframes sl-wf{from{transform:scaleY(0.34);}to{transform:scaleY(1);}}
-  /* The Card demo's media area doubles as the "Waveform v2" spectral display. */
-  #components .sl-card-demo .cd-media{display:flex;align-items:flex-end;padding:0.7rem 0.8rem;}
-  .sl-card-demo .cd-media .cd-wave{height:100%;}
-  /* Now-playing player: meta · waveform seek · transport · volume. */
-  .sl-player{display:flex;flex-direction:column;gap:0.85rem;width:100%;}
+  /* The Card demo's media area is a branded cover panel: rigid frame, accent gradient, single glyph. */
+  #components .sl-card-demo .cd-media{display:flex;align-items:center;justify-content:center;padding:0;min-height:88px;margin-bottom:0.7rem;background:linear-gradient(135deg, rgb(var(--glass-tint) / 0.10), var(--accent));border-bottom:var(--border-w) solid rgb(var(--edge));}
+  #components .sl-card-demo .cd-media svg{width:1.9rem;height:1.9rem;color:var(--accent-ink);}
+  /* Now-playing player: meta, then a waveform seek with its times, then a controls block.
+     pl-controls is a single stacked column by default and splits into transport + volume
+     columns once the player itself is wide enough (container query on .sl-player). The
+     transport buttons sit in their own bordered deck that wraps rather than overflowing. */
+  .sl-player{display:flex;flex-direction:column;gap:0.85rem;width:100%;container-type:inline-size;}
   .sl-player .pl-top{display:flex;align-items:center;gap:0.7rem;}
   .sl-player .pl-art{width:46px;height:46px;flex:none;display:grid;place-items:center;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:var(--accent);color:var(--accent-ink);}
   .sl-player .pl-art svg{width:1.3rem;height:1.3rem;}
@@ -388,15 +391,21 @@
   .sl-player .pl-eyebrow{font-family:var(--mono);font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);}
   .sl-player .pl-title{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .sl-player .pl-artist{font-size:0.8rem;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .sl-player .pl-scrub{display:flex;align-items:center;gap:0.6rem;}
-  .sl-player .pl-time{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);flex:none;}
-  .sl-player .pl-transport{display:flex;align-items:center;justify-content:center;gap:0.3rem;flex:1;}
+  .sl-player .pl-progress{display:flex;flex-direction:column;gap:0.35rem;}
+  .sl-player .pl-times{display:flex;justify-content:space-between;}
+  .sl-player .pl-time{font-family:var(--mono);font-size:0.72rem;color:var(--ink-dim);}
+  .sl-player .pl-controls{display:grid;grid-template-columns:1fr;gap:0.7rem;align-items:center;}
+  .sl-player .pl-transport{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.25rem;justify-self:center;padding:0.3rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgb(var(--glass-tint) / 0.06);}
   .sl-player .pl-ic{padding:0.4rem;}
   .sl-player .pl-play{padding:0.5rem 0.65rem;}
   .sl-player .pl-ic svg,.sl-player .pl-play svg{width:1.05rem;height:1.05rem;display:block;}
-  .sl-player .pl-vol{display:flex;align-items:center;gap:0.6rem;}
+  .sl-player .pl-vol{display:flex;align-items:center;gap:0.6rem;min-width:0;}
   .sl-player .pl-vol svg{width:1.05rem;height:1.05rem;color:var(--ink-dim);flex:none;}
-  .sl-player .pl-vol .sl-slider{flex:1;}
+  .sl-player .pl-vol .sl-slider{flex:1;min-width:0;}
+  @container (min-width:360px){
+    .sl-player .pl-controls{grid-template-columns:auto 1fr;}
+    .sl-player .pl-transport{justify-self:start;}
+  }
 
   /* ── Toolbar: a bar grouping controls (toggle groups, separators, buttons) ── */
   .sl-toolbar{display:flex;align-items:center;gap:0.3rem;flex-wrap:nowrap;padding:0.4rem 0.45rem;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);background:rgba(var(--glass-tint),0.06);overflow-x:auto;scrollbar-width:none;}
@@ -1100,10 +1109,10 @@
         <div class="glass kit-cell w4">
           <span class="kit-cap">Card</span>
           <div class="sl-card-demo">
-            <div class="cd-media"><div class="sl-waveform cd-wave" data-waveform data-bars="34" data-played="13" aria-hidden="true"></div></div>
+            <div class="cd-media" aria-hidden="true"><i data-lucide="library"></i></div>
             <div class="cd-body">
-              <h4>Waveform v2</h4>
-              <p>Real-time spectral display with glass overlays.</p>
+              <h4>Field Notes</h4>
+              <p>A rigid container holding glass: a cover, supporting copy, and one clear action.</p>
               <button class="sl-btn default sm">Open <span>→</span></button>
             </div>
           </div>
@@ -1126,9 +1135,14 @@
               </div>
               <span class="sl-badge default">Live</span>
             </div>
-            <div class="sl-waveform pl-wave" data-waveform data-bars="56" data-played="22" role="img" aria-label="Playback position, 39% elapsed"></div>
-            <div class="pl-scrub">
-              <span class="pl-time">1:48</span>
+            <div class="pl-progress">
+              <div class="sl-waveform pl-wave" data-waveform data-bars="56" data-played="22" role="img" aria-label="Playback position, 39% elapsed"></div>
+              <div class="pl-times">
+                <span class="pl-time">1:48</span>
+                <span class="pl-time">4:38</span>
+              </div>
+            </div>
+            <div class="pl-controls">
               <div class="pl-transport">
                 <button type="button" class="sl-btn ghost pl-ic" aria-label="Shuffle"><i data-lucide="shuffle"></i></button>
                 <button type="button" class="sl-btn ghost pl-ic" aria-label="Previous track"><i data-lucide="skip-back"></i></button>
@@ -1136,11 +1150,10 @@
                 <button type="button" class="sl-btn ghost pl-ic" aria-label="Next track"><i data-lucide="skip-forward"></i></button>
                 <button type="button" class="sl-btn ghost pl-ic" aria-label="Repeat"><i data-lucide="repeat"></i></button>
               </div>
-              <span class="pl-time">4:38</span>
-            </div>
-            <div class="pl-vol">
-              <i data-lucide="volume-2" aria-hidden="true"></i>
-              <div class="sl-slider"><div class="trk"><div class="fl" style="width:72%"></div><div class="th" style="left:72%"></div></div></div>
+              <div class="pl-vol">
+                <i data-lucide="volume-2" aria-hidden="true"></i>
+                <div class="sl-slider"><div class="trk"><div class="fl" style="width:72%"></div><div class="th" style="left:72%"></div></div></div>
+              </div>
             </div>
           </div>
         </div>
