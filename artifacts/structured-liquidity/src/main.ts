@@ -128,21 +128,21 @@ function apply(t: Tweaks): void {
 const PANEL_CSS = `
   .twk-panel{position:fixed;right:18px;bottom:74px;z-index:2147483646;width:280px;
     max-height:calc(100vh - 110px);display:none;flex-direction:column;
-    background:rgba(var(--glass-tint),0.12);color:var(--ink);
+    background:rgb(var(--glass-tint) / 0.10);color:var(--ink);
     -webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);
-    border:var(--border-w) solid rgb(var(--edge));
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
     box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);
     font:12px/1.4 var(--mono);overflow:hidden}
   .twk-panel.open{display:flex;animation:twk-in .26s cubic-bezier(.2,.9,.2,1) both}
   @keyframes twk-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   @media (prefers-reduced-motion:reduce){.twk-panel.open{animation:none}}
   .twk-hd{display:flex;align-items:center;justify-content:space-between;
-    padding:12px 10px 12px 16px;border-bottom:1px solid rgba(var(--glass-tint),.14)}
-  .twk-hd b{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    padding:12px 10px 12px 16px;border-bottom:var(--border-w) solid rgb(var(--edge))}
+  .twk-hd b{font-family:var(--display);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
   .twk-x{appearance:none;border:0;background:transparent;color:var(--ink-dim);
     width:24px;height:24px;cursor:pointer;font-size:13px;line-height:1}
   .twk-x:hover{color:var(--ink)}
-  .twk-body{padding:6px 16px 16px;display:flex;flex-direction:column;gap:12px;
+  .twk-body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:12px;
     overflow-y:auto;overflow-x:hidden;min-height:0}
   .twk-sect{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
     color:var(--accent);padding:8px 0 0}
@@ -153,31 +153,39 @@ const PANEL_CSS = `
   .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:22px;margin:4px 0;
     background:transparent;outline:none;cursor:pointer}
   .twk-slider::-webkit-slider-runnable-track{height:8px;box-sizing:border-box;
-    border:2px solid rgb(var(--edge));border-radius:var(--radius);
-    background:rgba(var(--glass-tint),.22)}
-  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-5px;
-    width:16px;height:16px;background:var(--accent);border:2px solid rgb(var(--edge));
-    box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / 0.06)}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-6px;
+    width:16px;height:16px;background:var(--accent);border:var(--border-w) solid rgb(var(--edge));
+    border-radius:var(--radius);box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
   .twk-slider::-moz-range-track{height:8px;box-sizing:border-box;
-    border:2px solid rgb(var(--edge));border-radius:var(--radius);
-    background:rgba(var(--glass-tint),.22)}
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / 0.06)}
   .twk-slider::-moz-range-thumb{width:16px;height:16px;background:var(--accent);
-    border:2px solid rgb(var(--edge));box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
-  .twk-seg{display:flex;border:1px solid rgba(var(--glass-tint),.2)}
-  .twk-seg button{appearance:none;flex:1;border:0;background:transparent;color:var(--ink-dim);
-    font:inherit;padding:6px 4px;cursor:pointer;text-transform:capitalize}
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
+  .twk-seg{display:flex;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    overflow:hidden;box-shadow:2px 2px 0 0 var(--hard-shadow)}
+  .twk-seg button{appearance:none;flex:1;border:0;border-left:1px solid rgb(var(--edge) / 0.3);
+    background:rgb(var(--glass-tint) / 0.05);color:var(--ink-dim);
+    font-family:var(--mono);font-size:11px;padding:6px 4px;cursor:pointer;text-transform:capitalize}
+  .twk-seg button:first-child{border-left:0}
   .twk-seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
-  .twk-field{appearance:none;width:100%;box-sizing:border-box;padding:6px 8px;
-    border:1px solid rgba(var(--glass-tint),.2);background:rgba(var(--glass-tint),.06);
-    color:var(--ink);font:inherit;outline:none;cursor:pointer}
+  .twk-field{appearance:none;width:100%;box-sizing:border-box;padding:7px 9px;
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / 0.06);
+    color:var(--ink);font-family:var(--mono);font-size:11px;outline:none;cursor:pointer}
+  .twk-field:focus{box-shadow:3px 3px 0 0 var(--accent)}
   .twk-chips{display:flex;gap:6px}
-  .twk-chip{flex:1;height:30px;border:2px solid transparent;cursor:pointer;padding:0}
-  .twk-chip[aria-pressed="true"]{border-color:var(--ink)}
+  .twk-chip{flex:1;height:30px;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    cursor:pointer;padding:0}
+  .twk-chip[aria-pressed="true"]{box-shadow:2px 2px 0 0 var(--hard-shadow)}
   .twk-foot{padding:0 16px 16px}
-  .twk-reset{width:100%;appearance:none;border:1px solid rgba(var(--glass-tint),.2);
-    background:transparent;color:var(--ink-dim);font:inherit;padding:7px;cursor:pointer;
-    text-transform:uppercase;letter-spacing:.06em;font-size:10px}
-  .twk-reset:hover{color:var(--ink);border-color:rgba(var(--glass-tint),.4)}
+  .twk-reset{width:100%;appearance:none;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:transparent;color:var(--ink);font-family:var(--display);font-weight:700;padding:8px;cursor:pointer;
+    text-transform:uppercase;letter-spacing:.06em;font-size:11px;box-shadow:2px 2px 0 0 var(--hard-shadow);
+    transition:transform .12s,box-shadow .12s}
+  .twk-reset:hover{transform:translate(2px,2px);box-shadow:0 0 0 0 var(--hard-shadow)}
 `;
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -1167,30 +1175,11 @@ function mountNumberFields(): void {
   });
 }
 
-/** Liquid motion layer — press ripples, flowing tab marker, hover refraction.
+/** Liquid motion layer — flowing tab marker, hover refraction.
  *  CSS lives in index.html's inline <style> (gated on prefers-reduced-motion);
  *  this only wires the pointer coordinates / FLIP geometry. */
 const prefersReducedMotion = (): boolean =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-function mountRipples(): void {
-  if (prefersReducedMotion()) return;
-  document.addEventListener("pointerdown", (e) => {
-    const target = (e.target as HTMLElement | null)?.closest<HTMLElement>(".btn, .sl-btn");
-    if (!target) return;
-    const rect = target.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height) * 2.4;
-    const span = document.createElement("span");
-    span.className = "sl-ripple";
-    span.setAttribute("aria-hidden", "true");
-    span.style.width = `${size}px`;
-    span.style.height = `${size}px`;
-    span.style.left = `${e.clientX - rect.left}px`;
-    span.style.top = `${e.clientY - rect.top}px`;
-    target.appendChild(span);
-    span.addEventListener("animationend", () => span.remove());
-  });
-}
 
 function mountTabFlow(): void {
   if (prefersReducedMotion()) return;
@@ -1320,7 +1309,6 @@ function init(): void {
   mountCarousel();
   mountMarquee();
   mountNumberFields();
-  mountRipples();
   mountTabFlow();
   mountRefraction();
   mountHeroTilt();

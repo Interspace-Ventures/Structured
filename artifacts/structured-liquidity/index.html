@@ -593,7 +593,7 @@
   /* ============================================================
      LIQUID MOTION LAYER  (specimen-only; layered over the verbatim public CSS)
      Principle: the rigid container holds — sharp corners, flat offset shadow,
-     grid never bounce or morph. The liquid INSIDE reacts: it ripples, floods,
+     grid never bounce or morph. The liquid INSIDE reacts: it floods,
      settles with viscous overshoot, and catches light. One shared easing so
      every motion feels like the same material. All gated behind
      prefers-reduced-motion so it's accessibility-safe.
@@ -604,16 +604,6 @@
     --motion-fast:.16s; --motion:.34s; --motion-slow:.5s;
   }
   @media (prefers-reduced-motion: no-preference){
-    /* --- press ripple: liquid radial from the click point --- */
-    .btn, .sl-btn{ position:relative; overflow:hidden; }
-    .sl-ripple{
-      position:absolute; border-radius:50%; pointer-events:none; z-index:0;
-      transform:translate(-50%,-50%) scale(0); opacity:.5;
-      background:radial-gradient(circle, rgba(255,255,255,.5), rgba(255,255,255,0) 70%);
-      animation:sl-ripple .6s var(--ease-liquid) forwards;
-    }
-    @keyframes sl-ripple{ to{ transform:translate(-50%,-50%) scale(1); opacity:0; } }
-
     /* --- accent pour: picking an accent floods the new colour across the page
        from the click point like liquid filling in, then drains away. The page
        has already switched to the new accent underneath; this is the flourish.
