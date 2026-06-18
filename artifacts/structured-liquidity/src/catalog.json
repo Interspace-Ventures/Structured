@@ -915,6 +915,35 @@
       "kinds": [
         "display"
       ]
+    },
+    {
+      "name": "Mobile navigation",
+      "cap": "Mobile navigation · tab bar & drawer",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation",
+        "interactive"
+      ],
+      "kinds": [
+        "navigation",
+        "interactive"
+      ]
+    },
+    {
+      "name": "AI chat",
+      "cap": "AI chat · conversation",
+      "category": "data",
+      "status": "stable",
+      "tags": [
+        "interactive",
+        "display"
+      ],
+      "kinds": [
+        "interactive",
+        "display",
+        "feedback"
+      ]
     }
   ],
   "facets": [

@@ -31,19 +31,25 @@ import {
   ExternalLink,
   FileText,
   Ghost,
+  Heart,
+  House,
   Info,
   Italic,
   LayoutGrid,
   Library,
   Link,
+  Menu,
+  Mic,
   Minus,
   Moon,
   Palette,
+  Paperclip,
   Pause,
   Play,
   Plus,
   Radio,
   Repeat,
+  Search,
   Shuffle,
   SkipBack,
   SkipForward,
@@ -54,7 +60,9 @@ import {
   TriangleAlert,
   Type,
   Underline,
+  User,
   Volume2,
+  X,
 } from "lucide";
 
 type Mode = "dark" | "light";
@@ -544,18 +552,24 @@ function mountIcons(): void {
       ExternalLink,
       FileText,
       Ghost,
+      Heart,
+      House,
       Info,
       Italic,
       LayoutGrid,
       Library,
       Link,
+      Menu,
+      Mic,
       Minus,
       Palette,
+      Paperclip,
       Pause,
       Play,
       Plus,
       Radio,
       Repeat,
+      Search,
       Shuffle,
       SkipBack,
       SkipForward,
@@ -565,7 +579,9 @@ function mountIcons(): void {
       TriangleAlert,
       Type,
       Underline,
+      User,
       Volume2,
+      X,
     },
     attrs: { "aria-hidden": "true", "stroke-width": "2.25" },
   });
@@ -1321,6 +1337,108 @@ function mountDemoNav(): void {
   });
 }
 
+/* AI chat: a self-contained conversation demo (no backend). Sending appends the
+   visitor's bubble, shows a typing indicator, then a canned assistant reply.
+   Suggestion chips prefill the composer. */
+function mountChat(): void {
+  document.querySelectorAll<HTMLElement>("[data-chat]").forEach((root) => {
+    const log = root.querySelector<HTMLElement>("[data-chat-log]");
+    const form = root.querySelector<HTMLFormElement>("[data-chat-form]");
+    const input = root.querySelector<HTMLInputElement>("[data-chat-input]");
+    if (!log || !form || !input) return;
+
+    const replies = [
+      "On it. Here's a first pass you can refine.",
+      "Good direction. Want it shorter or punchier?",
+      "Done. I can spin up a couple of variations if you like.",
+      "Got it. Here's a take that leans into the mood.",
+    ];
+    let turn = 0;
+
+    const scrollDown = (): void => {
+      log.scrollTop = log.scrollHeight;
+    };
+
+    const bubble = (who: "me" | "bot", text: string, html = false): HTMLElement => {
+      const msg = document.createElement("div");
+      msg.className = `ch-msg ${who}`;
+      if (who === "bot") {
+        const ava = document.createElement("span");
+        ava.className = "ch-b-ava";
+        ava.appendChild(createElement(Sparkles));
+        msg.appendChild(ava);
+      }
+      const b = document.createElement("div");
+      b.className = "ch-bubble";
+      if (html) b.innerHTML = text;
+      else b.textContent = text;
+      msg.appendChild(b);
+      log.appendChild(msg);
+      scrollDown();
+      return msg;
+    };
+
+    const send = (text: string): void => {
+      const t = text.trim();
+      if (!t) return;
+      bubble("me", t);
+      input.value = "";
+      const typing = bubble(
+        "bot",
+        '<span class="ch-typing"><i></i><i></i><i></i></span>',
+        true,
+      );
+      window.setTimeout(() => {
+        typing.remove();
+        bubble("bot", replies[turn % replies.length]);
+        turn += 1;
+      }, 900);
+    };
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      send(input.value);
+    });
+
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-chat-suggest] .ch-chip")
+      .forEach((chip) => {
+        chip.addEventListener("click", () => {
+          input.value = chip.textContent ?? "";
+          input.focus();
+        });
+      });
+  });
+}
+
+/* Mobile navigation: the burger toggles the slide-down drawer; the bottom tabs
+   move the active state. Markup degrades to a static frame if this never runs. */
+function mountMobileNav(): void {
+  document.querySelectorAll<HTMLElement>("[data-mnav]").forEach((root) => {
+    const toggle = root.querySelector<HTMLButtonElement>("[data-mnav-toggle]");
+    const drawer = root.querySelector<HTMLElement>("[data-mnav-drawer]");
+    if (toggle && drawer) {
+      toggle.addEventListener("click", () => {
+        const open = drawer.getAttribute("data-open") === "true";
+        drawer.setAttribute("data-open", String(!open));
+        toggle.setAttribute("aria-expanded", String(!open));
+        toggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+      });
+    }
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>(".mn-tab"));
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.removeAttribute("aria-current");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-current", "page");
+      });
+    });
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
@@ -1335,6 +1453,8 @@ function init(): void {
   mountAutocomplete();
   mountDemoForm();
   mountDemoNav();
+  mountChat();
+  mountMobileNav();
   const state = load();
   apply(state);
 
