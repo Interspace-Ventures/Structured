@@ -61,6 +61,7 @@ Defined in `public/structured-liquidity.css` `:root`; overridable live by `src/m
 ## User preferences
 
 - Port the provided design framework faithfully — it is a finished specimen, not a starting point to redesign.
+- Avoid red. Do not use red (or reddish/pink) colors in the UI; prefer the theme accent (`var(--accent)`) or a neutral instead.
 
 ## Gotchas
 
