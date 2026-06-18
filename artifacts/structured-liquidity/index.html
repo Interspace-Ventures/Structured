@@ -81,6 +81,8 @@
     display:flex;align-items:stretch;gap:10px;}
   .sl-fab-dock .sl-tweaks-fab{position:static;}
   .sl-mode-fab svg{width:14px;height:14px;}
+  /* Fixed-width label so the button doesn't resize when "Dark" <-> "Light" swap (mono = stable ch). */
+  .sl-mode-lbl{display:inline-block;min-width:5.5ch;text-align:left;}
 
   /* Unified hypercube logo — a glass tile holding the liquid-filled
      hypercube, rendered identically everywhere (nav, hero, CTA, footer) so

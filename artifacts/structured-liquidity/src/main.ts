@@ -1360,7 +1360,7 @@ function init(): void {
     const m = state.mode;
     modeFab.replaceChildren(
       createElement(m === "dark" ? Moon : Sun),
-      document.createTextNode(m === "dark" ? "Dark" : "Light"),
+      el("span", { class: "sl-mode-lbl" }, m === "dark" ? "Dark" : "Light"),
     );
     modeFab.setAttribute("aria-pressed", String(m === "light"));
   };
