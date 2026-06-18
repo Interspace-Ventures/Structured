@@ -13,6 +13,7 @@ import catalog from "./catalog.json";
 
 import {
   createIcons,
+  createElement,
   AlignCenter,
   AlignLeft,
   AlignRight,
@@ -35,6 +36,7 @@ import {
   Library,
   Link,
   Minus,
+  Moon,
   Palette,
   Pause,
   Play,
@@ -46,6 +48,7 @@ import {
   SkipForward,
   Sparkles,
   Square,
+  Sun,
   Trash2,
   TriangleAlert,
   Type,
@@ -164,13 +167,6 @@ const PANEL_CSS = `
   .twk-slider::-moz-range-thumb{width:16px;height:16px;background:var(--accent);
     border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
     box-shadow:2px 2px 0 0 var(--hard-shadow);cursor:pointer}
-  .twk-seg{display:flex;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
-    overflow:hidden;box-shadow:2px 2px 0 0 var(--hard-shadow)}
-  .twk-seg button{appearance:none;flex:1;border:0;border-left:1px solid rgb(var(--edge) / 0.3);
-    background:rgb(var(--glass-tint) / 0.05);color:var(--ink-dim);
-    font-family:var(--mono);font-size:11px;padding:6px 4px;cursor:pointer;text-transform:capitalize}
-  .twk-seg button:first-child{border-left:0}
-  .twk-seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
   .twk-field{appearance:none;width:100%;box-sizing:border-box;padding:7px 9px;
     border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
     background:rgb(var(--glass-tint) / 0.06);
@@ -1333,13 +1329,32 @@ function init(): void {
   style.textContent = PANEL_CSS;
   document.head.appendChild(style);
 
-  // Launcher
+  // Launcher dock: a standalone dark/light toggle sits to the left of the Mods button.
+  const dock = el("div", { class: "sl-fab-dock" });
+  const modeFab = el("button", {
+    class: "sl-tweaks-fab sl-mode-fab",
+    "aria-label": "Toggle dark or light mode",
+  });
+  const renderModeFab = (): void => {
+    const m = state.mode;
+    modeFab.replaceChildren(
+      createElement(m === "dark" ? Moon : Sun),
+      document.createTextNode(m === "dark" ? "Dark" : "Light"),
+    );
+    modeFab.setAttribute("aria-pressed", String(m === "light"));
+  };
+  modeFab.addEventListener("click", () => {
+    set("mode", state.mode === "dark" ? "light" : "dark");
+    renderModeFab();
+  });
   const fab = el(
     "button",
     { class: "sl-tweaks-fab", "aria-label": "Open theme tweaks" },
     `<span class="knob-ic"></span>Mods`,
   );
-  document.body.appendChild(fab);
+  dock.append(modeFab, fab);
+  document.body.appendChild(dock);
+  renderModeFab();
 
   // Panel shell
   const panel = el("div", { class: "twk-panel", role: "dialog", "aria-label": "Theme tweaks" });
@@ -1366,6 +1381,7 @@ function init(): void {
     apply(state);
     save(state);
     render();
+    renderModeFab();
   });
 
   function sliderRow(
@@ -1447,18 +1463,6 @@ function init(): void {
     });
     accRow.appendChild(chips);
     body.appendChild(accRow);
-
-    // Mode segmented control
-    const modeRow = el("div", { class: "twk-row" });
-    modeRow.appendChild(el("div", { class: "twk-lbl" }, `<span>Mode</span>`));
-    const seg = el("div", { class: "twk-seg", role: "radiogroup" });
-    (["dark", "light"] as Mode[]).forEach((m) => {
-      const btn = el("button", { "aria-pressed": String(m === state.mode) }, m);
-      btn.addEventListener("click", () => set("mode", m));
-      seg.appendChild(btn);
-    });
-    modeRow.appendChild(seg);
-    body.appendChild(modeRow);
   }
 
   render();

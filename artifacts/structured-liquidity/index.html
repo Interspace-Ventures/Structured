@@ -76,6 +76,11 @@
   .sl-tweaks-fab .knob-ic{width:13px;height:13px;border:2px solid currentColor;
     border-radius:50%;}
   @media (prefers-reduced-motion:reduce){.sl-tweaks-fab:hover{transform:none}}
+  /* Launcher dock holds the standalone dark/light toggle and the Mods button side by side. */
+  .sl-fab-dock{position:fixed;right:18px;bottom:18px;z-index:2147483645;
+    display:flex;align-items:stretch;gap:10px;}
+  .sl-fab-dock .sl-tweaks-fab{position:static;}
+  .sl-mode-fab svg{width:14px;height:14px;}
 
   /* Unified hypercube logo — a glass tile holding the liquid-filled
      hypercube, rendered identically everywhere (nav, hero, CTA, footer) so

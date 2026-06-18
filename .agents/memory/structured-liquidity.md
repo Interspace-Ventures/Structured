@@ -67,6 +67,8 @@ Leading icons are the design-language **default** for navbars and buttons. They 
 
 **How to apply:** to add an icon — drop `<i data-lucide="name"></i>` as the first child of the nav link / `.btn` / `.sl-btn`, then `import { Name }` and add it to the `mountIcons()` icons map (PascalCase). Sizing/alignment is one inline `<style>` block in `index.html` (`.btn svg`, `.sl-btn svg`, `.nav .links a` made inline-flex). `.btn`/`.sl-btn` already are inline-flex with a gap, so icons align for free.
 
+**For a DYNAMIC/swappable icon built at runtime (e.g. a toggle's icon), use `createElement(IconNode)` — NOT a second `createIcons()` call.** lucide-hydrated SVGs RETAIN their `data-lucide` attribute, so calling `createIcons({icons:{Subset}})` again re-scans the whole document, finds every already-rendered svg, and floods the console with "icon name was not found in the provided icons object" for every icon not in your subset. Instead `import { createElement, Moon, Sun } from "lucide"` and do `node.replaceChildren(createElement(cond ? Moon : Sun), textNode)` — builds one svg with no document scan. Constrain its size with a CSS rule (lucide defaults to 24px), e.g. `.sl-mode-fab svg{width:14px;height:14px}`.
+
 ## Cube logo (`.glyph`) reuse gotchas
 The hypercube mark = base `.glyph` glass tile + SVG hypercube/liquid added by `liquid-word.js buildCube()` (sets `.is-cube`, removes the CSS `::before` liquid). To make the mark identical everywhere, style `.glyph.is-cube` globally (light `--ink` shell/edge strokes + accent innerglass) instead of scoping to `.brand` — the base tile then stays on nav/footer/CTA/hero alike.
 
