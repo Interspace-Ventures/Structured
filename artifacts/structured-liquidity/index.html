@@ -603,6 +603,37 @@
   .ff-ibmplexmono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:400;}
   .ff-jetbrainsmono{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;}
 
+  /* Data progress: read the fill as glassy LIQUID, not a candy stripe. Static
+     here (everyone) — the flow/crest motion is layered in the reduced-motion-
+     gated block below. Vertical depth gradient = a tube of liquid catching light
+     at the top and deepening below; a bright meniscus pools at the leading edge;
+     soft caustics sit in the body (and drift, when motion is allowed). */
+  .sl-progress{ height:18px; }
+  .sl-progress > span{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(120% 180% at 100% 50%, rgba(255,255,255,.35), transparent 40%),
+      linear-gradient(180deg,
+        color-mix(in srgb, #fff 42%, var(--accent)) 0%,
+        var(--accent) 46%,
+        color-mix(in srgb, #000 18%, var(--accent)) 100%);
+  }
+  .sl-progress > span::before{
+    content:""; position:absolute; inset:-30% -12%; pointer-events:none;
+    background-image:
+      radial-gradient(closest-side, rgba(255,255,255,.30), transparent 70%),
+      radial-gradient(closest-side, rgba(255,255,255,.18), transparent 72%);
+    background-repeat:repeat-x, repeat-x;
+    background-size:70px 150%, 110px 125%;
+    background-position:0 -12%, 40px 32%;
+    filter:blur(1px);
+  }
+  .sl-progress > span::after{
+    content:""; position:absolute; inset:0; width:42%; pointer-events:none;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+    transform:translateX(210%);
+  }
+
   /* ============================================================
      LIQUID MOTION LAYER  (specimen-only; layered over the verbatim public CSS)
      Principle: the rigid container holds — sharp corners, flat offset shadow,
@@ -710,24 +741,13 @@
     }
     .kit-cell:hover::after, .show-card:hover::after{ opacity:1; }
 
-    /* --- liquid progress: rigid track holds a flowing, light-catching liquid --- */
-    .sl-progress > span{ position:relative; overflow:hidden; background-image:none; }
-    /* continuous current — light bands drift through the body of the liquid */
-    .sl-progress > span::before{
-      content:""; position:absolute; inset:0; pointer-events:none;
-      background-image:linear-gradient(135deg,
-        rgba(255,255,255,.22) 25%, transparent 25%, transparent 50%,
-        rgba(255,255,255,.22) 50%, rgba(255,255,255,.22) 75%, transparent 75%);
-      background-size:16px 16px;
-      animation:sl-liquid-current 1s linear infinite;
-    }
-    /* surface crest — a sheen rides along the top like light on a wave */
-    .sl-progress > span::after{
-      content:""; position:absolute; inset:0; width:40%; pointer-events:none;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-      animation:sl-liquid-crest 2.4s var(--ease-liquid) infinite;
-    }
-    @keyframes sl-liquid-current{ to{ background-position:16px 0; } }
+    /* --- liquid progress: the pooled caustics drift and a crest rides the
+       surface (the glassy body + meniscus are defined statically above) --- */
+    .sl-progress > span::before{ animation:sl-liquid-flow 4s linear infinite; }
+    .sl-progress > span::after{ animation:sl-liquid-crest 2.6s var(--ease-liquid) infinite; }
+    /* each caustic layer shifts exactly one tile (70px / 110px) for a seamless
+       loop; differing tile widths give a parallax shimmer like light in water */
+    @keyframes sl-liquid-flow{ to{ background-position:70px -12%, 150px 32%; } }
     @keyframes sl-liquid-crest{
       0%{ transform:translateX(-130%); }
       55%,100%{ transform:translateX(360%); }
