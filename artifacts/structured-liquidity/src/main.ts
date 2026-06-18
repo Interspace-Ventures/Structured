@@ -23,6 +23,7 @@ import {
   Bold,
   Bot,
   Check,
+  ChevronDown,
   Code,
   Compass,
   Copy,
@@ -172,6 +173,26 @@ const PANEL_CSS = `
     background:rgb(var(--glass-tint) / 0.06);
     color:var(--ink);font-family:var(--mono);font-size:11px;outline:none;cursor:pointer}
   .twk-field:focus{box-shadow:3px 3px 0 0 var(--accent)}
+  /* Custom font listbox (native <select> popups can't be themed). */
+  .twk-select{position:relative}
+  .twk-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left}
+  .twk-select-trigger svg{width:14px;height:14px;flex:none;color:var(--ink-dim);transition:transform .18s}
+  .twk-select.open .twk-select-trigger svg{transform:rotate(180deg)}
+  .twk-select-trigger:focus-visible{box-shadow:3px 3px 0 0 var(--accent)}
+  .twk-select-list{display:none;flex-direction:column;margin-top:6px;
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / 0.10);
+    -webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);
+    box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);overflow:hidden}
+  .twk-select.open .twk-select-list{display:flex;animation:twk-in .18s cubic-bezier(.2,.9,.2,1) both}
+  .twk-option{display:flex;align-items:center;gap:8px;padding:7px 9px;cursor:pointer;outline:none;
+    font-family:var(--mono);font-size:11px;color:var(--ink-dim);
+    border-top:1px solid rgb(var(--edge) / 0.25)}
+  .twk-option:first-child{border-top:0}
+  .twk-option:hover,.twk-option.active{background:rgb(var(--glass-tint) / 0.10);color:var(--ink)}
+  .twk-option[aria-selected="true"]{color:var(--ink)}
+  .twk-option .twk-check{margin-left:auto;width:13px;height:13px;flex:none;color:var(--accent);opacity:0}
+  .twk-option[aria-selected="true"] .twk-check{opacity:1}
   .twk-chips{display:flex;gap:6px}
   .twk-chip{flex:1;height:30px;border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
     cursor:pointer;padding:0}
@@ -1423,17 +1444,90 @@ function init(): void {
 
     body.appendChild(el("div", { class: "twk-sect" }, "Voice"));
 
-    // Display font
+    // Display font (custom listbox; native <select> popups can't be themed)
     const fontRow = el("div", { class: "twk-row" });
     fontRow.appendChild(el("div", { class: "twk-lbl" }, `<span>Display font</span>`));
-    const select = el("select", { class: "twk-field" }) as HTMLSelectElement;
-    (Object.keys(FONTS) as Tweaks["font"][]).forEach((f) => {
-      const opt = el("option", { value: f }, f) as HTMLOptionElement;
-      if (f === state.font) opt.selected = true;
-      select.appendChild(opt);
+    const sel = el("div", { class: "twk-select" });
+    const trigger = el("button", {
+      class: "twk-field twk-select-trigger",
+      type: "button",
+      role: "combobox",
+      "aria-haspopup": "listbox",
+      "aria-expanded": "false",
+      "aria-label": "Display font",
     });
-    select.addEventListener("change", () => set("font", select.value as Tweaks["font"]));
-    fontRow.appendChild(select);
+    const listId = "twk-font-list";
+    trigger.setAttribute("aria-controls", listId);
+    trigger.append(el("span", { class: "twk-select-val" }, state.font), createElement(ChevronDown));
+    const list = el("div", { id: listId, class: "twk-select-list", role: "listbox", "aria-label": "Display font" });
+    const fonts = Object.keys(FONTS) as Tweaks["font"][];
+    const options: HTMLElement[] = [];
+    let activeIdx = Math.max(0, fonts.indexOf(state.font));
+    const markActive = (i: number): void => {
+      activeIdx = Math.max(0, Math.min(fonts.length - 1, i));
+      options.forEach((o, idx) => o.classList.toggle("active", idx === activeIdx));
+      trigger.setAttribute("aria-activedescendant", options[activeIdx]?.id ?? "");
+    };
+    const setActive = (i: number): void => {
+      markActive(i);
+      options[activeIdx]?.focus();
+    };
+    fonts.forEach((f, idx) => {
+      const opt = el("div", {
+        id: `twk-font-opt-${idx}`,
+        class: "twk-option",
+        role: "option",
+        tabindex: "-1",
+        "aria-selected": String(f === state.font),
+      });
+      const chk = createElement(Check);
+      chk.classList.add("twk-check");
+      opt.append(el("span", {}, f), chk);
+      opt.addEventListener("click", () => set("font", f));
+      opt.addEventListener("mouseenter", () => markActive(idx));
+      options.push(opt);
+      list.appendChild(opt);
+    });
+    let isOpen = false;
+    const open = (o: boolean): void => {
+      isOpen = o;
+      sel.classList.toggle("open", o);
+      trigger.setAttribute("aria-expanded", String(o));
+      if (o) requestAnimationFrame(() => setActive(activeIdx));
+      else trigger.removeAttribute("aria-activedescendant");
+    };
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      open(!isOpen);
+    });
+    sel.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        open(false);
+        trigger.focus();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (!isOpen) open(true);
+        else setActive(activeIdx + 1);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (!isOpen) {
+          activeIdx = fonts.length - 1;
+          open(true);
+        } else setActive(activeIdx - 1);
+      } else if ((e.key === "Enter" || e.key === " ") && isOpen) {
+        if (document.activeElement instanceof HTMLElement && document.activeElement.classList.contains("twk-option")) {
+          e.preventDefault();
+          set("font", fonts[activeIdx]);
+        }
+      }
+    });
+    sel.addEventListener("focusout", () => {
+      setTimeout(() => {
+        if (!sel.contains(document.activeElement)) open(false);
+      }, 0);
+    });
+    sel.append(trigger, list);
+    fontRow.appendChild(sel);
     body.appendChild(fontRow);
 
     // Accent chips
