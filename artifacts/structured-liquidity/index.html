@@ -50,6 +50,8 @@
   /* Real site favicons fill the avatar box (no accent backplate showing through). */
   .show-card-foot .sl-ava{background:rgba(var(--glass-tint),0.12);padding:0;}
   .show-card-foot .sl-ava img{width:100%;height:100%;object-fit:cover;display:block;}
+  /* Emoji brand mark (used when a site has no usable favicon — sits on the glass tint, not the accent). */
+  .show-card-foot .sl-ava.emoji-ava{font-size:1.35rem;line-height:1;}
   .show-card-foot .show-id .show-name{font-size:.95rem;}
   .show-card-foot .show-id .mono{font-size:.68rem;color:var(--ink-dim);}
   .show-card-foot .sl-badge{margin-left:auto;flex:none;}
@@ -2029,7 +2031,7 @@
   <div class="section-head reveal">
     <span class="eyebrow">Showcase · the prototypes</span>
     <h2 class="section-title">From Principles<br />to Practice.</h2>
-    <p class="lead">The language is product-agnostic, so the same rigid grid and liquid glass that document it here run unchanged in shipping work. These are real products in production, built on Structured Liquidity rather than described by it.</p>
+    <p class="lead">The language is product-agnostic, so the same rigid grid and liquid glass that document it here run unchanged in shipping work — some products speak it whole, others lean on the structured-containment half alone. These are real products in production, built on Structured Liquidity rather than described by it.</p>
   </div>
 
   <div class="show-grid reveal">
@@ -2106,6 +2108,32 @@
         <div class="show-id">
           <span class="show-name">2daysearly.xyz</span>
           <span class="mono">Venture fund</span>
+        </div>
+        <span class="sl-badge default">Live</span>
+      </div>
+    </a>
+
+    <a class="show-card glass" href="https://bumblebee.nyc" target="_blank" rel="noopener"
+       aria-label="Visit bumblebee.nyc, a site that applies the structured-containment half of Structured Liquidity (opens in a new tab)">
+      <div class="browser-bar">
+        <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+        <span class="url">bumblebee.nyc</span>
+      </div>
+      <div class="show-card-shot">
+        <img src="bumblebee.png" width="1920" height="1080" loading="lazy" decoding="async"
+             alt="Screenshot of bumblebee.nyc, a Brooklyn daycare built on Structured Liquidity" />
+        <div class="show-card-veil">
+          <div class="vbody">
+            <p class="show-card-desc">A Brooklyn daycare in the light-mode register: rigid black-bordered containers, flat offset shadows, and a single amber accent with mono detail labels — the structured-containment half of the language, proof it reads just as well warm and human as it does dark.</p>
+            <span class="show-card-cta">Visit bumblebee.nyc <span aria-hidden="true">→</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="show-card-foot">
+        <span class="sl-ava emoji-ava" aria-hidden="true">🐝</span>
+        <div class="show-id">
+          <span class="show-name">bumblebee.nyc</span>
+          <span class="mono">Daycare · light mode</span>
         </div>
         <span class="sl-badge default">Live</span>
       </div>
