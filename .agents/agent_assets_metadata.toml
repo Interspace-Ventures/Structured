@@ -42,3 +42,9 @@ id = "u2K-UAODnmY1P9w81x4Jw"
 uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-liquid.svg"
 type = "image"
 title = "Liquid hypercube logo — vector master (SVG, scalable)"
+
+[[outputs]]
+id = "fdV7K2wBT_Zu2DbBXEy7c"
+uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-liquid-purple.png"
+type = "image"
+title = "Liquid hypercube logo — accent purple background, 3000×843"
