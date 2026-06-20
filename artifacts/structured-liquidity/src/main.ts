@@ -1468,7 +1468,8 @@ function mountGlassRefraction(): void {
 }
 
 /* Liquid-glass nav bars (new kit specimens). Primary: a floating bottom tab
-   bar — clicking a tab moves the accent fill across the buttons. Secondary: a
+   bar — clicking a tab glides the accent marker across the buttons by measuring
+   the active tab's box (same technique as the secondary). Secondary: a
    segmented section sub-nav — clicking a segment glides the accent marker to it
    by measuring the active button's box (offset corrected for the track border
    via clientLeft, mirroring mountTabFlow). The marker's CSS transition is the
@@ -1477,7 +1478,15 @@ function mountGlassRefraction(): void {
 function mountGlassNav(): void {
   document.querySelectorAll<HTMLElement>(".gnav-bar").forEach((bar) => {
     const tabs = Array.from(bar.querySelectorAll<HTMLButtonElement>(".gnav-tab"));
-    tabs.forEach((tab) => {
+    if (!tabs.length) return;
+    const move = (): void => {
+      const active = tabs.find((t) => t.classList.contains("is-active")) ?? tabs[0];
+      const barRect = bar.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      bar.style.setProperty("--gnav-x", `${r.left - barRect.left - bar.clientLeft}px`);
+      bar.style.setProperty("--gnav-w", `${r.width}px`);
+    };
+    tabs.forEach((tab) =>
       tab.addEventListener("click", () => {
         tabs.forEach((t) => {
           t.classList.remove("is-active");
@@ -1485,8 +1494,12 @@ function mountGlassNav(): void {
         });
         tab.classList.add("is-active");
         tab.setAttribute("aria-current", "page");
-      });
-    });
+        requestAnimationFrame(move);
+      }),
+    );
+    move();
+    window.addEventListener("resize", move);
+    void document.fonts.ready.then(move);
   });
   document.querySelectorAll<HTMLElement>("[data-snav-seg]").forEach((seg) => {
     const btns = Array.from(seg.querySelectorAll<HTMLButtonElement>(".snav-seg-btn"));

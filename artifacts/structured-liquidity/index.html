@@ -175,18 +175,18 @@
      phone frame, liquid-glass surfaces, one accent on the active tab. */
   .sl-mnav{display:flex;justify-content:center;}
   .mn-phone{position:relative;width:100%;max-width:300px;overflow:hidden;display:flex;flex-direction:column;min-height:330px;
-    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgba(var(--glass-tint),0.06);
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:var(--bg-2);
     box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);}
   .mn-top{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.6rem;border-bottom:var(--border-w) solid rgb(var(--edge));
-    background:rgba(var(--glass-tint),0.10);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%);backdrop-filter:blur(var(--glass-blur)) saturate(150%);}
+    background:rgb(var(--glass-tint) / 0.10);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%);backdrop-filter:blur(var(--glass-blur)) saturate(150%);}
   .mn-brand{flex:1;display:flex;align-items:center;gap:0.4rem;font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:0.92rem;}
   .mn-burger,.mn-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;color:var(--ink);
-    background:rgba(var(--glass-tint),0.10);border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);cursor:pointer;}
+    background:rgb(var(--glass-tint) / 0.10);border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);cursor:pointer;}
   .mn-burger svg,.mn-icon svg{width:16px;height:16px;}
   .mn-burger .mn-ic-close{display:none;}
   .mn-burger[aria-expanded="true"] .mn-ic-open{display:none;}
   .mn-burger[aria-expanded="true"] .mn-ic-close{display:inline-flex;}
-  .mn-drawer{display:grid;grid-template-rows:0fr;overflow:hidden;border-bottom:0 solid rgb(var(--edge));background:rgba(var(--glass-tint),0.09);
+  .mn-drawer{display:grid;grid-template-rows:0fr;overflow:hidden;border-bottom:0 solid rgb(var(--edge));background:rgb(var(--glass-tint) / 0.09);
     transition:grid-template-rows var(--motion) var(--ease-liquid);}
   .mn-drawer[data-open="true"]{grid-template-rows:1fr;border-bottom-width:var(--border-w);}
   .mn-drawer > div{min-height:0;display:flex;flex-direction:column;}
@@ -194,13 +194,13 @@
     text-decoration:none;border-top:1px solid color-mix(in srgb, rgb(var(--edge)) 40%, transparent);}
   .mn-d-item:first-child{border-top:0;}
   .mn-d-item svg{width:15px;height:15px;}
-  .mn-d-item:hover{color:var(--ink);background:rgba(var(--glass-tint),0.12);}
+  .mn-d-item:hover{color:var(--ink);background:rgb(var(--glass-tint) / 0.12);}
   .mn-screen{flex:1;display:flex;flex-direction:column;gap:0.55rem;padding:0.9rem 0.8rem;}
-  .mn-sk{border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgba(var(--glass-tint),0.05);}
+  .mn-sk{border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);background:rgb(var(--glass-tint) / 0.05);}
   .mn-sk.tall{flex:1;min-height:60px;}
   .mn-sk.line{height:11px;}
   .mn-sk.line.short{width:55%;}
-  .mn-tabs{display:flex;border-top:var(--border-w) solid rgb(var(--edge));background:rgba(var(--glass-tint),0.10);
+  .mn-tabs{display:flex;border-top:var(--border-w) solid rgb(var(--edge));background:rgb(var(--glass-tint) / 0.10);
     -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%);backdrop-filter:blur(var(--glass-blur)) saturate(150%);}
   .mn-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.18rem;padding:0.5rem 0.2rem 0.45rem;cursor:pointer;color:var(--ink-dim);
     background:none;border:0;border-right:1px solid color-mix(in srgb, rgb(var(--edge)) 40%, transparent);
@@ -226,14 +226,17 @@
     background:rgb(var(--glass-tint) / calc(var(--glass-alpha) + 0.08));
     -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);backdrop-filter:blur(var(--glass-blur)) saturate(160%);
     box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);}
-  .gnav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.16rem;
+  .gnav-marker{position:absolute;top:0.3rem;bottom:0.3rem;left:0;z-index:0;width:var(--gnav-w,0);
+    transform:translateX(var(--gnav-x,0));background:var(--accent);border-radius:calc(var(--radius) * 0.7);
+    box-shadow:inset 0 0 0 var(--border-w) rgb(var(--glass-tint) / 0.5);
+    transition:transform var(--motion) var(--ease-liquid-over),width var(--motion) var(--ease-liquid);}
+  .gnav-tab{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;gap:0.16rem;
     padding:0.42rem 0.2rem;border:0;background:none;color:var(--ink-dim);cursor:pointer;
     font-family:var(--mono);font-size:0.56rem;letter-spacing:0.04em;text-transform:uppercase;
-    border-radius:calc(var(--radius) * 0.7);transition:color 0.18s ease,background 0.18s ease;}
+    border-radius:calc(var(--radius) * 0.7);transition:color 0.18s ease;}
   .gnav-tab svg{width:18px;height:18px;}
   .gnav-tab:hover{color:var(--ink);}
-  .gnav-tab.is-active{color:var(--accent-ink);background:var(--accent);
-    box-shadow:inset 0 0 0 var(--border-w) rgb(var(--glass-tint) / 0.5);}
+  .gnav-tab.is-active{color:var(--accent-ink);}
   .gnav-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   .snav-head{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.6rem;border-bottom:var(--border-w) solid rgb(var(--edge));}
   .snav-back,.snav-act{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;
@@ -255,7 +258,7 @@
   .snav-seg-btn:hover{color:var(--ink);}
   .snav-seg-btn[aria-selected="true"]{color:var(--ink);}
   .snav-seg-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  @media (prefers-reduced-motion:reduce){ .snav-marker{transition:none;} }
+  @media (prefers-reduced-motion:reduce){ .snav-marker,.gnav-marker{transition:none;} }
 
   /* ── AI chat: a conversation surface for talking to an assistant. Bubbles are
      rigid containers holding liquid glass; the visitor's turn takes the accent,
@@ -1949,6 +1952,7 @@
                 <div class="mn-sk line short"></div>
               </div>
               <nav class="gnav-bar" aria-label="Primary">
+                <span class="gnav-marker" aria-hidden="true"></span>
                 <button class="gnav-tab is-active" aria-current="page"><i data-lucide="disc-3"></i><span>Playback</span></button>
                 <button class="gnav-tab"><i data-lucide="music"></i><span>Music</span></button>
                 <button class="gnav-tab"><i data-lucide="bar-chart-3"></i><span>Billboard</span></button>
