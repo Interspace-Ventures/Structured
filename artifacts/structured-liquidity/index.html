@@ -811,9 +811,12 @@
       width:var(--tab-w,0); transform:translateX(var(--tab-x,0));
       transition:transform var(--motion) var(--ease-liquid-over), width var(--motion) var(--ease-liquid); }
 
-    /* --- settling menus / popovers: coalesce in (blur ramp + overshoot) --- */
-    .sl-menu{ filter:blur(7px); transition:opacity var(--motion-fast) var(--ease-liquid), transform var(--motion) var(--ease-liquid-over), filter var(--motion) var(--ease-liquid); }
-    .sl-menu.open{ filter:blur(0); }
+    /* --- settling menus / popovers: overshoot settle (opacity + transform) ---
+       NB: no filter-blur ramp here. .sl-menu already carries its own backdrop-filter
+       (the frosted glass), and stacking `filter` + `backdrop-filter` on the SAME box
+       is a WebKit/Safari compositing bug that drops the opaque fill — the open menu
+       renders as a see-through blurred blob. The overshoot easing keeps the settle. */
+    .sl-menu{ transition:opacity var(--motion-fast) var(--ease-liquid), transform var(--motion) var(--ease-liquid-over); }
 
     /* --- settling dialog: blur ramp + unified liquid easing --- */
     .sl-dialog{ filter:blur(8px); transition:transform var(--motion) var(--ease-liquid-over), filter var(--motion) var(--ease-liquid); }

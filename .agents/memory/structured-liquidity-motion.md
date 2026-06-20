@@ -43,3 +43,9 @@ Picking an accent chip in the tweaker switches `--accent` as before, then `accen
 
 ## Gotcha — `public/opengraph.jpg` silently drifts during dev/e2e
 The binary `public/opengraph.jpg` gets rewritten by the dev server / e2e run even when you never touch it, breaking the verbatim-`public/*` contract. Restore byte-for-byte with `git --no-optional-locks show HEAD:<path> > <path>` (plain `git checkout`/`restore` and any op touching `.git/index.lock` are blocked for the main agent). Always re-run `git --no-optional-locks status --porcelain` at the end and confirm only `index.html` + `src/main.ts` remain modified.
+
+## Trap — never stack `filter` + `backdrop-filter` on the SAME element (WebKit drops the fill)
+Symptom: an open `.sl-menu` dropdown renders as a see-through, blurred, empty glowing blob (no visible items) in Safari/WebKit, while Chromium shows it fine — so it won't reproduce in the Playwright test harness.
+Cause: the motion layer gave `.sl-menu` a blur-in ramp (`filter:blur(7px)` → `.open{filter:blur(0)}`), but `.sl-menu` ALREADY carries its own `backdrop-filter: blur(18px) saturate(180%)` (the frosted glass). Stacking `filter` and `backdrop-filter` on one box is a known WebKit compositing bug that discards the element's opaque `var(--bg-2)` background — even `filter:blur(0)` (not `none`) still establishes the filter and triggers it.
+**Fix:** drop the `filter` ramp from any element that also has `backdrop-filter`; animate the entrance with `opacity`+`transform` (overshoot easing) instead. `.sl-dialog` is SAFE to keep its `filter:blur` ramp because its `backdrop-filter` lives on the separate `.sl-overlay` parent, not the dialog box.
+**How to apply:** before adding a `filter` flourish to a kit surface, check the public CSS for a `backdrop-filter` on the same selector; if present, use opacity/transform motion only.
