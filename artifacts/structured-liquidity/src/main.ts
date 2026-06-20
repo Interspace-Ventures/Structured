@@ -1439,6 +1439,26 @@ function mountMobileNav(): void {
   });
 }
 
+/* Liquid-glass refraction is progressive enhancement: an SVG displacement
+   backdrop filter is GPU-expensive across the dense .glass gallery, so it only
+   switches on for capable contexts. The cheap bevel + chromatic edge (a CSS
+   box-shadow) ships to everyone regardless; only this refraction layer is gated.
+   Skip it when: url() backdrop filters aren't rendered (e.g. Safari), the user
+   prefers reduced motion, or the device is a coarse-pointer/mobile (weaker GPU).
+   In every skipped case the verbatim blur recipe from public CSS shows through. */
+function mountGlassRefraction(): void {
+  const supportsUrl =
+    CSS.supports("backdrop-filter", "url(#sl-glass-refract)") ||
+    CSS.supports("-webkit-backdrop-filter", "url(#sl-glass-refract)");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  if (supportsUrl && !reducedMotion && !coarsePointer) {
+    document.documentElement.classList.add("sl-refract");
+  }
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
@@ -1455,6 +1475,7 @@ function init(): void {
   mountDemoNav();
   mountChat();
   mountMobileNav();
+  mountGlassRefraction();
   const state = load();
   apply(state);
 
