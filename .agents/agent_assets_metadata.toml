@@ -24,3 +24,21 @@ id = "2rH0ZYP3NNUkgxKPovGqo"
 uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-dark.png"
 type = "image"
 title = "Logo — high-res PNG, dark brand tile (for dark backgrounds), 3000×843"
+
+[[outputs]]
+id = "nMcmfhXfZr_e1rSgvsCaa"
+uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-liquid-light.png"
+type = "image"
+title = "Liquid hypercube logo — transparent (light backgrounds), 3000×843"
+
+[[outputs]]
+id = "UFccCwxup20e4GMow8pSy"
+uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-liquid-dark.png"
+type = "image"
+title = "Liquid hypercube logo — dark brand tile, 3000×843"
+
+[[outputs]]
+id = "u2K-UAODnmY1P9w81x4Jw"
+uri = "file://artifacts/structured-liquidity/brand/structured-liquidity-logo-liquid.svg"
+type = "image"
+title = "Liquid hypercube logo — vector master (SVG, scalable)"
