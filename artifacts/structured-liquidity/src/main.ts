@@ -24,6 +24,7 @@ import {
   Bot,
   Check,
   ChevronDown,
+  ChevronLeft,
   Code,
   Compass,
   Copy,
@@ -545,6 +546,7 @@ function mountIcons(): void {
       Bold,
       Bot,
       Check,
+      ChevronLeft,
       Code,
       Compass,
       Copy,
@@ -1459,6 +1461,51 @@ function mountGlassRefraction(): void {
   }
 }
 
+/* Liquid-glass nav bars (new kit specimens). Primary: a floating bottom tab
+   bar — clicking a tab moves the accent fill across the buttons. Secondary: a
+   segmented section sub-nav — clicking a segment glides the accent marker to it
+   by measuring the active button's box (offset corrected for the track border
+   via clientLeft, mirroring mountTabFlow). The marker's CSS transition is the
+   only motion, and it's disabled under prefers-reduced-motion in the stylesheet
+   so positioning stays correct while the glide is suppressed. */
+function mountGlassNav(): void {
+  document.querySelectorAll<HTMLElement>(".gnav-bar").forEach((bar) => {
+    const tabs = Array.from(bar.querySelectorAll<HTMLButtonElement>(".gnav-tab"));
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.removeAttribute("aria-current");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-current", "page");
+      });
+    });
+  });
+  document.querySelectorAll<HTMLElement>("[data-snav-seg]").forEach((seg) => {
+    const btns = Array.from(seg.querySelectorAll<HTMLButtonElement>(".snav-seg-btn"));
+    if (!btns.length) return;
+    const move = (): void => {
+      const active =
+        btns.find((b) => b.getAttribute("aria-selected") === "true") ?? btns[0];
+      const segRect = seg.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      seg.style.setProperty("--seg-x", `${r.left - segRect.left - seg.clientLeft}px`);
+      seg.style.setProperty("--seg-w", `${r.width}px`);
+    };
+    btns.forEach((b) =>
+      b.addEventListener("click", () => {
+        btns.forEach((x) => x.setAttribute("aria-selected", "false"));
+        b.setAttribute("aria-selected", "true");
+        requestAnimationFrame(move);
+      }),
+    );
+    move();
+    window.addEventListener("resize", move);
+    void document.fonts.ready.then(move);
+  });
+}
+
 function init(): void {
   mountGallery();
   mountCarousel();
@@ -1475,6 +1522,7 @@ function init(): void {
   mountDemoNav();
   mountChat();
   mountMobileNav();
+  mountGlassNav();
   mountGlassRefraction();
   const state = load();
   apply(state);

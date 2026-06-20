@@ -211,6 +211,50 @@
   .mn-tab.is-active{color:var(--accent-ink);background:var(--accent);}
   @media (prefers-reduced-motion:reduce){ .mn-drawer{transition:none;} }
 
+  /* ── Mobile navigation · liquid-glass nav bars. Two specimens that float
+     translucent glass over app content: a PRIMARY bottom tab bar hovering above
+     the screen, and a SECONDARY segmented sub-nav whose accent marker glides
+     between sections. Rigid frame (sharp corners, solid edge, hard offset
+     shadow) holding liquid glass — the language's core tension. Fills use the
+     valid rgb( tint / alpha ) form (the legacy comma form drops against the
+     space-separated --glass-tint). No `filter` on these boxes: they carry
+     backdrop-filter, and stacking the two breaks the fill in WebKit. */
+  .sl-gnav,.sl-snav{display:flex;justify-content:center;}
+  .gnav-bar{position:absolute;left:0.7rem;right:0.7rem;bottom:0.7rem;z-index:5;
+    display:flex;gap:0.15rem;padding:0.3rem;
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / calc(var(--glass-alpha) + 0.08));
+    -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);backdrop-filter:blur(var(--glass-blur)) saturate(160%);
+    box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);}
+  .gnav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.16rem;
+    padding:0.42rem 0.2rem;border:0;background:none;color:var(--ink-dim);cursor:pointer;
+    font-family:var(--mono);font-size:0.56rem;letter-spacing:0.04em;text-transform:uppercase;
+    border-radius:calc(var(--radius) * 0.7);transition:color 0.18s ease,background 0.18s ease;}
+  .gnav-tab svg{width:18px;height:18px;}
+  .gnav-tab:hover{color:var(--ink);}
+  .gnav-tab.is-active{color:var(--accent-ink);background:var(--accent);}
+  .gnav-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .snav-head{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.6rem;border-bottom:var(--border-w) solid rgb(var(--edge));}
+  .snav-back,.snav-act{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;
+    color:var(--ink);background:rgb(var(--glass-tint) / var(--glass-alpha));border:var(--border-w) solid rgb(var(--edge));
+    border-radius:calc(var(--radius) * 0.7);cursor:pointer;}
+  .snav-back svg,.snav-act svg{width:15px;height:15px;}
+  .snav-title{flex:1;font-family:var(--display);font-weight:800;letter-spacing:-0.02em;font-size:0.9rem;}
+  .snav-seg{position:relative;display:flex;gap:0.1rem;margin:0.6rem;padding:0.22rem;
+    border:var(--border-w) solid rgb(var(--edge));border-radius:var(--radius);
+    background:rgb(var(--glass-tint) / var(--glass-alpha));
+    -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);backdrop-filter:blur(var(--glass-blur)) saturate(160%);}
+  .snav-marker{position:absolute;top:0.22rem;bottom:0.22rem;left:0;z-index:0;width:var(--seg-w,0);
+    transform:translateX(var(--seg-x,0));background:var(--accent);border-radius:calc(var(--radius) * 0.7);
+    transition:transform var(--motion) var(--ease-liquid-over),width var(--motion) var(--ease-liquid);}
+  .snav-seg-btn{position:relative;z-index:1;flex:1;padding:0.4rem 0.3rem;border:0;background:none;cursor:pointer;white-space:nowrap;
+    font-family:var(--mono);font-size:0.6rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-dim);
+    border-radius:calc(var(--radius) * 0.7);transition:color 0.18s ease;}
+  .snav-seg-btn:hover{color:var(--ink);}
+  .snav-seg-btn[aria-selected="true"]{color:var(--accent-ink);}
+  .snav-seg-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){ .snav-marker{transition:none;} }
+
   /* ── AI chat: a conversation surface for talking to an assistant. Bubbles are
      rigid containers holding liquid glass; the visitor's turn takes the accent,
      the assistant's stays glass. The composer docks at the foot. */
@@ -1889,6 +1933,51 @@
                 <button class="mn-tab"><i data-lucide="heart"></i><span>Saved</span></button>
                 <button class="mn-tab"><i data-lucide="user"></i><span>You</span></button>
               </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Mobile navigation · floating glass tab bar</span>
+          <div class="sl-gnav">
+            <div class="mn-phone">
+              <div class="mn-screen" aria-hidden="true">
+                <div class="mn-sk tall"></div>
+                <div class="mn-sk line"></div>
+                <div class="mn-sk line short"></div>
+              </div>
+              <nav class="gnav-bar" aria-label="Primary">
+                <button class="gnav-tab is-active" aria-current="page"><i data-lucide="house"></i><span>Home</span></button>
+                <button class="gnav-tab"><i data-lucide="search"></i><span>Search</span></button>
+                <button class="gnav-tab"><i data-lucide="compass"></i><span>Browse</span></button>
+                <button class="gnav-tab"><i data-lucide="library"></i><span>Library</span></button>
+                <button class="gnav-tab"><i data-lucide="user"></i><span>You</span></button>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass kit-cell w6">
+          <span class="kit-cap">Mobile navigation · segmented sub-nav</span>
+          <div class="sl-snav">
+            <div class="mn-phone">
+              <div class="snav-head">
+                <button class="snav-back" aria-label="Back"><i data-lucide="chevron-left"></i></button>
+                <span class="snav-title">Browse</span>
+                <span class="snav-act" aria-hidden="true"><i data-lucide="search"></i></span>
+              </div>
+              <div class="snav-seg" role="tablist" aria-label="Sections" data-snav-seg>
+                <span class="snav-marker" aria-hidden="true"></span>
+                <button class="snav-seg-btn" role="tab" aria-selected="true">For You</button>
+                <button class="snav-seg-btn" role="tab" aria-selected="false">Charts</button>
+                <button class="snav-seg-btn" role="tab" aria-selected="false">New</button>
+                <button class="snav-seg-btn" role="tab" aria-selected="false">Genres</button>
+              </div>
+              <div class="mn-screen" aria-hidden="true">
+                <div class="mn-sk tall"></div>
+                <div class="mn-sk line"></div>
+                <div class="mn-sk line short"></div>
+              </div>
             </div>
           </div>
         </div>

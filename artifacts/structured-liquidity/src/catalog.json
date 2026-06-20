@@ -931,6 +931,34 @@
       ]
     },
     {
+      "name": "Mobile navigation · glass tab bar",
+      "cap": "Mobile navigation · floating glass tab bar",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation",
+        "interactive"
+      ],
+      "kinds": [
+        "navigation",
+        "interactive"
+      ]
+    },
+    {
+      "name": "Mobile navigation · segmented sub-nav",
+      "cap": "Mobile navigation · segmented sub-nav",
+      "category": "navigation",
+      "status": "stable",
+      "tags": [
+        "navigation",
+        "interactive"
+      ],
+      "kinds": [
+        "navigation",
+        "interactive"
+      ]
+    },
+    {
       "name": "AI chat",
       "cap": "AI chat · conversation",
       "category": "data",
