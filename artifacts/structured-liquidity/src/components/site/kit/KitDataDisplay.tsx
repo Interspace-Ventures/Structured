@@ -1,17 +1,8 @@
-import {
-  Info,
-  TriangleAlert,
-  Library,
-  Radio,
-  Shuffle,
-  SkipBack,
-  Pause,
-  SkipForward,
-  Repeat,
-  Volume2,
-} from "lucide-react";
+import { Info, TriangleAlert, Library } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Waveform } from "@/components/ui/waveform";
+import { MediaPlayer } from "@/components/ui/media-player";
 import {
   StatStrip,
   Stat,
@@ -176,73 +167,12 @@ export function KitDataDisplay() {
 
         <div className="glass kit-cell w4">
           <span className="kit-cap">Waveform</span>
-          <div
-            className="sl-waveform"
-            data-waveform
-            data-bars="48"
-            data-played="20"
-            role="img"
-            aria-label="Audio waveform, 42% played"
-          ></div>
+          <Waveform bars={48} played={20} aria-label="Audio waveform, 42% played" />
         </div>
 
         <div className="glass kit-cell w8">
           <span className="kit-cap">Media player · now playing</span>
-          <div className="sl-player">
-            <div className="pl-top">
-              <span className="pl-art" aria-hidden="true">
-                <Radio />
-              </span>
-              <div className="pl-meta">
-                <span className="pl-eyebrow">Now playing</span>
-                <span className="pl-title">Gracias a la Vida</span>
-                <span className="pl-artist">Violeta Parra</span>
-              </div>
-              <span className="sl-badge default">Live</span>
-            </div>
-            <div className="pl-progress">
-              <div
-                className="sl-waveform pl-wave"
-                data-waveform
-                data-bars="56"
-                data-played="22"
-                role="img"
-                aria-label="Playback position, 39% elapsed"
-              ></div>
-              <div className="pl-times">
-                <span className="pl-time">1:48</span>
-                <span className="pl-time">4:38</span>
-              </div>
-            </div>
-            <div className="pl-controls">
-              <div className="pl-transport">
-                <button type="button" className="sl-btn ghost pl-ic" aria-label="Shuffle">
-                  <Shuffle />
-                </button>
-                <button type="button" className="sl-btn ghost pl-ic" aria-label="Previous track">
-                  <SkipBack />
-                </button>
-                <button type="button" className="sl-btn default pl-play" aria-label="Pause">
-                  <Pause />
-                </button>
-                <button type="button" className="sl-btn ghost pl-ic" aria-label="Next track">
-                  <SkipForward />
-                </button>
-                <button type="button" className="sl-btn ghost pl-ic" aria-label="Repeat">
-                  <Repeat />
-                </button>
-              </div>
-              <div className="pl-vol">
-                <Volume2 aria-hidden="true" />
-                <div className="sl-slider">
-                  <div className="trk">
-                    <div className="fl" style={{ width: "72%" }}></div>
-                    <div className="th" style={{ left: "72%" }}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <MediaPlayer />
         </div>
 
         <div className="glass kit-cell w8">

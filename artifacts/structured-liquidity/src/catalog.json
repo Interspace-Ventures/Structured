@@ -73,6 +73,7 @@
     },
     {
       "name": "Toolbar",
+      "registry": "toolbar",
       "cap": "Toolbar",
       "category": "actions",
       "status": "stable",
@@ -152,6 +153,7 @@
     },
     {
       "name": "Waveform",
+      "registry": "waveform",
       "cap": "Waveform",
       "category": "data",
       "status": "stable",
@@ -165,6 +167,7 @@
     },
     {
       "name": "Media player",
+      "registry": "media-player",
       "cap": "Media player · now playing",
       "category": "data",
       "status": "stable",
@@ -260,6 +263,7 @@
     },
     {
       "name": "Marquee",
+      "registry": "marquee",
       "cap": "Marquee",
       "category": "data",
       "status": "stable",
@@ -677,6 +681,7 @@
     },
     {
       "name": "Navigation bar",
+      "registry": "navigation-bar",
       "cap": "Navigation bar",
       "category": "navigation",
       "status": "stable",
@@ -881,6 +886,7 @@
     },
     {
       "name": "Checkbox group",
+      "registry": "checkbox-group",
       "cap": "Checkbox group",
       "category": "forms",
       "status": "stable",
@@ -980,6 +986,7 @@
     },
     {
       "name": "Mobile navigation",
+      "registry": "mobile-nav",
       "cap": "Mobile navigation · tab bar & drawer",
       "category": "navigation",
       "status": "stable",
@@ -994,6 +1001,7 @@
     },
     {
       "name": "Mobile navigation · glass tab bar",
+      "registry": "mobile-nav",
       "cap": "Mobile navigation · floating glass tab bar",
       "category": "navigation",
       "status": "stable",
@@ -1008,6 +1016,7 @@
     },
     {
       "name": "Mobile navigation · segmented sub-nav",
+      "registry": "mobile-nav",
       "cap": "Mobile navigation · segmented sub-nav",
       "category": "navigation",
       "status": "stable",
@@ -1022,6 +1031,7 @@
     },
     {
       "name": "AI chat",
+      "registry": "ai-chat",
       "cap": "AI chat · conversation",
       "category": "data",
       "status": "stable",

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Autocomplete } from "@/components/ui/autocomplete";
 import { Checkbox } from "@/components/ui/checkbox";
+import { CheckboxGroup } from "@/components/ui/checkbox-group";
 import {
   Form,
   FormField,
@@ -72,15 +73,17 @@ export function KitFormsInputs() {
 
         <div className="glass kit-cell w4">
           <span className="kit-cap">Checkbox group</span>
-          <FormField role="group" aria-label="Surfaces to enable">
-            <FormLabel>Surfaces to enable</FormLabel>
-            <div className="kit-col">
-              <Checkbox defaultChecked>Glass</Checkbox>
-              <Checkbox defaultChecked>Solid</Checkbox>
-              <Checkbox>Liquid</Checkbox>
-            </div>
-            <FormDescription>Pick one or more surface treatments.</FormDescription>
-          </FormField>
+          <CheckboxGroup
+            role="group"
+            aria-label="Surfaces to enable"
+            label="Surfaces to enable"
+            description="Pick one or more surface treatments."
+            options={[
+              { label: "Glass", defaultChecked: true },
+              { label: "Solid", defaultChecked: true },
+              { label: "Liquid" },
+            ]}
+          />
         </div>
 
         <div className="glass kit-cell w6">

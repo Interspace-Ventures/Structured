@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "waveform",
+  "type": "registry:ui",
+  "title": "Waveform",
+  "description": "Structured Liquidity Waveform — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/waveform.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface WaveformProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** number of bars to render */\n  bars?: number;\n  /** how many leading bars read as \"played\" */\n  played?: number;\n}\n\n/** Structured Liquidity waveform — a bar field built and animated by the kit script. */\nexport const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(\n  ({ bars = 48, played = 20, className, role = \"img\", ...props }, ref) => (\n    <div\n      ref={ref}\n      className={cn(\"sl-waveform\", className)}\n      data-waveform\n      data-bars={bars}\n      data-played={played}\n      role={role}\n      {...props}\n    />\n  ),\n);\nWaveform.displayName = \"Waveform\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/waveform.tsx"
+    }
+  ]
+}

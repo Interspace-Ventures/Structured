@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navigation-bar",
+  "type": "registry:ui",
+  "title": "Navigation Bar",
+  "description": "Structured Liquidity Navigation Bar — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/avatar.json",
+    "https://structured-liquidity.replit.app/r/button.json",
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/navigation-bar.tsx",
+      "content": "import type { CSSProperties } from \"react\";\nimport * as React from \"react\";\nimport { Compass, Library, Radio, Play, ArrowRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { Avatar } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\n\nexport interface NavigationBarProps extends React.HTMLAttributes<HTMLDivElement> {\n  brand?: React.ReactNode;\n}\n\n/** Structured Liquidity navigation bar — a rigid top rail: brand, links, a glass menu, and right-side actions. */\nexport const NavigationBar = React.forwardRef<HTMLDivElement, NavigationBarProps>(\n  ({ brand = \"universe.audio\", className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-navbar\", className)} {...props}>\n      <span className=\"nb-brand\">\n        <span className=\"glyph\" style={{ \"--s\": \"22px\" } as CSSProperties} aria-hidden=\"true\" />\n        {brand}\n      </span>\n      <div className=\"nb-links\">\n        <a href=\"#\" aria-current=\"page\">\n          <Compass />\n          Discover\n        </a>\n        <a href=\"#\">\n          <Library />\n          Library\n        </a>\n        <a href=\"#\">\n          <Radio />\n          Radio\n        </a>\n      </div>\n      <div className=\"sl-pop-wrap\">\n        <button className=\"sl-trigger\" data-pop aria-expanded=\"false\" aria-haspopup=\"menu\">\n          <span>Browse</span>\n          <span className=\"chev\">▾</span>\n        </button>\n        <div className=\"sl-menu\">\n          <div className=\"lbl\">Catalog</div>\n          <div className=\"item\">New releases</div>\n          <div className=\"item\">Genres</div>\n          <div className=\"sep\" />\n          <div className=\"item\">Languages</div>\n        </div>\n      </div>\n      <div className=\"nb-right\">\n        <div className=\"sl-toggle-group\" data-toggle-group>\n          <button aria-pressed=\"true\" aria-label=\"Grid view\">\n            ▦\n          </button>\n          <button aria-pressed=\"false\" aria-label=\"List view\">\n            ≡\n          </button>\n        </div>\n        <Avatar>U</Avatar>\n        <Button variant=\"ghost\" size=\"sm\">\n          <Play />\n          Demo\n        </Button>\n        <Button variant=\"default\" size=\"sm\">\n          <ArrowRight />\n          Join waitlist\n        </Button>\n      </div>\n    </div>\n  ),\n);\nNavigationBar.displayName = \"NavigationBar\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/navigation-bar.tsx"
+    }
+  ]
+}

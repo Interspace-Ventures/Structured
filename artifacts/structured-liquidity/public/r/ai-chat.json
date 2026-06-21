@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-chat",
+  "type": "registry:ui",
+  "title": "AI Chat",
+  "description": "Structured Liquidity AI Chat — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/ai-chat.tsx",
+      "content": "import * as React from \"react\";\nimport { Sparkles, Paperclip, Mic, ArrowUp } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ChatMessage {\n  from: \"bot\" | \"me\";\n  text: React.ReactNode;\n}\n\nconst DEFAULT_MESSAGES: ChatMessage[] = [\n  { from: \"bot\", text: \"Hey, I'm Vector. Ask me to draft, summarize, or name anything.\" },\n  { from: \"me\", text: \"Write a title for a late-night ambient mix.\" },\n  { from: \"bot\", text: 'How about \"Low Tide, 3AM\"? I can give you a few more.' },\n];\n\nconst DEFAULT_SUGGESTIONS = [\"More title ideas\", \"Make it moodier\", \"Write a blurb\"];\n\nexport interface AIChatProps extends React.HTMLAttributes<HTMLDivElement> {\n  name?: string;\n  role?: string;\n  placeholder?: string;\n  messages?: ChatMessage[];\n  suggestions?: string[];\n}\n\n/** Structured Liquidity AI chat — a rigid conversation panel with glass bubbles, animated by the kit script. */\nexport const AIChat = React.forwardRef<HTMLDivElement, AIChatProps>(\n  (\n    {\n      name = \"Vector\",\n      role = \"AI assistant\",\n      placeholder = \"Ask Vector anything\",\n      messages = DEFAULT_MESSAGES,\n      suggestions = DEFAULT_SUGGESTIONS,\n      className,\n      ...props\n    },\n    ref,\n  ) => (\n    <div ref={ref} className={cn(\"sl-chat\", className)} data-chat {...props}>\n      <div className=\"ch-head\">\n        <span className=\"ch-ava\">\n          <Sparkles />\n        </span>\n        <span className=\"ch-id\">\n          <strong>{name}</strong>\n          <span>{role}</span>\n        </span>\n        <span className=\"ch-dot\" title=\"Online\" aria-hidden=\"true\" />\n      </div>\n      <div className=\"ch-log\" data-chat-log role=\"log\" aria-live=\"polite\">\n        {messages.map((m, i) => (\n          <div className={cn(\"ch-msg\", m.from)} key={i}>\n            {m.from === \"bot\" && (\n              <span className=\"ch-b-ava\">\n                <Sparkles />\n              </span>\n            )}\n            <div className=\"ch-bubble\">{m.text}</div>\n          </div>\n        ))}\n      </div>\n      <div className=\"ch-suggest\" data-chat-suggest>\n        {suggestions.map((s, i) => (\n          <button type=\"button\" className=\"ch-chip\" key={i}>\n            {s}\n          </button>\n        ))}\n      </div>\n      <form className=\"ch-form\" data-chat-form>\n        <span className=\"ch-attach\" aria-hidden=\"true\">\n          <Paperclip />\n        </span>\n        <input\n          className=\"ch-input\"\n          data-chat-input\n          type=\"text\"\n          placeholder={placeholder}\n          aria-label={`Message ${name}`}\n          autoComplete=\"off\"\n        />\n        <span className=\"ch-mic\" aria-hidden=\"true\">\n          <Mic />\n        </span>\n        <button type=\"submit\" className=\"ch-send\" aria-label=\"Send message\">\n          <ArrowUp />\n        </button>\n      </form>\n    </div>\n  ),\n);\nAIChat.displayName = \"AIChat\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/ai-chat.tsx"
+    }
+  ]
+}

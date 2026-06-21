@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-group",
+  "type": "registry:ui",
+  "title": "Checkbox Group",
+  "description": "Structured Liquidity Checkbox Group — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/checkbox.json",
+    "https://structured-liquidity.replit.app/r/form.json",
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/checkbox-group.tsx",
+      "content": "import * as React from \"react\";\nimport { FormField, FormLabel, FormDescription } from \"@/components/ui/form\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\n\nexport interface CheckboxGroupOption {\n  label: React.ReactNode;\n  value?: string;\n  checked?: boolean;\n  defaultChecked?: boolean;\n  disabled?: boolean;\n}\n\nexport interface CheckboxGroupProps extends React.HTMLAttributes<HTMLDivElement> {\n  label?: React.ReactNode;\n  description?: React.ReactNode;\n  /** when provided, renders one checkbox per option; otherwise pass checkboxes as children */\n  options?: CheckboxGroupOption[];\n}\n\n/** Structured Liquidity checkbox group — a labelled field wrapping a column of checkboxes. */\nexport const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(\n  ({ label, description, options, children, ...props }, ref) => (\n    <FormField ref={ref} {...props}>\n      {label != null && <FormLabel>{label}</FormLabel>}\n      <div className=\"kit-col\">\n        {options\n          ? options.map((o, i) => (\n              <Checkbox\n                key={o.value ?? i}\n                checked={o.checked}\n                defaultChecked={o.defaultChecked}\n                disabled={o.disabled}\n              >\n                {o.label}\n              </Checkbox>\n            ))\n          : children}\n      </div>\n      {description != null && <FormDescription>{description}</FormDescription>}\n    </FormField>\n  ),\n);\nCheckboxGroup.displayName = \"CheckboxGroup\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox-group.tsx"
+    }
+  ]
+}

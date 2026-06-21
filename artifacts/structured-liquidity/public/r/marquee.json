@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee",
+  "type": "registry:ui",
+  "title": "Marquee",
+  "description": "Structured Liquidity Marquee — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/marquee.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nconst DEFAULT_ITEMS = [\n  \"日本語\",\n  \"Māori\",\n  \"中文\",\n  \"English\",\n  \"Español\",\n  \"Français\",\n  \"हिन्दी\",\n];\n\nexport interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** the looping items */\n  items?: string[];\n  /** divider glyph rendered between items */\n  separator?: React.ReactNode;\n  /** run the continuous scroll animation */\n  streaming?: boolean;\n}\n\nfunction Track({\n  items,\n  separator,\n  listitem,\n  hidden,\n}: {\n  items: string[];\n  separator: React.ReactNode;\n  listitem?: boolean;\n  hidden?: boolean;\n}) {\n  return (\n    <div className=\"sl-marquee-track\" role=\"presentation\" aria-hidden={hidden || undefined}>\n      {items.map((item, i) => (\n        <React.Fragment key={i}>\n          <span role={listitem ? \"listitem\" : undefined}>{item}</span>\n          {i < items.length - 1 && (\n            <span className=\"di\" aria-hidden=\"true\">\n              {separator}\n            </span>\n          )}\n        </React.Fragment>\n      ))}\n    </div>\n  );\n}\n\n/** Structured Liquidity marquee — a continuous ticker of glass-edged items. */\nexport const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(\n  (\n    {\n      items = DEFAULT_ITEMS,\n      separator = \"✦\",\n      streaming = true,\n      className,\n      role = \"list\",\n      ...props\n    },\n    ref,\n  ) => (\n    <div\n      ref={ref}\n      className={cn(\"sl-marquee\", streaming && \"is-streaming\", className)}\n      role={role}\n      {...props}\n    >\n      <Track items={items} separator={separator} listitem />\n      <Track items={items} separator={separator} hidden />\n    </div>\n  ),\n);\nMarquee.displayName = \"Marquee\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/marquee.tsx"
+    }
+  ]
+}

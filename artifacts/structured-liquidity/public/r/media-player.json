@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "media-player",
+  "type": "registry:ui",
+  "title": "Media Player",
+  "description": "Structured Liquidity Media Player — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/badge.json",
+    "https://structured-liquidity.replit.app/r/button.json",
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "https://structured-liquidity.replit.app/r/waveform.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/media-player.tsx",
+      "content": "import * as React from \"react\";\nimport { Radio, Shuffle, SkipBack, Pause, SkipForward, Repeat, Volume2 } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Waveform } from \"@/components/ui/waveform\";\n\nexport interface MediaPlayerProps extends React.HTMLAttributes<HTMLDivElement> {\n  eyebrow?: string;\n  title?: string;\n  artist?: string;\n  badge?: React.ReactNode;\n  elapsed?: string;\n  duration?: string;\n  /** waveform bar count */\n  bars?: number;\n  /** leading bars read as elapsed */\n  played?: number;\n  /** volume fill, 0–100 */\n  volume?: number;\n}\n\n/** Structured Liquidity media player — a rigid \"now playing\" card over a glass waveform. */\nexport const MediaPlayer = React.forwardRef<HTMLDivElement, MediaPlayerProps>(\n  (\n    {\n      eyebrow = \"Now playing\",\n      title = \"Gracias a la Vida\",\n      artist = \"Violeta Parra\",\n      badge = \"Live\",\n      elapsed = \"1:48\",\n      duration = \"4:38\",\n      bars = 56,\n      played = 22,\n      volume = 72,\n      className,\n      ...props\n    },\n    ref,\n  ) => (\n    <div ref={ref} className={cn(\"sl-player\", className)} {...props}>\n      <div className=\"pl-top\">\n        <span className=\"pl-art\" aria-hidden=\"true\">\n          <Radio />\n        </span>\n        <div className=\"pl-meta\">\n          <span className=\"pl-eyebrow\">{eyebrow}</span>\n          <span className=\"pl-title\">{title}</span>\n          <span className=\"pl-artist\">{artist}</span>\n        </div>\n        {badge != null && <Badge variant=\"default\">{badge}</Badge>}\n      </div>\n      <div className=\"pl-progress\">\n        <Waveform\n          className=\"pl-wave\"\n          bars={bars}\n          played={played}\n          aria-label=\"Playback position\"\n        />\n        <div className=\"pl-times\">\n          <span className=\"pl-time\">{elapsed}</span>\n          <span className=\"pl-time\">{duration}</span>\n        </div>\n      </div>\n      <div className=\"pl-controls\">\n        <div className=\"pl-transport\">\n          <Button variant=\"ghost\" className=\"pl-ic\" aria-label=\"Shuffle\">\n            <Shuffle />\n          </Button>\n          <Button variant=\"ghost\" className=\"pl-ic\" aria-label=\"Previous track\">\n            <SkipBack />\n          </Button>\n          <Button variant=\"default\" className=\"pl-play\" aria-label=\"Pause\">\n            <Pause />\n          </Button>\n          <Button variant=\"ghost\" className=\"pl-ic\" aria-label=\"Next track\">\n            <SkipForward />\n          </Button>\n          <Button variant=\"ghost\" className=\"pl-ic\" aria-label=\"Repeat\">\n            <Repeat />\n          </Button>\n        </div>\n        <div className=\"pl-vol\">\n          <Volume2 aria-hidden=\"true\" />\n          <div className=\"sl-slider\">\n            <div className=\"trk\">\n              <div className=\"fl\" style={{ width: `${volume}%` }} />\n              <div className=\"th\" style={{ left: `${volume}%` }} />\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  ),\n);\nMediaPlayer.displayName = \"MediaPlayer\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/media-player.tsx"
+    }
+  ]
+}

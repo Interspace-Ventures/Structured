@@ -16,6 +16,12 @@
       "description": "Structured Liquidity Accordion — React component driving the SL class system."
     },
     {
+      "name": "ai-chat",
+      "type": "registry:ui",
+      "title": "AI Chat",
+      "description": "Structured Liquidity AI Chat — React component driving the SL class system."
+    },
+    {
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "Alert Dialog",
@@ -92,6 +98,12 @@
       "type": "registry:ui",
       "title": "Chart",
       "description": "Structured Liquidity Chart — React component driving the SL class system."
+    },
+    {
+      "name": "checkbox-group",
+      "type": "registry:ui",
+      "title": "Checkbox Group",
+      "description": "Structured Liquidity Checkbox Group — React component driving the SL class system."
     },
     {
       "name": "checkbox",
@@ -214,6 +226,18 @@
       "description": "Structured Liquidity Label — React component driving the SL class system."
     },
     {
+      "name": "marquee",
+      "type": "registry:ui",
+      "title": "Marquee",
+      "description": "Structured Liquidity Marquee — React component driving the SL class system."
+    },
+    {
+      "name": "media-player",
+      "type": "registry:ui",
+      "title": "Media Player",
+      "description": "Structured Liquidity Media Player — React component driving the SL class system."
+    },
+    {
       "name": "menubar",
       "type": "registry:ui",
       "title": "Menubar",
@@ -226,10 +250,22 @@
       "description": "Structured Liquidity Meter — React component driving the SL class system."
     },
     {
+      "name": "mobile-nav",
+      "type": "registry:ui",
+      "title": "Mobile Nav",
+      "description": "Structured Liquidity Mobile Nav — React component driving the SL class system."
+    },
+    {
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native Select",
       "description": "Structured Liquidity Native Select — React component driving the SL class system."
+    },
+    {
+      "name": "navigation-bar",
+      "type": "registry:ui",
+      "title": "Navigation Bar",
+      "description": "Structured Liquidity Navigation Bar — React component driving the SL class system."
     },
     {
       "name": "navigation-menu",
@@ -382,6 +418,12 @@
       "description": "Structured Liquidity Toggle — React component driving the SL class system."
     },
     {
+      "name": "toolbar",
+      "type": "registry:ui",
+      "title": "Toolbar",
+      "description": "Structured Liquidity Toolbar — React component driving the SL class system."
+    },
+    {
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
@@ -392,6 +434,12 @@
       "type": "registry:ui",
       "title": "Typography",
       "description": "Structured Liquidity Typography — React component driving the SL class system."
+    },
+    {
+      "name": "waveform",
+      "type": "registry:ui",
+      "title": "Waveform",
+      "description": "Structured Liquidity Waveform — React component driving the SL class system."
     }
   ]
 }

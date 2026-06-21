@@ -27,6 +27,7 @@ import {
 import { Menubar } from "@/components/ui/menubar";
 import { Toggle } from "@/components/ui/toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Toolbar, ToolbarSeparator } from "@/components/ui/toolbar";
 import { Spinner } from "@/components/ui/spinner";
 
 export function KitActions() {
@@ -109,21 +110,21 @@ export function KitActions() {
 
         <div className="glass kit-cell w8">
           <span className="kit-cap">Toolbar</span>
-          <div className="sl-toolbar" role="toolbar" aria-label="Text formatting">
+          <Toolbar aria-label="Text formatting">
             <div className="sl-toggle-group" data-toggle-group>
               <button aria-pressed="true" aria-label="Bold"><Bold /></button>
               <button aria-pressed="false" aria-label="Italic"><Italic /></button>
               <button aria-pressed="false" aria-label="Underline"><Underline /></button>
             </div>
-            <span className="sl-sep vert"></span>
+            <ToolbarSeparator />
             <div className="sl-toggle-group" data-toggle-group>
               <button aria-pressed="true" aria-label="Align left"><AlignLeft /></button>
               <button aria-pressed="false" aria-label="Align center"><AlignCenter /></button>
               <button aria-pressed="false" aria-label="Align right"><AlignRight /></button>
             </div>
-            <span className="sl-sep vert"></span>
-            <button className="sl-btn ghost sm"><Link />Link</button>
-          </div>
+            <ToolbarSeparator />
+            <Button variant="ghost" size="sm"><Link />Link</Button>
+          </Toolbar>
         </div>
 
       </div>

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "type": "registry:ui",
+  "title": "Toolbar",
+  "description": "Structured Liquidity Toolbar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/toolbar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity toolbar — a rigid rail that groups controls, divided by vertical separators. */\nexport const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, role = \"toolbar\", ...props }, ref) => (\n    <div ref={ref} role={role} className={cn(\"sl-toolbar\", className)} {...props} />\n  ),\n);\nToolbar.displayName = \"Toolbar\";\n\n/** A vertical divider between clusters of toolbar controls. */\nexport const ToolbarSeparator = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"sl-sep\", \"vert\", className)} {...props} />\n));\nToolbarSeparator.displayName = \"ToolbarSeparator\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/toolbar.tsx"
+    }
+  ]
+}
