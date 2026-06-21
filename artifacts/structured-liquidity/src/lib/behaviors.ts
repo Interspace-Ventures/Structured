@@ -9,8 +9,18 @@
    ============================================================ */
 
 import catalog from "@/catalog.json";
+import { installCommand } from "@/components/site/InstallButton";
+import { emitToast } from "@/components/ui/toast";
 
 let booted = false;
+
+/* inline lucide-react glyphs (download / check) — behaviors.ts is imperative,
+   so the per-cell copy affordance can't render JSX; these mirror the icons the
+   React <InstallButton> uses. */
+const ICON_DOWNLOAD =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>';
+const ICON_CHECK =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
 
 /* ============================================================
    Component gallery — flattens the statically-rendered kit-groups
@@ -32,6 +42,12 @@ function bindGallery() {
   const FACETS: { key: string; label: string }[] = catalog.facets;
   const KINDS_OF: Record<string, string[]> = Object.fromEntries(
     catalog.components.map((c) => [c.cap, c.kinds] as const),
+  );
+  /* cap -> shadcn registry item slug, for the per-cell one-click install. */
+  const REG_OF: Record<string, string> = Object.fromEntries(
+    catalog.components
+      .filter((c): c is typeof c & { registry: string } => "registry" in c && !!c.registry)
+      .map((c) => [c.cap, c.registry] as const),
   );
 
   const grid = document.createElement("div");
@@ -67,6 +83,19 @@ function bindGallery() {
     if (cap && capText && cap.dataset.cat !== key) {
       cap.textContent = `${labelOf(key)} › ${capText}`;
       cap.dataset.cat = key;
+    }
+    /* one-click install: copy `npx shadcn@latest add …/r/<slug>.json` for this
+       component. Appended after the cap text mutation (which would wipe it). */
+    const slug = REG_OF[capText];
+    if (cap && slug) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "kit-copy";
+      btn.dataset.registry = slug;
+      btn.setAttribute("aria-label", `Copy install command for ${capText}`);
+      btn.title = "Copy install command";
+      btn.innerHTML = `<span class="kit-copy-ico" data-ico="download">${ICON_DOWNLOAD}</span><span class="kit-copy-ico" data-ico="check">${ICON_CHECK}</span>`;
+      cap.appendChild(btn);
     }
     grid.appendChild(cell);
   });
@@ -120,6 +149,24 @@ function bindGallery() {
   filters.append(catRow, facetRow, count);
 
   groups.replaceWith(filters, grid);
+
+  /* per-cell one-click install (delegated). Copies the component's shadcn add
+     command, flashes the check glyph, and raises a toast via the React bridge. */
+  grid.addEventListener("click", async (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".kit-copy");
+    if (!btn) return;
+    const slug = btn.dataset.registry;
+    if (!slug) return;
+    const cmd = installCommand(slug);
+    try {
+      await navigator.clipboard.writeText(cmd);
+    } catch {
+      /* clipboard unavailable — still toast so the user sees the command */
+    }
+    btn.classList.add("is-copied");
+    window.setTimeout(() => btn.classList.remove("is-copied"), 1600);
+    emitToast({ title: "Copied install command", description: cmd });
+  });
 
   const updateCount = (): void => {
     const total = grid.querySelectorAll(".kit-cell").length;

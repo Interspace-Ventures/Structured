@@ -40,3 +40,23 @@ shadcn-installable registry served at `/r/*.json` (index at `/registry.json`).
   `window.location.origin`, so the copied command always matches wherever the site is served.
 - **How to apply:** when adding/removing a UI component or changing its imports, rerun the registry
   script; when deploying from a fork/non-canonical host, set `REGISTRY_BASE_URL` before generating.
+
+## Per-gallery-cell install + the catalog `registry` field
+- Each gallery `.kit-cell` can carry a one-click "copy install" affordance pointing at its own
+  `r/<slug>.json`. The cap→slug mapping lives as an optional `registry` field on each
+  `src/catalog.json` component (NOT derivable from the cap text: composite caps like
+  "Tooltip · hover card" or "Switch · slider" point to one primary slug, and specimen-only cells
+  with no standalone registry item — Toolbar, Waveform, Marquee, the Mobile-navigation trio, AI chat,
+  Navigation bar, Checkbox group — intentionally have no `registry` and get no button).
+- **Why a stored field, not slugification:** ~10 of 72 caps have no 1:1 registry item, so deriving a
+  slug from the name would point at files that don't exist.
+- The button + click handler are built imperatively in `bindGallery` (`src/lib/behaviors.ts`); the cap
+  text is rewritten with `textContent` (category prefix), which wipes children — append the button
+  **after** that mutation.
+
+## Firing React toasts from imperative code
+- `src/components/ui/toast.tsx` exposes `emitToast(opts)` backed by a module-level `externalToast`
+  reference that `<ToastProvider>` registers on mount (clears on unmount). Non-React code
+  (`behaviors.ts`) calls `emitToast` to raise the same toast deck the React `useToast()` hook uses.
+- **Why:** `behaviors.ts` is imperative DOM and can't consume the toast React context; the bridge
+  avoids duplicating the toast UI or polluting `window`.

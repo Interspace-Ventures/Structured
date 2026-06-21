@@ -38,6 +38,17 @@ interface ToastCtx {
 
 const Ctx = React.createContext<ToastCtx | null>(null);
 
+/* ---- imperative bridge ----------------------------------------------------
+   A module-level reference to the live provider's toast() so non-React code
+   (e.g. the imperative gallery in src/lib/behaviors.ts) can raise the same
+   toasts. Registered by <ToastProvider> on mount; a no-op until then. */
+let externalToast: ((opts: ToastOptions) => void) | null = null;
+
+/** emitToast — fire a toast from outside React (no-op until a provider mounts). */
+export function emitToast(opts: ToastOptions): void {
+  externalToast?.(opts);
+}
+
 /** useToast — push toasts onto the stack rendered by <Toaster />. */
 export function useToast() {
   const c = React.useContext(Ctx);
@@ -130,6 +141,13 @@ export function ToastProvider({ children }: ToastProviderProps) {
     },
     [arm],
   );
+
+  React.useEffect(() => {
+    externalToast = toast;
+    return () => {
+      if (externalToast === toast) externalToast = null;
+    };
+  }, [toast]);
 
   React.useEffect(() => {
     const pending = toasts.filter((t) => !t.show && !t.removed);

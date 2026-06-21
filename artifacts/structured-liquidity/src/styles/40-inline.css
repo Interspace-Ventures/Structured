@@ -45,6 +45,26 @@
     .show-card-veil .vbody{transform:none;}
   }
 
+  /* Per-component one-click install — a small ghost icon button injected into
+     each gallery cell's .kit-cap (see bindGallery in src/lib/behaviors.ts). It
+     copies `npx shadcn@latest add …/r/<slug>.json` and flashes a check glyph.
+     Rigid frame, liquid inside: square, accent on hover, no radius. */
+  .kit-cap:has(.kit-copy){padding-right:0;}
+  .kit-copy{margin-left:auto;flex:none;display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;padding:0;cursor:pointer;color:var(--ink-dim);
+    background:rgba(var(--glass-tint),0.06);border:var(--border-w) solid rgb(var(--edge));
+    box-shadow:none;transition:color .18s ease,background .18s ease,transform .12s ease;}
+  .kit-copy:hover{color:var(--accent);background:rgba(var(--glass-tint),0.12);}
+  .kit-copy:active{transform:translate(1px,1px);}
+  .kit-copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .kit-copy svg{width:14px;height:14px;display:block;}
+  .kit-copy .kit-copy-ico{display:inline-flex;}
+  .kit-copy .kit-copy-ico[data-ico="check"]{display:none;}
+  .kit-copy.is-copied{color:var(--accent);}
+  .kit-copy.is-copied .kit-copy-ico[data-ico="download"]{display:none;}
+  .kit-copy.is-copied .kit-copy-ico[data-ico="check"]{display:inline-flex;}
+  @media (prefers-reduced-motion:reduce){.kit-copy:active{transform:none}}
+
   /* Floating Tweaks launcher (panel UI is injected by the React app) */
   .sl-tweaks-fab{position:fixed;right:18px;bottom:18px;z-index:2147483645;
     display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;

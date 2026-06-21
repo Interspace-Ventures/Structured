@@ -34,6 +34,7 @@
   "components": [
     {
       "name": "Button",
+      "registry": "button",
       "cap": "Button · variants & sizes",
       "category": "actions",
       "status": "stable",
@@ -46,6 +47,7 @@
     },
     {
       "name": "Button group",
+      "registry": "button-group",
       "cap": "Button group",
       "category": "actions",
       "status": "stable",
@@ -58,6 +60,7 @@
     },
     {
       "name": "Toggle & toggle group",
+      "registry": "toggle",
       "cap": "Toggle & toggle group",
       "category": "actions",
       "status": "stable",
@@ -82,6 +85,7 @@
     },
     {
       "name": "Alert",
+      "registry": "alert",
       "cap": "Alert",
       "category": "data",
       "status": "stable",
@@ -94,6 +98,7 @@
     },
     {
       "name": "Avatar",
+      "registry": "avatar",
       "cap": "Avatar",
       "category": "data",
       "status": "stable",
@@ -106,6 +111,7 @@
     },
     {
       "name": "Badge",
+      "registry": "badge",
       "cap": "Badge",
       "category": "data",
       "status": "stable",
@@ -119,6 +125,7 @@
     },
     {
       "name": "Calendar / date picker",
+      "registry": "calendar",
       "cap": "Calendar / date picker",
       "category": "data",
       "status": "stable",
@@ -132,6 +139,7 @@
     },
     {
       "name": "Card",
+      "registry": "card",
       "cap": "Card",
       "category": "data",
       "status": "stable",
@@ -172,6 +180,7 @@
     },
     {
       "name": "Carousel",
+      "registry": "carousel",
       "cap": "Carousel",
       "category": "data",
       "status": "stable",
@@ -185,6 +194,7 @@
     },
     {
       "name": "Chart",
+      "registry": "chart",
       "cap": "Chart",
       "category": "data",
       "status": "stable",
@@ -197,6 +207,7 @@
     },
     {
       "name": "Empty",
+      "registry": "empty",
       "cap": "Empty",
       "category": "data",
       "status": "stable",
@@ -210,6 +221,7 @@
     },
     {
       "name": "Fonts",
+      "registry": "fonts",
       "cap": "Fonts",
       "category": "data",
       "status": "stable",
@@ -222,6 +234,7 @@
     },
     {
       "name": "Item",
+      "registry": "item",
       "cap": "Item",
       "category": "data",
       "status": "stable",
@@ -234,6 +247,7 @@
     },
     {
       "name": "Kbd",
+      "registry": "kbd",
       "cap": "Kbd",
       "category": "data",
       "status": "stable",
@@ -258,6 +272,7 @@
     },
     {
       "name": "Meter",
+      "registry": "meter",
       "cap": "Meter",
       "category": "data",
       "status": "stable",
@@ -271,6 +286,7 @@
     },
     {
       "name": "Progress · skeleton",
+      "registry": "progress",
       "cap": "Progress · skeleton",
       "category": "data",
       "status": "stable",
@@ -283,6 +299,7 @@
     },
     {
       "name": "Skeleton · card",
+      "registry": "skeleton",
       "cap": "Skeleton · card",
       "category": "data",
       "status": "stable",
@@ -295,6 +312,7 @@
     },
     {
       "name": "Skeleton · text",
+      "registry": "skeleton",
       "cap": "Skeleton · text",
       "category": "data",
       "status": "stable",
@@ -307,6 +325,7 @@
     },
     {
       "name": "Skeleton · list",
+      "registry": "skeleton",
       "cap": "Skeleton · list",
       "category": "data",
       "status": "stable",
@@ -319,6 +338,7 @@
     },
     {
       "name": "Spinner",
+      "registry": "spinner",
       "cap": "Spinner",
       "category": "data",
       "status": "stable",
@@ -331,6 +351,7 @@
     },
     {
       "name": "Table / data table",
+      "registry": "table",
       "cap": "Table / data table",
       "category": "data",
       "status": "stable",
@@ -343,6 +364,7 @@
     },
     {
       "name": "Tooltip · hover card",
+      "registry": "tooltip",
       "cap": "Tooltip · hover card",
       "category": "data",
       "status": "stable",
@@ -356,6 +378,7 @@
     },
     {
       "name": "Typography",
+      "registry": "typography",
       "cap": "Typography",
       "category": "data",
       "status": "stable",
@@ -368,6 +391,7 @@
     },
     {
       "name": "Accordion",
+      "registry": "accordion",
       "cap": "Accordion",
       "category": "disclosure",
       "status": "stable",
@@ -380,6 +404,7 @@
     },
     {
       "name": "Collapsible",
+      "registry": "collapsible",
       "cap": "Collapsible",
       "category": "disclosure",
       "status": "stable",
@@ -392,6 +417,7 @@
     },
     {
       "name": "Checkbox",
+      "registry": "checkbox",
       "cap": "Checkbox",
       "category": "forms",
       "status": "stable",
@@ -406,6 +432,7 @@
     },
     {
       "name": "Command / combobox",
+      "registry": "command",
       "cap": "Command / combobox",
       "category": "forms",
       "status": "stable",
@@ -421,6 +448,7 @@
     },
     {
       "name": "Field",
+      "registry": "field",
       "cap": "Field",
       "category": "forms",
       "status": "stable",
@@ -434,6 +462,7 @@
     },
     {
       "name": "Input group",
+      "registry": "input-group",
       "cap": "Input group",
       "category": "forms",
       "status": "stable",
@@ -448,6 +477,7 @@
     },
     {
       "name": "Input OTP",
+      "registry": "input-otp",
       "cap": "Input OTP",
       "category": "forms",
       "status": "stable",
@@ -462,6 +492,7 @@
     },
     {
       "name": "Input · label · textarea",
+      "registry": "input",
       "cap": "Input · label · textarea",
       "category": "forms",
       "status": "stable",
@@ -476,6 +507,7 @@
     },
     {
       "name": "Fieldset",
+      "registry": "fieldset",
       "cap": "Fieldset",
       "category": "forms",
       "status": "stable",
@@ -488,6 +520,7 @@
     },
     {
       "name": "Native select",
+      "registry": "native-select",
       "cap": "Native select",
       "category": "forms",
       "status": "stable",
@@ -502,6 +535,7 @@
     },
     {
       "name": "Number field",
+      "registry": "number-field",
       "cap": "Number field",
       "category": "forms",
       "status": "stable",
@@ -516,6 +550,7 @@
     },
     {
       "name": "Radio group",
+      "registry": "radio-group",
       "cap": "Radio group",
       "category": "forms",
       "status": "stable",
@@ -530,6 +565,7 @@
     },
     {
       "name": "Select",
+      "registry": "select",
       "cap": "Select",
       "category": "forms",
       "status": "stable",
@@ -545,6 +581,7 @@
     },
     {
       "name": "Switch · slider",
+      "registry": "switch",
       "cap": "Switch · slider",
       "category": "forms",
       "status": "stable",
@@ -559,6 +596,7 @@
     },
     {
       "name": "Aspect ratio",
+      "registry": "aspect-ratio",
       "cap": "Aspect ratio",
       "category": "layout",
       "status": "stable",
@@ -571,6 +609,7 @@
     },
     {
       "name": "Resizable",
+      "registry": "resizable",
       "cap": "Resizable",
       "category": "layout",
       "status": "stable",
@@ -584,6 +623,7 @@
     },
     {
       "name": "Scroll area",
+      "registry": "scroll-area",
       "cap": "Scroll area",
       "category": "layout",
       "status": "stable",
@@ -596,6 +636,7 @@
     },
     {
       "name": "Separator",
+      "registry": "separator",
       "cap": "Separator",
       "category": "layout",
       "status": "stable",
@@ -608,6 +649,7 @@
     },
     {
       "name": "Breadcrumb",
+      "registry": "breadcrumb",
       "cap": "Breadcrumb",
       "category": "navigation",
       "status": "stable",
@@ -620,6 +662,7 @@
     },
     {
       "name": "Menubar",
+      "registry": "menubar",
       "cap": "Menubar",
       "category": "navigation",
       "status": "stable",
@@ -646,6 +689,7 @@
     },
     {
       "name": "Navigation menu",
+      "registry": "navigation-menu",
       "cap": "Navigation menu",
       "category": "navigation",
       "status": "stable",
@@ -660,6 +704,7 @@
     },
     {
       "name": "Pagination",
+      "registry": "pagination",
       "cap": "Pagination",
       "category": "navigation",
       "status": "stable",
@@ -673,6 +718,7 @@
     },
     {
       "name": "Sidebar",
+      "registry": "sidebar",
       "cap": "Sidebar",
       "category": "navigation",
       "status": "stable",
@@ -685,6 +731,7 @@
     },
     {
       "name": "Tabs",
+      "registry": "tabs",
       "cap": "Tabs",
       "category": "navigation",
       "status": "stable",
@@ -698,6 +745,7 @@
     },
     {
       "name": "Alert dialog",
+      "registry": "alert-dialog",
       "cap": "Alert dialog",
       "category": "overlays",
       "status": "stable",
@@ -712,6 +760,7 @@
     },
     {
       "name": "Context menu",
+      "registry": "context-menu",
       "cap": "Context menu",
       "category": "overlays",
       "status": "stable",
@@ -726,6 +775,7 @@
     },
     {
       "name": "Dialog",
+      "registry": "dialog",
       "cap": "Dialog",
       "category": "overlays",
       "status": "stable",
@@ -740,6 +790,7 @@
     },
     {
       "name": "Drawer",
+      "registry": "drawer",
       "cap": "Drawer",
       "category": "overlays",
       "status": "stable",
@@ -754,6 +805,7 @@
     },
     {
       "name": "Dropdown menu",
+      "registry": "dropdown-menu",
       "cap": "Dropdown menu",
       "category": "overlays",
       "status": "stable",
@@ -768,6 +820,7 @@
     },
     {
       "name": "Popover",
+      "registry": "popover",
       "cap": "Popover",
       "category": "overlays",
       "status": "stable",
@@ -782,6 +835,7 @@
     },
     {
       "name": "Sheet",
+      "registry": "sheet",
       "cap": "Sheet",
       "category": "overlays",
       "status": "stable",
@@ -796,6 +850,7 @@
     },
     {
       "name": "Toast / sonner",
+      "registry": "toast",
       "cap": "Toast / sonner",
       "category": "overlays",
       "status": "stable",
@@ -810,6 +865,7 @@
     },
     {
       "name": "Autocomplete",
+      "registry": "autocomplete",
       "cap": "Autocomplete",
       "category": "forms",
       "status": "stable",
@@ -839,6 +895,7 @@
     },
     {
       "name": "Form",
+      "registry": "form",
       "cap": "Form",
       "category": "forms",
       "status": "stable",
@@ -853,6 +910,7 @@
     },
     {
       "name": "Label",
+      "registry": "label",
       "cap": "Label",
       "category": "forms",
       "status": "stable",
@@ -866,6 +924,7 @@
     },
     {
       "name": "Stat · metric display",
+      "registry": "stat",
       "cap": "Stat · metric display",
       "category": "data",
       "status": "stable",
@@ -879,6 +938,7 @@
     },
     {
       "name": "Section header",
+      "registry": "section-header",
       "cap": "Section header",
       "category": "layout",
       "status": "stable",
@@ -892,6 +952,7 @@
     },
     {
       "name": "Keycap tiles",
+      "registry": "keycap",
       "cap": "Keycap tiles",
       "category": "layout",
       "status": "stable",
@@ -905,6 +966,7 @@
     },
     {
       "name": "Profile header",
+      "registry": "profile-header",
       "cap": "Profile header",
       "category": "layout",
       "status": "stable",
