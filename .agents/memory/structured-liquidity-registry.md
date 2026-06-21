@@ -18,9 +18,21 @@ shadcn-installable registry served at `/r/*.json` (index at `/registry.json`).
   each file's imports** — not hand-maintained. Every UI item also depends on the base style so its
   CSS comes along.
 
+## Validation (drift + schema)
+- `scripts/check-registry.mjs` (`run registry:check`, registered as the `registry` validation check)
+  guards the published output. Drift: it reruns the generator into a temp dir via the
+  `REGISTRY_OUT_DIR` env override (added to `build-registry.mjs`) and diffs against the committed
+  `public/` files — so the check never mutates tracked files. Schema: it validates every committed
+  file against the **vendored** shadcn schemas in `scripts/schemas/*.schema.json` using `ajv`.
+- **ajv v8 gotcha:** the vendored schemas declare draft-07, whose meta-schema ajv v8 does not register
+  by default — compiling them errors `no schema with key or ref ".../draft-07/schema#"`. Fix used:
+  `new Ajv({ validateSchema: false, strict: false })` and `delete schema.$schema` before compiling.
+  The registry schema `$ref`s the item schema by its canonical URL, so register it via
+  `ajv.addSchema(itemSchema, "https://ui.shadcn.com/schema/registry-item.json")`.
+
 ## Rules (why)
 - **The registry is generated — never hand-edit `public/registry.json` or `public/r/*.json`.** Change
-  source + rerun the generator, or they drift from the components.
+  source + rerun the generator, or they drift from the components. `run registry:check` catches drift.
 - **`public/*.css` and `*.js` stay verbatim** because the base item ships them directly to consumers;
   editing them changes what `npx shadcn add` installs.
 - Cross-item URLs use `REGISTRY_BASE_URL` (default the canonical replit.app domain). The in-page

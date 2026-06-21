@@ -30,7 +30,12 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const UI_DIR = join(ROOT, "src/components/ui");
 const PUBLIC = join(ROOT, "public");
-const OUT_DIR = join(PUBLIC, "r");
+/* Where the registry index + r/ items are written. Defaults to public/;
+   the drift check (check-registry.mjs) overrides it with a temp dir via
+   REGISTRY_OUT_DIR so it can regenerate without mutating committed files.
+   Source stylesheets are always read from public/. */
+const WRITE_DIR = process.env.REGISTRY_OUT_DIR || PUBLIC;
+const OUT_DIR = join(WRITE_DIR, "r");
 
 const BASE_URL = (process.env.REGISTRY_BASE_URL || "https://structured-liquidity.replit.app").replace(/\/+$/, "");
 const itemUrl = (name) => `${BASE_URL}/r/${name}.json`;
@@ -216,7 +221,7 @@ const registry = {
     ...items,
   ],
 };
-writeFileSync(join(PUBLIC, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
+writeFileSync(join(WRITE_DIR, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
 
 console.log(
   `registry: wrote ${uiItems.length + 1} items to public/r/ + public/registry.json (base ${BASE_URL})`,

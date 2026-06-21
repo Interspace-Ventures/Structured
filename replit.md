@@ -7,6 +7,7 @@ A live, deployable specimen + landing page for **Structured Liquidity** — an o
 - `pnpm --filter @workspace/structured-liquidity run dev` — run the site (Vite)
 - `pnpm --filter @workspace/structured-liquidity run typecheck` — typecheck the artifact
 - `pnpm --filter @workspace/structured-liquidity run registry` — regenerate the shadcn registry (`public/r/*.json` + `public/registry.json`) from source
+- `pnpm --filter @workspace/structured-liquidity run registry:check` — verify the committed registry before publishing: fails on **drift** (regenerates into a temp dir and diffs against the committed files) and on **schema violations** (validates every emitted file against the vendored shadcn registry-item / registry schemas). Registered as the `registry` validation check (see the `validation` skill); run it alongside `typecheck` in the normal verify flow.
 - The site is a static Vite + React page; restart via the `artifacts/structured-liquidity: web` workflow
 
 ## Stack
@@ -39,6 +40,8 @@ A live, deployable specimen + landing page for **Structured Liquidity** — an o
 - `public/r/structured-liquidity.json` — the **base style item** (`registry:style`): the SL theme tokens (`cssVars`) + the three distributable stylesheets + the kit script (as `registry:file`s). Install this first.
 - `public/r/<component>.json` — one `registry:ui` item per `src/components/ui/*.tsx`, with npm `dependencies` and internal `registryDependencies` resolved by parsing each file's imports; every component depends on the base style so its CSS comes along.
 - `public/registry.json` — the registry index (shadcn `registry.json` schema).
+
+`scripts/check-registry.mjs` (`run registry:check`) guards the published output: it sets `REGISTRY_OUT_DIR` to a temp dir, reruns the generator there, and diffs against the committed `public/registry.json` + `public/r/*.json` (drift), then validates every committed file against the vendored shadcn schemas in `scripts/schemas/*.schema.json` using `ajv` (a devDependency). It is registered as the `registry` validation check.
 
 Cross-item URLs use `REGISTRY_BASE_URL` (default `https://structured-liquidity.replit.app`). The in-page **Install** buttons (`InstallButton.tsx`, used in Nav/Hero/FooterCta) copy `npx shadcn@latest add <window.location.origin>/r/structured-liquidity.json` to the clipboard and fire a toast, so the copied command always matches wherever the site is served; a separate **Source** link points at GitHub. The `#adopt` ("For AI") section surfaces the registry, the install command, the AI prompt, the `:root` tokens, and `llms.txt` / `design-tokens.json`.
 
