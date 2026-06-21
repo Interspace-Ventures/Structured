@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "meter",
+  "type": "registry:ui",
+  "title": "Meter",
+  "description": "Structured Liquidity Meter — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/meter.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface MeterProps extends React.HTMLAttributes<HTMLDivElement> {\n  value: number;\n  min?: number;\n  max?: number;\n  /** left-hand head label */\n  label?: React.ReactNode;\n  /** right-hand mono value text; defaults to \"{value}%\" */\n  valueText?: React.ReactNode;\n  /** show the negative/warning fill color */\n  warn?: boolean;\n}\n\n/** Structured Liquidity meter — labeled track with accent (or warn) fill. */\nexport const Meter = React.forwardRef<HTMLDivElement, MeterProps>(\n  (\n    {\n      value,\n      min = 0,\n      max = 100,\n      label,\n      valueText,\n      warn,\n      className,\n      \"aria-label\": ariaLabel,\n      ...props\n    },\n    ref,\n  ) => {\n    const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));\n    return (\n      <div\n        ref={ref}\n        role=\"meter\"\n        aria-valuenow={value}\n        aria-valuemin={min}\n        aria-valuemax={max}\n        aria-label={ariaLabel}\n        className={cn(\"sl-meter\", className)}\n        {...props}\n      >\n        <div className=\"mt-head\">\n          <span>{label}</span>\n          <span className=\"mono\">{valueText ?? `${Math.round(pct)}%`}</span>\n        </div>\n        <div className=\"mt-track\">\n          <div className={cn(\"mt-fill\", warn && \"warn\")} style={{ width: `${pct}%` }} />\n        </div>\n      </div>\n    );\n  },\n);\nMeter.displayName = \"Meter\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/meter.tsx"
+    }
+  ]
+}

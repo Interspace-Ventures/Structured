@@ -1,0 +1,403 @@
+/* ============================================================
+   Page-level visual behaviors — React-triggered port of the
+   non-component parts of public/structured-liquidity.js and the
+   original vanilla page hooks. These operate on the DOM
+   React renders (run once from App's mount effect). Interactive
+   *components* live in src/components/ui/* as real React — these
+   are ambient page effects only (cursor specular, scroll reveal,
+   nav scrollspy, glass refraction capability + glint).
+   ============================================================ */
+
+import catalog from "@/catalog.json";
+
+let booted = false;
+
+/* ============================================================
+   Component gallery — flattens the statically-rendered kit-groups
+   into a single sorted, filterable masonry grid (Type × Kind axes,
+   FLIP-animated). Faithful port of the legacy mountGallery(): the
+   grouped markup is the no-JS fallback; this is the real experience.
+   Safe to re-parent the React-rendered .kit-cell nodes because the
+   <Components> section never re-renders (no state/props change).
+   ============================================================ */
+function bindGallery() {
+  const groups = document.querySelector<HTMLElement>("#components .kit-groups");
+  if (!groups) return;
+
+  const CATS: { key: string; label: string }[] = catalog.categories;
+  const labelOf = (k: string): string => CATS.find((c) => c.key === k)?.label ?? k;
+  const CAT_OF: Record<string, string> = Object.fromEntries(
+    catalog.components.map((c) => [c.cap, c.category] as const),
+  );
+  const FACETS: { key: string; label: string }[] = catalog.facets;
+  const KINDS_OF: Record<string, string[]> = Object.fromEntries(
+    catalog.components.map((c) => [c.cap, c.kinds] as const),
+  );
+
+  const grid = document.createElement("div");
+  grid.className = "kit-grid gallery";
+  const present = new Set<string>();
+  const presentFacets = new Set<string>();
+
+  const primaryCap = (cell: HTMLElement): string =>
+    cell.querySelector<HTMLElement>(".kit-cap")?.textContent?.trim() ?? "";
+  const cells = Array.from(groups.querySelectorAll<HTMLElement>(".kit-cell"));
+  cells.sort((a, b) => {
+    const la = labelOf(CAT_OF[primaryCap(a)] ?? "other").toLowerCase();
+    const lb = labelOf(CAT_OF[primaryCap(b)] ?? "other").toLowerCase();
+    return la === lb
+      ? primaryCap(a).toLowerCase().localeCompare(primaryCap(b).toLowerCase())
+      : la.localeCompare(lb);
+  });
+
+  cells.forEach((cell) => {
+    const cap = cell.querySelector<HTMLElement>(".kit-cap");
+    const capText = cap?.textContent?.trim() ?? "";
+    const key = CAT_OF[capText] ?? "other";
+    if (import.meta.env.DEV && capText && !(capText in CAT_OF)) {
+      console.warn(
+        `[catalog] component "${capText}" is missing from src/catalog.json — add it so it's tracked and categorised.`,
+      );
+    }
+    cell.setAttribute("data-cat", key);
+    present.add(key);
+    const kinds = KINDS_OF[capText] ?? [];
+    if (kinds.length) cell.setAttribute("data-kinds", kinds.join(" "));
+    kinds.forEach((k) => presentFacets.add(k));
+    if (cap && capText && cap.dataset.cat !== key) {
+      cap.textContent = `${labelOf(key)} › ${capText}`;
+      cap.dataset.cat = key;
+    }
+    grid.appendChild(cell);
+  });
+
+  const makeChip = (key: string, label: string, active = false): HTMLButtonElement => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "kit-filter" + (active ? " active" : "");
+    b.dataset.filter = key;
+    b.setAttribute("aria-pressed", active ? "true" : "false");
+    b.textContent = label;
+    return b;
+  };
+
+  const makeRow = (axis: string, axisLabel: string): HTMLElement => {
+    const row = document.createElement("div");
+    row.className = "kit-filter-row " + (axis === "cat" ? "is-primary" : "is-secondary");
+    const lbl = document.createElement("span");
+    lbl.className = "kit-filter-axis";
+    lbl.textContent = axisLabel;
+    const b = document.createElement("div");
+    b.className = "kit-filters";
+    b.dataset.axis = axis;
+    b.setAttribute("role", "group");
+    b.setAttribute("aria-label", `Filter components by ${axisLabel.toLowerCase()}`);
+    row.append(lbl, b);
+    return row;
+  };
+
+  const catRow = makeRow("cat", "Type");
+  const catBar = catRow.querySelector<HTMLElement>(".kit-filters")!;
+  catBar.appendChild(makeChip("all", "All", true));
+  CATS.forEach((c) => {
+    if (present.has(c.key)) catBar.appendChild(makeChip(c.key, c.label));
+  });
+
+  const facetRow = makeRow("kind", "Kind");
+  const facetBar = facetRow.querySelector<HTMLElement>(".kit-filters")!;
+  facetBar.appendChild(makeChip("all", "All", true));
+  FACETS.forEach((f) => {
+    if (presentFacets.has(f.key)) facetBar.appendChild(makeChip(f.key, f.label));
+  });
+
+  const count = document.createElement("p");
+  count.className = "kit-result-count";
+  count.setAttribute("aria-live", "polite");
+  count.setAttribute("aria-atomic", "true");
+
+  const filters = document.createElement("div");
+  filters.className = "kit-filterbars";
+  filters.append(catRow, facetRow, count);
+
+  groups.replaceWith(filters, grid);
+
+  const updateCount = (): void => {
+    const total = grid.querySelectorAll(".kit-cell").length;
+    const shown = grid.querySelectorAll(".kit-cell:not(.is-hidden)").length;
+    count.innerHTML =
+      shown === total ? `<b>${total}</b> components` : `<b>${shown}</b> of ${total} shown`;
+  };
+  updateCount();
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const PLAY_MS = 440;
+  let flipRun = 0;
+  const clearFlip = (c: HTMLElement): void => {
+    c.style.transition = "";
+    c.style.transform = "";
+    c.style.opacity = "";
+    c.style.willChange = "";
+  };
+
+  let activeCat = "all";
+  let activeKind = "all";
+
+  const matches = (c: HTMLElement): boolean => {
+    if (activeCat !== "all" && c.getAttribute("data-cat") !== activeCat) return false;
+    if (activeKind !== "all") {
+      const kinds = (c.getAttribute("data-kinds") ?? "").split(" ");
+      if (!kinds.includes(activeKind)) return false;
+    }
+    return true;
+  };
+
+  const setActive = (b: HTMLElement, val: string): void => {
+    b.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((x) => {
+      const on = x.dataset.filter === val;
+      x.classList.toggle("active", on);
+      x.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  };
+
+  const syncKindChips = (): void => {
+    const avail = new Set<string>();
+    grid.querySelectorAll<HTMLElement>(".kit-cell").forEach((c) => {
+      if (activeCat !== "all" && c.getAttribute("data-cat") !== activeCat) return;
+      (c.getAttribute("data-kinds") ?? "")
+        .split(" ")
+        .filter(Boolean)
+        .forEach((k) => avail.add(k));
+    });
+    facetBar.querySelectorAll<HTMLButtonElement>(".kit-filter").forEach((chip) => {
+      const key = chip.dataset.filter ?? "";
+      if (key === "all") return;
+      chip.hidden = !avail.has(key);
+    });
+    if (activeKind !== "all" && !avail.has(activeKind)) {
+      activeKind = "all";
+      setActive(facetBar, "all");
+    }
+  };
+
+  const applyFilter = (): void => {
+    const cells = Array.from(grid.querySelectorAll<HTMLElement>(".kit-cell"));
+    if (reduceMotion) {
+      cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+      updateCount();
+      return;
+    }
+    const run = ++flipRun;
+    cells.forEach((c) => {
+      c.style.transition = "none";
+      c.style.transform = "";
+      c.style.opacity = "";
+    });
+    void grid.offsetHeight;
+
+    const first = new Map<HTMLElement, DOMRect>();
+    cells.forEach((c) => {
+      if (!c.classList.contains("is-hidden")) first.set(c, c.getBoundingClientRect());
+    });
+
+    cells.forEach((c) => c.classList.toggle("is-hidden", !matches(c)));
+    updateCount();
+
+    const last = new Map<HTMLElement, DOMRect>();
+    cells.forEach((c) => {
+      if (!c.classList.contains("is-hidden")) last.set(c, c.getBoundingClientRect());
+    });
+
+    cells.forEach((c) => {
+      const lr = last.get(c);
+      if (!lr) return;
+      const fr = first.get(c);
+      if (fr) {
+        const dx = fr.left - lr.left;
+        const dy = fr.top - lr.top;
+        if (dx || dy) c.style.transform = `translate(${dx}px, ${dy}px)`;
+      } else {
+        c.style.transform = "translateY(10px) scale(0.985)";
+        c.style.opacity = "0";
+      }
+      c.style.willChange = "transform, opacity";
+    });
+
+    void grid.offsetHeight;
+
+    cells.forEach((c) => {
+      if (!last.has(c)) return;
+      c.style.transition = "transform .44s cubic-bezier(.2,.7,.2,1), opacity .34s ease";
+      c.style.transform = "";
+      c.style.opacity = "1";
+    });
+
+    window.setTimeout(() => {
+      if (run !== flipRun) return;
+      cells.forEach(clearFlip);
+    }, PLAY_MS + 80);
+  };
+
+  filters.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".kit-filter");
+    if (!btn || !btn.dataset.filter || btn.classList.contains("active")) return;
+    const axis = btn.closest<HTMLElement>(".kit-filters")?.dataset.axis;
+    if (axis === "cat") {
+      activeCat = btn.dataset.filter;
+      setActive(catBar, activeCat);
+      syncKindChips();
+    } else if (axis === "kind") {
+      activeKind = btn.dataset.filter;
+      setActive(facetBar, activeKind);
+    } else {
+      return;
+    }
+    applyFilter();
+  });
+}
+
+/* cursor-tracked specular highlight on every glass surface */
+function bindGlassCursor() {
+  document.querySelectorAll<HTMLElement>(".glass").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      el.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+    });
+  });
+}
+
+/* scroll reveal — reveal on-screen items instantly (so capture/print never
+   freezes them hidden), fade in below-the-fold items as they enter. */
+function bindReveal() {
+  const items = [...document.querySelectorAll<HTMLElement>(".reveal")];
+  items.forEach((el, i) => {
+    el.style.transitionDelay = Math.min(i % 6, 5) * 55 + "ms";
+  });
+
+  const inView = (el: HTMLElement) => {
+    const r = el.getBoundingClientRect();
+    return r.top < (window.innerHeight || 800) * 0.92 && r.bottom > -40;
+  };
+  const showInstant = (el: HTMLElement) => {
+    const prev = el.style.transition;
+    el.style.transition = "none";
+    el.classList.add("in");
+    void el.offsetHeight;
+    el.style.transition = prev;
+  };
+  const showAnimated = (el: HTMLElement) => el.classList.add("in");
+
+  items.forEach((el) => {
+    if (inView(el)) showInstant(el);
+  });
+
+  let ticking = false;
+  const sweep = () => {
+    items.forEach((el) => {
+      if (!el.classList.contains("in") && inView(el)) showAnimated(el);
+    });
+    ticking = false;
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(sweep);
+    },
+    { passive: true },
+  );
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            showAnimated(en.target as HTMLElement);
+            io.unobserve(en.target);
+          }
+        }),
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    items.forEach((el) => {
+      if (!el.classList.contains("in")) io.observe(el);
+    });
+  }
+
+  setTimeout(
+    () => items.forEach((el) => { if (!el.classList.contains("in")) showInstant(el); }),
+    1800,
+  );
+}
+
+/* nav scrollspy: highlight the active section's nav link */
+function bindDotNav() {
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.nav .links a[href^="#"]')].filter(
+    (a) => !a.classList.contains("nav-cta"),
+  );
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  const byId: Record<string, HTMLAnchorElement> = {};
+  links.forEach((a) => {
+    const id = a.getAttribute("href")!.slice(1);
+    if (id) byId[id] = a;
+  });
+  const sections = Object.keys(byId)
+    .map((id) => document.getElementById(id))
+    .filter(Boolean) as HTMLElement[];
+  if (!sections.length) return;
+  const setActive = (id: string | null) =>
+    links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+  const visible = new Set<HTMLElement>();
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) visible.add(en.target as HTMLElement);
+        else visible.delete(en.target as HTMLElement);
+      });
+      if (!visible.size) {
+        setActive(null);
+        return;
+      }
+      let top: HTMLElement | null = null;
+      visible.forEach((s) => {
+        if (!top || s.offsetTop < top.offsetTop) top = s;
+      });
+      setActive(top ? (top as HTMLElement).id : null);
+    },
+    { rootMargin: "-38% 0px -57% 0px", threshold: 0 },
+  );
+  sections.forEach((s) => io.observe(s));
+}
+
+/* refraction glint: pointer-tracked --mx/--my on [data-refract] surfaces */
+function bindRefraction() {
+  document.querySelectorAll<HTMLElement>("[data-refract]").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      el.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+    });
+  });
+}
+
+/* only enable the SVG url() backdrop-filter where the browser actually
+   renders it, else the glass would vanish. */
+function detectRefract() {
+  const ok =
+    typeof CSS !== "undefined" &&
+    CSS.supports &&
+    (CSS.supports("backdrop-filter", "url(#sl-glass-refract)") ||
+      CSS.supports("-webkit-backdrop-filter", "url(#sl-glass-refract)"));
+  if (ok) document.documentElement.classList.add("sl-refract");
+}
+
+export function initBehaviors() {
+  if (booted) return;
+  booted = true;
+  detectRefract();
+  bindGallery();
+  bindGlassCursor();
+  bindReveal();
+  bindDotNav();
+  bindRefraction();
+}

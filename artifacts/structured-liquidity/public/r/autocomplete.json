@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autocomplete",
+  "type": "registry:ui",
+  "title": "Autocomplete",
+  "description": "Structured Liquidity Autocomplete — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/autocomplete.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface AutocompleteProps\n  extends Omit<\n    React.InputHTMLAttributes<HTMLInputElement>,\n    \"onChange\" | \"value\" | \"defaultValue\" | \"onSelect\"\n  > {\n  suggestions: string[];\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n  onSelect?: (value: string) => void;\n}\n\n/** Structured Liquidity autocomplete — combobox input with filtered listbox. */\nexport function Autocomplete({\n  suggestions,\n  value,\n  defaultValue,\n  onValueChange,\n  onSelect,\n  className,\n  placeholder,\n  onFocus,\n  onBlur,\n  ...props\n}: AutocompleteProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? \"\");\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n  const [open, setOpen] = React.useState(false);\n  const wrapRef = React.useRef<HTMLDivElement>(null);\n\n  const setValue = (v: string) => {\n    if (!isControlled) setInternal(v);\n    onValueChange?.(v);\n  };\n\n  const q = val.toLowerCase();\n  const filtered = q\n    ? suggestions.filter((s) => s.toLowerCase().includes(q))\n    : suggestions;\n\n  React.useEffect(() => {\n    if (!open) return;\n    const onDoc = (e: MouseEvent) => {\n      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);\n    };\n    document.addEventListener(\"click\", onDoc);\n    return () => document.removeEventListener(\"click\", onDoc);\n  }, [open]);\n\n  const choose = (s: string) => {\n    setValue(s);\n    onSelect?.(s);\n    setOpen(false);\n  };\n\n  return (\n    <div className=\"sl-pop-wrap\" data-autocomplete ref={wrapRef}>\n      <input\n        className={cn(\"sl-input\", className)}\n        placeholder={placeholder}\n        autoComplete=\"off\"\n        role=\"combobox\"\n        aria-expanded={open}\n        aria-autocomplete=\"list\"\n        value={val}\n        onChange={(e) => {\n          setValue(e.target.value);\n          setOpen(true);\n        }}\n        onFocus={(e) => {\n          setOpen(true);\n          onFocus?.(e);\n        }}\n        {...props}\n      />\n      <div className={cn(\"sl-menu\", open && \"open\")} role=\"listbox\">\n        {filtered.map((s) => (\n          <div\n            key={s}\n            className=\"item\"\n            role=\"option\"\n            onMouseDown={(e) => {\n              e.preventDefault();\n              choose(s);\n            }}\n          >\n            {s}\n          </div>\n        ))}\n        <div\n          className=\"item ac-empty\"\n          role=\"option\"\n          aria-disabled=\"true\"\n          style={filtered.length === 0 ? { display: \"flex\" } : undefined}\n        >\n          No matches\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/autocomplete.tsx"
+    }
+  ]
+}

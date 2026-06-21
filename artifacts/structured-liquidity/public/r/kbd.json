@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "type": "registry:ui",
+  "title": "Kbd",
+  "description": "Structured Liquidity Kbd — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/kbd.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity kbd — inline glass key cap. */\nexport const Kbd = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(\n  ({ className, ...props }, ref) => (\n    <kbd ref={ref} className={cn(\"sl-kbd\", className)} {...props} />\n  ),\n);\nKbd.displayName = \"Kbd\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/kbd.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "description": "Structured Liquidity Progress — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/progress.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {\n  value?: number;\n}\n\n/** Structured Liquidity progress — rigid rail, striped accent fill. */\nexport function Progress({ value = 0, className, ...props }: ProgressProps) {\n  const clamped = Math.max(0, Math.min(100, value));\n  return (\n    <div\n      role=\"progressbar\"\n      aria-valuenow={clamped}\n      aria-valuemin={0}\n      aria-valuemax={100}\n      className={cn(\"sl-progress\", className)}\n      {...props}\n    >\n      <span style={{ width: `${clamped}%` }} />\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/progress.tsx"
+    }
+  ]
+}

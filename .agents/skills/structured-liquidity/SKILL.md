@@ -52,9 +52,18 @@ Three roles — header / body / detail (display / body / mono). Never pair two h
 
 ## Components
 
-Pull markup from `registry.json` rather than inventing class names. Core kit: `sl-btn`, `sl-badge`, `sl-toggle`/`sl-toggle-group`, `sl-switch`, `sl-check`, `sl-radio-item` (inside a `[data-radio-group]`), `sl-input`/`sl-label`, `sl-slider`, `sl-progress`, `sl-ava`, `sl-tabs` (`.tablist` buttons + `.panel` nodes), and overlays (`sl-overlay` + `sl-dialog`/`sl-sheet`). Interactive components are wired by `structured-liquidity-kit.js` via `data-toggle-aria`, `data-toggle-group`, `data-radio-group`, `data-open-overlay`, `data-close-overlay`.
+The specimen ships a **shadcn-installable registry** served at `/r/*.json`. Two ways to adopt, depending on the target project:
 
-To adopt in a project: include `structured-liquidity.css`, `structured-liquidity-components.css`, `structured-liquidity-kit.css`, and `structured-liquidity-kit.js`; load the three font families; then use the documented classes.
+**A. React + Tailwind project (preferred).** Use the shadcn CLI. Install the whole language (tokens + the three stylesheets + the kit script) first, then any component:
+
+```bash
+npx shadcn@latest add https://structured-liquidity.replit.app/r/structured-liquidity.json   # base style — do this first
+npx shadcn@latest add https://structured-liquidity.replit.app/r/button.json                  # then any component
+```
+
+Each `registry:ui` item is a plain React component (no Radix) that emits the SL classes and declares the base style as a `registryDependency`, so the CSS comes along. The registry index lives at `/registry.json`.
+
+**B. Any stack (plain HTML/CSS).** Include `structured-liquidity.css`, `structured-liquidity-components.css`, `structured-liquidity-kit.css`, and `structured-liquidity-kit.js`; load the three font families; then use the SL classes directly. Core kit: `sl-btn`, `sl-badge`, `sl-toggle`/`sl-toggle-group`, `sl-switch`, `sl-check`, `sl-radio-item` (inside a `[data-radio-group]`), `sl-input`/`sl-label`, `sl-slider`, `sl-progress`, `sl-ava`, `sl-tabs` (`.tablist` buttons + `.panel` nodes), and overlays (`sl-overlay` + `sl-dialog`/`sl-sheet`). In plain HTML, interactive components are wired by `structured-liquidity-kit.js` via `data-toggle-aria`, `data-toggle-group`, `data-radio-group`, `data-open-overlay`, `data-close-overlay`.
 
 ## Anatomy of a rigid container holding glass
 

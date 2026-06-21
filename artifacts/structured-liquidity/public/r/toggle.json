@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "type": "registry:ui",
+  "title": "Toggle",
+  "description": "Structured Liquidity Toggle — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/toggle.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ToggleProps\n  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onChange\"> {\n  pressed?: boolean;\n  defaultPressed?: boolean;\n  onPressedChange?: (pressed: boolean) => void;\n}\n\n/** Structured Liquidity toggle — rigid button, accent fill when pressed. */\nexport const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(\n  ({ pressed, defaultPressed, onPressedChange, className, ...props }, ref) => {\n    const [internal, setInternal] = React.useState(defaultPressed ?? false);\n    const isControlled = pressed !== undefined;\n    const on = isControlled ? pressed : internal;\n    return (\n      <button\n        ref={ref}\n        type=\"button\"\n        aria-pressed={on}\n        className={cn(\"sl-toggle\", className)}\n        onClick={() => {\n          const next = !on;\n          if (!isControlled) setInternal(next);\n          onPressedChange?.(next);\n        }}\n        {...props}\n      />\n    );\n  },\n);\nToggle.displayName = \"Toggle\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/toggle.tsx"
+    }
+  ]
+}

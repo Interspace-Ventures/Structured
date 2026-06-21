@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item",
+  "type": "registry:ui",
+  "title": "Item",
+  "description": "Structured Liquidity Item — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/item.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity item — a glass row: leading media, body, trailing action. */\nexport function Item({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-item\", className)} {...props} />;\n}\n\nexport function ItemBody({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"it-body\", className)} {...props} />;\n}\n\nexport function ItemTitle({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"it-title\", className)} {...props} />;\n}\n\nexport function ItemSubtitle({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"it-sub\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/item.tsx"
+    }
+  ]
+}

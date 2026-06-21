@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "type": "registry:ui",
+  "title": "Accordion",
+  "description": "Structured Liquidity Accordion — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/accordion.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface AccCtx {\n  open: string[];\n  toggle: (v: string) => void;\n}\nconst Ctx = React.createContext<AccCtx | null>(null);\nconst useAcc = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"Accordion subcomponents must be used within <Accordion>\");\n  return c;\n};\ninterface ItemCtx {\n  value: string;\n  isOpen: boolean;\n}\nconst ICtx = React.createContext<ItemCtx | null>(null);\nconst useItem = () => {\n  const c = React.useContext(ICtx);\n  if (!c) throw new Error(\"AccordionTrigger/Content must be used within <AccordionItem>\");\n  return c;\n};\n\nexport interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {\n  type?: \"single\" | \"multiple\";\n  collapsible?: boolean;\n  defaultValue?: string | string[];\n}\n\n/** Structured Liquidity accordion — plus/minus marker, max-height reveal. */\nexport function Accordion({\n  type = \"single\",\n  collapsible = true,\n  defaultValue,\n  className,\n  children,\n  ...props\n}: AccordionProps) {\n  const init = defaultValue\n    ? Array.isArray(defaultValue)\n      ? defaultValue\n      : [defaultValue]\n    : [];\n  const [open, setOpen] = React.useState<string[]>(init);\n  const toggle = (v: string) =>\n    setOpen((prev) => {\n      const has = prev.includes(v);\n      if (type === \"single\") return has ? (collapsible ? [] : prev) : [v];\n      return has ? prev.filter((x) => x !== v) : [...prev, v];\n    });\n  return (\n    <div className={className} {...props}>\n      <Ctx.Provider value={{ open, toggle }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  value: string;\n}\nexport function AccordionItem({ value, className, children, ...props }: AccordionItemProps) {\n  const { open } = useAcc();\n  const isOpen = open.includes(value);\n  return (\n    <div className={cn(\"sl-acc-item\", isOpen && \"open\", className)} {...props}>\n      <ICtx.Provider value={{ value, isOpen }}>{children}</ICtx.Provider>\n    </div>\n  );\n}\n\nexport function AccordionTrigger({\n  className,\n  children,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { toggle } = useAcc();\n  const { value, isOpen } = useItem();\n  return (\n    <div\n      role=\"button\"\n      tabIndex={0}\n      aria-expanded={isOpen}\n      className={cn(\"sl-acc-head\", className)}\n      onClick={() => toggle(value)}\n      onKeyDown={(e) => {\n        if (e.key === \" \" || e.key === \"Enter\") {\n          e.preventDefault();\n          toggle(value);\n        }\n      }}\n      {...props}\n    >\n      {children}\n      <span className=\"pm\" />\n    </div>\n  );\n}\n\nexport function AccordionContent({\n  className,\n  children,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { isOpen } = useItem();\n  const ref = React.useRef<HTMLDivElement>(null);\n  const [max, setMax] = React.useState<number | undefined>(isOpen ? undefined : 0);\n  React.useEffect(() => {\n    const el = ref.current;\n    if (!el) return;\n    setMax(isOpen ? el.scrollHeight : 0);\n  }, [isOpen, children]);\n  return (\n    <div\n      ref={ref}\n      className={cn(\"sl-acc-body\", className)}\n      style={{ maxHeight: max }}\n      {...props}\n    >\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/accordion.tsx"
+    }
+  ]
+}

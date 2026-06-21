@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "Structured Liquidity Button — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/button.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type ButtonVariant =\n  | \"default\"\n  | \"secondary\"\n  | \"outline\"\n  | \"ghost\"\n  | \"destructive\"\n  | \"link\";\nexport type ButtonSize = \"default\" | \"sm\" | \"lg\" | \"icon\";\n\nconst SIZE: Record<ButtonSize, string> = { default: \"\", sm: \"sm\", lg: \"lg\", icon: \"icon\" };\n\nexport interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  variant?: ButtonVariant;\n  size?: ButtonSize;\n}\n\n/** Structured Liquidity button — rigid frame, flat offset shadow, presses into it. */\nexport const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\n  ({ className, variant = \"default\", size = \"default\", type = \"button\", ...props }, ref) => (\n    <button\n      ref={ref}\n      type={type}\n      className={cn(\"sl-btn\", variant, SIZE[size], className)}\n      {...props}\n    />\n  ),\n);\nButton.displayName = \"Button\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
+    }
+  ]
+}

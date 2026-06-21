@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "type": "registry:ui",
+  "title": "Toggle Group",
+  "description": "Structured Liquidity Toggle Group — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/toggle-group.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface TGCtx {\n  type: \"single\" | \"multiple\";\n  value: string | string[];\n  toggle: (v: string) => void;\n}\nconst Ctx = React.createContext<TGCtx | null>(null);\nconst useTG = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"ToggleGroupItem must be used within <ToggleGroup>\");\n  return c;\n};\n\ntype SingleProps = {\n  type?: \"single\";\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n};\ntype MultipleProps = {\n  type: \"multiple\";\n  value?: string[];\n  defaultValue?: string[];\n  onValueChange?: (value: string[]) => void;\n};\nexport type ToggleGroupProps = (SingleProps | MultipleProps) &\n  Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\" | \"defaultValue\">;\n\n/** Structured Liquidity toggle group — segmented rigid frame, one accent fill. */\nexport function ToggleGroup({\n  type = \"single\",\n  value,\n  defaultValue,\n  onValueChange,\n  className,\n  children,\n  ...props\n}: ToggleGroupProps) {\n  const [internal, setInternal] = React.useState<string | string[]>(\n    defaultValue ?? (type === \"single\" ? \"\" : []),\n  );\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n\n  const toggle = (v: string) => {\n    let next: string | string[];\n    if (type === \"single\") {\n      next = val === v ? \"\" : v;\n    } else {\n      const arr = (val as string[]) ?? [];\n      next = arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v];\n    }\n    if (!isControlled) setInternal(next);\n    (onValueChange as (value: string | string[]) => void)?.(next);\n  };\n\n  return (\n    <div className={cn(\"sl-toggle-group\", className)} data-toggle-group {...props}>\n      <Ctx.Provider value={{ type, value: val, toggle }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport interface ToggleGroupItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  value: string;\n}\nexport function ToggleGroupItem({ value, className, ...props }: ToggleGroupItemProps) {\n  const { type, value: val, toggle } = useTG();\n  const pressed =\n    type === \"single\" ? val === value : ((val as string[]) ?? []).includes(value);\n  return (\n    <button\n      type=\"button\"\n      aria-pressed={pressed}\n      className={className}\n      onClick={() => toggle(value)}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/toggle-group.tsx"
+    }
+  ]
+}

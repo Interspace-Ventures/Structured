@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-field",
+  "type": "registry:ui",
+  "title": "Number Field",
+  "description": "Structured Liquidity Number Field — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/number-field.tsx",
+      "content": "import * as React from \"react\";\nimport { Minus, Plus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface NumberFieldProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\" | \"defaultValue\"> {\n  value?: number;\n  defaultValue?: number;\n  min?: number;\n  max?: number;\n  step?: number;\n  disabled?: boolean;\n  \"aria-label\"?: string;\n  onValueChange?: (value: number) => void;\n}\n\n/** Structured Liquidity number field — dec/inc steppers around a spinbutton. */\nexport function NumberField({\n  value,\n  defaultValue,\n  min = 0,\n  max = 99,\n  step = 1,\n  disabled,\n  onValueChange,\n  className,\n  \"aria-label\": ariaLabel = \"Quantity\",\n  ...props\n}: NumberFieldProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? min);\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n\n  const clamp = (v: number) => Math.max(min, Math.min(max, v));\n\n  const commit = (v: number) => {\n    const next = clamp(v);\n    if (next === val) return;\n    if (!isControlled) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const raw = e.target.value.replace(/[^\\d-]/g, \"\");\n    if (raw === \"\" || raw === \"-\") return;\n    const n = parseInt(raw, 10);\n    if (!Number.isNaN(n)) commit(n);\n  };\n\n  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {\n    if (disabled) return;\n    if (e.key === \"ArrowUp\") {\n      e.preventDefault();\n      commit(val + step);\n    } else if (e.key === \"ArrowDown\") {\n      e.preventDefault();\n      commit(val - step);\n    }\n  };\n\n  return (\n    <div className={cn(\"sl-numfield\", className)} {...props}>\n      <button\n        type=\"button\"\n        className=\"nf-step\"\n        data-nf=\"dec\"\n        aria-label=\"Decrease\"\n        disabled={disabled}\n        onClick={() => commit(val - step)}\n      >\n        <Minus />\n      </button>\n      <input\n        className=\"nf-input\"\n        type=\"text\"\n        inputMode=\"numeric\"\n        value={val}\n        role=\"spinbutton\"\n        aria-valuemin={min}\n        aria-valuemax={max}\n        aria-valuenow={val}\n        aria-label={ariaLabel}\n        disabled={disabled}\n        onChange={onInput}\n        onKeyDown={onKeyDown}\n      />\n      <button\n        type=\"button\"\n        className=\"nf-step\"\n        data-nf=\"inc\"\n        aria-label=\"Increase\"\n        disabled={disabled}\n        onClick={() => commit(val + step)}\n      >\n        <Plus />\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/number-field.tsx"
+    }
+  ]
+}

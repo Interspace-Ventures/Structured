@@ -1,97 +1,397 @@
 {
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "structured-liquidity",
-  "description": "Copy-paste component registry for the Structured Liquidity design language. Each component lists its class names, variants, and ready-to-paste HTML. Include the stylesheets and kit script below, then use the markup verbatim.",
-  "homepage": "/",
-  "dependencies": {
-    "css": [
-      "structured-liquidity.css",
-      "structured-liquidity-components.css",
-      "structured-liquidity-kit.css"
-    ],
-    "js": ["structured-liquidity-kit.js"],
-    "tokens": "design-tokens.json",
-    "fonts": ["Archivo", "Outfit", "Space Mono"]
-  },
-  "conventions": {
-    "container": "Rigid container = border var(--border-w) solid rgb(var(--edge)) + flat shadow var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow) + border-radius var(--radius).",
-    "glass": "Add the .glass class (or backdrop-filter blur(var(--glass-blur)) over rgba(var(--glass-tint), var(--glass-alpha))) for liquid depth.",
-    "accent": "Exactly one accent (--accent) carries emphasis.",
-    "icons": "Leading Lucide icon first, then the label, on nav links and buttons.",
-    "interactivity": "Elements with data-toggle-aria / data-toggle-group / data-open-overlay / data-close-overlay are wired by structured-liquidity-kit.js."
-  },
-  "components": [
+  "homepage": "https://structured-liquidity.replit.app",
+  "items": [
     {
-      "name": "button",
-      "description": "Primary action. Variants and sizes via class. Leading Lucide icon optional.",
-      "variants": ["default", "secondary", "outline", "ghost", "destructive", "link"],
-      "sizes": ["sm", "default", "lg", "icon"],
-      "html": "<button class=\"sl-btn default\"><i data-lucide=\"plus\"></i>Primary</button>\n<button class=\"sl-btn secondary\">Secondary</button>\n<button class=\"sl-btn outline\">Outline</button>\n<button class=\"sl-btn ghost\">Ghost</button>\n<button class=\"sl-btn destructive\">Delete</button>\n<button class=\"sl-btn lg\">Large</button>\n<button class=\"sl-btn icon ghost\" aria-label=\"Close\">x</button>"
+      "name": "structured-liquidity",
+      "type": "registry:style",
+      "title": "Structured Liquidity",
+      "description": "The Structured Liquidity design language base: theme tokens plus the three distributable stylesheets and the kit interaction script. Install this first — every component depends on it."
     },
     {
-      "name": "badge",
-      "description": "Compact status/label chip.",
-      "variants": ["default", "secondary", "outline", "destructive"],
-      "html": "<span class=\"sl-badge default\">Default</span>\n<span class=\"sl-badge secondary\">Secondary</span>\n<span class=\"sl-badge outline\">Outline</span>\n<span class=\"sl-badge default\"><span class=\"ico\"></span>Live</span>\n<span class=\"sl-badge destructive\">Error</span>"
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Structured Liquidity Accordion — React component driving the SL class system."
     },
     {
-      "name": "toggle",
-      "description": "Single pressable toggle and an exclusive toggle group. Wired by the kit script.",
-      "html": "<button class=\"sl-toggle\" data-toggle-aria=\"pressed\" aria-pressed=\"false\">B</button>\n<div class=\"sl-toggle-group\" data-toggle-group>\n  <button class=\"sl-toggle\" aria-pressed=\"true\">Left</button>\n  <button class=\"sl-toggle\" aria-pressed=\"false\">Center</button>\n  <button class=\"sl-toggle\" aria-pressed=\"false\">Right</button>\n</div>"
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Structured Liquidity Alert Dialog — React component driving the SL class system."
     },
     {
-      "name": "switch",
-      "description": "On/off switch. Toggle state via aria-checked; wired by the kit script.",
-      "html": "<div class=\"sl-switch\" data-toggle-aria=\"checked\" aria-checked=\"true\" tabindex=\"0\"><span class=\"knob\"></span></div>"
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Structured Liquidity Alert — React component driving the SL class system."
     },
     {
-      "name": "checkbox",
-      "description": "Checkbox. State via aria-checked; wired by the kit script. Keep the .sl-box + .tick SVG so the checked state renders.",
-      "html": "<div class=\"sl-check\" data-toggle-aria=\"checked\" aria-checked=\"true\" tabindex=\"0\">\n  <span class=\"sl-box\"><svg class=\"tick\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"><path d=\"M5 13l4 4L19 7\"/></svg></span>Label text\n</div>"
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Structured Liquidity Aspect Ratio — React component driving the SL class system."
     },
     {
-      "name": "radio-group",
-      "description": "Mutually exclusive radio items. The [data-radio-group] wrapper is required. The kit script enforces single selection within it.",
-      "html": "<div class=\"kit-col\" data-radio-group>\n  <div class=\"sl-radio-item\" aria-checked=\"true\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>Dark mode</div>\n  <div class=\"sl-radio-item\" aria-checked=\"false\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>Light mode</div>\n  <div class=\"sl-radio-item\" aria-checked=\"false\" tabindex=\"0\"><span class=\"sl-radio\"><span class=\"dot\"></span></span>System</div>\n</div>"
-    },
-    {
-      "name": "input",
-      "description": "Text field with label. Pair with .sl-field for description/error rows.",
-      "html": "<label class=\"sl-label\">Email</label>\n<input class=\"sl-input\" type=\"email\" placeholder=\"you@studio.com\" />"
-    },
-    {
-      "name": "slider",
-      "description": "Range slider with filled track and thumb.",
-      "html": "<div class=\"sl-slider\"><div class=\"trk\"><div class=\"fl\" style=\"width:60%\"></div><div class=\"th\" style=\"left:60%\"></div></div></div>"
-    },
-    {
-      "name": "progress",
-      "description": "Determinate progress bar.",
-      "html": "<div class=\"sl-progress\"><span style=\"width:68%\"></span></div>"
+      "name": "autocomplete",
+      "type": "registry:ui",
+      "title": "Autocomplete",
+      "description": "Structured Liquidity Autocomplete — React component driving the SL class system."
     },
     {
       "name": "avatar",
-      "description": "Avatar and stacked avatar group.",
-      "html": "<span class=\"sl-ava\">SL</span>\n<div class=\"sl-ava-group\">\n  <span class=\"sl-ava\">A</span><span class=\"sl-ava\">B</span><span class=\"sl-ava\">+5</span>\n</div>"
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Structured Liquidity Avatar — React component driving the SL class system."
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Structured Liquidity Badge — React component driving the SL class system."
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Structured Liquidity Breadcrumb — React component driving the SL class system."
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "Structured Liquidity Button Group — React component driving the SL class system."
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Structured Liquidity Button — React component driving the SL class system."
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Structured Liquidity Calendar — React component driving the SL class system."
     },
     {
       "name": "card",
-      "description": "Glass card: the canonical rigid container holding liquid glass. Use .glass for depth.",
-      "html": "<div class=\"glass kit-cell\">\n  <span class=\"kit-cap\">Card title</span>\n  <p>Body copy inside a rigid container holding liquid glass.</p>\n</div>"
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Structured Liquidity Card — React component driving the SL class system."
     },
     {
-      "name": "tabs",
-      "description": "Tabbed navigation. The .tablist holds buttons with aria-selected; sibling .panel nodes hold content (the active one carries .show). Wired by the kit script.",
-      "html": "<div class=\"sl-tabs\">\n  <div class=\"tablist\">\n    <button aria-selected=\"true\">Preview</button>\n    <button aria-selected=\"false\">Code</button>\n    <button aria-selected=\"false\">Tokens</button>\n  </div>\n  <div class=\"panel show\">First panel content.</div>\n  <div class=\"panel\">Second panel content.</div>\n  <div class=\"panel\">Third panel content.</div>\n</div>"
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Structured Liquidity Carousel — React component driving the SL class system."
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Structured Liquidity Chart — React component driving the SL class system."
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Structured Liquidity Checkbox — React component driving the SL class system."
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Structured Liquidity Collapsible — React component driving the SL class system."
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Structured Liquidity Command — React component driving the SL class system."
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Structured Liquidity Context Menu — React component driving the SL class system."
     },
     {
       "name": "dialog",
-      "description": "Modal dialog. Trigger with data-open-overlay; close with data-close-overlay. Wired by the kit script.",
-      "html": "<button class=\"sl-btn default\" data-open-overlay=\"my-dialog\">Open dialog</button>\n<div class=\"sl-overlay\" id=\"my-dialog\">\n  <div class=\"sl-dialog\">\n    <h3>Title</h3>\n    <p>Dialog body copy.</p>\n    <div class=\"actions\">\n      <button class=\"sl-btn ghost\" data-close-overlay>Cancel</button>\n      <button class=\"sl-btn default\" data-close-overlay>Confirm</button>\n    </div>\n  </div>\n</div>"
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Structured Liquidity Dialog — React component driving the SL class system."
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Structured Liquidity Drawer — React component driving the SL class system."
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Structured Liquidity Dropdown Menu — React component driving the SL class system."
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Structured Liquidity Empty — React component driving the SL class system."
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Structured Liquidity Field — React component driving the SL class system."
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:ui",
+      "title": "Fieldset",
+      "description": "Structured Liquidity Fieldset — React component driving the SL class system."
+    },
+    {
+      "name": "fonts",
+      "type": "registry:ui",
+      "title": "Fonts",
+      "description": "Structured Liquidity Fonts — React component driving the SL class system."
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Structured Liquidity Form — React component driving the SL class system."
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "Structured Liquidity Hover Card — React component driving the SL class system."
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Structured Liquidity Input Group — React component driving the SL class system."
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "Structured Liquidity Input OTP — React component driving the SL class system."
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Structured Liquidity Input — React component driving the SL class system."
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "Structured Liquidity Item — React component driving the SL class system."
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Structured Liquidity Kbd — React component driving the SL class system."
+    },
+    {
+      "name": "keycap",
+      "type": "registry:ui",
+      "title": "Keycap",
+      "description": "Structured Liquidity Keycap — React component driving the SL class system."
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Structured Liquidity Label — React component driving the SL class system."
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "Structured Liquidity Menubar — React component driving the SL class system."
+    },
+    {
+      "name": "meter",
+      "type": "registry:ui",
+      "title": "Meter",
+      "description": "Structured Liquidity Meter — React component driving the SL class system."
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "Structured Liquidity Native Select — React component driving the SL class system."
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "Structured Liquidity Navigation Menu — React component driving the SL class system."
+    },
+    {
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "Number Field",
+      "description": "Structured Liquidity Number Field — React component driving the SL class system."
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Structured Liquidity Pagination — React component driving the SL class system."
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Structured Liquidity Popover — React component driving the SL class system."
+    },
+    {
+      "name": "profile-header",
+      "type": "registry:ui",
+      "title": "Profile Header",
+      "description": "Structured Liquidity Profile Header — React component driving the SL class system."
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Structured Liquidity Progress — React component driving the SL class system."
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Structured Liquidity Radio Group — React component driving the SL class system."
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Structured Liquidity Resizable — React component driving the SL class system."
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Structured Liquidity Scroll Area — React component driving the SL class system."
+    },
+    {
+      "name": "section-header",
+      "type": "registry:ui",
+      "title": "Section Header",
+      "description": "Structured Liquidity Section Header — React component driving the SL class system."
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Structured Liquidity Select — React component driving the SL class system."
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Structured Liquidity Separator — React component driving the SL class system."
     },
     {
       "name": "sheet",
-      "description": "Side panel sliding in from the structural edge.",
-      "html": "<button class=\"sl-btn secondary\" data-open-overlay=\"my-sheet\">Open sheet</button>\n<div class=\"sl-overlay sl-sheet-overlay\" id=\"my-sheet\">\n  <div class=\"sl-sheet\">\n    <h3>Settings</h3>\n    <button class=\"sl-btn default\" data-close-overlay>Save</button>\n  </div>\n</div>"
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Structured Liquidity Sheet — React component driving the SL class system."
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Structured Liquidity Sidebar — React component driving the SL class system."
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Structured Liquidity Skeleton — React component driving the SL class system."
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Structured Liquidity Slider — React component driving the SL class system."
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Structured Liquidity Spinner — React component driving the SL class system."
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat",
+      "description": "Structured Liquidity Stat — React component driving the SL class system."
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Structured Liquidity Switch — React component driving the SL class system."
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Structured Liquidity Table — React component driving the SL class system."
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Structured Liquidity Tabs — React component driving the SL class system."
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Structured Liquidity Textarea — React component driving the SL class system."
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Structured Liquidity Toast — React component driving the SL class system."
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Structured Liquidity Toggle Group — React component driving the SL class system."
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Structured Liquidity Toggle — React component driving the SL class system."
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Structured Liquidity Tooltip — React component driving the SL class system."
+    },
+    {
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "description": "Structured Liquidity Typography — React component driving the SL class system."
     }
   ]
 }

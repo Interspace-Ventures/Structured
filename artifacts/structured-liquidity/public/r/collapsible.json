@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "type": "registry:ui",
+  "title": "Collapsible",
+  "description": "Structured Liquidity Collapsible — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/collapsible.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface CollapsibleCtx {\n  open: boolean;\n  toggle: () => void;\n}\nconst Ctx = React.createContext<CollapsibleCtx | null>(null);\nconst useCollapsible = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"Collapsible subcomponents must be used within <Collapsible>\");\n  return c;\n};\n\nexport interface CollapsibleProps\n  extends Omit<React.HTMLAttributes<HTMLDetailsElement>, \"onToggle\"> {\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n}\n\n/** Structured Liquidity collapsible — native details frame, glass body. */\nexport function Collapsible({\n  open,\n  defaultOpen,\n  onOpenChange,\n  className,\n  children,\n  ...props\n}: CollapsibleProps) {\n  const [internal, setInternal] = React.useState(defaultOpen ?? false);\n  const isControlled = open !== undefined;\n  const o = isControlled ? open : internal;\n  const toggle = () => {\n    const next = !o;\n    if (!isControlled) setInternal(next);\n    onOpenChange?.(next);\n  };\n  return (\n    <details className={cn(\"sl-collapsible\", className)} open={o} {...props}>\n      <Ctx.Provider value={{ open: o, toggle }}>{children}</Ctx.Provider>\n    </details>\n  );\n}\n\nexport function CollapsibleTrigger({\n  className,\n  children,\n  onClick,\n  ...props\n}: React.HTMLAttributes<HTMLElement>) {\n  const { toggle } = useCollapsible();\n  return (\n    <summary\n      className={className}\n      onClick={(e) => {\n        e.preventDefault();\n        onClick?.(e);\n        toggle();\n      }}\n      {...props}\n    >\n      {children}\n    </summary>\n  );\n}\n\nexport function CollapsibleContent({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"cc-body\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/collapsible.tsx"
+    }
+  ]
+}

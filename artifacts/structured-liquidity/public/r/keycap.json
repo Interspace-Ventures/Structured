@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "keycap",
+  "type": "registry:ui",
+  "title": "Keycap",
+  "description": "Structured Liquidity Keycap — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/keycap.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Row of keycap tiles. */\nexport function Keycaps({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-keycaps\", className)} {...props} />;\n}\n\nexport interface KeycapProps extends React.HTMLAttributes<HTMLSpanElement> {\n  on?: boolean;\n}\n\n/** Structured Liquidity keycap — rigid tile, accent fill when active. */\nexport function Keycap({ className, on, ...props }: KeycapProps) {\n  return <span className={cn(\"sl-keycap\", on && \"is-on\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/keycap.tsx"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "Structured Liquidity component catalog",
-  "description": "Single source of truth for the component inventory and how the live gallery is organized (category, status, tags). The gallery in src/main.ts derives its filter chips and grouping from this file; each component's `cap` must match its .kit-cap text in index.html.",
+  "description": "Single source of truth for the component inventory and how the live gallery is organized (category, status, tags). The gallery (bindGallery in src/lib/behaviors.ts) derives its filter chips and grouping from this file; each component's `cap` must match its .kit-cap text.",
   "categories": [
     {
       "key": "actions",

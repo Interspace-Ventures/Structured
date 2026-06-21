@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "type": "registry:ui",
+  "title": "Radio Group",
+  "description": "Structured Liquidity Radio Group — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/radio-group.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface RadioCtx {\n  value: string;\n  setValue: (v: string) => void;\n}\nconst Ctx = React.createContext<RadioCtx | null>(null);\nconst useRadio = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"RadioGroupItem must be used within <RadioGroup>\");\n  return c;\n};\n\nexport interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n}\n\n/** Structured Liquidity radio group — circular wells, accent dot on select. */\nexport function RadioGroup({\n  value,\n  defaultValue,\n  onValueChange,\n  className,\n  children,\n  ...props\n}: RadioGroupProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? \"\");\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n  const setValue = (v: string) => {\n    if (!isControlled) setInternal(v);\n    onValueChange?.(v);\n  };\n  return (\n    <div role=\"radiogroup\" data-radio-group className={cn(\"kit-col\", className)} {...props}>\n      <Ctx.Provider value={{ value: val, setValue }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport interface RadioGroupItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  value: string;\n}\n\nexport function RadioGroupItem({ value, className, children, ...props }: RadioGroupItemProps) {\n  const { value: v, setValue } = useRadio();\n  const checked = v === value;\n  return (\n    <div\n      role=\"radio\"\n      aria-checked={checked}\n      tabIndex={0}\n      className={cn(\"sl-radio-item\", className)}\n      onClick={() => setValue(value)}\n      onKeyDown={(e) => {\n        if (e.key === \" \" || e.key === \"Enter\") {\n          e.preventDefault();\n          setValue(value);\n        }\n      }}\n      {...props}\n    >\n      <span className=\"sl-radio\">\n        <span className=\"dot\" />\n      </span>\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/radio-group.tsx"
+    }
+  ]
+}

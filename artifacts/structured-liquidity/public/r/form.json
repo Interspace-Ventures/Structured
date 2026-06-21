@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "type": "registry:ui",
+  "title": "Form",
+  "description": "Structured Liquidity Form — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/form.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity form — vertical stack of fields + submit. */\nexport const Form = React.forwardRef<HTMLFormElement, React.FormHTMLAttributes<HTMLFormElement>>(\n  ({ className, ...props }, ref) => (\n    <form ref={ref} className={cn(\"sl-form\", className)} {...props} />\n  ),\n);\nForm.displayName = \"Form\";\n\nexport interface FormFieldProps extends React.HTMLAttributes<HTMLDivElement> {\n  invalid?: boolean;\n}\nexport const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(\n  ({ className, invalid, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-field\", invalid && \"invalid\", className)} {...props} />\n  ),\n);\nFormField.displayName = \"FormField\";\n\nexport const FormLabel = React.forwardRef<\n  HTMLLabelElement,\n  React.LabelHTMLAttributes<HTMLLabelElement>\n>(({ className, ...props }, ref) => (\n  <label ref={ref} className={cn(\"sl-label\", className)} {...props} />\n));\nFormLabel.displayName = \"FormLabel\";\n\nexport const FormError = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"fd-err\", className)} {...props} />\n));\nFormError.displayName = \"FormError\";\n\nexport const FormSuccess = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"fd-ok\", className)} {...props} />\n));\nFormSuccess.displayName = \"FormSuccess\";\n\nexport const FormDescription = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"fd-desc\", className)} {...props} />\n));\nFormDescription.displayName = \"FormDescription\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/form.tsx"
+    }
+  ]
+}

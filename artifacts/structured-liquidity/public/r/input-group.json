@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-group",
+  "type": "registry:ui",
+  "title": "Input Group",
+  "description": "Structured Liquidity Input Group — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/input-group.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity input group — input flanked by glass addons. */\nexport const InputGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-input-group\", className)} {...props} />\n  ),\n);\nInputGroup.displayName = \"InputGroup\";\n\nexport interface InputGroupAddonProps extends React.HTMLAttributes<HTMLSpanElement> {\n  /** render as a trailing addon (border on the left) */\n  suffix?: boolean;\n}\nexport const InputGroupAddon = React.forwardRef<HTMLSpanElement, InputGroupAddonProps>(\n  ({ className, suffix, ...props }, ref) => (\n    <span ref={ref} className={cn(\"ig-addon\", suffix && \"suffix\", className)} {...props} />\n  ),\n);\nInputGroupAddon.displayName = \"InputGroupAddon\";\n\nexport const InputGroupInput = React.forwardRef<\n  HTMLInputElement,\n  React.InputHTMLAttributes<HTMLInputElement>\n>(({ className, ...props }, ref) => (\n  <input ref={ref} className={className} {...props} />\n));\nInputGroupInput.displayName = \"InputGroupInput\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/input-group.tsx"
+    }
+  ]
+}

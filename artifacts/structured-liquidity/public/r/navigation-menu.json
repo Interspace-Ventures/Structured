@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navigation-menu",
+  "type": "registry:ui",
+  "title": "Navigation Menu",
+  "description": "Structured Liquidity Navigation Menu — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/navigation-menu.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity navigation menu — segmented bar with hover flyouts. */\nexport const NavigationMenu = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => (\n  <nav ref={ref} className={cn(\"sl-navmenu\", className)} {...props} />\n));\nNavigationMenu.displayName = \"NavigationMenu\";\n\nexport function NavigationMenuItem({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"nm-item\", className)} {...props} />;\n}\n\nexport interface NavigationMenuTriggerProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  /** render the dropdown chevron */\n  withChevron?: boolean;\n}\nexport function NavigationMenuTrigger({\n  className,\n  children,\n  withChevron = true,\n  ...props\n}: NavigationMenuTriggerProps) {\n  return (\n    <button type=\"button\" className={className} {...props}>\n      {children}\n      {withChevron && <span className=\"chev\">▾</span>}\n    </button>\n  );\n}\n\nexport function NavigationMenuContent({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"nm-panel\", className)} {...props} />;\n}\n\nexport const NavigationMenuLink = React.forwardRef<\n  HTMLAnchorElement,\n  React.AnchorHTMLAttributes<HTMLAnchorElement>\n>(({ className, href = \"#\", ...props }, ref) => (\n  <a ref={ref} href={href} className={className} {...props} />\n));\nNavigationMenuLink.displayName = \"NavigationMenuLink\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/navigation-menu.tsx"
+    }
+  ]
+}

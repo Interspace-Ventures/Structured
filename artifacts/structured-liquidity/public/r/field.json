@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "type": "registry:ui",
+  "title": "Field",
+  "description": "Structured Liquidity Field — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/field.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {\n  invalid?: boolean;\n}\n/** Structured Liquidity field — label + input + helper/error stack. */\nexport const Field = React.forwardRef<HTMLDivElement, FieldProps>(\n  ({ className, invalid, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-field\", invalid && \"invalid\", className)} {...props} />\n  ),\n);\nField.displayName = \"Field\";\n\nexport const FieldLabel = React.forwardRef<\n  HTMLLabelElement,\n  React.LabelHTMLAttributes<HTMLLabelElement>\n>(({ className, ...props }, ref) => (\n  <label ref={ref} className={cn(\"sl-label\", className)} {...props} />\n));\nFieldLabel.displayName = \"FieldLabel\";\n\nexport const FieldDescription = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"fd-desc\", className)} {...props} />\n));\nFieldDescription.displayName = \"FieldDescription\";\n\nexport const FieldError = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"fd-err\", className)} {...props} />\n));\nFieldError.displayName = \"FieldError\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/field.tsx"
+    }
+  ]
+}

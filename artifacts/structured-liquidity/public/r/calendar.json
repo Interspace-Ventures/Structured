@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar",
+  "type": "registry:ui",
+  "title": "Calendar",
+  "description": "Structured Liquidity Calendar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/calendar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nconst WEEKDAYS = [\"S\", \"M\", \"T\", \"W\", \"T\", \"F\", \"S\"];\nconst MONTHS = [\n  \"January\",\n  \"February\",\n  \"March\",\n  \"April\",\n  \"May\",\n  \"June\",\n  \"July\",\n  \"August\",\n  \"September\",\n  \"October\",\n  \"November\",\n  \"December\",\n];\n\nconst sameDay = (a: Date, b: Date) =>\n  a.getFullYear() === b.getFullYear() &&\n  a.getMonth() === b.getMonth() &&\n  a.getDate() === b.getDate();\n\nexport interface CalendarProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\" | \"defaultValue\"> {\n  value?: Date | null;\n  defaultValue?: Date | null;\n  onValueChange?: (date: Date) => void;\n}\n\n/** Structured Liquidity calendar — rigid month grid, accent selected day. */\nexport function Calendar({\n  value,\n  defaultValue,\n  onValueChange,\n  className,\n  ...props\n}: CalendarProps) {\n  const [internal, setInternal] = React.useState<Date | null>(defaultValue ?? null);\n  const isControlled = value !== undefined;\n  const selected = isControlled ? value : internal;\n\n  const [view, setView] = React.useState(() => {\n    const base = (isControlled ? value : defaultValue) ?? new Date();\n    return { year: base.getFullYear(), month: base.getMonth() };\n  });\n\n  const setSelected = (d: Date) => {\n    if (!isControlled) setInternal(d);\n    onValueChange?.(d);\n  };\n\n  const firstDow = new Date(view.year, view.month, 1).getDay();\n  const daysInMonth = new Date(view.year, view.month + 1, 0).getDate();\n  const prevMonthDays = new Date(view.year, view.month, 0).getDate();\n\n  const cells: { day: number; muted: boolean; date?: Date }[] = [];\n  for (let i = firstDow - 1; i >= 0; i--) {\n    cells.push({ day: prevMonthDays - i, muted: true });\n  }\n  for (let d = 1; d <= daysInMonth; d++) {\n    cells.push({ day: d, muted: false, date: new Date(view.year, view.month, d) });\n  }\n  while (cells.length % 7 !== 0) {\n    cells.push({ day: cells.length - (firstDow + daysInMonth) + 1, muted: true });\n  }\n\n  const shift = (delta: number) =>\n    setView((v) => {\n      const m = v.month + delta;\n      return {\n        year: v.year + Math.floor(m / 12),\n        month: ((m % 12) + 12) % 12,\n      };\n    });\n\n  return (\n    <div className={cn(\"sl-cal\", className)} {...props}>\n      <div className=\"sl-cal-head\">\n        <button type=\"button\" aria-label=\"Previous\" onClick={() => shift(-1)}>\n          ‹\n        </button>\n        <span>\n          {MONTHS[view.month]} {view.year}\n        </span>\n        <button type=\"button\" aria-label=\"Next\" onClick={() => shift(1)}>\n          ›\n        </button>\n      </div>\n      <div className=\"sl-cal-grid\">\n        {WEEKDAYS.map((d, i) => (\n          <span key={`dow-${i}`} className=\"dow\">\n            {d}\n          </span>\n        ))}\n        {cells.map((c, i) => {\n          const isSel = !c.muted && c.date && selected && sameDay(c.date, selected);\n          return (\n            <span\n              key={`day-${i}`}\n              className={cn(\"day\", c.muted && \"muted\", isSel && \"sel\")}\n              onClick={() => {\n                if (!c.muted && c.date) setSelected(c.date);\n              }}\n            >\n              {c.day}\n            </span>\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/calendar.tsx"
+    }
+  ]
+}

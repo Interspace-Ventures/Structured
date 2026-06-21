@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "resizable",
+  "type": "registry:ui",
+  "title": "Resizable",
+  "description": "Structured Liquidity Resizable — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/resizable.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity resizable panels — drag the divider, liquid fills the rest. */\nexport function Resizable({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-resize\", className)} {...props} />;\n}\n\nexport interface ResizablePanelProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** \"a\" is the user-resizable pane; \"b\" flexes to fill the remainder. */\n  pane?: \"a\" | \"b\";\n}\nexport function ResizablePanel({ className, pane, ...props }: ResizablePanelProps) {\n  return <div className={cn(\"pane\", pane, className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/resizable.tsx"
+    }
+  ]
+}

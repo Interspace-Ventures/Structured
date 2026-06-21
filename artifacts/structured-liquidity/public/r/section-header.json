@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "section-header",
+  "type": "registry:ui",
+  "title": "Section Header",
+  "description": "Structured Liquidity Section Header — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/section-header.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity section header — eyebrow, icon + title row, subtitle. */\nexport function SectionHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-sechead\", className)} {...props} />;\n}\n\nexport function SectionHeaderEyebrow({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-sechead-eyebrow\", className)} {...props} />;\n}\n\nexport function SectionHeaderRow({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-sechead-row\", className)} {...props} />;\n}\n\nexport function SectionHeaderTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {\n  return <h3 className={cn(\"sl-sechead-title\", className)} {...props} />;\n}\n\nexport function SectionHeaderSubtitle({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {\n  return <p className={cn(\"sl-sechead-sub\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/section-header.tsx"
+    }
+  ]
+}

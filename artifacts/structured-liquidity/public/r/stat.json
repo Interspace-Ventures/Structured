@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat",
+  "type": "registry:ui",
+  "title": "Stat",
+  "description": "Structured Liquidity Stat — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/stat.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Inline metric strip — values divided by accent border rules. */\nexport function StatStrip({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-stat-strip\", className)} {...props} />;\n}\n\nexport function Stat({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-stat\", className)} {...props} />;\n}\n\n/** Boxed metric cards. */\nexport function StatCards({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-stat-cards\", className)} {...props} />;\n}\n\nexport function StatCard({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-stat-card\", className)} {...props} />;\n}\n\nexport interface StatNumberProps extends React.HTMLAttributes<HTMLSpanElement> {\n  accent?: boolean;\n}\nexport function StatNumber({ className, accent, ...props }: StatNumberProps) {\n  return <span className={cn(\"sl-stat-num\", accent && \"accent\", className)} {...props} />;\n}\n\nexport function StatCaption({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-stat-cap\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/stat.tsx"
+    }
+  ]
+}

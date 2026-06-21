@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "type": "registry:ui",
+  "title": "Breadcrumb",
+  "description": "Structured Liquidity Breadcrumb — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/breadcrumb.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity breadcrumb — mono trail with accent current page. */\nexport const Breadcrumb = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => (\n  <nav\n    ref={ref}\n    aria-label=\"Breadcrumb\"\n    className={cn(\"sl-crumb\", className)}\n    {...props}\n  />\n));\nBreadcrumb.displayName = \"Breadcrumb\";\n\nexport const BreadcrumbLink = React.forwardRef<\n  HTMLAnchorElement,\n  React.AnchorHTMLAttributes<HTMLAnchorElement>\n>(({ className, href = \"#\", ...props }, ref) => (\n  <a ref={ref} href={href} className={className} {...props} />\n));\nBreadcrumbLink.displayName = \"BreadcrumbLink\";\n\nexport function BreadcrumbSeparator({\n  className,\n  children = \"/\",\n  ...props\n}: React.HTMLAttributes<HTMLSpanElement>) {\n  return (\n    <span aria-hidden=\"true\" className={cn(\"sl-sl\", className)} {...props}>\n      {children}\n    </span>\n  );\n}\n\nexport function BreadcrumbPage({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLSpanElement>) {\n  return (\n    <span aria-current=\"page\" className={cn(\"sl-cur\", className)} {...props} />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/breadcrumb.tsx"
+    }
+  ]
+}

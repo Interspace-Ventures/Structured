@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fieldset",
+  "type": "registry:ui",
+  "title": "Fieldset",
+  "description": "Structured Liquidity Fieldset — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/fieldset.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity fieldset — bordered group with accent legend. */\nexport const Fieldset = React.forwardRef<\n  HTMLFieldSetElement,\n  React.FieldsetHTMLAttributes<HTMLFieldSetElement>\n>(({ className, ...props }, ref) => (\n  <fieldset ref={ref} className={cn(\"sl-fieldset\", className)} {...props} />\n));\nFieldset.displayName = \"Fieldset\";\n\nexport const Legend = React.forwardRef<\n  HTMLLegendElement,\n  React.HTMLAttributes<HTMLLegendElement>\n>(({ className, ...props }, ref) => (\n  <legend ref={ref} className={cn(\"sl-legend\", className)} {...props} />\n));\nLegend.displayName = \"Legend\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/fieldset.tsx"
+    }
+  ]
+}

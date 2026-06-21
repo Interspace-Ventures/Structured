@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fonts",
+  "type": "registry:ui",
+  "title": "Fonts",
+  "description": "Structured Liquidity Fonts — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/fonts.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity font pairings specimen. */\nexport function FontPairings({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"pairings\", className)} {...props} />;\n}\n\nexport function FontPair({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"pair\", className)} {...props} />;\n}\n\nexport function FontPairTitle({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"pair-title\", className)} {...props} />;\n}\n\nexport function FontPairFonts({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"pair-fonts\", className)} {...props} />;\n}\n\nexport type FontRoleVariant = \"header\" | \"body\" | \"detail\";\n\nexport interface FontSpecimenProps extends React.HTMLAttributes<HTMLSpanElement> {\n  role?: FontRoleVariant;\n}\nexport function FontSpecimen({ className, role = \"header\", ...props }: FontSpecimenProps) {\n  return <span className={cn(\"pf\", `is-${role}`, className)} {...props} />;\n}\n\nexport function FontRole({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"pf-role\", className)} {...props} />;\n}\n\nexport function FontName({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"pf-name\", className)} {...props} />;\n}\n\nexport function FontPairNote({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"pair-note\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/fonts.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "type": "registry:ui",
+  "title": "Tabs",
+  "description": "Structured Liquidity Tabs — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/tabs.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface TabsCtx {\n  value: string;\n  setValue: (v: string) => void;\n}\nconst Ctx = React.createContext<TabsCtx | null>(null);\nconst useTabs = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"Tabs subcomponents must be used within <Tabs>\");\n  return c;\n};\n\nexport interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n}\n\n/** Structured Liquidity tabs — segmented tablist, accent active tab. */\nexport function Tabs({\n  value,\n  defaultValue,\n  onValueChange,\n  className,\n  children,\n  ...props\n}: TabsProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? \"\");\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n  const setValue = (v: string) => {\n    if (!isControlled) setInternal(v);\n    onValueChange?.(v);\n  };\n  return (\n    <div className={cn(\"sl-tabs\", className)} {...props}>\n      <Ctx.Provider value={{ value: val, setValue }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div role=\"tablist\" className={cn(\"tablist\", className)} {...props} />;\n}\n\nexport interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  value: string;\n}\nexport function TabsTrigger({ value, className, ...props }: TabsTriggerProps) {\n  const { value: v, setValue } = useTabs();\n  return (\n    <button\n      type=\"button\"\n      role=\"tab\"\n      aria-selected={v === value}\n      className={className}\n      onClick={() => setValue(value)}\n      {...props}\n    />\n  );\n}\n\nexport interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {\n  value: string;\n}\nexport function TabsContent({ value, className, ...props }: TabsContentProps) {\n  const { value: v } = useTabs();\n  if (v !== value) return null;\n  return <div role=\"tabpanel\" className={cn(\"panel\", \"show\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/tabs.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "type": "registry:ui",
+  "title": "Button Group",
+  "description": "Structured Liquidity Button Group — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/button-group.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ButtonGroupProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n}\n\ninterface BtnGroupCtx {\n  value: string;\n  setValue: (v: string) => void;\n}\nconst Ctx = React.createContext<BtnGroupCtx | null>(null);\n\n/** Structured Liquidity button group — segmented buttons, accent-active. */\nexport function ButtonGroup({\n  value,\n  defaultValue,\n  onValueChange,\n  className,\n  children,\n  ...props\n}: ButtonGroupProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? \"\");\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n  const setValue = (v: string) => {\n    if (!isControlled) setInternal(v);\n    onValueChange?.(v);\n  };\n  return (\n    <div className={cn(\"sl-btn-group\", className)} {...props}>\n      <Ctx.Provider value={{ value: val, setValue }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport interface ButtonGroupItemProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  value?: string;\n}\nexport function ButtonGroupItem({\n  value,\n  className,\n  onClick,\n  children,\n  ...props\n}: ButtonGroupItemProps) {\n  const ctx = React.useContext(Ctx);\n  const on = ctx && value !== undefined ? ctx.value === value : undefined;\n  return (\n    <button\n      type=\"button\"\n      className={cn(on && \"on\", className)}\n      onClick={(e) => {\n        onClick?.(e);\n        if (ctx && value !== undefined) ctx.setValue(value);\n      }}\n      {...props}\n    >\n      {children}\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/button-group.tsx"
+    }
+  ]
+}

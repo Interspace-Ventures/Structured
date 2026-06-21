@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "profile-header",
+  "type": "registry:ui",
+  "title": "Profile Header",
+  "description": "Structured Liquidity Profile Header — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/profile-header.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity profile header — avatar beside a glass identity card. */\nexport function ProfileHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-profile\", className)} {...props} />;\n}\n\nexport function ProfileAvatar({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-ava\", \"sl-profile-ava\", className)} {...props} />;\n}\n\nexport function ProfileId({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-profile-id\", className)} {...props} />;\n}\n\nexport function ProfileName({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-profile-name\", className)} {...props} />;\n}\n\nexport function ProfileRole({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-profile-role\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/profile-header.tsx"
+    }
+  ]
+}

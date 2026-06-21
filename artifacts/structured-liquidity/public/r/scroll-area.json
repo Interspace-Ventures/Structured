@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "type": "registry:ui",
+  "title": "Scroll Area",
+  "description": "Structured Liquidity Scroll Area — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/scroll-area.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity scroll area — rigid frame, accent scrollbar thumb. */\nexport function ScrollArea({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-scroll\", className)} {...props} />;\n}\n\nexport function ScrollAreaRow({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"row\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/scroll-area.tsx"
+    }
+  ]
+}

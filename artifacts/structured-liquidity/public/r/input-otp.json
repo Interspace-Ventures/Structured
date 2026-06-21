@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-otp",
+  "type": "registry:ui",
+  "title": "Input OTP",
+  "description": "Structured Liquidity Input OTP — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/input-otp.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface InputOTPProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\" | \"defaultValue\"> {\n  length?: number;\n  value?: string;\n  defaultValue?: string;\n  disabled?: boolean;\n  onValueChange?: (value: string) => void;\n}\n\n/** Structured Liquidity OTP — segmented single-character cells. */\nexport function InputOTP({\n  length = 6,\n  value,\n  defaultValue,\n  disabled,\n  onValueChange,\n  className,\n  ...props\n}: InputOTPProps) {\n  const [internal, setInternal] = React.useState(defaultValue ?? \"\");\n  const isControlled = value !== undefined;\n  const val = isControlled ? value : internal;\n  const refs = React.useRef<(HTMLInputElement | null)[]>([]);\n\n  const setValue = (v: string) => {\n    const next = v.slice(0, length);\n    if (!isControlled) setInternal(next);\n    onValueChange?.(next);\n  };\n\n  const chars = Array.from({ length }, (_, i) => val[i] ?? \"\");\n\n  const setCharAt = (i: number, c: string) => {\n    const arr = chars.slice();\n    arr[i] = c;\n    setValue(arr.join(\"\"));\n  };\n\n  const focusAt = (i: number) => {\n    const el = refs.current[i];\n    if (el) el.focus();\n  };\n\n  const onChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {\n    const raw = e.target.value;\n    if (raw === \"\") {\n      setCharAt(i, \"\");\n      return;\n    }\n    const c = raw.slice(-1);\n    setCharAt(i, c);\n    if (i < length - 1) focusAt(i + 1);\n  };\n\n  const onKeyDown = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {\n    if (e.key === \"Backspace\" && !chars[i] && i > 0) {\n      e.preventDefault();\n      setCharAt(i - 1, \"\");\n      focusAt(i - 1);\n    } else if (e.key === \"ArrowLeft\" && i > 0) {\n      e.preventDefault();\n      focusAt(i - 1);\n    } else if (e.key === \"ArrowRight\" && i < length - 1) {\n      e.preventDefault();\n      focusAt(i + 1);\n    }\n  };\n\n  const onPaste = (i: number, e: React.ClipboardEvent<HTMLInputElement>) => {\n    e.preventDefault();\n    const text = e.clipboardData.getData(\"text\").replace(/\\s/g, \"\");\n    if (!text) return;\n    const arr = chars.slice();\n    for (let j = 0; j < text.length && i + j < length; j++) arr[i + j] = text[j];\n    setValue(arr.join(\"\"));\n    focusAt(Math.min(i + text.length, length - 1));\n  };\n\n  return (\n    <div className={cn(\"sl-otp\", className)} {...props}>\n      {chars.map((c, i) => (\n        <input\n          key={i}\n          ref={(el) => {\n            refs.current[i] = el;\n          }}\n          maxLength={1}\n          value={c}\n          placeholder=\"•\"\n          disabled={disabled}\n          inputMode=\"numeric\"\n          onChange={(e) => onChange(i, e)}\n          onKeyDown={(e) => onKeyDown(i, e)}\n          onPaste={(e) => onPaste(i, e)}\n        />\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/input-otp.tsx"
+    }
+  ]
+}

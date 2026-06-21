@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context-menu",
+  "type": "registry:ui",
+  "title": "Context Menu",
+  "description": "Structured Liquidity Context Menu — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/context-menu.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ContextMenuCtx {\n  open: boolean;\n  pos: { x: number; y: number };\n  openAt: (x: number, y: number) => void;\n  close: () => void;\n}\nconst Ctx = React.createContext<ContextMenuCtx | null>(null);\nconst useContextMenu = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"ContextMenu subcomponents must be used within <ContextMenu>\");\n  return c;\n};\n\n/** Structured Liquidity context menu — a glass menu summoned at the cursor. */\nexport function ContextMenu({\n  className,\n  children,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const [open, setOpen] = React.useState(false);\n  const [pos, setPos] = React.useState({ x: 0, y: 0 });\n  const openAt = (x: number, y: number) => {\n    setPos({ x, y });\n    setOpen(true);\n  };\n  const close = () => setOpen(false);\n\n  React.useEffect(() => {\n    if (!open) return;\n    const onDoc = () => close();\n    const onKey = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") close();\n    };\n    document.addEventListener(\"mousedown\", onDoc);\n    document.addEventListener(\"keydown\", onKey);\n    return () => {\n      document.removeEventListener(\"mousedown\", onDoc);\n      document.removeEventListener(\"keydown\", onKey);\n    };\n  }, [open]);\n\n  return (\n    <div className={cn(\"sl-pop-wrap\", className)} {...props}>\n      <Ctx.Provider value={{ open, pos, openAt, close }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport function ContextMenuTrigger({\n  className,\n  onContextMenu,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { openAt } = useContextMenu();\n  return (\n    <div\n      className={cn(\"sl-ctx-area\", className)}\n      onContextMenu={(e) => {\n        e.preventDefault();\n        onContextMenu?.(e);\n        openAt(e.clientX, e.clientY);\n      }}\n      {...props}\n    />\n  );\n}\n\nexport function ContextMenuContent({\n  className,\n  style,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { open, pos } = useContextMenu();\n  if (!open) return null;\n  return (\n    <div\n      className={cn(\"sl-ctx-menu\", className)}\n      style={{ position: \"fixed\", top: pos.y, left: pos.x, zIndex: 200, ...style }}\n      onMouseDown={(e) => e.stopPropagation()}\n      onContextMenu={(e) => e.preventDefault()}\n      {...props}\n    />\n  );\n}\n\nexport interface ContextMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  shortcut?: React.ReactNode;\n}\nexport function ContextMenuItem({\n  className,\n  children,\n  shortcut,\n  onClick,\n  ...props\n}: ContextMenuItemProps) {\n  const { close } = useContextMenu();\n  return (\n    <div\n      className={cn(\"item\", className)}\n      onClick={(e) => {\n        onClick?.(e);\n        close();\n      }}\n      {...props}\n    >\n      {children}\n      {shortcut != null && <span className=\"k\">{shortcut}</span>}\n    </div>\n  );\n}\n\nexport function ContextMenuSeparator({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sep\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/context-menu.tsx"
+    }
+  ]
+}

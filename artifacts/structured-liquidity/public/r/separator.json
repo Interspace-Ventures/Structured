@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "type": "registry:ui",
+  "title": "Separator",
+  "description": "Structured Liquidity Separator — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/separator.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface SeparatorProps extends React.HTMLAttributes<HTMLElement> {\n  orientation?: \"horizontal\" | \"vertical\";\n}\n\n/** Structured Liquidity separator — a hairline at full border weight. */\nexport function Separator({ orientation = \"horizontal\", className, ...props }: SeparatorProps) {\n  if (orientation === \"vertical\") {\n    return (\n      <span\n        role=\"separator\"\n        aria-orientation=\"vertical\"\n        className={cn(\"sl-sep\", \"vert\", className)}\n        {...(props as React.HTMLAttributes<HTMLSpanElement>)}\n      />\n    );\n  }\n  return (\n    <hr\n      className={cn(\"sl-sep\", className)}\n      {...(props as React.HTMLAttributes<HTMLHRElement>)}\n    />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/separator.tsx"
+    }
+  ]
+}

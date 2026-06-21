@@ -1,3 +1,4 @@
+- [Structured Liquidity shadcn registry](structured-liquidity-registry.md) — React port ships ui/* as a generated shadcn registry at /r/*.json; never hand-edit, rerun the generator; deps derived from imports.
 - [Structured Liquidity adoption files](structured-liquidity-adoption-files.md) — registry/skill must only document components styled by the 3 distributable public CSS files; verify kit-JS DOM contracts before writing recipes.
 - [Structured Liquidity design language](structured-liquidity.md) — SL specimen port: host-coupling trap, verbatim-public rule, liquid-word override, reveal-screenshot trick, runtime gallery, Lucide icons, cube reuse, CSS-only kit stubs need JS + graceful-degradation gating.
 - [Structured Liquidity motion layer](structured-liquidity-motion.md) — tactile interaction motion (ripples/toggles/flowing tabs/settling overlays/refraction): rigid-frame-liquid-inside principle, plus-lighter-blowout trap, tab-marker keeps aria-selected + degrades.

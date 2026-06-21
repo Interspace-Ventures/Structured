@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "type": "registry:ui",
+  "title": "Pagination",
+  "description": "Structured Liquidity Pagination — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/pagination.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface PaginationProps\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  /** total number of pages */\n  count?: number;\n  /** controlled current page (1-indexed) */\n  page?: number;\n  /** uncontrolled initial page (1-indexed) */\n  defaultPage?: number;\n  onPageChange?: (page: number) => void;\n}\n\n/** Structured Liquidity pagination — rigid numbered buttons, accent current. */\nexport function Pagination({\n  count = 4,\n  page,\n  defaultPage,\n  onPageChange,\n  className,\n  ...props\n}: PaginationProps) {\n  const [internal, setInternal] = React.useState(defaultPage ?? 1);\n  const isControlled = page !== undefined;\n  const cur = isControlled ? page : internal;\n\n  const go = (p: number) => {\n    if (p < 1 || p > count || p === cur) return;\n    if (!isControlled) setInternal(p);\n    onPageChange?.(p);\n  };\n\n  return (\n    <div className={cn(\"sl-page\", className)} {...props}>\n      <button\n        type=\"button\"\n        disabled={cur <= 1}\n        aria-label=\"Previous\"\n        onClick={() => go(cur - 1)}\n      >\n        ‹\n      </button>\n      {Array.from({ length: count }, (_, i) => i + 1).map((n) => (\n        <button\n          key={n}\n          type=\"button\"\n          data-page\n          aria-current={n === cur ? \"page\" : undefined}\n          className={cn(n === cur && \"cur\")}\n          onClick={() => go(n)}\n        >\n          {n}\n        </button>\n      ))}\n      <button\n        type=\"button\"\n        disabled={cur >= count}\n        aria-label=\"Next\"\n        onClick={() => go(cur + 1)}\n      >\n        ›\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/pagination.tsx"
+    }
+  ]
+}

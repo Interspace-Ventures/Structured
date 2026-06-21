@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menubar",
+  "type": "registry:ui",
+  "title": "Menubar",
+  "description": "Structured Liquidity Menubar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/menubar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface MenuCtx {\n  open: boolean;\n  setOpen: (o: boolean) => void;\n}\nconst Ctx = React.createContext<MenuCtx | null>(null);\nconst useMenu = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"MenubarTrigger/Content must be used within <MenubarMenu>\");\n  return c;\n};\n\n/** Structured Liquidity menubar — a rigid horizontal bar of menus. */\nexport function Menubar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-menubar\", className)} {...props} />;\n}\n\nexport function MenubarMenu({ children }: { children: React.ReactNode }) {\n  const [open, setOpen] = React.useState(false);\n\n  React.useEffect(() => {\n    if (!open) return;\n    const onDoc = () => setOpen(false);\n    const onKey = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") setOpen(false);\n    };\n    document.addEventListener(\"mousedown\", onDoc);\n    document.addEventListener(\"keydown\", onKey);\n    return () => {\n      document.removeEventListener(\"mousedown\", onDoc);\n      document.removeEventListener(\"keydown\", onKey);\n    };\n  }, [open]);\n\n  return <Ctx.Provider value={{ open, setOpen }}>{children}</Ctx.Provider>;\n}\n\nexport function MenubarTrigger({\n  className,\n  onClick,\n  ...props\n}: React.ButtonHTMLAttributes<HTMLButtonElement>) {\n  const { open, setOpen } = useMenu();\n  return (\n    <button\n      type=\"button\"\n      className={className}\n      aria-expanded={open}\n      onClick={(e) => {\n        e.stopPropagation();\n        onClick?.(e);\n        setOpen(!open);\n      }}\n      {...props}\n    />\n  );\n}\n\nexport function MenubarContent({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { open } = useMenu();\n  return (\n    <div\n      className={cn(\"sl-menu\", open && \"open\", className)}\n      onMouseDown={(e) => e.stopPropagation()}\n      {...props}\n    />\n  );\n}\n\nexport interface MenubarItemProps extends React.HTMLAttributes<HTMLDivElement> {\n  shortcut?: React.ReactNode;\n}\nexport function MenubarItem({\n  className,\n  children,\n  shortcut,\n  onClick,\n  ...props\n}: MenubarItemProps) {\n  const { setOpen } = useMenu();\n  return (\n    <div\n      className={cn(\"item\", className)}\n      onClick={(e) => {\n        onClick?.(e);\n        setOpen(false);\n      }}\n      {...props}\n    >\n      {children}\n      {shortcut != null && <span className=\"k\">{shortcut}</span>}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/menubar.tsx"
+    }
+  ]
+}

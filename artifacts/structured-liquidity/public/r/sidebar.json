@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar",
+  "type": "registry:ui",
+  "title": "Sidebar",
+  "description": "Structured Liquidity Sidebar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/sidebar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity sidebar — a structural rail beside a content pane. */\nexport function Sidebar({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-sidebar-demo\", className)} {...props} />;\n}\n\nexport function SidebarNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {\n  return <nav className={cn(\"sb\", className)} {...props} />;\n}\n\nexport function SidebarHeading({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sb-h\", className)} {...props} />;\n}\n\nexport interface SidebarLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {\n  active?: boolean;\n}\nexport function SidebarLink({ className, active, ...props }: SidebarLinkProps) {\n  return <a className={cn(active && \"active\", className)} {...props} />;\n}\n\nexport function SidebarMain({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sb-main\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/sidebar.tsx"
+    }
+  ]
+}

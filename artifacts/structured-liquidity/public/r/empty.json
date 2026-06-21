@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty",
+  "type": "registry:ui",
+  "title": "Empty",
+  "description": "Structured Liquidity Empty — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/empty.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity empty state — dashed rigid frame, centered prompt. */\nexport function Empty({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-empty\", className)} {...props} />;\n}\n\nexport function EmptyIcon({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"em-ic\", className)} {...props} />;\n}\n\nexport function EmptyTitle({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"em-t\", className)} {...props} />;\n}\n\nexport function EmptyDescription({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"em-d\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/empty.tsx"
+    }
+  ]
+}

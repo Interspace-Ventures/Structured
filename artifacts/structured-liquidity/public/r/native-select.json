@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "native-select",
+  "type": "registry:ui",
+  "title": "Native Select",
+  "description": "Structured Liquidity Native Select — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/native-select.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity native select — styled <select> with custom chevron. */\nexport const NativeSelect = React.forwardRef<\n  HTMLSelectElement,\n  React.SelectHTMLAttributes<HTMLSelectElement>\n>(({ className, children, ...props }, ref) => (\n  <span className=\"sl-native-wrap\">\n    <select ref={ref} className={cn(\"sl-native\", className)} {...props}>\n      {children}\n    </select>\n  </span>\n));\nNativeSelect.displayName = \"NativeSelect\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/native-select.tsx"
+    }
+  ]
+}

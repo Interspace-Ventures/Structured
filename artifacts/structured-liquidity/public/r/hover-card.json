@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card",
+  "type": "registry:ui",
+  "title": "Hover Card",
+  "description": "Structured Liquidity Hover Card — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/hover-card.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface HoverCardProps\n  extends Omit<React.HTMLAttributes<HTMLSpanElement>, \"content\"> {\n  /** the floating card content */\n  content: React.ReactNode;\n  /** extra class on the .sl-hover-card panel */\n  cardClassName?: string;\n}\n\n/** Structured Liquidity hover card — glass panel revealed under a trigger on hover. */\nexport const HoverCard = React.forwardRef<HTMLSpanElement, HoverCardProps>(\n  ({ content, cardClassName, className, children, ...props }, ref) => (\n    <span ref={ref} className={cn(\"sl-tip-wrap\", className)} {...props}>\n      {children}\n      <span className={cn(\"sl-hover-card\", cardClassName)}>{content}</span>\n    </span>\n  ),\n);\nHoverCard.displayName = \"HoverCard\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/hover-card.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:ui",
+  "title": "Tooltip",
+  "description": "Structured Liquidity Tooltip — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/tooltip.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface TooltipProps\n  extends Omit<React.HTMLAttributes<HTMLSpanElement>, \"content\"> {\n  /** the tooltip bubble content */\n  content: React.ReactNode;\n  /** extra class on the .sl-tip bubble */\n  tipClassName?: string;\n}\n\n/** Structured Liquidity tooltip — flat-shadow bubble revealed on hover/focus. */\nexport const Tooltip = React.forwardRef<HTMLSpanElement, TooltipProps>(\n  ({ content, tipClassName, className, children, ...props }, ref) => (\n    <span ref={ref} className={cn(\"sl-tip-wrap\", className)} {...props}>\n      {children}\n      <span className={cn(\"sl-tip\", tipClassName)} role=\"tooltip\">\n        {content}\n      </span>\n    </span>\n  ),\n);\nTooltip.displayName = \"Tooltip\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/tooltip.tsx"
+    }
+  ]
+}

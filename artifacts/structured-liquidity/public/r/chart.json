@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart",
+  "type": "registry:ui",
+  "title": "Chart",
+  "description": "Structured Liquidity Chart — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/chart.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** bar heights as percentages (0–100) */\n  data?: number[];\n}\n\nconst DEFAULT_DATA = [38, 62, 48, 80, 55, 92, 70, 44, 66, 30];\n\n/** Structured Liquidity chart — static accent-gradient bar chart. */\nexport const Chart = React.forwardRef<HTMLDivElement, ChartProps>(\n  ({ data = DEFAULT_DATA, className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-chart\", className)} {...props}>\n      {data.map((h, i) => (\n        <span key={i} className=\"bar\" style={{ height: `${h}%` }} />\n      ))}\n    </div>\n  ),\n);\nChart.displayName = \"Chart\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/chart.tsx"
+    }
+  ]
+}

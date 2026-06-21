@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Structured Liquidity styling layer — framework-agnostic CSS that is the
+   visual source of truth. Imported into the Tailwind entry so the design
+   language and Tailwind utilities coexist. Do not rewrite these into utility
+   soup; they guarantee pixel fidelity with the original specimen. */
+@import "./styles/10-tokens-base.css";
+@import "./styles/20-components.css";
+@import "./styles/30-kit.css";
+@import "./styles/40-inline.css";
+
+/* dark is the default (data-mode="dark" on <html>); expose the variant so
+   `dark:` utilities resolve against the same switch the tweaker writes. */
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
+/* Map the live SL custom properties onto Tailwind theme tokens with `inline`
+   so generated utilities (bg-accent, text-ink, font-display, …) reference the
+   live vars and retheme instantly when the tweaker changes them. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-neg: var(--neg);
+  --color-neg-ink: var(--neg-ink);
+  --font-display: var(--display);
+  --font-body: var(--body);
+  --font-mono: var(--mono);
+}

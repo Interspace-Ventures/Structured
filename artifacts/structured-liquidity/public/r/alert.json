@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "type": "registry:ui",
+  "title": "Alert",
+  "description": "Structured Liquidity Alert — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/alert.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type AlertVariant = \"default\" | \"destructive\";\n\nexport interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {\n  variant?: AlertVariant;\n}\n\n/** Structured Liquidity alert — rigid box, accent left rail, glass fill. */\nexport function Alert({ className, variant = \"default\", ...props }: AlertProps) {\n  return (\n    <div\n      role=\"alert\"\n      className={cn(\"sl-alert\", variant === \"destructive\" && \"destructive\", className)}\n      {...props}\n    />\n  );\n}\n\nexport function AlertTitle({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {\n  return <p className={cn(\"at\", className)} {...props} />;\n}\n\nexport function AlertDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {\n  return <p className={cn(\"ad\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/alert.tsx"
+    }
+  ]
+}

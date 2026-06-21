@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Structured Liquidity Checkbox — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/checkbox.tsx",
+      "content": "import * as React from \"react\";\nimport { Check } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface CheckboxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  checked?: boolean;\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n}\n\n/** Structured Liquidity checkbox — rigid box, accent fill + tick when checked. */\nexport function Checkbox({\n  checked,\n  defaultChecked,\n  onCheckedChange,\n  disabled,\n  className,\n  children,\n  ...props\n}: CheckboxProps) {\n  const [internal, setInternal] = React.useState(defaultChecked ?? false);\n  const isControlled = checked !== undefined;\n  const on = isControlled ? checked : internal;\n\n  const toggle = () => {\n    if (disabled) return;\n    const next = !on;\n    if (!isControlled) setInternal(next);\n    onCheckedChange?.(next);\n  };\n\n  return (\n    <div\n      role=\"checkbox\"\n      aria-checked={on}\n      aria-disabled={disabled || undefined}\n      tabIndex={disabled ? -1 : 0}\n      className={cn(\"sl-check\", className)}\n      onClick={toggle}\n      onKeyDown={(e) => {\n        if (e.key === \" \" || e.key === \"Enter\") {\n          e.preventDefault();\n          toggle();\n        }\n      }}\n      {...props}\n    >\n      <span className=\"sl-box\">\n        <Check className=\"tick\" />\n      </span>\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox.tsx"
+    }
+  ]
+}

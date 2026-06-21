@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:ui",
+  "title": "Avatar",
+  "description": "Structured Liquidity Avatar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/avatar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity avatar — rigid square, flat offset shadow, accent fill. */\nexport function Avatar({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-ava\", className)} {...props} />;\n}\n\nexport function AvatarImage({ className, alt = \"\", ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {\n  return <img className={className} alt={alt} {...props} />;\n}\n\nexport function AvatarFallback({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={className} {...props} />;\n}\n\n/** Overlapping avatar stack. */\nexport function AvatarGroup({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-ava-group\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/avatar.tsx"
+    }
+  ]
+}

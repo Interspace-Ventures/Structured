@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "type": "registry:ui",
+  "title": "Popover",
+  "description": "Structured Liquidity Popover — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/popover.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface PopoverCtx {\n  open: boolean;\n  setOpen: (o: boolean) => void;\n}\nconst Ctx = React.createContext<PopoverCtx | null>(null);\nconst usePopover = () => {\n  const c = React.useContext(Ctx);\n  if (!c) throw new Error(\"Popover subcomponents must be used within <Popover>\");\n  return c;\n};\n\nexport interface PopoverProps extends React.HTMLAttributes<HTMLDivElement> {\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n}\n\n/** Structured Liquidity popover — glass menu anchored to a trigger. */\nexport function Popover({\n  open,\n  defaultOpen,\n  onOpenChange,\n  className,\n  children,\n  ...props\n}: PopoverProps) {\n  const [internal, setInternal] = React.useState(defaultOpen ?? false);\n  const isControlled = open !== undefined;\n  const o = isControlled ? open : internal;\n  const setOpen = (v: boolean) => {\n    if (!isControlled) setInternal(v);\n    onOpenChange?.(v);\n  };\n  const wrapRef = React.useRef<HTMLDivElement>(null);\n\n  React.useEffect(() => {\n    if (!o) return;\n    const onDoc = (e: MouseEvent) => {\n      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);\n    };\n    const onKey = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") setOpen(false);\n    };\n    document.addEventListener(\"mousedown\", onDoc);\n    document.addEventListener(\"keydown\", onKey);\n    return () => {\n      document.removeEventListener(\"mousedown\", onDoc);\n      document.removeEventListener(\"keydown\", onKey);\n    };\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [o]);\n\n  return (\n    <div ref={wrapRef} className={cn(\"sl-pop-wrap\", className)} {...props}>\n      <Ctx.Provider value={{ open: o, setOpen }}>{children}</Ctx.Provider>\n    </div>\n  );\n}\n\nexport interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  asChild?: boolean;\n}\nexport function PopoverTrigger({\n  asChild,\n  className,\n  children,\n  onClick,\n  ...props\n}: PopoverTriggerProps) {\n  const { open, setOpen } = usePopover();\n  if (asChild && React.isValidElement(children)) {\n    const child = children as React.ReactElement<{\n      onClick?: React.MouseEventHandler;\n      \"data-pop\"?: boolean;\n      \"aria-expanded\"?: boolean;\n    }>;\n    return React.cloneElement(child, {\n      \"data-pop\": true,\n      \"aria-expanded\": open,\n      onClick: (e: React.MouseEvent) => {\n        child.props.onClick?.(e as React.MouseEvent<Element, MouseEvent>);\n        setOpen(!open);\n      },\n    });\n  }\n  return (\n    <button\n      type=\"button\"\n      data-pop\n      aria-expanded={open}\n      className={className}\n      onClick={(e) => {\n        onClick?.(e);\n        setOpen(!open);\n      }}\n      {...props}\n    >\n      {children}\n    </button>\n  );\n}\n\nexport function PopoverContent({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  const { open } = usePopover();\n  return <div className={cn(\"sl-menu\", open && \"open\", className)} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/popover.tsx"
+    }
+  ]
+}

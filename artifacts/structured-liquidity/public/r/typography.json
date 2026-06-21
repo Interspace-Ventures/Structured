@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typography",
+  "type": "registry:ui",
+  "title": "Typography",
+  "description": "Structured Liquidity Typography — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/typography.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Structured Liquidity typography specimen — heavy grotesk, mono accents, quote. */\nexport function Typography({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-type\", className)} {...props} />;\n}\n\nexport function TypographyTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {\n  return <h4 className={cn(\"tg\", className)} {...props} />;\n}\n\nexport function TypographyParagraph({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {\n  return <p className={cn(\"tg\", className)} {...props} />;\n}\n\nexport function TypographyCode({ className, ...props }: React.HTMLAttributes<HTMLElement>) {\n  return <code className={cn(\"tg\", className)} {...props} />;\n}\n\nexport function TypographyQuote({ className, ...props }: React.HTMLAttributes<HTMLQuoteElement>) {\n  return <blockquote className={className} {...props} />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/typography.tsx"
+    }
+  ]
+}
