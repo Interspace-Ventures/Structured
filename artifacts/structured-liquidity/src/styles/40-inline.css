@@ -433,10 +433,12 @@
   .nav .links a.nav-icon, .nav .links .nav-icon{
     width:2.35rem;height:2.35rem;padding:0;justify-content:center;gap:0;}
   .nav .links .nav-icon svg{width:1.15em;height:1.15em;}
-  /* The Source (GitHub) icon button uses the translucent .glassy fill, which makes
-     the icon hard to read against the nav. Give it a more opaque glass surface. */
+  /* The Source (GitHub) icon button: the translucent .glassy fill makes the icon
+     hard to read against the nav, so give it a solid neutral gray (--neg, the
+     theme-aware "never red" gray) and drop the glass blur. */
   .nav .links .nav-icon.glassy{
-    background:linear-gradient(135deg, rgba(var(--glass-tint),0.34), rgba(var(--glass-tint),0.20));}
+    background:var(--neg);color:var(--neg-ink);
+    backdrop-filter:none;-webkit-backdrop-filter:none;}
 
   /* Proportional readability bump: nudge the root size so all rem-based text grows together (tweaker panel uses px and stays put). */
   html{font-size:108%;}
