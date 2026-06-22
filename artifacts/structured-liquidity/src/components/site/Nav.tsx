@@ -1,6 +1,8 @@
-import { Compass, LayoutGrid, Sparkles, Bot } from "lucide-react";
+import { Compass, LayoutGrid, Sparkles, Bot, Github } from "lucide-react";
 import { Hypercube } from "./liquid";
 import { InstallButton } from "./InstallButton";
+
+const GITHUB = "https://github.com/heyinterspace/Structured";
 
 export function Nav() {
   return (
@@ -27,11 +29,21 @@ export function Nav() {
           For AI
         </a>
         <InstallButton
-          className="btn solid nav-cta"
-          style={
-            { padding: "0.5rem 1.1rem", "--hard-x": "3px", "--hard-y": "3px" } as React.CSSProperties
-          }
+          iconOnly
+          className="btn solid nav-cta nav-icon"
+          style={{ "--hard-x": "3px", "--hard-y": "3px" } as React.CSSProperties}
         />
+        <a
+          className="btn glassy nav-cta nav-icon"
+          href={GITHUB}
+          target="_blank"
+          rel="noopener"
+          aria-label="Source"
+          title="Source"
+          style={{ "--hard-x": "3px", "--hard-y": "3px" } as React.CSSProperties}
+        >
+          <Github />
+        </a>
       </div>
     </nav>
   );

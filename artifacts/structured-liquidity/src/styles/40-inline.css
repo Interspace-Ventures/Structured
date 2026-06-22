@@ -429,6 +429,11 @@
     width:1.05em;height:1.05em;flex:0 0 auto;stroke-width:2.25;}
   .sl-btn.icon svg{width:1.15em;height:1.15em;}
 
+  /* Compact icon-only nav buttons (Install + Source): square, label hidden, icon centered. */
+  .nav .links a.nav-icon, .nav .links .nav-icon{
+    width:2.35rem;height:2.35rem;padding:0;justify-content:center;gap:0;}
+  .nav .links .nav-icon svg{width:1.15em;height:1.15em;}
+
   /* Proportional readability bump: nudge the root size so all rem-based text grows together (tweaker panel uses px and stays put). */
   html{font-size:108%;}
 

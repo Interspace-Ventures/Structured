@@ -17,6 +17,8 @@ interface InstallButtonProps {
   className?: string;
   label?: string;
   style?: React.CSSProperties;
+  /** Render the icon only (no text label) — used in the compact top nav. */
+  iconOnly?: boolean;
 }
 
 /**
@@ -29,6 +31,7 @@ export function InstallButton({
   className = "btn solid",
   label = "Install",
   style,
+  iconOnly = false,
 }: InstallButtonProps) {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
@@ -39,6 +42,8 @@ export function InstallButton({
       type="button"
       className={className}
       style={style}
+      aria-label={iconOnly ? label : undefined}
+      title={iconOnly ? label : undefined}
       onClick={async () => {
         try {
           await navigator.clipboard.writeText(cmd);
@@ -51,7 +56,7 @@ export function InstallButton({
       }}
     >
       {copied ? <Check /> : <Download />}
-      {copied ? "Copied" : label}
+      {iconOnly ? null : copied ? "Copied" : label}
     </button>
   );
 }
