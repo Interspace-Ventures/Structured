@@ -24,7 +24,7 @@ const ICON_CHECK =
 
 /* ============================================================
    Component gallery — flattens the statically-rendered kit-groups
-   into a single sorted, filterable masonry grid (Type × Kind axes,
+   into a single sorted, filterable masonry grid (Category × Type axes,
    FLIP-animated). Faithful port of the legacy mountGallery(): the
    grouped markup is the no-JS fallback; this is the real experience.
    Safe to re-parent the React-rendered .kit-cell nodes because the
@@ -125,14 +125,14 @@ function bindGallery() {
     return row;
   };
 
-  const catRow = makeRow("cat", "Type");
+  const catRow = makeRow("cat", "Category");
   const catBar = catRow.querySelector<HTMLElement>(".kit-filters")!;
   catBar.appendChild(makeChip("all", "All", true));
   CATS.forEach((c) => {
     if (present.has(c.key)) catBar.appendChild(makeChip(c.key, c.label));
   });
 
-  const facetRow = makeRow("kind", "Kind");
+  const facetRow = makeRow("kind", "Type");
   const facetBar = facetRow.querySelector<HTMLElement>(".kit-filters")!;
   facetBar.appendChild(makeChip("all", "All", true));
   FACETS.forEach((f) => {
