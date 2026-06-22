@@ -368,7 +368,6 @@
         "display"
       ],
       "kinds": [
-        "overlay",
         "feedback"
       ]
     },
@@ -438,8 +437,7 @@
       ],
       "kinds": [
         "form",
-        "interactive",
-        "overlay"
+        "interactive"
       ]
     },
     {
@@ -571,8 +569,7 @@
       ],
       "kinds": [
         "form",
-        "interactive",
-        "overlay"
+        "interactive"
       ]
     },
     {
@@ -652,9 +649,7 @@
       "tags": [
         "navigation"
       ],
-      "kinds": [
-        "navigation"
-      ]
+      "kinds": []
     },
     {
       "name": "Menubar",
@@ -666,9 +661,7 @@
         "navigation"
       ],
       "kinds": [
-        "navigation",
-        "interactive",
-        "overlay"
+        "interactive"
       ]
     },
     {
@@ -680,9 +673,7 @@
       "tags": [
         "navigation"
       ],
-      "kinds": [
-        "navigation"
-      ]
+      "kinds": []
     },
     {
       "name": "Navigation menu",
@@ -694,9 +685,7 @@
         "navigation"
       ],
       "kinds": [
-        "navigation",
-        "interactive",
-        "overlay"
+        "interactive"
       ]
     },
     {
@@ -709,7 +698,6 @@
         "navigation"
       ],
       "kinds": [
-        "navigation",
         "interactive"
       ]
     },
@@ -722,9 +710,7 @@
       "tags": [
         "navigation"
       ],
-      "kinds": [
-        "navigation"
-      ]
+      "kinds": []
     },
     {
       "name": "Tabs",
@@ -736,7 +722,6 @@
         "navigation"
       ],
       "kinds": [
-        "navigation",
         "interactive"
       ]
     },
@@ -751,7 +736,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -766,7 +750,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -781,7 +764,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -796,7 +778,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -811,7 +792,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -826,7 +806,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -841,7 +820,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "interactive"
       ]
     },
@@ -856,7 +834,6 @@
         "interactive"
       ],
       "kinds": [
-        "overlay",
         "feedback"
       ]
     },
@@ -872,8 +849,7 @@
       ],
       "kinds": [
         "form",
-        "interactive",
-        "overlay"
+        "interactive"
       ]
     },
     {
@@ -987,7 +963,6 @@
         "interactive"
       ],
       "kinds": [
-        "navigation",
         "interactive",
         "mobile"
       ]
@@ -1003,7 +978,6 @@
         "interactive"
       ],
       "kinds": [
-        "navigation",
         "interactive",
         "mobile"
       ]
@@ -1019,7 +993,6 @@
         "interactive"
       ],
       "kinds": [
-        "navigation",
         "interactive",
         "mobile"
       ]
@@ -1053,14 +1026,6 @@
     {
       "key": "feedback",
       "label": "Feedback"
-    },
-    {
-      "key": "overlay",
-      "label": "Overlay"
-    },
-    {
-      "key": "navigation",
-      "label": "Navigation"
     },
     {
       "key": "display",
