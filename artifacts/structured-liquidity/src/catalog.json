@@ -11,14 +11,6 @@
       "label": "Data"
     },
     {
-      "key": "disclosure",
-      "label": "Disclosure"
-    },
-    {
-      "key": "forms",
-      "label": "Forms"
-    },
-    {
       "key": "layout",
       "label": "Layout"
     },
@@ -226,7 +218,7 @@
       "name": "Fonts",
       "registry": "fonts",
       "cap": "Fonts",
-      "category": "data",
+      "category": "layout",
       "status": "stable",
       "tags": [
         "display"
@@ -252,7 +244,7 @@
       "name": "Kbd",
       "registry": "kbd",
       "cap": "Kbd",
-      "category": "data",
+      "category": "overlays",
       "status": "stable",
       "tags": [
         "display"
@@ -384,7 +376,7 @@
       "name": "Typography",
       "registry": "typography",
       "cap": "Typography",
-      "category": "data",
+      "category": "layout",
       "status": "stable",
       "tags": [
         "display"
@@ -397,7 +389,7 @@
       "name": "Accordion",
       "registry": "accordion",
       "cap": "Accordion",
-      "category": "disclosure",
+      "category": "data",
       "status": "stable",
       "tags": [
         "interactive"
@@ -410,7 +402,7 @@
       "name": "Collapsible",
       "registry": "collapsible",
       "cap": "Collapsible",
-      "category": "disclosure",
+      "category": "data",
       "status": "stable",
       "tags": [
         "interactive"
@@ -423,7 +415,7 @@
       "name": "Checkbox",
       "registry": "checkbox",
       "cap": "Checkbox",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -438,7 +430,7 @@
       "name": "Command / combobox",
       "registry": "command",
       "cap": "Command / combobox",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -454,7 +446,7 @@
       "name": "Field",
       "registry": "field",
       "cap": "Field",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -468,7 +460,7 @@
       "name": "Input group",
       "registry": "input-group",
       "cap": "Input group",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -483,7 +475,7 @@
       "name": "Input OTP",
       "registry": "input-otp",
       "cap": "Input OTP",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -498,7 +490,7 @@
       "name": "Input · label · textarea",
       "registry": "input",
       "cap": "Input · label · textarea",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -513,7 +505,7 @@
       "name": "Fieldset",
       "registry": "fieldset",
       "cap": "Fieldset",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form"
@@ -526,7 +518,7 @@
       "name": "Native select",
       "registry": "native-select",
       "cap": "Native select",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -541,7 +533,7 @@
       "name": "Number field",
       "registry": "number-field",
       "cap": "Number field",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -556,7 +548,7 @@
       "name": "Radio group",
       "registry": "radio-group",
       "cap": "Radio group",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -571,7 +563,7 @@
       "name": "Select",
       "registry": "select",
       "cap": "Select",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -587,7 +579,7 @@
       "name": "Switch · slider",
       "registry": "switch",
       "cap": "Switch · slider",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -872,7 +864,7 @@
       "name": "Autocomplete",
       "registry": "autocomplete",
       "cap": "Autocomplete",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -888,7 +880,7 @@
       "name": "Checkbox group",
       "registry": "checkbox-group",
       "cap": "Checkbox group",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -903,7 +895,7 @@
       "name": "Form",
       "registry": "form",
       "cap": "Form",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form",
@@ -918,7 +910,7 @@
       "name": "Label",
       "registry": "label",
       "cap": "Label",
-      "category": "forms",
+      "category": "data",
       "status": "stable",
       "tags": [
         "form"
@@ -996,7 +988,8 @@
       ],
       "kinds": [
         "navigation",
-        "interactive"
+        "interactive",
+        "mobile"
       ]
     },
     {
@@ -1011,7 +1004,8 @@
       ],
       "kinds": [
         "navigation",
-        "interactive"
+        "interactive",
+        "mobile"
       ]
     },
     {
@@ -1026,7 +1020,8 @@
       ],
       "kinds": [
         "navigation",
-        "interactive"
+        "interactive",
+        "mobile"
       ]
     },
     {
@@ -1070,6 +1065,10 @@
     {
       "key": "display",
       "label": "Display"
+    },
+    {
+      "key": "mobile",
+      "label": "Mobile"
     }
   ]
 }

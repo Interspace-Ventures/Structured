@@ -427,6 +427,80 @@ function bindRefraction() {
   });
 }
 
+/* Build the equalizer bars for any [data-waveform] container. data-bars = bar
+   count, data-played = how many leading bars read as "played" (solid accent) vs
+   upcoming (dim). Heights come from layered sines so it reads like an audio
+   envelope, not a bar chart; the bars are static (calm seek display). */
+function bindWaveform() {
+  document.querySelectorAll<HTMLElement>("[data-waveform]").forEach((el) => {
+    const bars = Math.max(1, Math.min(200, Number(el.dataset.bars) || 40));
+    const played = Math.max(0, Math.min(bars, Number(el.dataset.played) || 0));
+    el.replaceChildren();
+    for (let i = 0; i < bars; i += 1) {
+      const bar = document.createElement("span");
+      bar.className = i < played ? "wf-bar" : "wf-bar is-future";
+      const env = Math.abs(Math.sin(i * 0.45) * 0.6 + Math.sin(i * 0.17 + 1) * 0.4);
+      bar.style.setProperty("--h", `${(22 + env * 70).toFixed(1)}%`);
+      bar.style.setProperty("--d", `${(-(i % 7) * 0.13).toFixed(2)}s`);
+      el.appendChild(bar);
+    }
+  });
+}
+
+/* Liquid-glass nav bars. Floating bottom tab bar (.gnav-bar): clicking a tab
+   glides the accent marker across the buttons by measuring the active tab's box.
+   Segmented section sub-nav ([data-snav-seg]): clicking a segment glides the
+   marker to it (offset corrected for the track border via clientLeft). The
+   marker's CSS transition is the only motion, disabled under reduced-motion. */
+function bindGlassNav() {
+  document.querySelectorAll<HTMLElement>(".gnav-bar").forEach((bar) => {
+    const tabs = Array.from(bar.querySelectorAll<HTMLButtonElement>(".gnav-tab"));
+    if (!tabs.length) return;
+    const move = (): void => {
+      const active = tabs.find((t) => t.classList.contains("is-active")) ?? tabs[0];
+      const barRect = bar.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      bar.style.setProperty("--gnav-x", `${r.left - barRect.left - bar.clientLeft}px`);
+      bar.style.setProperty("--gnav-w", `${r.width}px`);
+    };
+    tabs.forEach((tab) =>
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.removeAttribute("aria-current");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-current", "page");
+        requestAnimationFrame(move);
+      }),
+    );
+    move();
+    window.addEventListener("resize", move);
+    void document.fonts.ready.then(move);
+  });
+  document.querySelectorAll<HTMLElement>("[data-snav-seg]").forEach((seg) => {
+    const btns = Array.from(seg.querySelectorAll<HTMLButtonElement>(".snav-seg-btn"));
+    if (!btns.length) return;
+    const move = (): void => {
+      const active = btns.find((b) => b.getAttribute("aria-selected") === "true") ?? btns[0];
+      const segRect = seg.getBoundingClientRect();
+      const r = active.getBoundingClientRect();
+      seg.style.setProperty("--seg-x", `${r.left - segRect.left - seg.clientLeft}px`);
+      seg.style.setProperty("--seg-w", `${r.width}px`);
+    };
+    btns.forEach((b) =>
+      b.addEventListener("click", () => {
+        btns.forEach((x) => x.setAttribute("aria-selected", "false"));
+        b.setAttribute("aria-selected", "true");
+        requestAnimationFrame(move);
+      }),
+    );
+    move();
+    window.addEventListener("resize", move);
+    void document.fonts.ready.then(move);
+  });
+}
+
 /* only enable the SVG url() backdrop-filter where the browser actually
    renders it, else the glass would vanish. */
 function detectRefract() {
@@ -447,4 +521,6 @@ export function initBehaviors() {
   bindReveal();
   bindDotNav();
   bindRefraction();
+  bindWaveform();
+  bindGlassNav();
 }
