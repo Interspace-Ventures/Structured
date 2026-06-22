@@ -11,12 +11,15 @@ sides cropped ~5%. So perceived "card content size" is driven entirely by the **
 scale of the source screenshot**, not the card (all cards are identical size). Full-bleed
 sites with large type read bigger than centered max-width sites at the same capture width.
 
-## To make one card's content match the others, recapture it zoomed-out
-Render the site at viewport 1920x1080 with `document.documentElement.style.zoom` < 1
-(e.g. `0.78` for a "little smaller" match), `deviceScaleFactor: 1`, clip to 1920x1080.
-`zoom` keeps output exactly 1920x1080 (no resize, no mobile-breakpoint reflow) while
-fitting more CSS px — equivalent to a wider viewport. Write straight to
-`artifacts/structured-liquidity/public/<name>.png`. No markup change needed.
+## Match a card's content scale by picking the right zoom — direction depends on the site
+Render at viewport 1920x1080 with `document.documentElement.style.zoom`, `deviceScaleFactor: 1`,
+clip to 1920x1080. `zoom` keeps output exactly 1920x1080 (no resize, no mobile reflow).
+Write straight to `artifacts/structured-liquidity/public/<name>.png`. No markup change needed.
+- **Centered/max-width sites** (samir.xyz, 2daysearly): zoom **< 1** (~0.78) to shrink oversized type.
+- **Full-bleed, content-dense sites with a SHORT hero** (bumblebee.nyc): the obvious zoom-out makes
+  the 1080px frame cram 2–3 sections and look busy/"weird". Instead zoom **> 1** (~1.15) to fill the
+  frame with a clean hero-focused crop (nav + hero + heading, stopping before the next section).
+  **Why:** the card shows full image height, so fewer, larger sections read cleaner than many tiny ones.
 
 ## Browser that actually works here (this is the non-obvious part)
 - The `external_url` screenshot tool gives a FIXED 1920-wide capture — no viewport/zoom control.
