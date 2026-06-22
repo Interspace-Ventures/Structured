@@ -7,6 +7,12 @@
   .sl-js .glyph:not(.is-cube)::before,
   .sl-js .glyph:not(.is-cube)::after { content: none; }
 
+  /* Shell width: the floating top .nav and bottom dock share this centered width.
+     It is intentionally a touch wider than the page content (.wrap = min(1200px,92vw))
+     so the chrome frames the column rather than matching it edge-to-edge. */
+  :root { --shell-w: min(1280px, 94vw); }
+  .nav { width: var(--shell-w); }
+
   /* Showcase product grid — cards auto-flow 1→4 across; description + CTA reveal on hover/focus,
      name/badge stay visible so the wall of screenshots is still scannable. */
   .show-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;align-items:start;}
@@ -79,9 +85,16 @@
   .sl-tweaks-fab .knob-ic{width:13px;height:13px;border:2px solid currentColor;
     border-radius:50%;}
   @media (prefers-reduced-motion:reduce){.sl-tweaks-fab:hover{transform:none}}
-  /* Launcher dock holds the standalone dark/light toggle and the Mods button side by side. */
-  .sl-fab-dock{position:fixed;right:18px;bottom:18px;z-index:2147483645;
-    display:flex;align-items:stretch;gap:10px;}
+  /* Launcher dock holds the standalone dark/light toggle and the Mods button side by side.
+     It spans the same centered shell width as the top .nav and right-aligns its buttons,
+     so the bottom dock's right edge lines up exactly with the navbar's right edge (same
+     centering reference handles any scrollbar identically). The full-width strip is
+     click-through; only the buttons capture pointer events. */
+  .sl-fab-dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+    width:var(--shell-w);z-index:2147483645;
+    display:flex;justify-content:flex-end;align-items:stretch;gap:10px;
+    pointer-events:none;}
+  .sl-fab-dock > *{pointer-events:auto;}
   .sl-fab-dock .sl-tweaks-fab{position:static;}
   .sl-mode-fab svg{width:14px;height:14px;}
   /* Fixed-width label so the button doesn't resize when "Dark" <-> "Light" swap (mono = stable ch). */
