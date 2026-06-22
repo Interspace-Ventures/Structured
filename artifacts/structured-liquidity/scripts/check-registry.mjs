@@ -28,6 +28,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const PUBLIC = join(ROOT, "public");
 const SCHEMA_DIR = join(HERE, "schemas");
+const UI_DIR = join(ROOT, "src/components/ui");
+const CATALOG = join(ROOT, "src/catalog.json");
 
 const ITEM_SCHEMA_URL = "https://ui.shadcn.com/schema/registry-item.json";
 
@@ -125,6 +127,34 @@ if (!existsSync(rDir)) {
   }
 }
 
+/* ---- 3. catalog ↔ component/registry coverage ------------------------ */
+
+// The gallery's per-cell Install button only renders when a catalog entry's
+// `registry` slug resolves to a generated public/r/<slug>.json (which in turn
+// only exists when src/components/ui/<slug>.tsx exists). A catalog entry that
+// points at a missing component, or a specimen added with no slug at all,
+// silently shows no Install button. Fail loudly here instead.
+if (!existsSync(CATALOG)) {
+  fail("coverage: src/catalog.json is missing");
+} else {
+  const catalog = JSON.parse(readFileSync(CATALOG, "utf8"));
+  const components = Array.isArray(catalog.components) ? catalog.components : [];
+  for (const c of components) {
+    const label = c.name || c.cap || "(unnamed)";
+    if (!c.registry) {
+      fail(`coverage: catalog entry "${label}" has no \`registry\` slug — its gallery cell will silently lack an Install button`);
+      continue;
+    }
+    const slug = c.registry;
+    if (!existsSync(join(UI_DIR, `${slug}.tsx`))) {
+      fail(`coverage: catalog entry "${label}" → registry "${slug}" has no src/components/ui/${slug}.tsx source`);
+    }
+    if (!existsSync(join(PUBLIC, "r", `${slug}.json`))) {
+      fail(`coverage: catalog entry "${label}" → registry "${slug}" has no generated public/r/${slug}.json (run \`pnpm run registry\`)`);
+    }
+  }
+}
+
 /* ---- report ---------------------------------------------------------- */
 
 if (errors.length) {
@@ -135,4 +165,4 @@ if (errors.length) {
 }
 
 const itemCount = readdirSync(rDir).filter((f) => f.endsWith(".json")).length;
-console.log(`registry check OK — index + ${itemCount} items match source and validate against the shadcn schemas`);
+console.log(`registry check OK — index + ${itemCount} items match source, validate against the shadcn schemas, and every catalog specimen resolves to an installable component`);
