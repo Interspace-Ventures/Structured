@@ -977,9 +977,9 @@
       ]
     },
     {
-      "name": "Mobile navigation",
+      "name": "Tab bar & drawer",
       "registry": "mobile-nav",
-      "cap": "Mobile navigation · tab bar & drawer",
+      "cap": "Tab bar & drawer",
       "category": "navigation",
       "status": "stable",
       "tags": [
@@ -993,9 +993,9 @@
       ]
     },
     {
-      "name": "Mobile navigation · glass tab bar",
+      "name": "Floating glass tab bar",
       "registry": "mobile-nav",
-      "cap": "Mobile navigation · floating glass tab bar",
+      "cap": "Floating glass tab bar",
       "category": "navigation",
       "status": "stable",
       "tags": [
@@ -1009,9 +1009,9 @@
       ]
     },
     {
-      "name": "Mobile navigation · segmented sub-nav",
+      "name": "Segmented sub-nav",
       "registry": "mobile-nav",
-      "cap": "Mobile navigation · segmented sub-nav",
+      "cap": "Segmented sub-nav",
       "category": "navigation",
       "status": "stable",
       "tags": [

@@ -501,6 +501,34 @@ function bindGlassNav() {
   });
 }
 
+/* Mobile-nav phone frame: the burger toggles the slide-in drawer (data-open +
+   aria-expanded/label), and the bottom tab bar moves its active state on click. */
+function bindMobileNav() {
+  document.querySelectorAll<HTMLElement>("[data-mnav]").forEach((root) => {
+    const toggle = root.querySelector<HTMLButtonElement>("[data-mnav-toggle]");
+    const drawer = root.querySelector<HTMLElement>("[data-mnav-drawer]");
+    if (toggle && drawer) {
+      toggle.addEventListener("click", () => {
+        const open = drawer.getAttribute("data-open") === "true";
+        drawer.setAttribute("data-open", String(!open));
+        toggle.setAttribute("aria-expanded", String(!open));
+        toggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+      });
+    }
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>(".mn-tab"));
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("is-active");
+          t.removeAttribute("aria-current");
+        });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-current", "page");
+      });
+    });
+  });
+}
+
 /* only enable the SVG url() backdrop-filter where the browser actually
    renders it, else the glass would vanish. */
 function detectRefract() {
@@ -523,4 +551,5 @@ export function initBehaviors() {
   bindRefraction();
   bindWaveform();
   bindGlassNav();
+  bindMobileNav();
 }

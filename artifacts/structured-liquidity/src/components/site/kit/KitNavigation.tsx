@@ -24,17 +24,17 @@ export function KitNavigation() {
         </div>
 
         <div className="glass kit-cell w6">
-          <span className="kit-cap">Mobile navigation · tab bar &amp; drawer</span>
+          <span className="kit-cap">Tab bar &amp; drawer</span>
           <MobileTabBar />
         </div>
 
         <div className="glass kit-cell w6">
-          <span className="kit-cap">Mobile navigation · floating glass tab bar</span>
+          <span className="kit-cap">Floating glass tab bar</span>
           <GlassTabBar />
         </div>
 
         <div className="glass kit-cell w6">
-          <span className="kit-cap">Mobile navigation · segmented sub-nav</span>
+          <span className="kit-cap">Segmented sub-nav</span>
           <SegmentedNav />
         </div>
 
