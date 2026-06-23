@@ -452,6 +452,10 @@
   .nav .links .nav-icon.glassy{
     background:var(--neg);color:var(--neg-ink);
     backdrop-filter:none;-webkit-backdrop-filter:none;}
+  /* Pull the two icon buttons (Install + Source) close together as a pair, without
+     touching the roomy 1.3rem gap between the text nav links. Only the gap on the
+     adjacent icon→icon pair is tightened (negative margin cancels most of the flex gap). */
+  .nav .links .nav-icon + .nav-icon{margin-left:calc(0.4rem - 1.3rem);}
 
   /* Proportional readability bump: nudge the root size so all rem-based text grows together (tweaker panel uses px and stays put). */
   html{font-size:108%;}
