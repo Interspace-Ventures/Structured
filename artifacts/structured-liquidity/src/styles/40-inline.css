@@ -1030,3 +1030,58 @@
     text-transform:uppercase;letter-spacing:.06em;font-size:11px;box-shadow:2px 2px 0 0 var(--hard-shadow);
     transition:transform .12s,box-shadow .12s}
   .twk-reset:hover{transform:translate(2px,2px);box-shadow:0 0 0 0 var(--hard-shadow)}
+
+/* ============================================================
+   Liquid-glass lens (hero) — liquid-glass-react held in SL chrome.
+   Specimen-only; the library's inner element reuses the class name
+   "glass", so every rule here is scoped under .sl-lens to first
+   neutralize SL's own .glass recipe, then re-apply the rigid frame.
+   ============================================================ */
+.hero{ position:relative; }
+/* the rigid shell: SL chrome lives HERE (never transformed) and clips the
+   oversized liquid interior, so the elastic wobble moves only the glass */
+.sl-lens{
+  position:absolute; z-index:6; width:230px; height:142px;
+  cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none;
+  border:var(--border-w) solid rgb(var(--edge));
+  border-radius:var(--radius);
+  box-shadow:var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);
+  overflow:hidden;
+}
+.sl-lens.is-dragging{ cursor:grabbing; }
+/* the library expects Tailwind utilities; provide the ones it uses, scoped */
+.sl-lens .relative{ position:relative; }
+.sl-lens .bg-black{ background:#000; }
+.sl-lens .pointer-events-none{ pointer-events:none; }
+.sl-lens .opacity-0{ opacity:0; }
+.sl-lens .opacity-20{ opacity:.2; }
+.sl-lens .opacity-100{ opacity:1; }
+.sl-lens .mix-blend-overlay{ mix-blend-mode:overlay; }
+/* neutralize SL's .glass on the library's inner box — the chrome is on the
+   shell above; the interior must carry no frame of its own */
+.sl-lens .glass{
+  background:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+.sl-lens .glass::before,
+.sl-lens .glass::after{ content:none !important; }
+html.sl-refract .sl-lens .glass{
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.sl-lens .glass > div{ font:inherit !important; text-shadow:none !important; color:inherit; }
+/* oversized by 10px per side relative to the 230x142 shell */
+.sl-lens-body{ display:block; width:250px; height:162px; position:relative; }
+.sl-lens-cap{
+  position:absolute; left:10px; bottom:8px; z-index:2;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:10px; font-weight:400;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink); opacity:.72; white-space:nowrap;
+}
+@media (max-width: 940px), (pointer: coarse){ .sl-lens{ display:none; } }
