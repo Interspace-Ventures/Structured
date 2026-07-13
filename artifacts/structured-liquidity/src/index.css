@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./typeset.css";
 
 /* Structured Liquidity styling layer — framework-agnostic CSS that is the
    visual source of truth. Imported into the Tailwind entry so the design
