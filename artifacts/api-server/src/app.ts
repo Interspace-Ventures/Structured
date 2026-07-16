@@ -35,8 +35,9 @@ app.use("/api", router);
 // Railway runs the API and web client as a single service. This keeps relative
 // /api requests on the canonical domain when the built Vite client is served.
 const clientDist = process.env["CLIENT_DIST"] ?? path.resolve(
-  process.cwd(),
-  "artifacts",
+  import.meta.dirname,
+  "..",
+  "..",
   "structured-liquidity",
   "dist",
   "public",

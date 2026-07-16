@@ -8,7 +8,7 @@ const DEFAULT_ITEM = "structured-liquidity";
 /** Build the install command from wherever the registry is being served. */
 export function installCommand(item: string = DEFAULT_ITEM) {
   const origin =
-    typeof window !== "undefined" ? window.location.origin : "https://structured-liquidity.replit.app";
+    typeof window !== "undefined" ? window.location.origin : "https://structured.glass";
   return `npx shadcn@latest add ${origin}/r/${item}.json`;
 }
 

@@ -5,7 +5,7 @@
   "title": "Toast",
   "description": "Structured Liquidity Toast — React component driving the SL class system.",
   "registryDependencies": [
-    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "https://structured.glass/r/structured-liquidity.json",
     "utils"
   ],
   "files": [

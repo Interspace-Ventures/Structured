@@ -37,7 +37,7 @@ const PUBLIC = join(ROOT, "public");
 const WRITE_DIR = process.env.REGISTRY_OUT_DIR || PUBLIC;
 const OUT_DIR = join(WRITE_DIR, "r");
 
-const BASE_URL = (process.env.REGISTRY_BASE_URL || "https://structured-liquidity.replit.app").replace(/\/+$/, "");
+const BASE_URL = (process.env.REGISTRY_BASE_URL || "https://structured.glass").replace(/\/+$/, "");
 const itemUrl = (name) => `${BASE_URL}/r/${name}.json`;
 
 const BASE_NAME = "structured-liquidity";

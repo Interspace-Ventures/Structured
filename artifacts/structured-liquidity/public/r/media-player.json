@@ -8,10 +8,10 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "https://structured-liquidity.replit.app/r/badge.json",
-    "https://structured-liquidity.replit.app/r/button.json",
-    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
-    "https://structured-liquidity.replit.app/r/waveform.json",
+    "https://structured.glass/r/badge.json",
+    "https://structured.glass/r/button.json",
+    "https://structured.glass/r/structured-liquidity.json",
+    "https://structured.glass/r/waveform.json",
     "utils"
   ],
   "files": [

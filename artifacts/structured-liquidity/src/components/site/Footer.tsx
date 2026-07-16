@@ -13,10 +13,7 @@ export function Footer() {
           <a href="https://interspace.ventures" target="_blank" rel="noopener">
             Interspace Venture
           </a>
-          . © 2026. Built at the speed of thought with{" "}
-          <a href="https://replit.com" target="_blank" rel="noopener">
-            Replit
-          </a>
+          . © 2026. Built at the speed of thought.
         </div>
       </div>
     </footer>

@@ -5,9 +5,9 @@
   "title": "Checkbox Group",
   "description": "Structured Liquidity Checkbox Group — React component driving the SL class system.",
   "registryDependencies": [
-    "https://structured-liquidity.replit.app/r/checkbox.json",
-    "https://structured-liquidity.replit.app/r/form.json",
-    "https://structured-liquidity.replit.app/r/structured-liquidity.json"
+    "https://structured.glass/r/checkbox.json",
+    "https://structured.glass/r/form.json",
+    "https://structured.glass/r/structured-liquidity.json"
   ],
   "files": [
     {

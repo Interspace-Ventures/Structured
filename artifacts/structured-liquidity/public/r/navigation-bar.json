@@ -8,9 +8,9 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "https://structured-liquidity.replit.app/r/avatar.json",
-    "https://structured-liquidity.replit.app/r/button.json",
-    "https://structured-liquidity.replit.app/r/structured-liquidity.json",
+    "https://structured.glass/r/avatar.json",
+    "https://structured.glass/r/button.json",
+    "https://structured.glass/r/structured-liquidity.json",
     "utils"
   ],
   "files": [
