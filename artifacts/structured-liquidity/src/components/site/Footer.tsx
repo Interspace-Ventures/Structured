@@ -9,11 +9,11 @@ export function Footer() {
           <span className="name">Structured Liquidity</span>
         </div>
         <div className="mono foot-legal">
-          Structured Liquidity is an{" "}
+          <a href="/">Structured</a> is an{" "}
           <a href="https://interspace.ventures" target="_blank" rel="noopener">
             Interspace Venture
           </a>
-          . © 2026. Built at the speed of thought.
+          . © 2026. Built at the speed of thought with AI.
         </div>
       </div>
     </footer>
