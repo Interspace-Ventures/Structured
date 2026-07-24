@@ -1,7 +1,6 @@
 import { Sparkles, Github } from "lucide-react";
 import { LiquidWord, Hypercube } from "./liquid";
 import { InstallButton } from "./InstallButton";
-import { GlassLens } from "./GlassLens";
 
 const GITHUB = "https://github.com/heyinterspace/Structured";
 
@@ -44,7 +43,6 @@ export function Hero() {
           <Hypercube className="hero-cube" />
         </div>
       </div>
-      <GlassLens />
     </header>
   );
 }
