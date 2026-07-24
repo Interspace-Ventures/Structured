@@ -998,6 +998,51 @@
       ]
     },
     {
+      "name": "Site shell",
+      "registry": "site-shell",
+      "cap": "Site shell",
+      "category": "layout",
+      "status": "stable",
+      "tags": ["layout", "responsive"],
+      "kinds": ["display"]
+    },
+    {
+      "name": "Framework attribution",
+      "registry": "attribution",
+      "cap": "Framework attribution",
+      "category": "layout",
+      "status": "stable",
+      "tags": ["display", "branding"],
+      "kinds": ["display"]
+    },
+    {
+      "name": "Timeline",
+      "registry": "timeline",
+      "cap": "Timeline",
+      "category": "layout",
+      "status": "stable",
+      "tags": ["display", "history"],
+      "kinds": ["display"]
+    },
+    {
+      "name": "Stepper",
+      "registry": "stepper",
+      "cap": "Stepper",
+      "category": "navigation",
+      "status": "stable",
+      "tags": ["navigation", "interactive"],
+      "kinds": ["interactive"]
+    },
+    {
+      "name": "Filter toolbar",
+      "registry": "filter-toolbar",
+      "cap": "Filter toolbar",
+      "category": "data",
+      "status": "stable",
+      "tags": ["form", "interactive", "data"],
+      "kinds": ["form", "interactive"]
+    },
+    {
       "name": "AI chat",
       "registry": "ai-chat",
       "cap": "AI chat · conversation",

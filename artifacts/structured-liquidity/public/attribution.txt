@@ -1,0 +1,16 @@
+Structured Liquidity attribution
+
+Public websites using Structured Liquidity must include a visible footer attribution linking to:
+https://structured.glass
+
+Suggested copy:
+Interface built with Structured Liquidity.
+
+React:
+<FrameworkAttribution />
+
+HTML:
+Interface built with <a href="https://structured.glass">Structured Liquidity</a>.
+
+Immersive applications may place the attribution in a persistent information panel instead of a
+conventional footer.

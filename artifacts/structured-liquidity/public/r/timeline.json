@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline",
+  "type": "registry:ui",
+  "title": "Timeline",
+  "description": "Structured Liquidity Timeline — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/timeline.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const Timeline = React.forwardRef<HTMLOListElement, React.OlHTMLAttributes<HTMLOListElement>>(\n  ({ className, ...props }, ref) => (\n    <ol ref={ref} className={cn(\"sl-timeline\", className)} {...props} />\n  ),\n);\nTimeline.displayName = \"Timeline\";\n\nexport interface TimelineItemProps\n  extends Omit<React.LiHTMLAttributes<HTMLLIElement>, \"title\"> {\n  date?: React.ReactNode;\n  title?: React.ReactNode;\n}\n\nexport function TimelineItem({ date, title, children, className, ...props }: TimelineItemProps) {\n  return (\n    <li className={cn(\"sl-timeline-item\", className)} {...props}>\n      <span className=\"sl-timeline-marker\" aria-hidden=\"true\" />\n      <div className=\"sl-timeline-copy\">\n        {date ? <span className=\"sl-timeline-date\">{date}</span> : null}\n        {title ? <h3 className=\"sl-timeline-title\">{title}</h3> : null}\n        {children ? <div className=\"sl-timeline-body\">{children}</div> : null}\n      </div>\n    </li>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/timeline.tsx"
+    }
+  ]
+}

@@ -40,6 +40,12 @@
       "description": "Structured Liquidity Aspect Ratio — React component driving the SL class system."
     },
     {
+      "name": "attribution",
+      "type": "registry:ui",
+      "title": "Attribution",
+      "description": "Structured Liquidity Attribution — React component driving the SL class system."
+    },
+    {
       "name": "autocomplete",
       "type": "registry:ui",
       "title": "Autocomplete",
@@ -164,6 +170,12 @@
       "type": "registry:ui",
       "title": "Fieldset",
       "description": "Structured Liquidity Fieldset — React component driving the SL class system."
+    },
+    {
+      "name": "filter-toolbar",
+      "type": "registry:ui",
+      "title": "Filter Toolbar",
+      "description": "Structured Liquidity Filter Toolbar — React component driving the SL class system."
     },
     {
       "name": "fonts",
@@ -352,6 +364,12 @@
       "description": "Structured Liquidity Sidebar — React component driving the SL class system."
     },
     {
+      "name": "site-shell",
+      "type": "registry:ui",
+      "title": "Site Shell",
+      "description": "Structured Liquidity Site Shell — React component driving the SL class system."
+    },
+    {
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
@@ -376,6 +394,12 @@
       "description": "Structured Liquidity Stat — React component driving the SL class system."
     },
     {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Structured Liquidity Stepper — React component driving the SL class system."
+    },
+    {
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
@@ -398,6 +422,12 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "Structured Liquidity Textarea — React component driving the SL class system."
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Structured Liquidity Timeline — React component driving the SL class system."
     },
     {
       "name": "toast",
@@ -440,6 +470,12 @@
       "type": "registry:ui",
       "title": "Waveform",
       "description": "Structured Liquidity Waveform — React component driving the SL class system."
+    },
+    {
+      "name": "site-templates",
+      "type": "registry:block",
+      "title": "Site Templates",
+      "description": "Structured Liquidity Site Templates — production-tested page structures composed from registry primitives."
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper",
+  "type": "registry:ui",
+  "title": "Stepper",
+  "description": "Structured Liquidity Stepper — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/stepper.tsx",
+      "content": "import * as React from \"react\";\nimport { Check } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const Stepper = React.forwardRef<HTMLOListElement, React.OlHTMLAttributes<HTMLOListElement>>(\n  ({ className, ...props }, ref) => (\n    <ol ref={ref} className={cn(\"sl-stepper\", className)} {...props} />\n  ),\n);\nStepper.displayName = \"Stepper\";\n\nexport interface StepProps extends React.LiHTMLAttributes<HTMLLIElement> {\n  label: React.ReactNode;\n  detail?: React.ReactNode;\n  status?: \"complete\" | \"current\" | \"upcoming\";\n  step: number;\n}\n\nexport function Step({\n  label,\n  detail,\n  status = \"upcoming\",\n  step,\n  className,\n  ...props\n}: StepProps) {\n  return (\n    <li\n      className={cn(\"sl-step\", className)}\n      data-status={status}\n      aria-current={status === \"current\" ? \"step\" : undefined}\n      {...props}\n    >\n      <span className=\"sl-step-marker\" aria-hidden=\"true\">\n        {status === \"complete\" ? <Check /> : step}\n      </span>\n      <span className=\"sl-step-copy\">\n        <strong>{label}</strong>\n        {detail ? <span>{detail}</span> : null}\n      </span>\n    </li>\n  );\n}\n\n",
+      "type": "registry:ui",
+      "target": "components/ui/stepper.tsx"
+    }
+  ]
+}

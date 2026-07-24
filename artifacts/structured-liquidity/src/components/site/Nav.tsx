@@ -1,4 +1,4 @@
-import { Compass, LayoutGrid, Sparkles, Bot, Github } from "lucide-react";
+import { Compass, LayoutGrid, PanelsTopLeft, Sparkles, Bot, Github } from "lucide-react";
 import { Hypercube } from "./liquid";
 import { InstallButton } from "./InstallButton";
 
@@ -19,6 +19,10 @@ export function Nav() {
         <a href="#components">
           <LayoutGrid />
           Components
+        </a>
+        <a href="#templates">
+          <PanelsTopLeft />
+          Templates
         </a>
         <a href="#showcase">
           <Sparkles />

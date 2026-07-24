@@ -12,6 +12,8 @@
                                    src/components/ui/*.tsx, with npm
                                    deps + internal registryDependencies
                                    resolved from its imports
+     public/r/<template>.json    — one registry:block item per
+                                   src/components/templates/*.tsx
 
    No network or shadcn CLI dependency — pure Node. Run via
    `pnpm --filter @workspace/structured-liquidity run registry`.
@@ -29,6 +31,7 @@ import { fileURLToPath } from "node:url";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const UI_DIR = join(ROOT, "src/components/ui");
+const TEMPLATE_DIR = join(ROOT, "src/components/templates");
 const PUBLIC = join(ROOT, "public");
 /* Where the registry index + r/ items are written. Defaults to public/;
    the drift check (check-registry.mjs) overrides it with a temp dir via
@@ -135,6 +138,62 @@ for (const file of files) {
   });
 }
 
+/* ---- build reusable registry:block templates ------------------------- */
+
+const templateFiles = readdirSync(TEMPLATE_DIR)
+  .filter((f) => f.endsWith(".tsx"))
+  .sort();
+const templateItems = [];
+
+for (const file of templateFiles) {
+  const name = basename(file, ".tsx");
+  const content = readFileSync(join(TEMPLATE_DIR, file), "utf8");
+  const specs = importsOf(content);
+  const dependencies = new Set();
+  const registryDependencies = new Set([itemUrl(BASE_NAME)]);
+
+  for (const spec of specs) {
+    if (spec.startsWith("@/components/ui/")) {
+      const dep = spec.slice("@/components/ui/".length).split("/")[0];
+      if (componentNames.has(dep)) registryDependencies.add(itemUrl(dep));
+    } else if (spec.startsWith("@/lib/utils")) {
+      registryDependencies.add("utils");
+    } else if (spec.startsWith("@/") || spec.startsWith(".")) {
+      continue;
+    } else {
+      const pkg = pkgName(spec);
+      if (!PEERS.has(spec) && !PEERS.has(pkg)) dependencies.add(pkg);
+    }
+  }
+
+  const item = {
+    $schema: ITEM_SCHEMA,
+    name,
+    type: "registry:block",
+    title: titleCase(name),
+    description: `Structured Liquidity ${titleCase(name)} — production-tested page structures composed from registry primitives.`,
+    dependencies: [...dependencies].sort(),
+    registryDependencies: [...registryDependencies].sort(),
+    files: [
+      {
+        path: `registry/templates/${file}`,
+        content,
+        type: "registry:block",
+        target: `components/templates/${file}`,
+      },
+    ],
+  };
+  if (!item.dependencies.length) delete item.dependencies;
+
+  templateItems.push({ name, item });
+  items.push({
+    name,
+    type: "registry:block",
+    title: item.title,
+    description: item.description,
+  });
+}
+
 /* ---- build the base style item --------------------------------------- */
 
 const CSS_FILES = [
@@ -206,6 +265,9 @@ writeFileSync(join(OUT_DIR, `${BASE_NAME}.json`), JSON.stringify(baseItem, null,
 for (const { name, item } of uiItems) {
   writeFileSync(join(OUT_DIR, `${name}.json`), JSON.stringify(item, null, 2) + "\n");
 }
+for (const { name, item } of templateItems) {
+  writeFileSync(join(OUT_DIR, `${name}.json`), JSON.stringify(item, null, 2) + "\n");
+}
 
 const registry = {
   $schema: REG_SCHEMA,
@@ -224,5 +286,5 @@ const registry = {
 writeFileSync(join(WRITE_DIR, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
 
 console.log(
-  `registry: wrote ${uiItems.length + 1} items to public/r/ + public/registry.json (base ${BASE_URL})`,
+  `registry: wrote ${uiItems.length + templateItems.length + 1} items to public/r/ + public/registry.json (base ${BASE_URL})`,
 );

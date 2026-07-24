@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "site-templates",
+  "type": "registry:block",
+  "title": "Site Templates",
+  "description": "Structured Liquidity Site Templates — production-tested page structures composed from registry primitives.",
+  "registryDependencies": [
+    "https://structured.glass/r/attribution.json",
+    "https://structured.glass/r/site-shell.json",
+    "https://structured.glass/r/structured-liquidity.json"
+  ],
+  "files": [
+    {
+      "path": "registry/templates/site-templates.tsx",
+      "content": "import * as React from \"react\";\nimport { FrameworkAttribution } from \"@/components/ui/attribution\";\nimport { SiteContent, SiteShell } from \"@/components/ui/site-shell\";\n\ninterface TemplateProps {\n  navigation?: React.ReactNode;\n  footer?: React.ReactNode;\n  children: React.ReactNode;\n}\n\ninterface MarketingSiteTemplateProps extends TemplateProps {\n  hero: React.ReactNode;\n  proof?: React.ReactNode;\n}\n\n/** Landing template distilled from Interspace, 2 Days Early, and Bumble Bee. */\nexport function MarketingSiteTemplate({\n  navigation,\n  hero,\n  proof,\n  children,\n  footer,\n}: MarketingSiteTemplateProps) {\n  return (\n    <div className=\"sl-template sl-template-marketing\">\n      <SiteShell>{navigation}</SiteShell>\n      <SiteContent>\n        {hero}\n        {proof}\n        {children}\n      </SiteContent>\n      <SiteShell className=\"sl-template-footer\">\n        {footer ?? <FrameworkAttribution />}\n      </SiteShell>\n    </div>\n  );\n}\n\ninterface DashboardTemplateProps extends TemplateProps {\n  metrics?: React.ReactNode;\n  filters?: React.ReactNode;\n}\n\n/** Data-heavy template distilled from Interspace portfolio and index views. */\nexport function DashboardTemplate({\n  navigation,\n  metrics,\n  filters,\n  children,\n  footer,\n}: DashboardTemplateProps) {\n  return (\n    <div className=\"sl-template sl-template-dashboard\">\n      <SiteShell>{navigation}</SiteShell>\n      <SiteContent>\n        {metrics}\n        {filters}\n        <main>{children}</main>\n      </SiteContent>\n      <SiteShell className=\"sl-template-footer\">\n        {footer ?? <FrameworkAttribution />}\n      </SiteShell>\n    </div>\n  );\n}\n\ninterface GuidedFlowTemplateProps extends TemplateProps {\n  steps: React.ReactNode;\n}\n\n/** Multi-step conversion template distilled from Bumble Bee enrollment. */\nexport function GuidedFlowTemplate({\n  navigation,\n  steps,\n  children,\n  footer,\n}: GuidedFlowTemplateProps) {\n  return (\n    <div className=\"sl-template sl-template-guided\">\n      <SiteShell>{navigation}</SiteShell>\n      <SiteContent>\n        <aside>{steps}</aside>\n        <main>{children}</main>\n      </SiteContent>\n      <SiteShell className=\"sl-template-footer\">\n        {footer ?? <FrameworkAttribution />}\n      </SiteShell>\n    </div>\n  );\n}\n\ninterface ImmersiveAppTemplateProps extends TemplateProps {\n  hud?: React.ReactNode;\n  controls?: React.ReactNode;\n}\n\n/** Full-viewport app template distilled from Cosmograph and Universe. */\nexport function ImmersiveAppTemplate({\n  navigation,\n  hud,\n  controls,\n  children,\n  footer,\n}: ImmersiveAppTemplateProps) {\n  return (\n    <div className=\"sl-template sl-template-immersive\">\n      <SiteShell>{navigation}</SiteShell>\n      <main>\n        {children}\n        {hud}\n        {controls}\n      </main>\n      <SiteShell className=\"sl-template-footer\">\n        {footer ?? <FrameworkAttribution />}\n      </SiteShell>\n    </div>\n  );\n}\n\n",
+      "type": "registry:block",
+      "target": "components/templates/site-templates.tsx"
+    }
+  ]
+}

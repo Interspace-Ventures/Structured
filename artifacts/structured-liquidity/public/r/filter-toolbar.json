@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-toolbar",
+  "type": "registry:ui",
+  "title": "Filter Toolbar",
+  "description": "Structured Liquidity Filter Toolbar — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/filter-toolbar.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const FilterToolbar = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"sl-filter-toolbar\", className)} {...props} />\n));\nFilterToolbar.displayName = \"FilterToolbar\";\n\nexport const FilterGroup = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-filter-group\", className)} {...props} />\n  ),\n);\nFilterGroup.displayName = \"FilterGroup\";\n\nexport const FilterSummary = React.forwardRef<HTMLSpanElement, React.HTMLAttributes<HTMLSpanElement>>(\n  ({ className, ...props }, ref) => (\n    <span ref={ref} className={cn(\"sl-filter-summary\", className)} {...props} />\n  ),\n);\nFilterSummary.displayName = \"FilterSummary\";\n\n",
+      "type": "registry:ui",
+      "target": "components/ui/filter-toolbar.tsx"
+    }
+  ]
+}

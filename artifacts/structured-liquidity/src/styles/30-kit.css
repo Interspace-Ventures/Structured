@@ -314,3 +314,140 @@
 .browser-shot { display: block; width: 100%; aspect-ratio: 16 / 10; }
 .show-meta { display: flex; flex-direction: column; gap: 1rem; }
 .show-name { font-weight: 700; }
+
+/* ============================================================
+   SITE PATTERNS — distilled from production SL consumers
+   ============================================================ */
+.sl-attribution {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-dim);
+}
+.sl-attribution a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+.sl-attribution a:hover { color: var(--accent); }
+
+.sl-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sl-timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 0 0 1.15rem;
+}
+.sl-timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 16px;
+  bottom: 0;
+  width: 2px;
+  background: rgb(var(--edge));
+}
+.sl-timeline-marker {
+  position: relative;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border: var(--border-w) solid rgb(var(--edge));
+  background: var(--accent);
+  box-shadow: 2px 2px 0 0 var(--hard-shadow);
+}
+.sl-timeline-copy { min-width: 0; }
+.sl-timeline-date {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.sl-timeline-title { margin: 0; font-size: 1rem; }
+.sl-timeline-body { margin-top: 0.25rem; color: var(--ink-dim); font-size: 0.86rem; line-height: 1.45; }
+
+.sl-stepper {
+  display: grid;
+  grid-template-columns: repeat(var(--step-count, 3), minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sl-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+.sl-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  right: 6px;
+  top: 13px;
+  height: 2px;
+  background: rgb(var(--edge));
+}
+.sl-step-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: var(--border-w) solid rgb(var(--edge));
+  background: var(--bg-2);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  box-shadow: 2px 2px 0 0 var(--hard-shadow);
+}
+.sl-step-marker svg { width: 14px; height: 14px; }
+.sl-step[data-status="complete"] .sl-step-marker,
+.sl-step[data-status="current"] .sl-step-marker { background: var(--accent); color: var(--accent-ink); }
+.sl-step-copy { display: flex; flex-direction: column; min-width: 0; padding-top: 0.1rem; }
+.sl-step-copy strong { font-size: 0.78rem; }
+.sl-step-copy > span { font-family: var(--mono); font-size: 0.62rem; color: var(--ink-dim); }
+@media (max-width: 640px) {
+  .sl-stepper { grid-template-columns: 1fr; gap: 0.75rem; }
+  .sl-step:not(:last-child)::after { left: 13px; right: auto; top: 29px; bottom: -12px; width: 2px; height: auto; }
+}
+
+.sl-filter-toolbar {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 0.8rem;
+  border: var(--border-w) solid rgb(var(--edge));
+  background: rgba(var(--glass-tint), var(--glass-alpha));
+  box-shadow: 4px 4px 0 0 var(--hard-shadow);
+}
+.sl-filter-group { display: flex; align-items: end; flex-wrap: wrap; gap: 0.55rem; min-width: 0; }
+.sl-filter-summary { margin-left: auto; font-family: var(--mono); font-size: 0.68rem; color: var(--ink-dim); white-space: nowrap; }
+@media (max-width: 640px) { .sl-filter-summary { width: 100%; margin-left: 0; } }
+
+.sl-template { display: flex; min-height: 100%; flex-direction: column; gap: 1rem; }
+.sl-template > .sl-site-content { display: flex; flex: 1; flex-direction: column; gap: 1rem; }
+.sl-template-footer {
+  margin-top: auto;
+  padding-block: 1rem;
+  border-top: var(--border-w) solid rgb(var(--edge));
+}
+.sl-template-guided > .sl-site-content {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  align-items: start;
+}
+.sl-template-immersive { min-height: 100dvh; }
+.sl-template-immersive > main { position: relative; flex: 1; overflow: hidden; }
+@media (max-width: 760px) { .sl-template-guided > .sl-site-content { grid-template-columns: 1fr; } }

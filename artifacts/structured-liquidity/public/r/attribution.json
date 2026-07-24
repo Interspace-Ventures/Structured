@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "attribution",
+  "type": "registry:ui",
+  "title": "Attribution",
+  "description": "Structured Liquidity Attribution — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/attribution.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface FrameworkAttributionProps\n  extends Omit<React.HTMLAttributes<HTMLSpanElement>, \"prefix\"> {\n  prefix?: React.ReactNode;\n}\n\n/**\n * Required visible attribution for public sites using Structured Liquidity.\n * Keep this in the footer and keep the canonical structured.glass link intact.\n */\nexport const FrameworkAttribution = React.forwardRef<HTMLSpanElement, FrameworkAttributionProps>(\n  ({ prefix = \"Interface built with\", className, ...props }, ref) => (\n    <span ref={ref} className={cn(\"sl-attribution\", className)} {...props}>\n      {prefix}{\" \"}\n      <a href=\"https://structured.glass\" target=\"_blank\" rel=\"noopener noreferrer\">\n        Structured Liquidity\n      </a>\n    </span>\n  ),\n);\nFrameworkAttribution.displayName = \"FrameworkAttribution\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/attribution.tsx"
+    }
+  ]
+}

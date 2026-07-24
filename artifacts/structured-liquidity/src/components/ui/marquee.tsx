@@ -13,7 +13,7 @@ const DEFAULT_ITEMS = [
 
 export interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /** the looping items */
-  items?: string[];
+  items?: React.ReactNode[];
   /** divider glyph rendered between items */
   separator?: React.ReactNode;
   /** run the continuous scroll animation */
@@ -26,7 +26,7 @@ function Track({
   listitem,
   hidden,
 }: {
-  items: string[];
+  items: React.ReactNode[];
   separator: React.ReactNode;
   listitem?: boolean;
   hidden?: boolean;

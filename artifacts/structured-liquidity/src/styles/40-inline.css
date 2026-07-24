@@ -10,8 +10,7 @@
   /* Shell width: the floating top .nav and bottom dock share this centered width.
      It is intentionally a touch wider than the page content (.wrap = min(1200px,92vw))
      so the chrome frames the column rather than matching it edge-to-edge. */
-  :root { --shell-w: min(1280px, 94vw); }
-  .nav { width: var(--shell-w); }
+  .nav { width:min(var(--shell-w),calc(100vw - var(--viewport-gutter))); }
 
   /* Showcase product grid — cards auto-flow 1→4 across; description + CTA reveal on hover/focus,
      name/badge stay visible so the wall of screenshots is still scannable. */
@@ -24,14 +23,14 @@
   .show-card-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s ease;}
   .show-card:hover .show-card-shot img,.show-card:focus-visible .show-card-shot img{transform:scale(1.04);}
   .show-card-veil{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
-    padding:1.1rem;background:rgba(39,41,51,.82);backdrop-filter:blur(calc(var(--glass-blur) * .5));
+    padding:clamp(.65rem,1.1vw,1rem);background:rgba(39,41,51,.82);backdrop-filter:blur(calc(var(--glass-blur) * .5));
     -webkit-backdrop-filter:blur(calc(var(--glass-blur) * .5));opacity:0;transition:opacity .3s ease;}
   [data-mode="light"] .show-card-veil{background:rgba(223,229,242,.86);}
   .show-card:hover .show-card-veil,.show-card:focus-visible .show-card-veil{opacity:1;}
   .show-card-veil .vbody{transform:translateY(8px);transition:transform .3s ease;}
   .show-card:hover .vbody,.show-card:focus-visible .vbody{transform:translateY(0);}
-  .show-card-desc{margin:0 0 .7rem;font-size:.85rem;line-height:1.45;color:var(--ink);}
-  .show-card-cta{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--display);font-weight:700;font-size:.8rem;color:var(--accent);}
+  .show-card-desc{margin:0 0 .5rem;font-size:clamp(.7rem,.75vw,.82rem);line-height:1.35;color:var(--ink);}
+  .show-card-cta{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--display);font-weight:700;font-size:clamp(.7rem,.72vw,.78rem);color:var(--accent);}
   .show-card-foot{display:flex;align-items:center;gap:.6rem;padding:.8rem .9rem;}
   .show-card-foot .show-id{display:flex;flex-direction:column;line-height:1.25;min-width:0;}
   /* Real site favicons fill the avatar box (no accent backplate showing through). */
@@ -91,7 +90,7 @@
      centering reference handles any scrollbar identically). The full-width strip is
      click-through; only the buttons capture pointer events. */
   .sl-fab-dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
-    width:var(--shell-w);z-index:2147483645;
+    width:min(var(--shell-w),calc(100vw - var(--viewport-gutter)));z-index:2147483645;
     display:flex;justify-content:flex-end;align-items:stretch;gap:10px;
     pointer-events:none;}
   .sl-fab-dock > *{pointer-events:auto;}
@@ -120,6 +119,21 @@
   .nav .brand .glyph::after,.foot .brand .glyph::after{content:none;}
   .nav .brand .glyph.is-cube .lw-cube-innerglass,
   .foot .brand .glyph.is-cube .lw-cube-innerglass{fill:color-mix(in srgb,var(--accent) 50%,transparent);}
+
+  footer.shell{padding-bottom:calc(2.5rem + var(--floating-ui-clearance) + env(safe-area-inset-bottom));}
+
+  .template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;}
+  .template-card{padding:clamp(1.25rem,2.5vw,2rem);min-height:220px;display:flex;flex-direction:column;align-items:flex-start;}
+  .template-card>svg{width:2rem;height:2rem;color:var(--accent);margin-bottom:auto;}
+  .template-card h3{font-family:var(--display);font-size:clamp(1.35rem,2vw,2rem);margin:.6rem 0 .4rem;}
+  .template-card p{margin:0;color:var(--ink-dim);line-height:1.55;}
+  .template-source{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-top:2rem;}
+  .template-install{display:flex;justify-content:center;margin-top:1.5rem;}
+  .sl-shell-demo{display:grid;gap:.65rem;width:100%;font-family:var(--mono);font-size:.72rem;text-align:center;}
+  .sl-shell-demo .sl-site-shell,.sl-shell-demo .sl-site-content{border:1px solid rgb(var(--edge));padding:.75rem;}
+  .sl-shell-demo .sl-site-shell{background:rgb(var(--glass-tint)/.08);}
+  .sl-shell-demo .sl-site-content{background:rgb(var(--glass-tint)/.04);color:var(--ink-dim);}
+  @media(max-width:720px){.template-grid{grid-template-columns:1fr;}}
 
   /* Big hero hypercube — container-less, oversized, sitting behind the hero
      copy as a translucent background mark. No glass tile (border/fill/shadow/

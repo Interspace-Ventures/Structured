@@ -20,9 +20,10 @@ A live, deployable specimen + landing page for **Structured Liquidity** — an o
 ## Where things live
 
 - `artifacts/structured-liquidity/index.html` — minimal React shell (`<div id="root">` + `<script src="/src/main.tsx">`)
-- `artifacts/structured-liquidity/src/main.tsx`, `src/App.tsx` — entry + page composition (Nav, Hero, Pillars, Components/gallery, Showcase, Adopt, FooterCta, Footer, Tweaker, Toaster, overlays)
+- `artifacts/structured-liquidity/src/main.tsx`, `src/App.tsx` — entry + page composition (Nav, Hero, Pillars, Components/gallery, Templates, Showcase, Adopt, FooterCta, Footer, Tweaker, Toaster, overlays)
 - `artifacts/structured-liquidity/src/index.css` — Tailwind entry: `@theme` + imports of the SL styles in `src/styles/` (`10-tokens-base.css`, `20-components.css`, `30-kit.css`, `40-inline.css`)
 - `artifacts/structured-liquidity/src/components/ui/*` — ~64 shadcn-style SL components (Button, Badge, Input, Select, Tabs, Accordion, Dialog, …). **Plain React + `lucide-react`, no Radix** — each emits SL classes and uses `cn()` from `src/lib/utils.ts`.
+- `artifacts/structured-liquidity/src/components/templates/*` — installable page structures distilled from the production portfolio: marketing site, data dashboard, guided flow, and immersive app.
 - `artifacts/structured-liquidity/src/components/site/*` — the page sections, the bespoke visuals (`liquid.tsx` = `LiquidWord` + `Hypercube`, ported from `liquid-word.js`), `Tweaker.tsx` (live theme editor), `InstallButton.tsx` (copies the shadcn install command), and `kit/Kit*.tsx` (the grouped component gallery cells).
 - `artifacts/structured-liquidity/src/lib/behaviors.ts` — imperative behaviors ported from the legacy kit JS: `bindGallery()` (re-parents the rendered `.kit-cell`s into a flat, filterable, FLIP-animated `.kit-grid.gallery` with Type×Kind chips and breadcrumb caps, deriving its taxonomy from `catalog.json`) plus reveal-on-scroll / nav behaviors. Entered via `initBehaviors()`.
 - `artifacts/structured-liquidity/src/catalog.json` — the **single source of truth** for the gallery taxonomy: `categories` + `components` (each `name`, `cap`, `category`, `status`, `tags`/facets). Each component's `cap` must match its `.kit-cap` text; in dev, any uncatalogued `.kit-cap` logs a console warning.
@@ -39,11 +40,12 @@ A live, deployable specimen + landing page for **Structured Liquidity** — an o
 
 - `public/r/structured-liquidity.json` — the **base style item** (`registry:style`): the SL theme tokens (`cssVars`) + the three distributable stylesheets + the kit script (as `registry:file`s). Install this first.
 - `public/r/<component>.json` — one `registry:ui` item per `src/components/ui/*.tsx`, with npm `dependencies` and internal `registryDependencies` resolved by parsing each file's imports; every component depends on the base style so its CSS comes along.
+- `public/r/site-templates.json` — the `registry:block` item containing the four production-tested page templates.
 - `public/registry.json` — the registry index (shadcn `registry.json` schema).
 
 `scripts/check-registry.mjs` (`run registry:check`) guards the published output: it sets `REGISTRY_OUT_DIR` to a temp dir, reruns the generator there, and diffs against the committed `public/registry.json` + `public/r/*.json` (drift), then validates every committed file against the vendored shadcn schemas in `scripts/schemas/*.schema.json` using `ajv` (a devDependency). It is registered as the `registry` validation check.
 
-Cross-item URLs use `REGISTRY_BASE_URL` (default `https://structured-liquidity.replit.app`). The in-page **Install** buttons (`InstallButton.tsx`, used in Nav/Hero/FooterCta) copy `npx shadcn@latest add <window.location.origin>/r/structured-liquidity.json` to the clipboard and fire a toast, so the copied command always matches wherever the site is served; a separate **Source** link points at GitHub. The `#adopt` ("For AI") section surfaces the registry, the install command, the AI prompt, the `:root` tokens, and `llms.txt` / `design-tokens.json`.
+Cross-item URLs use `REGISTRY_BASE_URL` (default `https://structured.glass`). The in-page **Install** buttons (`InstallButton.tsx`, used in Nav/Hero/FooterCta) copy `npx shadcn@latest add <window.location.origin>/r/structured-liquidity.json` to the clipboard and fire a toast, so the copied command always matches wherever the site is served; a separate **Source** link points at GitHub. The `#adopt` ("For AI") section surfaces the registry, the install command, the AI prompt, the `:root` tokens, and `llms.txt` / `design-tokens.json`.
 
 ## Architecture decisions
 
@@ -52,6 +54,8 @@ Cross-item URLs use `REGISTRY_BASE_URL` (default `https://structured-liquidity.r
 - **Tweaker is React** (`Tweaker.tsx`): writes the same CSS custom properties the page reads, persists to `localStorage` (key `sl-tweaks`); a font change dispatches a window resize so `LiquidWord` rebuilds.
 - **Showcase is a scalable product-card grid** (`.show-grid` of `.show-card`): each card is a clickable `<a class="show-card glass">` with a real screenshot from `public/`; description + Visit CTA reveal on hover/focus (persistent bottom panel on touch). Add a product = one `.show-card` + its screenshot.
 - Asset references are relative; the artifact is served at base `/`.
+- Public sites built with the framework must include a visible footer attribution to `https://structured.glass`; use `FrameworkAttribution` or the plain HTML recipe in `ATTRIBUTION.md`. Immersive full-viewport apps may put it in a persistent information panel.
+- Navigation and footer chrome use `--shell-w` and remain slightly wider than the `--content-w` reading/application column.
 
 ## Product
 

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "site-shell",
+  "type": "registry:ui",
+  "title": "Site Shell",
+  "description": "Structured Liquidity Site Shell — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/site-shell.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * Shared outer chrome width for navigation and footers.\n * It is deliberately wider than SiteContent, so the chrome frames the page.\n */\nexport const SiteShell = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-site-shell\", className)} {...props} />\n  ),\n);\nSiteShell.displayName = \"SiteShell\";\n\n/** The narrower reading and application-content column. */\nexport const SiteContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(\n  ({ className, ...props }, ref) => (\n    <div ref={ref} className={cn(\"sl-site-content\", className)} {...props} />\n  ),\n);\nSiteContent.displayName = \"SiteContent\";\n\n",
+      "type": "registry:ui",
+      "target": "components/ui/site-shell.tsx"
+    }
+  ]
+}
