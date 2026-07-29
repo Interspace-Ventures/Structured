@@ -9,7 +9,8 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "registry": "node scripts/build-registry.mjs",
-    "registry:check": "node scripts/check-registry.mjs"
+    "registry:check": "node scripts/check-registry.mjs",
+    "adopters:check": "node scripts/check-adopters.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

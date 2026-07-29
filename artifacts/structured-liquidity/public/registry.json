@@ -136,6 +136,12 @@
       "description": "Structured Liquidity Context Menu — React component driving the SL class system."
     },
     {
+      "name": "detail-panel",
+      "type": "registry:ui",
+      "title": "Detail Panel",
+      "description": "Structured Liquidity Detail Panel — React component driving the SL class system."
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -290,6 +296,12 @@
       "type": "registry:ui",
       "title": "Number Field",
       "description": "Structured Liquidity Number Field — React component driving the SL class system."
+    },
+    {
+      "name": "omnibar",
+      "type": "registry:ui",
+      "title": "Omnibar",
+      "description": "Structured Liquidity Omnibar — React component driving the SL class system."
     },
     {
       "name": "pagination",

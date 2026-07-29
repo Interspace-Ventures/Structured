@@ -1043,6 +1043,24 @@
       "kinds": ["form", "interactive"]
     },
     {
+      "name": "Omnibar",
+      "registry": "omnibar",
+      "cap": "Omnibar",
+      "category": "actions",
+      "status": "stable",
+      "tags": ["form", "interactive", "command", "field-sourced"],
+      "kinds": ["form", "interactive", "mobile"]
+    },
+    {
+      "name": "Detail panel",
+      "registry": "detail-panel",
+      "cap": "Detail panel",
+      "category": "layout",
+      "status": "stable",
+      "tags": ["display", "interactive", "inspection", "field-sourced"],
+      "kinds": ["interactive", "display"]
+    },
+    {
       "name": "AI chat",
       "registry": "ai-chat",
       "cap": "AI chat · conversation",

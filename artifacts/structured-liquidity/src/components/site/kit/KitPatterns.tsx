@@ -1,6 +1,15 @@
 import { Button } from "@/components/ui/button";
+import {
+  DetailPanel,
+  DetailPanelBody,
+  DetailPanelEyebrow,
+  DetailPanelFooter,
+  DetailPanelHeader,
+  DetailPanelTitle,
+} from "@/components/ui/detail-panel";
 import { FrameworkAttribution } from "@/components/ui/attribution";
 import { FilterGroup, FilterSummary, FilterToolbar } from "@/components/ui/filter-toolbar";
+import { Omnibar, OmnibarAttachment } from "@/components/ui/omnibar";
 import { SiteContent, SiteShell } from "@/components/ui/site-shell";
 import { Step, Stepper } from "@/components/ui/stepper";
 import { Timeline, TimelineItem } from "@/components/ui/timeline";
@@ -11,7 +20,9 @@ export function KitPatterns() {
       <div className="kit-group-head">
         <span className="kg-name">Production patterns</span>
         <span className="kg-rule" />
-        <span className="kg-count">Shell · Attribution · Timeline · Stepper · Filters</span>
+        <span className="kg-count">
+          Shell · Attribution · Timeline · Stepper · Filters · Omnibar · Detail panel
+        </span>
       </div>
       <div className="kit-grid">
         <div className="glass kit-cell w12">
@@ -57,6 +68,37 @@ export function KitPatterns() {
             </FilterGroup>
             <FilterSummary>26 results</FilterSummary>
           </FilterToolbar>
+        </div>
+
+        <div className="glass kit-cell w8">
+          <span className="kit-cap">Omnibar</span>
+          <Omnibar
+            status="Ready"
+            onSubmit={(event) => event.preventDefault()}
+            placeholder="Paste a link, attach a file, or ask anything"
+          >
+            <OmnibarAttachment>brief.pdf</OmnibarAttachment>
+          </Omnibar>
+        </div>
+
+        <div className="glass kit-cell w6">
+          <span className="kit-cap">Detail panel</span>
+          <DetailPanel>
+            <DetailPanelHeader>
+              <span>
+                <DetailPanelEyebrow>Selected object</DetailPanelEyebrow>
+                <DetailPanelTitle>Research signal</DetailPanelTitle>
+              </span>
+              <span className="sl-badge default">Live</span>
+            </DetailPanelHeader>
+            <DetailPanelBody>
+              A rigid inspection surface for metadata, previews, and context-aware actions.
+            </DetailPanelBody>
+            <DetailPanelFooter>
+              <Button size="sm">Open source</Button>
+              <Button size="sm" variant="ghost">Dismiss</Button>
+            </DetailPanelFooter>
+          </DetailPanel>
         </div>
       </div>
     </div>

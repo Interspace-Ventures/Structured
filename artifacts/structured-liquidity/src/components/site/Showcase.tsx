@@ -1,144 +1,144 @@
-interface ShowCard {
-  href: string;
-  url: string;
-  shot: string;
-  shotAlt: string;
-  desc: string;
-  fav: string;
-  favAlt: string;
-  favW: number;
-  favH: number;
-  favStyle?: React.CSSProperties;
+import adopterRegistry from "@/adopters.json";
+
+type Lifecycle = "live" | "staging";
+type RouteStatus = "verified" | "private" | "domain-pending" | "concept";
+
+interface Adopter {
+  id: string;
   name: string;
+  domain: string;
+  href: string | null;
+  repository: string | null;
+  lifecycle: Lifecycle;
+  routeStatus: RouteStatus;
   tag: string;
+  shot: string | null;
+  shotAlt: string;
+  description: string;
+  adoption: string[];
+  absorbedComponents: string[];
+  candidatePatterns: string[];
 }
 
-const CARDS: ShowCard[] = [
-  {
-    href: "https://universe.audio",
-    url: "universe.audio",
-    shot: "universe-audio.png",
-    shotAlt: "Screenshot of the universe.audio homepage, an interface built on Structured Liquidity",
-    desc: "A music platform built around spectral mixing and streaming, where every surface is a rigid container holding liquid glass, all tuned to its own accent.",
-    fav: "fav-universe.png",
-    favAlt: "universe.audio favicon",
-    favW: 180,
-    favH: 180,
-    name: "universe.audio",
-    tag: "Audio platform",
-  },
-  {
-    href: "https://samir.xyz",
-    url: "samir.xyz",
-    shot: "samir.png",
-    shotAlt: "Screenshot of samir.xyz, a personal site built on Structured Liquidity",
-    desc: "The personal site of a strategic-finance operator, where profile, advisory work, and ventures sit in rigid containers with flat offset shadows on the signature purple accent.",
-    fav: "fav-samir.png",
-    favAlt: "samir.xyz favicon",
-    favW: 600,
-    favH: 600,
-    name: "samir.xyz",
-    tag: "Personal site",
-  },
-  {
-    href: "https://2daysearly.com",
-    url: "2daysearly.com",
-    shot: "2daysearly.png",
-    shotAlt: "Screenshot of 2daysearly.com, a venture-fund site built on Structured Liquidity",
-    desc: "A fund for operator-led investing in early-stage fintech, running the same rigid grid and offset shadows retuned to a green accent: proof that the language travels by token.",
-    fav: "fav-2daysearly.png",
-    favAlt: "2daysearly.com favicon",
-    favW: 300,
-    favH: 300,
-    name: "2daysearly.com",
-    tag: "Venture fund",
-  },
-  {
-    href: "https://bumblebee.nyc",
-    url: "bumblebee.nyc",
-    shot: "bumblebee.png",
-    shotAlt: "Screenshot of bumblebee.nyc, a Brooklyn daycare built on Structured Liquidity",
-    desc: "A Brooklyn daycare in the light-mode register: rigid black-bordered containers, flat offset shadows, and a single amber accent with mono detail labels — the structured-containment half of the language, proof it reads just as well warm and human as it does dark.",
-    fav: "fav-bumblebee.png",
-    favAlt: "bumblebee.nyc favicon",
-    favW: 180,
-    favH: 180,
-    favStyle: { background: "#f5edd4" },
-    name: "bumblebee.nyc",
-    tag: "Daycare",
-  },
-];
+const ADOPTERS = adopterRegistry.projects as Adopter[];
+const LIVE = ADOPTERS.filter((project) => project.lifecycle === "live");
+const STAGING = ADOPTERS.filter((project) => project.lifecycle === "staging");
+
+const STATUS_LABEL: Record<RouteStatus, string> = {
+  verified: "Live",
+  private: "Private",
+  "domain-pending": "Domain pending",
+  concept: "Concept",
+};
+
+function ProjectCard({ project }: { project: Adopter }) {
+  const body = (
+    <>
+      <div className="browser-bar">
+        <span className="tl" />
+        <span className="tl" />
+        <span className="tl" />
+        <span className="url">{project.domain}</span>
+      </div>
+      <div className="show-card-shot">
+        {project.shot ? (
+          <img
+            src={project.shot}
+            width={1920}
+            height={1080}
+            loading="lazy"
+            decoding="async"
+            alt={project.shotAlt}
+          />
+        ) : (
+          <div className="show-stage-placeholder" aria-label={project.shotAlt}>
+            <span>{project.name}</span>
+            <small>{project.tag}</small>
+          </div>
+        )}
+        <div className="show-card-veil">
+          <div className="vbody">
+            <p className="show-card-desc">{project.description}</p>
+            <span className="show-card-cta">
+              {project.href ? `Visit ${project.domain}` : `Tracking ${project.domain}`}{" "}
+              <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="show-card-foot">
+        <span className="sl-ava show-project-mark" aria-hidden="true">
+          {project.name.slice(0, 2).toUpperCase()}
+        </span>
+        <div className="show-id">
+          <span className="show-name">{project.name}</span>
+          <span className="mono">{project.tag}</span>
+        </div>
+        <span
+          className={`sl-badge ${project.routeStatus === "verified" ? "default" : "outline"}`}
+        >
+          {STATUS_LABEL[project.routeStatus]}
+        </span>
+      </div>
+    </>
+  );
+
+  return project.href ? (
+    <a
+      className="show-card glass"
+      href={project.href}
+      target="_blank"
+      rel="noopener"
+      aria-label={`Visit ${project.domain}, a product built on Structured Liquidity (opens in a new tab)`}
+    >
+      {body}
+    </a>
+  ) : (
+    <article className="show-card glass is-static">{body}</article>
+  );
+}
 
 export function Showcase() {
   return (
     <section id="showcase" className="wrap">
       <div className="section-head reveal">
-        <span className="eyebrow">Showcase · the prototypes</span>
+        <span className="eyebrow">Showcase · the field network</span>
         <h2 className="section-title">
           From Principles
           <br />
           to Practice.
         </h2>
         <p className="lead">
-          The language is product-agnostic, so the same rigid grid and liquid glass that document it
-          here run unchanged in shipping work — some products speak it whole, others lean on the
-          structured-containment half alone. These are real products in production, built on
-          Structured Liquidity rather than described by it.
+          The language is product-agnostic, so the same rigid grid and liquid glass run across
+          shipping work. This registry also closes the loop: reusable patterns found in the field
+          are reviewed, generalized, and promoted back into the shadcn component library.
         </p>
       </div>
 
+      <div className="show-registry-meta reveal">
+        <span>{LIVE.length} live</span>
+        <span>{STAGING.length} staging</span>
+        <span>Reviewed {adopterRegistry.reviewedAt}</span>
+      </div>
+
       <div className="show-grid reveal">
-        {CARDS.map((c) => (
-          <a
-            key={c.url}
-            className="show-card glass"
-            href={c.href}
-            target="_blank"
-            rel="noopener"
-            aria-label={`Visit ${c.url}, a product built on Structured Liquidity (opens in a new tab)`}
-          >
-            <div className="browser-bar">
-              <span className="tl"></span>
-              <span className="tl"></span>
-              <span className="tl"></span>
-              <span className="url">{c.url}</span>
-            </div>
-            <div className="show-card-shot">
-              <img
-                src={c.shot}
-                width={1920}
-                height={1080}
-                loading="lazy"
-                decoding="async"
-                alt={c.shotAlt}
-              />
-              <div className="show-card-veil">
-                <div className="vbody">
-                  <p className="show-card-desc">{c.desc}</p>
-                  <span className="show-card-cta">
-                    Visit {c.url} <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="show-card-foot">
-              <span className="sl-ava" style={c.favStyle}>
-                <img
-                  src={c.fav}
-                  width={c.favW}
-                  height={c.favH}
-                  loading="lazy"
-                  decoding="async"
-                  alt={c.favAlt}
-                />
-              </span>
-              <div className="show-id">
-                <span className="show-name">{c.name}</span>
-                <span className="mono">{c.tag}</span>
-              </div>
-              <span className="sl-badge default">Live</span>
-            </div>
-          </a>
+        {LIVE.map((project) => (
+          <ProjectCard project={project} key={project.id} />
+        ))}
+      </div>
+
+      <div className="show-stage-head reveal">
+        <span className="eyebrow">Staging · tracked before launch</span>
+        <h3>Signals from the frontier.</h3>
+        <p>
+          Private builds and concepts stay visible to the system without being presented as public
+          launches. Their useful patterns can still graduate into the shared library.
+        </p>
+      </div>
+
+      <div className="show-grid show-grid-staging reveal">
+        {STAGING.map((project) => (
+          <ProjectCard project={project} key={project.id} />
         ))}
       </div>
     </section>

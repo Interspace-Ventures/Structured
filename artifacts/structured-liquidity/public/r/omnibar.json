@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "omnibar",
+  "type": "registry:ui",
+  "title": "Omnibar",
+  "description": "Structured Liquidity Omnibar — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/omnibar.tsx",
+      "content": "import * as React from \"react\";\nimport { ArrowUp, Mic, Paperclip, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface OmnibarProps extends React.FormHTMLAttributes<HTMLFormElement> {\n  placeholder?: string;\n  inputLabel?: string;\n  status?: React.ReactNode;\n}\n\n/** Universal intake surface distilled from Dropship and Observatory. */\nexport const Omnibar = React.forwardRef<HTMLFormElement, OmnibarProps>(\n  (\n    {\n      placeholder = \"Paste a link, attach a file, or ask anything\",\n      inputLabel = \"Command\",\n      status,\n      className,\n      children,\n      ...props\n    },\n    ref,\n  ) => (\n    <form ref={ref} className={cn(\"sl-omnibar\", className)} {...props}>\n      {children ? <div className=\"sl-omnibar-attachments\">{children}</div> : null}\n      <div className=\"sl-omnibar-row\">\n        <button type=\"button\" className=\"sl-omnibar-icon\" aria-label=\"Attach\">\n          <Paperclip />\n        </button>\n        <input className=\"sl-omnibar-input\" aria-label={inputLabel} placeholder={placeholder} />\n        {status ? <span className=\"sl-omnibar-status\">{status}</span> : null}\n        <button type=\"button\" className=\"sl-omnibar-icon\" aria-label=\"Use voice\">\n          <Mic />\n        </button>\n        <button type=\"submit\" className=\"sl-omnibar-submit\" aria-label=\"Submit\">\n          <ArrowUp />\n        </button>\n      </div>\n    </form>\n  ),\n);\nOmnibar.displayName = \"Omnibar\";\n\nexport interface OmnibarAttachmentProps extends React.HTMLAttributes<HTMLSpanElement> {\n  onRemove?: () => void;\n}\n\nexport function OmnibarAttachment({\n  onRemove,\n  className,\n  children,\n  ...props\n}: OmnibarAttachmentProps) {\n  return (\n    <span className={cn(\"sl-omnibar-attachment\", className)} {...props}>\n      {children}\n      {onRemove ? (\n        <button type=\"button\" onClick={onRemove} aria-label={`Remove ${String(children)}`}>\n          <X />\n        </button>\n      ) : null}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/omnibar.tsx"
+    }
+  ]
+}

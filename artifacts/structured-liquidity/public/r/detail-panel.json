@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "detail-panel",
+  "type": "registry:ui",
+  "title": "Detail Panel",
+  "description": "Structured Liquidity Detail Panel — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/detail-panel.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n/** Edge-ready inspection surface distilled from Cosmograph and Dropship. */\nexport const DetailPanel = React.forwardRef<\n  HTMLElement,\n  React.HTMLAttributes<HTMLElement>\n>(({ className, ...props }, ref) => (\n  <aside ref={ref} className={cn(\"sl-detail-panel\", className)} {...props} />\n));\nDetailPanel.displayName = \"DetailPanel\";\n\nexport const DetailPanelHeader = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"sl-detail-panel-header\", className)} {...props} />\n));\nDetailPanelHeader.displayName = \"DetailPanelHeader\";\n\nexport const DetailPanelEyebrow = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement>\n>(({ className, ...props }, ref) => (\n  <span ref={ref} className={cn(\"sl-detail-panel-eyebrow\", className)} {...props} />\n));\nDetailPanelEyebrow.displayName = \"DetailPanelEyebrow\";\n\nexport const DetailPanelTitle = React.forwardRef<\n  HTMLHeadingElement,\n  React.HTMLAttributes<HTMLHeadingElement>\n>(({ className, ...props }, ref) => (\n  <h3 ref={ref} className={cn(\"sl-detail-panel-title\", className)} {...props} />\n));\nDetailPanelTitle.displayName = \"DetailPanelTitle\";\n\nexport const DetailPanelBody = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"sl-detail-panel-body\", className)} {...props} />\n));\nDetailPanelBody.displayName = \"DetailPanelBody\";\n\nexport const DetailPanelFooter = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div ref={ref} className={cn(\"sl-detail-panel-footer\", className)} {...props} />\n));\nDetailPanelFooter.displayName = \"DetailPanelFooter\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/detail-panel.tsx"
+    }
+  ]
+}

@@ -16,7 +16,9 @@
      name/badge stay visible so the wall of screenshots is still scannable. */
   .show-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;align-items:start;}
   .show-card{display:flex;flex-direction:column;width:100%;max-width:520px;margin-inline:auto;text-decoration:none;color:inherit;overflow:hidden;cursor:pointer;transition:transform .25s ease;}
+  .show-card.is-static{cursor:default;}
   .show-card:hover,.show-card:focus-visible{transform:translateY(-4px);}
+  .show-card.is-static:hover{transform:none;}
   .show-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
   .show-card.glass::after{opacity:.4;}
   .show-card-shot{position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:var(--border-w) solid rgb(var(--edge));}
@@ -41,6 +43,17 @@
   .show-card-foot .show-id .show-name{font-size:.95rem;}
   .show-card-foot .show-id .mono{font-size:.68rem;color:var(--ink-dim);}
   .show-card-foot .sl-badge{margin-left:auto;flex:none;}
+  .show-project-mark{display:grid;place-items:center;background:var(--accent)!important;color:var(--accent-ink);font-family:var(--mono);font-size:.62rem;font-weight:700;}
+  .show-registry-meta{display:flex;flex-wrap:wrap;gap:.55rem;margin:-1.2rem 0 1.2rem;}
+  .show-registry-meta span{padding:.28rem .52rem;border:1.5px solid rgb(var(--edge));background:rgb(var(--glass-tint)/.05);font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-dim);}
+  .show-stage-head{max-width:720px;margin:4.5rem 0 1.4rem;}
+  .show-stage-head h3{margin:.55rem 0 .65rem;font-size:clamp(1.8rem,4vw,3.2rem);line-height:.95;}
+  .show-stage-head p{margin:0;color:var(--ink-dim);line-height:1.55;}
+  .show-grid-staging .show-card{opacity:.82;}
+  .show-stage-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45rem;padding:1.2rem;background:linear-gradient(135deg,rgb(var(--glass-tint)/.04),color-mix(in srgb,var(--accent) 22%,transparent));}
+  .show-stage-placeholder::before{content:"";width:54px;height:54px;border:var(--border-w) solid rgb(var(--edge));box-shadow:5px 5px 0 var(--hard-shadow);background:var(--accent);}
+  .show-stage-placeholder span{margin-top:.65rem;font-family:var(--display);font-size:1rem;font-weight:800;text-transform:uppercase;}
+  .show-stage-placeholder small{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);}
   /* Touch devices have no hover/focus state before navigation — show the description
      as a persistent bottom panel so it stays reachable, leaving the screenshot top visible. */
   @media (hover:none){
