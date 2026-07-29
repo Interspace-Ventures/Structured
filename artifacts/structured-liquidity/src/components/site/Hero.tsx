@@ -9,7 +9,7 @@ export function Hero() {
     <header className="hero wrap" id="top">
       <div className="hero-grid">
         <div>
-          <span className="eyebrow reveal">An open design language · est. 2026</span>
+          <span className="eyebrow reveal">An open shadcn theme · est. 2026</span>
           <h1 className="wordmark reveal">
             <span className="brutal">Structured</span>
             <br />
