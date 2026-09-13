@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#f4f1f8"/>
+  <path d="M0 75h1200M0 690h1200M72 0v750M1128 0v750" stroke="#27212e" stroke-opacity=".16"/>
+  <g font-family="Inter,Arial,sans-serif" fill="#17131b">
+    <g transform="translate(72 30)">
+      <g transform="scale(.42)">
+        <path d="M15 92 60 72l45 20-45 20Z" fill="#2a313a" stroke="#17131b" stroke-width="4"/>
+        <path d="M15 76 60 56l45 20-45 20Z" fill="#2a313a" stroke="#17131b" stroke-width="4"/>
+        <path d="M15 60 60 40l45 20-45 20Z" fill="#2a313a" stroke="#17131b" stroke-width="4"/>
+        <path d="M15 44 60 24l45 20-45 20Z" fill="#2a313a" stroke="#17131b" stroke-width="4"/>
+        <path d="M15 28 60 8l45 20-45 20Z" fill="#9d7bea" stroke="#17131b" stroke-width="4"/>
+      </g>
+      <text x="60" y="34" font-size="24" font-weight="800">exobase</text>
+      <text x="865" y="32" font-size="14" font-weight="700" letter-spacing="1.2">DIMENSIONS   WORKFLOW   TENETS</text>
+    </g>
+    <text x="72" y="148" font-family="ui-monospace,monospace" font-size="14" letter-spacing="1.5">PRIVATE BETA · OPEN BY PREFERENCE · PORTABLE BY DESIGN</text>
+    <text x="72" y="245" font-size="72" font-weight="800" letter-spacing="-4">One control plane.</text>
+    <text x="72" y="328" font-size="72" font-weight="800" letter-spacing="-4">Every property</text>
+    <text x="72" y="411" font-size="72" font-style="italic" font-weight="500" letter-spacing="-4" fill="#7655d6">still its own.</text>
+    <text x="72" y="474" font-size="20" fill="#5c5562">An opinionated, not restrictive operating system for a portfolio</text>
+    <text x="72" y="504" font-size="20" fill="#5c5562">of web products, with every provider boundary made legible.</text>
+    <rect x="72" y="554" width="176" height="56" fill="#9d7bea" stroke="#17131b" stroke-width="3"/>
+    <text x="101" y="589" font-size="16" font-weight="800">JOIN WAITLIST  ↗</text>
+  </g>
+  <g transform="translate(770 172)">
+    <path d="M0 170 180 66l180 104-180 104Z" fill="#d8cff2" stroke="#17131b" stroke-width="3"/>
+    <path d="m0 170 180 104v102L0 272Z" fill="#4e4260" stroke="#17131b" stroke-width="3"/>
+    <path d="m180 274 180-104v102L180 376Z" fill="#7863a4" stroke="#17131b" stroke-width="3"/>
+    <path d="M44 148 180 70l136 78-136 79Z" fill="none" stroke="#9d7bea" stroke-width="5"/>
+    <path d="M78 151 180 92l102 59-102 59Z" fill="#f4f1f8" stroke="#17131b" stroke-width="3"/>
+    <text x="110" y="156" font-family="ui-monospace,monospace" font-size="16" font-weight="700">EXO / CONTROL</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="13" fill="#5c5562" letter-spacing="1">
+    <text x="784" y="600">12 NAMED DIMENSIONS</text>
+    <text x="968" y="600">REPLACEABLE PROVIDERS</text>
+  </g>
+</svg>

@@ -27,11 +27,11 @@ const DEFAULTS: Tweaks = {
   border: 2,
   shadow: 7,
   radius: 0,
-  mode: "dark",
+  mode: "light",
 };
 
 const ACCENTS = ["#a388ee", "#7c9cff", "#3dd7c8", "#ffb454", "#ff7a90"];
-const STORAGE_KEY = "sl-tweaks";
+const STORAGE_KEY = "sl-tweaks-v2";
 
 /* accent -> readable ink for text sitting on the accent fill */
 function inkFor(hex: string): string {
@@ -70,6 +70,10 @@ function apply(t: Tweaks): void {
   root.setProperty("--hard-x", t.shadow + "px");
   root.setProperty("--hard-y", t.shadow + "px");
   root.setProperty("--radius", t.radius + "px");
+  /* Dark backgrounds are derived from --accent in CSS. Clear legacy inline
+     overrides so changing the accent always retunes the full page field. */
+  root.removeProperty("--bg");
+  root.removeProperty("--bg-2");
   document.documentElement.setAttribute("data-mode", t.mode);
 }
 
@@ -158,11 +162,13 @@ export function Tweaker() {
           type="button"
           className="sl-tweaks-fab sl-mode-fab"
           aria-label="Toggle dark or light mode"
-          aria-pressed={state.mode === "light"}
+          aria-pressed={state.mode === "dark"}
           onClick={() => set("mode", state.mode === "dark" ? "light" : "dark")}
         >
           {state.mode === "dark" ? <Moon /> : <Sun />}
-          <span className="sl-mode-lbl">{state.mode === "dark" ? "Dark" : "Light"}</span>
+          <span className="sl-mode-lbl">
+            {state.mode === "dark" ? "Dark" : "Light"}
+          </span>
         </button>
         <button
           type="button"
@@ -183,7 +189,12 @@ export function Tweaker() {
       >
         <div className="twk-hd">
           <b>Mods</b>
-          <button type="button" className="twk-x" aria-label="Close" onClick={() => setOpen(false)}>
+          <button
+            type="button"
+            className="twk-x"
+            aria-label="Close"
+            onClick={() => setOpen(false)}
+          >
             ✕
           </button>
         </div>

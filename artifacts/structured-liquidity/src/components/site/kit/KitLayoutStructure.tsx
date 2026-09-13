@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import {
   SectionHeader,
@@ -6,13 +7,7 @@ import {
   SectionHeaderTitle,
   SectionHeaderSubtitle,
 } from "@/components/ui/section-header";
-import {
-  ProfileHeader,
-  ProfileAvatar,
-  ProfileId,
-  ProfileName,
-  ProfileRole,
-} from "@/components/ui/profile-header";
+import { ProfileCard } from "@/components/ui/profile-card";
 import { Keycaps, Keycap } from "@/components/ui/keycap";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Resizable, ResizablePanel } from "@/components/ui/resizable";
@@ -27,6 +22,9 @@ import {
 } from "@/components/ui/sidebar";
 
 export function KitLayoutStructure() {
+  const [sidebarView, setSidebarView] = useState("Overview");
+  const sidebarLinks = ["Overview", "Library", "Tokens", "Settings"];
+
   return (
     <div className="kit-group reveal">
       <div className="kit-group-head">
@@ -47,20 +45,24 @@ export function KitLayoutStructure() {
               <SectionHeaderTitle>Purpose</SectionHeaderTitle>
             </SectionHeaderRow>
             <SectionHeaderSubtitle>
-              By operators. For operators.
+              Signals, ordered for the mission.
             </SectionHeaderSubtitle>
           </SectionHeader>
         </div>
 
         <div className="glass kit-cell w6">
-          <span className="kit-cap">Profile header</span>
-          <ProfileHeader>
-            <ProfileAvatar>SL</ProfileAvatar>
-            <ProfileId>
-              <ProfileName>Hey, I'm Samir</ProfileName>
-              <ProfileRole>I drive impact at startups</ProfileRole>
-            </ProfileId>
-          </ProfileHeader>
+          <span className="kit-cap">Profile card</span>
+          <ProfileCard
+            label="Profile pattern"
+            status="Building"
+            initials="KS"
+            summary="Deep-space survey station mapping a newly observed planetary system."
+            facts={[
+              { label: "Mission", value: "Orbital survey" },
+              { label: "Sector", value: "Kepler-186" },
+              { label: "Status", value: "Nominal" },
+            ]}
+          />
         </div>
 
         <div className="glass kit-cell w6">
@@ -91,13 +93,13 @@ export function KitLayoutStructure() {
         <div className="glass kit-cell w4">
           <span className="kit-cap">Scroll area</span>
           <ScrollArea>
-            <ScrollAreaRow>Track 01 · Aurora</ScrollAreaRow>
-            <ScrollAreaRow>Track 02 · Meniscus</ScrollAreaRow>
-            <ScrollAreaRow>Track 03 · Offset</ScrollAreaRow>
-            <ScrollAreaRow>Track 04 · Specular</ScrollAreaRow>
-            <ScrollAreaRow>Track 05 · Viscosity</ScrollAreaRow>
-            <ScrollAreaRow>Track 06 · Containment</ScrollAreaRow>
-            <ScrollAreaRow>Track 07 · Refraction</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 01 · Periapsis</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 02 · Transit</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 03 · Eclipse</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 04 · Relay</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 05 · Survey</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 06 · Return</ScrollAreaRow>
+            <ScrollAreaRow>Orbit 07 · Archive</ScrollAreaRow>
           </ScrollArea>
         </div>
 
@@ -134,17 +136,30 @@ export function KitLayoutStructure() {
           <Sidebar>
             <SidebarNav>
               <SidebarHeading>Workspace</SidebarHeading>
-              <SidebarLink href="#" active>
-                Overview
-              </SidebarLink>
-              <SidebarLink href="#">Library</SidebarLink>
-              <SidebarLink href="#">Tokens</SidebarLink>
+              {sidebarLinks.slice(0, 3).map((label) => (
+                <SidebarLink
+                  href="#"
+                  active={sidebarView === label}
+                  onClick={() => setSidebarView(label)}
+                  key={label}
+                >
+                  {label}
+                </SidebarLink>
+              ))}
               <SidebarHeading>Account</SidebarHeading>
-              <SidebarLink href="#">Settings</SidebarLink>
+              <SidebarLink
+                href="#"
+                active={sidebarView === "Settings"}
+                onClick={() => setSidebarView("Settings")}
+              >
+                Settings
+              </SidebarLink>
             </SidebarNav>
             <SidebarMain>
-              A structural rail: rigid border, glass fill, one accent for the
-              active route.
+              <strong>{sidebarView}</strong>
+              <span>
+                The active view changes in place. No link leaves this specimen.
+              </span>
             </SidebarMain>
           </Sidebar>
         </div>

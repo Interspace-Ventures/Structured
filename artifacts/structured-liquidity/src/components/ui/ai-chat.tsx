@@ -8,12 +8,18 @@ interface ChatMessage {
 }
 
 const DEFAULT_MESSAGES: ChatMessage[] = [
-  { from: "bot", text: "Hey, I'm Vector. Ask me to draft, summarize, or name anything." },
-  { from: "me", text: "Write a title for a late-night ambient mix." },
-  { from: "bot", text: 'How about "Low Tide, 3AM"? I can give you a few more.' },
+  {
+    from: "bot",
+    text: "Hey, I'm Vector. Ask me to draft, summarize, or name anything.",
+  },
+  { from: "me", text: "Summarize the latest transit observation." },
+  {
+    from: "bot",
+    text: "One stable orbit, two anomalies, and a clean signal window at 03:20 UTC.",
+  },
 ];
 
-const DEFAULT_SUGGESTIONS = ["More title ideas", "Make it moodier", "Write a blurb"];
+const DEFAULT_SUGGESTIONS = ["Show anomalies", "Compare orbits", "Draft a log"];
 
 export interface AIChatProps extends React.HTMLAttributes<HTMLDivElement> {
   name?: string;

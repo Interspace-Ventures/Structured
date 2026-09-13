@@ -4,31 +4,30 @@ import {
   GalleryVerticalEnd,
   PanelsTopLeft,
 } from "lucide-react";
-import { InstallButton } from "./InstallButton";
 
 const templates = [
   {
     icon: PanelsTopLeft,
     title: "Marketing site",
-    source: "Interspace · 2 Days Early · Bumblebee",
+    source: "Kepler Station · Mission brief",
     parts: "Section-aware navigation · proof blocks · conversion footer",
   },
   {
     icon: BarChart3,
     title: "Data dashboard",
-    source: "Interspace Portfolio · Interspace Index",
+    source: "Asteria Atlas · Survey index",
     parts: "KPI rail · filter toolbar · responsive data views",
   },
   {
     icon: GalleryVerticalEnd,
     title: "Guided flow",
-    source: "Bumble Bee enrollment",
+    source: "Crew onboarding",
     parts: "Persistent stepper · focused form stage · recovery states",
   },
   {
     icon: Blocks,
     title: "Immersive app",
-    source: "Cosmograph · Universe",
+    source: "Deep-space observation",
     parts: "Full-viewport canvas · HUD overlays · command controls",
   },
 ];
@@ -54,9 +53,6 @@ export function Templates() {
                 <p>{parts}</p>
               </article>
             ))}
-          </div>
-          <div className="template-install">
-            <InstallButton item="site-templates" label="Install templates" />
           </div>
         </div>
       </div>

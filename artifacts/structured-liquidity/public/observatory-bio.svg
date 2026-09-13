@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#f5f4ef"/>
+  <path d="M0 76h1200M600 76v674M0 690h1200" stroke="#151515" stroke-opacity=".22"/>
+  <g font-family="Inter,Arial,sans-serif" fill="#111">
+    <g transform="translate(42 23)">
+      <circle cx="25" cy="15" r="18" fill="none" stroke="#111" stroke-width="3"/>
+      <circle cx="25" cy="15" r="7" fill="none" stroke="#111" stroke-width="3"/>
+      <path d="M25-3v11M25 22v11M7 15h11M32 15h11M12 2l8 8M30 20l8 8M38 2l-8 8M20 20l-8 8" stroke="#111" stroke-width="2"/>
+      <text x="58" y="22" font-size="22" font-weight="850" letter-spacing="2">OBS</text>
+      <text x="118" y="22" font-size="17" font-weight="650">Observatory</text>
+    </g>
+    <text x="958" y="49" font-size="15" font-weight="700">SIGN IN</text>
+    <rect x="1041" y="20" width="119" height="40" fill="#111"/>
+    <text x="1060" y="46" font-size="14" font-weight="750" fill="#fff">JOIN WAITLIST</text>
+
+    <text x="48" y="166" font-family="ui-monospace,monospace" font-size="13" font-weight="700" letter-spacing="1.7">SCIENTIFIC WORKBENCH · CONNECTED BIOLOGICAL EVIDENCE</text>
+    <text x="48" y="258" font-size="72" font-weight="820" letter-spacing="-4">Observe biology</text>
+    <text x="48" y="334" font-size="72" font-weight="820" letter-spacing="-4">in context.</text>
+    <text x="48" y="397" font-size="20" fill="#494945">Ask a biological question, inspect the evidence,</text>
+    <text x="48" y="427" font-size="20" fill="#494945">and keep the full line of inquiry in one workspace.</text>
+    <rect x="48" y="485" width="166" height="54" fill="#111"/>
+    <text x="72" y="519" font-size="15" font-weight="750" fill="#fff">JOIN THE WAITLIST</text>
+    <text x="240" y="519" font-size="15" font-weight="700">ALREADY INVITED? SIGN IN ↗</text>
+  </g>
+
+  <g transform="translate(675 104)">
+    <ellipse cx="244" cy="260" rx="202" ry="250" fill="none" stroke="#111" stroke-opacity=".22" stroke-width="2"/>
+    <g transform="translate(244 260)" fill="none" stroke="#111" stroke-width="9">
+      <circle r="56"/>
+      <circle r="102"/>
+      <path d="M0-102 0-56M51-88 28-48M88-51 48-28M102 0H56M88 51 48 28M51 88 28 48M0 102V56M-51 88-28 48M-88 51-48 28M-102 0h46M-88-51-48-28M-51-88-28-48"/>
+    </g>
+    <g font-family="ui-monospace,monospace" font-size="12" font-weight="700" letter-spacing="1.4">
+      <rect x="25" y="86" width="68" height="28" fill="#111"/><text x="39" y="105" fill="#fff">GENE</text>
+      <path d="M93 100 198 171" stroke="#111"/>
+      <rect x="415" y="252" width="80" height="28" fill="#111"/><text x="426" y="271" fill="#fff">PROTEIN</text>
+      <path d="m415 266-76 0" stroke="#111"/>
+      <rect x="54" y="468" width="94" height="28" fill="#111"/><text x="65" y="487" fill="#fff">STRUCTURE</text>
+      <path d="m148 482 86-83" stroke="#111"/>
+    </g>
+  </g>
+  <text x="708" y="717" font-family="ui-monospace,monospace" font-size="12" font-weight="700" letter-spacing="1.5" fill="#111">OBS · SCIENTIFIC WORKBENCH · EARLY ACCESS</text>
+</svg>

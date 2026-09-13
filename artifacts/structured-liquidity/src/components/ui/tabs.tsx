@@ -12,7 +12,10 @@ const useTabs = () => {
   return c;
 };
 
-export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface TabsProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange"
+> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -41,14 +44,50 @@ export function Tabs({
   );
 }
 
-export function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div role="tablist" className={cn("tablist", className)} {...props} />;
+export function TabsList({
+  className,
+  children,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  const { value } = useTabs();
+  const items = React.Children.toArray(children).filter(
+    (child): child is React.ReactElement<TabsTriggerProps> =>
+      React.isValidElement<TabsTriggerProps>(child) &&
+      typeof child.props.value === "string",
+  );
+  const selectedIndex = Math.max(
+    0,
+    items.findIndex((item) => item.props.value === value),
+  );
+  return (
+    <div
+      role="tablist"
+      className={cn("tablist", "is-liquid", className)}
+      style={
+        {
+          ...style,
+          "--tab-index": selectedIndex,
+          "--tab-count": Math.max(1, items.length),
+        } as React.CSSProperties
+      }
+      {...props}
+    >
+      <span className="sl-tab-marker" aria-hidden="true" />
+      {children}
+    </div>
+  );
 }
 
 export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
-export function TabsTrigger({ value, className, ...props }: TabsTriggerProps) {
+export function TabsTrigger({
+  value,
+  className,
+  onClick,
+  ...props
+}: TabsTriggerProps) {
   const { value: v, setValue } = useTabs();
   return (
     <button
@@ -56,7 +95,10 @@ export function TabsTrigger({ value, className, ...props }: TabsTriggerProps) {
       role="tab"
       aria-selected={v === value}
       className={className}
-      onClick={() => setValue(value)}
+      onClick={(event) => {
+        setValue(value);
+        onClick?.(event);
+      }}
       {...props}
     />
   );
@@ -68,5 +110,11 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 export function TabsContent({ value, className, ...props }: TabsContentProps) {
   const { value: v } = useTabs();
   if (v !== value) return null;
-  return <div role="tabpanel" className={cn("panel", "show", className)} {...props} />;
+  return (
+    <div
+      role="tabpanel"
+      className={cn("panel", "show", className)}
+      {...props}
+    />
+  );
 }

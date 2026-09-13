@@ -10,7 +10,11 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-const basePath = process.env.BASE_PATH ?? "/";
+// Emit location-relative asset URLs by default so the same static artifact can
+// render at the domain root or behind a path-scoped host such as Construct's
+// protected `/structured` staging route. Deployments can still opt into an
+// explicit absolute base with BASE_PATH.
+const basePath = process.env.BASE_PATH ?? "./";
 
 export default defineConfig({
   base: basePath,

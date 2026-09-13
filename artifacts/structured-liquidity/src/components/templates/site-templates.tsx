@@ -13,7 +13,7 @@ interface MarketingSiteTemplateProps extends TemplateProps {
   proof?: React.ReactNode;
 }
 
-/** Landing template distilled from Interspace, 2 Days Early, and Bumble Bee. */
+/** Landing template for a concise public narrative, proof, and conversion path. */
 export function MarketingSiteTemplate({
   navigation,
   hero,
@@ -41,7 +41,7 @@ interface DashboardTemplateProps extends TemplateProps {
   filters?: React.ReactNode;
 }
 
-/** Data-heavy template distilled from Interspace portfolio and index views. */
+/** Data-heavy template for metrics, filters, and responsive evidence views. */
 export function DashboardTemplate({
   navigation,
   metrics,
@@ -68,7 +68,7 @@ interface GuidedFlowTemplateProps extends TemplateProps {
   steps: React.ReactNode;
 }
 
-/** Multi-step conversion template distilled from Bumble Bee enrollment. */
+/** Multi-step conversion template with persistent progress and recovery states. */
 export function GuidedFlowTemplate({
   navigation,
   steps,
@@ -94,7 +94,7 @@ interface ImmersiveAppTemplateProps extends TemplateProps {
   controls?: React.ReactNode;
 }
 
-/** Full-viewport app template distilled from Cosmograph and Universe. */
+/** Full-viewport app template for a canvas, HUD overlays, and command controls. */
 export function ImmersiveAppTemplate({
   navigation,
   hud,
@@ -116,4 +116,3 @@ export function ImmersiveAppTemplate({
     </div>
   );
 }
-

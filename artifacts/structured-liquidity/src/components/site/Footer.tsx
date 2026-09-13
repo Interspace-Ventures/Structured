@@ -1,6 +1,8 @@
 import { Hypercube } from "./liquid";
 
 export function Footer() {
+  const basePath = import.meta.env.BASE_URL;
+
   return (
     <footer className="shell">
       <div className="foot">
@@ -9,8 +11,8 @@ export function Footer() {
           <span className="name">Structured Liquidity</span>
         </div>
         <div className="mono foot-legal">
-          <a href="/attribution.txt">Free to use with attribution.</a>{" "}
-          <a href="/">Structured</a> is an{" "}
+          <a href={`${basePath}attribution.txt`}>Free to use with attribution.</a>{" "}
+          <a href={basePath}>Structured</a> is an{" "}
           <a href="https://interspace.ventures" target="_blank" rel="noopener">
             Interspace Venture
           </a>

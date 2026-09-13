@@ -1,0 +1,141 @@
+name: Managed repository validation
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        type: string
+        default: "24"
+      package-manager:
+        type: string
+        required: true
+      package-manager-version:
+        type: string
+        default: ""
+      install-command:
+        type: string
+        required: true
+      typecheck-command:
+        type: string
+        default: ""
+      test-command:
+        type: string
+        default: ""
+      build-command:
+        type: string
+        default: ""
+      ui-command:
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate managed-repository contract
+        env:
+          EXPECTED_REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD: ${{ github.head_ref }}
+        run: |
+          node --input-type=module <<'EOF'
+          import assert from "node:assert/strict";
+          import { existsSync, readFileSync, readdirSync } from "node:fs";
+
+          const contractPath = ".github/managed-repository.json";
+          assert(existsSync(contractPath), `Missing ${contractPath}`);
+          const contract = JSON.parse(readFileSync(contractPath, "utf8"));
+
+          assert.equal(contract.version, 1, "Unsupported managed-repository contract version");
+          assert.equal(contract.repository, process.env.EXPECTED_REPOSITORY, "Repository identity does not match GitHub");
+          assert.equal(contract.linear?.workspaceSlug, "interspaceventures", "Linear workspace must be interspaceventures");
+          assert.equal(contract.linear?.teamKey, "IV", "Linear team key must be IV");
+          assert.equal(contract.linear?.issueRequired, true, "Linear issue evidence must be required");
+          assert.match(
+            contract.linear?.projectURL ?? "",
+            /^https:\/\/linear\.app\/interspaceventures\/project\/[a-z0-9-]+$/,
+            "Linear project URL must be a verified project URL",
+          );
+
+          assert.equal(contract.designSystem?.name, "Structured Liquidity", "Structured Liquidity must be the design foundation");
+          assert.equal(contract.designSystem?.componentSystem, "shadcn", "shadcn must be the component system");
+          assert.equal(
+            contract.designSystem?.registry,
+            "https://structured.glass/r/structured-liquidity-agent.json",
+            "Use the canonical Structured Liquidity agent registry",
+          );
+
+          for (const configPath of contract.designSystem?.configs ?? []) {
+            assert(existsSync(configPath), `Missing shadcn config: ${configPath}`);
+            const config = JSON.parse(readFileSync(configPath, "utf8"));
+            assert.equal(config.$schema, "https://ui.shadcn.com/schema.json", `${configPath} is not a shadcn config`);
+            assert.equal(typeof config.style, "string", `${configPath} must declare a shadcn style`);
+          }
+          assert((contract.designSystem?.configs ?? []).length > 0, "At least one shadcn config is required");
+
+          for (const primitiveRoot of contract.designSystem?.primitiveRoots ?? []) {
+            assert(existsSync(primitiveRoot), `Missing shadcn primitive root: ${primitiveRoot}`);
+            assert(
+              readdirSync(primitiveRoot).some((name) => name.endsWith(".tsx")),
+              `No TypeScript shadcn primitives found in ${primitiveRoot}`,
+            );
+          }
+          assert((contract.designSystem?.primitiveRoots ?? []).length > 0, "At least one shadcn primitive root is required");
+          for (const tokenSource of contract.designSystem?.tokenSources ?? []) {
+            assert(existsSync(tokenSource), `Missing design token source: ${tokenSource}`);
+          }
+          assert((contract.designSystem?.tokenSources ?? []).length > 0, "At least one token source is required");
+
+          assert.deepEqual(
+            contract.delivery?.promotionOrder,
+            ["preview", "staging", "release-candidate", "production"],
+            "Promotion order must remain Preview -> Staging -> Release Candidate -> Production",
+          );
+          assert.equal(contract.delivery?.releaseRecordRequired, true, "Release records must be required");
+          assert.equal(contract.delivery?.securityReviewRequired, true, "Security review evidence must be required");
+          assert.equal(contract.delivery?.explicitProductionApprovalRequired, true, "Production approval must be explicit");
+
+          if (process.env.EVENT_NAME === "pull_request") {
+            const pullRequestEvidence = [process.env.PR_TITLE, process.env.PR_BODY, process.env.PR_HEAD].join("\n");
+            assert.match(pullRequestEvidence, /\bIV-[1-9][0-9]*\b/, "Pull request title, body, or branch must link an IV issue");
+          }
+
+          console.log(`Managed repository contract valid for ${contract.repository}`);
+          EOF
+
+      - uses: pnpm/action-setup@v4
+        if: inputs.package-manager == 'pnpm'
+        with:
+          version: ${{ inputs.package-manager-version }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: ${{ inputs.package-manager }}
+
+      - name: Install dependencies
+        run: ${{ inputs.install-command }}
+
+      - name: Typecheck
+        if: inputs.typecheck-command != ''
+        run: ${{ inputs.typecheck-command }}
+
+      - name: Test
+        if: inputs.test-command != ''
+        run: ${{ inputs.test-command }}
+
+      - name: Build
+        if: inputs.build-command != ''
+        run: ${{ inputs.build-command }}
+
+      - name: Validate shadcn and Structured Liquidity
+        if: inputs.ui-command != ''
+        run: ${{ inputs.ui-command }}

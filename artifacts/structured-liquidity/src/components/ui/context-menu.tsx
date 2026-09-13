@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
 interface ContextMenuCtx {
@@ -74,15 +75,22 @@ export function ContextMenuContent({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const { open, pos } = useContextMenu();
-  if (!open) return null;
-  return (
+  if (!open || typeof document === "undefined") return null;
+  return createPortal(
     <div
       className={cn("sl-ctx-menu", className)}
-      style={{ position: "fixed", top: pos.y, left: pos.x, zIndex: 200, ...style }}
+      style={{
+        position: "fixed",
+        top: Math.min(pos.y, window.innerHeight - 230),
+        left: Math.min(pos.x, window.innerWidth - 220),
+        zIndex: 2147483647,
+        ...style,
+      }}
       onMouseDown={(e) => e.stopPropagation()}
       onContextMenu={(e) => e.preventDefault()}
       {...props}
-    />
+    />,
+    document.body,
   );
 }
 

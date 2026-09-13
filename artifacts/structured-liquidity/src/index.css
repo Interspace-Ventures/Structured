@@ -30,3 +30,209 @@
   --font-body: var(--body);
   --font-mono: var(--mono);
 }
+
+.staging-environment-label {
+  position: fixed;
+  z-index: 10000;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.45rem 0.65rem;
+  border: var(--border-w) solid rgb(var(--edge));
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 3px 3px 0 0 var(--hard-shadow);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.auth-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 4rem);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(var(--edge), 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--edge), 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.auth-frame {
+  width: min(100%, 1120px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.82fr);
+  border: var(--border-w) solid rgb(var(--edge));
+  background: var(--bg-2);
+  box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);
+}
+
+.auth-copy {
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(2rem, 5vw, 5rem);
+  border-right: var(--border-w) solid rgb(var(--edge));
+}
+
+.auth-kicker {
+  margin-bottom: clamp(3rem, 10vh, 7rem);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-copy h1 {
+  max-width: 8ch;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(3.1rem, 6vw, 6rem);
+  font-weight: 760;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.auth-copy > p {
+  max-width: 42ch;
+  margin: 1.75rem 0 0;
+  color: var(--ink-dim);
+  font-family: var(--body);
+  font-size: 1rem;
+}
+
+.auth-notes {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: auto 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--edge), 0.28);
+}
+
+.auth-notes div {
+  min-width: 0;
+}
+
+.auth-notes dt,
+.auth-notes dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.auth-notes dt {
+  margin-bottom: 0.45rem;
+  color: var(--ink-dim);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.auth-notes dd {
+  overflow-wrap: anywhere;
+}
+
+.auth-widget-shell {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  background: color-mix(in srgb, var(--accent) 9%, var(--bg));
+}
+
+.structured-auth-root,
+.structured-auth-card-box {
+  width: 100%;
+}
+
+.structured-auth-card {
+  width: 100%;
+  border: var(--border-w) solid rgb(var(--edge));
+  border-radius: 0;
+  box-shadow: 5px 5px 0 0 var(--hard-shadow);
+}
+
+.structured-auth-title {
+  font-weight: 760;
+  letter-spacing: -0.035em;
+}
+
+.structured-auth-subtitle {
+  color: var(--ink-dim);
+}
+
+.structured-auth-social,
+.structured-auth-primary,
+.structured-auth-input {
+  min-height: 44px;
+  border: 2px solid rgb(var(--edge));
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.structured-auth-social:hover,
+.structured-auth-primary:hover {
+  transform: translate(1px, 1px);
+}
+
+.structured-auth-social:focus-visible,
+.structured-auth-primary:focus-visible,
+.structured-auth-input:focus-visible,
+.structured-auth-link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.structured-auth-link {
+  color: #5f3fc4;
+  font-weight: 700;
+}
+
+.structured-auth-divider {
+  background: rgba(var(--edge), 0.3);
+}
+
+@media (max-width: 760px) {
+  .auth-page {
+    place-items: start stretch;
+    padding: 0;
+  }
+
+  .auth-frame {
+    grid-template-columns: 1fr;
+    border-right: 0;
+    border-left: 0;
+    box-shadow: none;
+  }
+
+  .auth-copy {
+    min-height: auto;
+    padding: 2rem 1.25rem 1.75rem;
+    border-right: 0;
+    border-bottom: var(--border-w) solid rgb(var(--edge));
+  }
+
+  .auth-kicker {
+    margin-bottom: 3rem;
+  }
+
+  .auth-copy h1 {
+    max-width: 9ch;
+    font-size: clamp(3rem, 16vw, 4.6rem);
+  }
+
+  .auth-notes {
+    margin-top: 3rem;
+  }
+
+  .auth-widget-shell {
+    padding: 1.25rem;
+  }
+}

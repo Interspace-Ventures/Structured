@@ -18,8 +18,17 @@ Breadcrumb.displayName = "Breadcrumb";
 export const BreadcrumbLink = React.forwardRef<
   HTMLAnchorElement,
   React.AnchorHTMLAttributes<HTMLAnchorElement>
->(({ className, href = "#", ...props }, ref) => (
-  <a ref={ref} href={href} className={className} {...props} />
+>(({ className, href = "#", onClick, ...props }, ref) => (
+  <a
+    ref={ref}
+    href={href}
+    className={className}
+    onClick={(event) => {
+      if (href === "#") event.preventDefault();
+      onClick?.(event);
+    }}
+    {...props}
+  />
 ));
 BreadcrumbLink.displayName = "BreadcrumbLink";
 

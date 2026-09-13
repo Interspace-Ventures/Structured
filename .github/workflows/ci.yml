@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [staging, release, main]
+
+jobs:
+  validate:
+    uses: ./.github/workflows/managed-repository.yml
+    with:
+      package-manager: pnpm
+      package-manager-version: "9.15.9"
+      install-command: pnpm install --frozen-lockfile
+      typecheck-command: pnpm run typecheck
+      build-command: pnpm railway:build
+      ui-command: pnpm --filter @workspace/structured-liquidity run registry:check && pnpm --filter @workspace/structured-liquidity run adopters:check

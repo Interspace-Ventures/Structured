@@ -30,10 +30,11 @@
     var wl = w / periods;
     var step = Math.max(2, w / 60);
 
-    function wavePath(cls, lvl, a, fillDown) {
+    function wavePath(cls, lvl, a, fillDown, phase) {
+      phase = phase || 0;
       var d = "M 0 " + lvl.toFixed(2);
       for (var x = 0; x <= 2 * w; x += step) {
-        var y = lvl + a * Math.sin((2 * Math.PI * x) / wl);
+        var y = lvl + a * Math.sin((2 * Math.PI * x) / wl + phase);
         d += " L " + x.toFixed(2) + " " + y.toFixed(2);
       }
       if (fillDown) d += " L " + (2 * w).toFixed(2) + " " + bottom.toFixed(2) + " L 0 " + bottom.toFixed(2) + " Z";
@@ -52,11 +53,15 @@
       // drift sideways to read as moving liquid.
       bob.appendChild(el("rect", { class: "lw-wave-front", x: -w, y: -h, width: 3 * w, height: bottom + 2 * h }));
       bob.appendChild(wavePath("lw-ripple lw-ripple-a", h * 0.3, amp * 0.7, false));
-      bob.appendChild(wavePath("lw-ripple lw-ripple-b", h * 0.58, amp * 0.55, false));
+      bob.appendChild(wavePath("lw-ripple lw-ripple-b", h * 0.58, amp * 0.55, false, Math.PI * 0.7));
+      bob.appendChild(wavePath("lw-caustic lw-caustic-a", h * 0.43, amp * 0.42, false, Math.PI * 1.2));
+      bob.appendChild(wavePath("lw-caustic lw-caustic-b", h * 0.72, amp * 0.34, false, Math.PI * 0.35));
       bob.appendChild(wavePath("lw-shine", h * 0.16, amp * 0.6, false));
     } else {
-      bob.appendChild(wavePath("lw-wave-back", level + amp * 0.55, amp * 0.8, true));
+      bob.appendChild(wavePath("lw-wave-back", level + amp * 0.55, amp * 0.8, true, Math.PI * 0.45));
       bob.appendChild(wavePath("lw-wave-front", level, amp, true));
+      bob.appendChild(wavePath("lw-meniscus", level + amp * 0.18, amp * 0.72, false, Math.PI * 0.9));
+      bob.appendChild(wavePath("lw-caustic lw-caustic-a", level + h * 0.2, amp * 0.5, false, Math.PI * 1.25));
       bob.appendChild(wavePath("lw-shine", level, amp, false));
     }
     slosh.appendChild(bob);
@@ -174,7 +179,7 @@
     sloshV *= 0.86;           // damping
     slosh += sloshV;
     if (slosh > 14) slosh = 14; else if (slosh < -14) slosh = -14;
-    var tr = "skewY(" + (slosh * 0.45).toFixed(2) + "deg) translateY(" + (slosh * 0.3).toFixed(2) + "px)";
+    var tr = "skewY(" + (slosh * 0.42).toFixed(2) + "deg) rotate(" + (slosh * 0.08).toFixed(2) + "deg) translateY(" + (slosh * 0.34).toFixed(2) + "px)";
     var nodes = document.querySelectorAll(".lw-slosh");
     for (var i = 0; i < nodes.length; i++) nodes[i].style.transform = tr;
     requestAnimationFrame(tick);

@@ -40,10 +40,16 @@ function makeWater(w: number, h: number, opts: WaterOpts = {}): SVGElement {
   const wl = w / periods;
   const step = Math.max(2, w / 60);
 
-  function wavePath(cls: string, lvl: number, a: number, fillDown: boolean) {
+  function wavePath(
+    cls: string,
+    lvl: number,
+    a: number,
+    fillDown: boolean,
+    phase = 0,
+  ) {
     let d = "M 0 " + lvl.toFixed(2);
     for (let x = 0; x <= 2 * w; x += step) {
-      const y = lvl + a * Math.sin((2 * Math.PI * x) / wl);
+      const y = lvl + a * Math.sin((2 * Math.PI * x) / wl + phase);
       d += " L " + x.toFixed(2) + " " + y.toFixed(2);
     }
     if (fillDown)
@@ -75,11 +81,27 @@ function makeWater(w: number, h: number, opts: WaterOpts = {}): SVGElement {
       }),
     );
     bob.appendChild(wavePath("lw-ripple lw-ripple-a", h * 0.3, amp * 0.7, false));
-    bob.appendChild(wavePath("lw-ripple lw-ripple-b", h * 0.58, amp * 0.55, false));
+    bob.appendChild(
+      wavePath("lw-ripple lw-ripple-b", h * 0.58, amp * 0.55, false, Math.PI * 0.7),
+    );
+    bob.appendChild(
+      wavePath("lw-caustic lw-caustic-a", h * 0.43, amp * 0.42, false, Math.PI * 1.2),
+    );
+    bob.appendChild(
+      wavePath("lw-caustic lw-caustic-b", h * 0.72, amp * 0.34, false, Math.PI * 0.35),
+    );
     bob.appendChild(wavePath("lw-shine", h * 0.16, amp * 0.6, false));
   } else {
-    bob.appendChild(wavePath("lw-wave-back", level + amp * 0.55, amp * 0.8, true));
+    bob.appendChild(
+      wavePath("lw-wave-back", level + amp * 0.55, amp * 0.8, true, Math.PI * 0.45),
+    );
     bob.appendChild(wavePath("lw-wave-front", level, amp, true));
+    bob.appendChild(
+      wavePath("lw-meniscus", level + amp * 0.18, amp * 0.72, false, Math.PI * 0.9),
+    );
+    bob.appendChild(
+      wavePath("lw-caustic lw-caustic-a", level + h * 0.2, amp * 0.5, false, Math.PI * 1.25),
+    );
     bob.appendChild(wavePath("lw-shine", level, amp, false));
   }
   slosh.appendChild(bob);
@@ -157,7 +179,7 @@ const CUBE = {
     "M50 82 L50 63.44 M22.29 66 L38.36 56.72 M22.29 34 L38.36 43.28",
 };
 
-function buildCube(host: HTMLElement) {
+function buildCube(host: HTMLElement, faceLabels?: readonly [string, string, string]) {
   host.querySelector("svg.liquid-cube")?.remove();
 
   const uid = "lc-" + Math.random().toString(36).slice(2, 8);
@@ -185,6 +207,26 @@ function buildCube(host: HTMLElement) {
   );
   svg.appendChild(el("path", { class: "lw-cube-edge", d: CUBE.innerHex }));
   svg.appendChild(el("path", { class: "lw-cube-shell", d: CUBE.outerHex }));
+
+  if (faceLabels) {
+    /* Centroids of the three inner faces: left, right, and lower plane. */
+    const positions = [
+      { x: 42.1, y: 46.6 },
+      { x: 57.9, y: 46.6 },
+      { x: 50, y: 56.8 },
+    ];
+    faceLabels.forEach((label, index) => {
+      const text = el("text", {
+        class: "lw-cube-face-index",
+        x: positions[index].x,
+        y: positions[index].y,
+        "text-anchor": "middle",
+        "dominant-baseline": "central",
+      });
+      text.textContent = label;
+      svg.appendChild(text);
+    });
+  }
 
   host.appendChild(svg);
   host.classList.add("is-cube");
@@ -219,7 +261,13 @@ function startSlosh() {
     if (slosh > 14) slosh = 14;
     else if (slosh < -14) slosh = -14;
     const tr =
-      "skewY(" + (slosh * 0.45).toFixed(2) + "deg) translateY(" + (slosh * 0.3).toFixed(2) + "px)";
+      "skewY(" +
+      (slosh * 0.42).toFixed(2) +
+      "deg) rotate(" +
+      (slosh * 0.08).toFixed(2) +
+      "deg) translateY(" +
+      (slosh * 0.34).toFixed(2) +
+      "px)";
     const nodes = document.querySelectorAll<HTMLElement>(".lw-slosh");
     for (let i = 0; i < nodes.length; i++) nodes[i].style.transform = tr;
     if (Math.abs(rawV) < 0.01 && Math.abs(sloshV) < 0.01 && Math.abs(slosh) < 0.01) {
@@ -271,20 +319,22 @@ export function LiquidWord({
 export function Hypercube({
   className,
   style,
+  faceLabels,
 }: {
   className?: string;
   style?: React.CSSProperties;
+  faceLabels?: readonly [string, string, string];
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const host = ref.current;
     if (!host) return;
-    buildCube(host);
+    buildCube(host, faceLabels);
     startSlosh();
     let rt: number;
     const onResize = () => {
       clearTimeout(rt);
-      rt = window.setTimeout(() => buildCube(host), 150);
+      rt = window.setTimeout(() => buildCube(host, faceLabels), 150);
     };
     window.addEventListener("resize", onResize);
     return () => {
@@ -292,6 +342,6 @@ export function Hypercube({
       window.removeEventListener("resize", onResize);
       host.querySelector("svg.liquid-cube")?.remove();
     };
-  }, []);
+  }, [faceLabels]);
   return <span ref={ref} className={cn("glyph", className)} style={style} aria-hidden="true" />;
 }

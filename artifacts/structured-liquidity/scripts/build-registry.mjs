@@ -24,7 +24,13 @@
    window.location.origin, so the copied command always matches
    wherever the registry is being served.
    ============================================================ */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync } from "node:fs";
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  readdirSync,
+  rmSync,
+} from "node:fs";
 import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -41,7 +47,9 @@ const PUBLIC = join(ROOT, "public");
 const WRITE_DIR = process.env.REGISTRY_OUT_DIR || PUBLIC;
 const OUT_DIR = join(WRITE_DIR, "r");
 
-const BASE_URL = (process.env.REGISTRY_BASE_URL || "https://structured.glass").replace(/\/+$/, "");
+const BASE_URL = (
+  process.env.REGISTRY_BASE_URL || "https://structured.glass"
+).replace(/\/+$/, "");
 const itemUrl = (name) => `${BASE_URL}/r/${name}.json`;
 
 const BASE_NAME = "structured-liquidity";
@@ -99,7 +107,8 @@ for (const file of files) {
   for (const spec of specs) {
     if (spec.startsWith("@/components/ui/")) {
       const dep = spec.slice("@/components/ui/".length).split("/")[0];
-      if (componentNames.has(dep) && dep !== name) registryDependencies.add(itemUrl(dep));
+      if (componentNames.has(dep) && dep !== name)
+        registryDependencies.add(itemUrl(dep));
     } else if (spec.startsWith("@/lib/utils")) {
       registryDependencies.add("utils");
     } else if (spec.startsWith("@/") || spec.startsWith(".")) {
@@ -206,26 +215,39 @@ const JS_FILES = ["structured-liquidity-kit.js"];
 
 const cssVars = {
   theme: {
-    "accent": "#a388ee",
+    accent: "#a388ee",
     "accent-ink": "#000000",
-    "bg": "#272933",
-    "bg-2": "#1f2028",
-    "ink": "#e6e6e6",
-    "ink-dim": "#9da0ab",
-    "edge": "0 0 0",
+    bg: "#f2f0ea",
+    "bg-2": "#ffffff",
+    ink: "#111111",
+    "ink-dim": "#5d5d59",
+    edge: "0 0 0",
     "hard-shadow": "#000000",
-    "neg": "#3c3f4b",
-    "neg-ink": "#f0f0f2",
-    "glass-blur": "18px",
+    neg: "#242424",
+    "neg-ink": "#ffffff",
+    "glass-blur": "14px",
     "glass-tint": "255 255 255",
-    "glass-alpha": "0.07",
+    "glass-alpha": "0.72",
     "border-w": "2px",
-    "hard-x": "7px",
-    "hard-y": "7px",
-    "radius": "0px",
-    "display": '"Inter","Helvetica Neue",system-ui,sans-serif',
-    "body": '"Inter","Helvetica Neue",system-ui,sans-serif',
-    "mono": '"Space Mono",ui-monospace,"SFMono-Regular",monospace',
+    "hard-x": "5px",
+    "hard-y": "5px",
+    radius: "0px",
+    display: '"Inter","Helvetica Neue",Arial,system-ui,sans-serif',
+    body: '"Inter","Helvetica Neue",Arial,system-ui,sans-serif',
+    mono: '"Space Mono","SFMono-Regular",ui-monospace,monospace',
+    "text-display-xl": "clamp(4.2rem, 10.5vw, 9.5rem)",
+    "text-display-lg": "clamp(2.6rem, 5.5vw, 5.25rem)",
+    "measure-reading": "62ch",
+    "measure-caption": "48ch",
+    "grid-gutter": "clamp(1rem, 2.5vw, 2.5rem)",
+    "section-space": "clamp(4rem, 9vw, 9rem)",
+    "clarity-gap": "clamp(1.25rem, 3vw, 3rem)",
+    "rule-hairline": "1px",
+    "ease-liquid": "cubic-bezier(.22,1,.36,1)",
+    "ease-liquid-over": "cubic-bezier(.34,1.4,.5,1)",
+    "motion-fast": "160ms",
+    motion: "340ms",
+    "motion-slow": "500ms",
   },
 };
 
@@ -250,8 +272,13 @@ const baseItem = {
   type: "registry:style",
   title: "Structured Liquidity",
   description:
-    "The Structured Liquidity design language base: theme tokens plus the three distributable stylesheets and the kit interaction script. Install this first — every component depends on it.",
-  dependencies: ["clsx", "tailwind-merge", "class-variance-authority", "lucide-react"],
+    "The Structured Liquidity design language base: Neobrutalist structure, Liquid Motion, and Scientific Modern Clarity. Includes theme tokens, three distributable stylesheets, and the kit interaction script. Install this first — every component depends on it.",
+  dependencies: [
+    "clsx",
+    "tailwind-merge",
+    "class-variance-authority",
+    "lucide-react",
+  ],
   registryDependencies: ["utils"],
   cssVars,
   files: baseFiles,
@@ -263,13 +290,19 @@ const agentItem = {
   type: "registry:item",
   title: "Structured Liquidity Agent Bundle",
   description:
-    "Install Structured Liquidity plus a persistent local agent skill before the first UI edit.",
+    "Install the Neobrutalist structure, Liquid Motion, and Scientific Modern Clarity language plus its persistent local agent skill before the first UI edit.",
   registryDependencies: [itemUrl(BASE_NAME)],
   files: [
     {
       path: "registry/rules/structured-liquidity/SKILL.md",
       content: readFileSync(
-        join(REPO_ROOT, ".agents", "skills", "structured-liquidity", "SKILL.md"),
+        join(
+          REPO_ROOT,
+          ".agents",
+          "skills",
+          "structured-liquidity",
+          "SKILL.md",
+        ),
         "utf8",
       ),
       type: "registry:file",
@@ -283,13 +316,25 @@ const agentItem = {
 rmSync(OUT_DIR, { recursive: true, force: true });
 mkdirSync(OUT_DIR, { recursive: true });
 
-writeFileSync(join(OUT_DIR, `${BASE_NAME}.json`), JSON.stringify(baseItem, null, 2) + "\n");
-writeFileSync(join(OUT_DIR, `${agentItem.name}.json`), JSON.stringify(agentItem, null, 2) + "\n");
+writeFileSync(
+  join(OUT_DIR, `${BASE_NAME}.json`),
+  JSON.stringify(baseItem, null, 2) + "\n",
+);
+writeFileSync(
+  join(OUT_DIR, `${agentItem.name}.json`),
+  JSON.stringify(agentItem, null, 2) + "\n",
+);
 for (const { name, item } of uiItems) {
-  writeFileSync(join(OUT_DIR, `${name}.json`), JSON.stringify(item, null, 2) + "\n");
+  writeFileSync(
+    join(OUT_DIR, `${name}.json`),
+    JSON.stringify(item, null, 2) + "\n",
+  );
 }
 for (const { name, item } of templateItems) {
-  writeFileSync(join(OUT_DIR, `${name}.json`), JSON.stringify(item, null, 2) + "\n");
+  writeFileSync(
+    join(OUT_DIR, `${name}.json`),
+    JSON.stringify(item, null, 2) + "\n",
+  );
 }
 
 const registry = {
@@ -312,7 +357,10 @@ const registry = {
     ...items,
   ],
 };
-writeFileSync(join(WRITE_DIR, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
+writeFileSync(
+  join(WRITE_DIR, "registry.json"),
+  JSON.stringify(registry, null, 2) + "\n",
+);
 
 console.log(
   `registry: wrote ${uiItems.length + templateItems.length + 2} items to public/r/ + public/registry.json (base ${BASE_URL})`,

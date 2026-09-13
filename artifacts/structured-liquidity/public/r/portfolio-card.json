@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "portfolio-card",
+  "type": "registry:ui",
+  "title": "Portfolio Card",
+  "description": "Structured Liquidity Portfolio Card — React component driving the SL class system.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/portfolio-card.tsx",
+      "content": "import * as React from \"react\";\nimport { ExternalLink } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * Default Structured Liquidity portfolio grid.\n *\n * Identity, description, state, and action stay visible at rest. Hover may\n * reinforce tactility, but it must never be required to understand the card.\n */\nexport function PortfolioGrid({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-portfolio-grid\", className)} {...props} />;\n}\n\ntype PortfolioCardProps = React.HTMLAttributes<HTMLElement> & {\n  href?: string;\n  external?: boolean;\n};\n\nexport function PortfolioCard({\n  className,\n  href,\n  external = true,\n  children,\n  ...props\n}: PortfolioCardProps) {\n  const cardClassName = cn(\"sl-portfolio-card\", className);\n\n  if (href) {\n    return (\n      <a\n        className={cardClassName}\n        href={href}\n        target={external ? \"_blank\" : undefined}\n        rel={external ? \"noopener noreferrer\" : undefined}\n        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}\n      >\n        {children}\n      </a>\n    );\n  }\n\n  return (\n    <article className={cardClassName} {...props}>\n      {children}\n    </article>\n  );\n}\n\nexport function PortfolioCardMedia({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-portfolio-card-media\", className)} {...props} />;\n}\n\nexport function PortfolioCardLogo({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-portfolio-card-logo\", className)} {...props} />;\n}\n\nexport function PortfolioCardBody({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-portfolio-card-body\", className)} {...props} />;\n}\n\nexport function PortfolioCardTags({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return <div className={cn(\"sl-portfolio-card-tags\", className)} {...props} />;\n}\n\nexport function PortfolioCardTag({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLSpanElement>) {\n  return <span className={cn(\"sl-portfolio-card-tag\", className)} {...props} />;\n}\n\nexport function PortfolioCardTitle({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLHeadingElement>) {\n  return <h3 className={cn(\"sl-portfolio-card-title\", className)} {...props} />;\n}\n\nexport function PortfolioCardDescription({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLParagraphElement>) {\n  return <p className={cn(\"sl-portfolio-card-description\", className)} {...props} />;\n}\n\nexport function PortfolioCardAction({\n  className,\n  children = \"Visit\",\n  ...props\n}: React.HTMLAttributes<HTMLSpanElement>) {\n  return (\n    <span className={cn(\"sl-portfolio-card-action\", className)} {...props}>\n      {children}\n      <ExternalLink aria-hidden=\"true\" />\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/portfolio-card.tsx"
+    }
+  ]
+}

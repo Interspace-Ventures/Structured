@@ -1,4 +1,9 @@
 import adopterRegistry from "@/adopters.json";
+import {
+  PortfolioGrid, PortfolioCard, PortfolioCardMedia, PortfolioCardBody,
+  PortfolioCardTags, PortfolioCardTag, PortfolioCardTitle,
+  PortfolioCardDescription, PortfolioCardAction,
+} from "@/components/ui/portfolio-card";
 
 type Lifecycle = "live" | "staging";
 type RouteStatus = "verified" | "private" | "domain-pending" | "concept";
@@ -21,7 +26,17 @@ interface Adopter {
 }
 
 const ADOPTERS = adopterRegistry.projects as Adopter[];
-const LIVE = ADOPTERS.filter((project) => project.lifecycle === "live");
+const SHOWCASE_IDS = [
+  "interspace-ventures",
+  "cosmograph",
+  "observatory",
+  "exobase",
+  "construct",
+  "rampart",
+] as const;
+const SHOWCASE = SHOWCASE_IDS.map((id) => ADOPTERS.find((project) => project.id === id)).filter(
+  (project): project is Adopter => Boolean(project),
+);
 
 const STATUS_LABEL: Record<RouteStatus, string> = {
   verified: "Live",
@@ -31,15 +46,14 @@ const STATUS_LABEL: Record<RouteStatus, string> = {
 };
 
 function ProjectCard({ project }: { project: Adopter }) {
-  const body = (
-    <>
-      <div className="browser-bar">
-        <span className="tl" />
-        <span className="tl" />
-        <span className="tl" />
-        <span className="url">{project.domain}</span>
-      </div>
-      <div className="show-card-shot">
+  return (
+    <PortfolioCard href={project.href ?? undefined} className="showcase-project">
+      <PortfolioCardMedia className="showcase-project-media">
+        {project.lifecycle === "live" ? (
+          <PortfolioCardTags>
+            <PortfolioCardTag>{STATUS_LABEL[project.routeStatus]}</PortfolioCardTag>
+          </PortfolioCardTags>
+        ) : null}
         {project.shot ? (
           <img
             src={project.shot}
@@ -55,45 +69,14 @@ function ProjectCard({ project }: { project: Adopter }) {
             <small>{project.tag}</small>
           </div>
         )}
-        <div className="show-card-veil">
-          <div className="vbody">
-            <p className="show-card-desc">{project.description}</p>
-            <span className="show-card-cta">
-              {project.href ? `Visit ${project.domain}` : `Tracking ${project.domain}`}{" "}
-              <span aria-hidden="true">→</span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="show-card-foot">
-        <span className="sl-ava show-project-mark" aria-hidden="true">
-          {project.name.slice(0, 2).toUpperCase()}
-        </span>
-        <div className="show-id">
-          <span className="show-name">{project.name}</span>
-          <span className="mono">{project.tag}</span>
-        </div>
-        <span
-          className={`sl-badge ${project.routeStatus === "verified" ? "default" : "outline"}`}
-        >
-          {STATUS_LABEL[project.routeStatus]}
-        </span>
-      </div>
-    </>
-  );
-
-  return project.href ? (
-    <a
-      className="show-card glass"
-      href={project.href}
-      target="_blank"
-      rel="noopener"
-      aria-label={`Visit ${project.domain}, a product built on Structured Liquidity (opens in a new tab)`}
-    >
-      {body}
-    </a>
-  ) : (
-    <article className="show-card glass is-static">{body}</article>
+      </PortfolioCardMedia>
+      <PortfolioCardBody>
+        <span className="showcase-project-domain">{project.domain}</span>
+        <PortfolioCardTitle>{project.name}</PortfolioCardTitle>
+        <PortfolioCardDescription>{project.description}</PortfolioCardDescription>
+        {project.href ? <PortfolioCardAction>Visit {project.name}</PortfolioCardAction> : null}
+      </PortfolioCardBody>
+    </PortfolioCard>
   );
 }
 
@@ -115,15 +98,15 @@ export function Showcase() {
       </div>
 
       <div className="show-registry-meta reveal">
-        <span>{LIVE.length} live</span>
+        <span>{SHOWCASE.length} showcased</span>
         <span>Reviewed {adopterRegistry.reviewedAt}</span>
       </div>
 
-      <div className="show-grid reveal">
-        {LIVE.map((project) => (
+      <PortfolioGrid className="showcase-projects reveal">
+        {SHOWCASE.map((project) => (
           <ProjectCard project={project} key={project.id} />
         ))}
-      </div>
+      </PortfolioGrid>
 
     </section>
   );

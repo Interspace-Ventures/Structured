@@ -1,33 +1,41 @@
 {
   "name": "Structured Liquidity component catalog",
-  "description": "Single source of truth for the component inventory and how the live gallery is organized (category, status, tags). The gallery (bindGallery in src/lib/behaviors.ts) derives its filter chips and grouping from this file; each component's `cap` must match its .kit-cap text.",
+  "description": "Single source of truth for the installable component inventory and the curated live gallery (category, status, tags, showcase exclusions). The gallery (bindGallery in src/lib/behaviors.ts) derives its filter chips and grouping from this file; each rendered component's `cap` must match its .kit-cap text.",
   "categories": [
     {
       "key": "actions",
       "label": "Actions"
     },
     {
-      "key": "data",
-      "label": "Data"
+      "key": "forms",
+      "label": "Forms"
     },
     {
-      "key": "layout",
-      "label": "Layout"
+      "key": "data-display",
+      "label": "Data Display"
     },
     {
       "key": "navigation",
       "label": "Navigation"
     },
     {
+      "key": "feedback",
+      "label": "Feedback"
+    },
+    {
       "key": "overlays",
       "label": "Overlays"
+    },
+    {
+      "key": "layout",
+      "label": "Layout"
     }
   ],
   "components": [
     {
       "name": "Button",
       "registry": "button",
-      "cap": "Button · variants & sizes",
+      "cap": "Button · variants",
       "category": "actions",
       "status": "stable",
       "tags": [
@@ -80,7 +88,7 @@
       "name": "Alert",
       "registry": "alert",
       "cap": "Alert",
-      "category": "data",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "display"
@@ -93,7 +101,7 @@
       "name": "Avatar",
       "registry": "avatar",
       "cap": "Avatar",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -106,7 +114,7 @@
       "name": "Badge",
       "registry": "badge",
       "cap": "Badge",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -120,7 +128,7 @@
       "name": "Calendar / date picker",
       "registry": "calendar",
       "cap": "Calendar / date picker",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "display"
@@ -134,7 +142,7 @@
       "name": "Card",
       "registry": "card",
       "cap": "Card",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -144,10 +152,24 @@
       ]
     },
     {
+      "name": "Portfolio card",
+      "registry": "portfolio-card",
+      "cap": "Portfolio card",
+      "category": "data-display",
+      "status": "stable",
+      "tags": [
+        "display",
+        "portfolio"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
       "name": "Waveform",
       "registry": "waveform",
       "cap": "Waveform",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display",
@@ -161,7 +183,7 @@
       "name": "Media player",
       "registry": "media-player",
       "cap": "Media player · now playing",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display",
@@ -177,7 +199,7 @@
       "name": "Carousel",
       "registry": "carousel",
       "cap": "Carousel",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -191,7 +213,7 @@
       "name": "Chart",
       "registry": "chart",
       "cap": "Chart",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -204,7 +226,7 @@
       "name": "Empty",
       "registry": "empty",
       "cap": "Empty",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -231,7 +253,7 @@
       "name": "Item",
       "registry": "item",
       "cap": "Item",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -244,7 +266,7 @@
       "name": "Kbd",
       "registry": "kbd",
       "cap": "Kbd",
-      "category": "overlays",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -257,7 +279,7 @@
       "name": "Marquee",
       "registry": "marquee",
       "cap": "Marquee",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -270,7 +292,7 @@
       "name": "Meter",
       "registry": "meter",
       "cap": "Meter",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -281,10 +303,10 @@
       ]
     },
     {
-      "name": "Progress · skeleton",
+      "name": "Progress",
       "registry": "progress",
-      "cap": "Progress · skeleton",
-      "category": "data",
+      "cap": "Progress",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "display"
@@ -294,36 +316,10 @@
       ]
     },
     {
-      "name": "Skeleton · card",
+      "name": "Data skeleton",
       "registry": "skeleton",
-      "cap": "Skeleton · card",
-      "category": "data",
-      "status": "stable",
-      "tags": [
-        "display"
-      ],
-      "kinds": [
-        "feedback"
-      ]
-    },
-    {
-      "name": "Skeleton · text",
-      "registry": "skeleton",
-      "cap": "Skeleton · text",
-      "category": "data",
-      "status": "stable",
-      "tags": [
-        "display"
-      ],
-      "kinds": [
-        "feedback"
-      ]
-    },
-    {
-      "name": "Skeleton · list",
-      "registry": "skeleton",
-      "cap": "Skeleton · list",
-      "category": "data",
+      "cap": "Data skeleton",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "display"
@@ -336,7 +332,7 @@
       "name": "Spinner",
       "registry": "spinner",
       "cap": "Spinner",
-      "category": "data",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "display"
@@ -349,7 +345,7 @@
       "name": "Table / data table",
       "registry": "table",
       "cap": "Table / data table",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display"
@@ -362,7 +358,7 @@
       "name": "Tooltip · hover card",
       "registry": "tooltip",
       "cap": "Tooltip · hover card",
-      "category": "data",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "display"
@@ -388,7 +384,7 @@
       "name": "Accordion",
       "registry": "accordion",
       "cap": "Accordion",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "interactive"
@@ -401,7 +397,7 @@
       "name": "Collapsible",
       "registry": "collapsible",
       "cap": "Collapsible",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "interactive"
@@ -414,7 +410,7 @@
       "name": "Checkbox",
       "registry": "checkbox",
       "cap": "Checkbox",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -429,7 +425,7 @@
       "name": "Command / combobox",
       "registry": "command",
       "cap": "Command / combobox",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -444,7 +440,7 @@
       "name": "Field",
       "registry": "field",
       "cap": "Field",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -458,7 +454,7 @@
       "name": "Input group",
       "registry": "input-group",
       "cap": "Input group",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -473,7 +469,7 @@
       "name": "Input OTP",
       "registry": "input-otp",
       "cap": "Input OTP",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -488,7 +484,7 @@
       "name": "Input · label · textarea",
       "registry": "input",
       "cap": "Input · label · textarea",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -503,35 +499,20 @@
       "name": "Fieldset",
       "registry": "fieldset",
       "cap": "Fieldset",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form"
       ],
       "kinds": [
         "form"
-      ]
-    },
-    {
-      "name": "Native select",
-      "registry": "native-select",
-      "cap": "Native select",
-      "category": "data",
-      "status": "stable",
-      "tags": [
-        "form",
-        "interactive"
-      ],
-      "kinds": [
-        "form",
-        "interactive"
       ]
     },
     {
       "name": "Number field",
       "registry": "number-field",
       "cap": "Number field",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -546,7 +527,7 @@
       "name": "Radio group",
       "registry": "radio-group",
       "cap": "Radio group",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -558,10 +539,10 @@
       ]
     },
     {
-      "name": "Select",
+      "name": "Select / options",
       "registry": "select",
-      "cap": "Select",
-      "category": "data",
+      "cap": "Select / options",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -576,7 +557,7 @@
       "name": "Switch · slider",
       "registry": "switch",
       "cap": "Switch · slider",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -713,19 +694,6 @@
       "kinds": []
     },
     {
-      "name": "Tabs",
-      "registry": "tabs",
-      "cap": "Tabs",
-      "category": "navigation",
-      "status": "stable",
-      "tags": [
-        "navigation"
-      ],
-      "kinds": [
-        "interactive"
-      ]
-    },
-    {
       "name": "Alert dialog",
       "registry": "alert-dialog",
       "cap": "Alert dialog",
@@ -782,20 +750,6 @@
       ]
     },
     {
-      "name": "Dropdown menu",
-      "registry": "dropdown-menu",
-      "cap": "Dropdown menu",
-      "category": "overlays",
-      "status": "stable",
-      "tags": [
-        "overlay",
-        "interactive"
-      ],
-      "kinds": [
-        "interactive"
-      ]
-    },
-    {
       "name": "Popover",
       "registry": "popover",
       "cap": "Popover",
@@ -827,7 +781,7 @@
       "name": "Toast / sonner",
       "registry": "toast",
       "cap": "Toast / sonner",
-      "category": "overlays",
+      "category": "feedback",
       "status": "stable",
       "tags": [
         "overlay",
@@ -841,7 +795,7 @@
       "name": "Autocomplete",
       "registry": "autocomplete",
       "cap": "Autocomplete",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -856,7 +810,7 @@
       "name": "Checkbox group",
       "registry": "checkbox-group",
       "cap": "Checkbox group",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -871,7 +825,7 @@
       "name": "Form",
       "registry": "form",
       "cap": "Form",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form",
@@ -886,7 +840,7 @@
       "name": "Label",
       "registry": "label",
       "cap": "Label",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
       "tags": [
         "form"
@@ -900,7 +854,7 @@
       "name": "Stat · metric display",
       "registry": "stat",
       "cap": "Stat · metric display",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "display",
@@ -953,39 +907,25 @@
       ]
     },
     {
-      "name": "Tab bar & drawer",
-      "registry": "mobile-nav",
-      "cap": "Tab bar & drawer",
-      "category": "navigation",
+      "name": "Profile card",
+      "registry": "profile-card",
+      "cap": "Profile card",
+      "category": "layout",
       "status": "stable",
       "tags": [
-        "navigation",
-        "interactive"
+        "display",
+        "identity",
+        "field-sourced",
+        "profile"
       ],
       "kinds": [
-        "interactive",
-        "mobile"
+        "display"
       ]
     },
     {
-      "name": "Floating glass tab bar",
+      "name": "Floating tab bar & drawer",
       "registry": "mobile-nav",
-      "cap": "Floating glass tab bar",
-      "category": "navigation",
-      "status": "stable",
-      "tags": [
-        "navigation",
-        "interactive"
-      ],
-      "kinds": [
-        "interactive",
-        "mobile"
-      ]
-    },
-    {
-      "name": "Segmented sub-nav",
-      "registry": "mobile-nav",
-      "cap": "Segmented sub-nav",
+      "cap": "Floating tab bar & drawer",
       "category": "navigation",
       "status": "stable",
       "tags": [
@@ -1003,8 +943,28 @@
       "cap": "Site shell",
       "category": "layout",
       "status": "stable",
-      "tags": ["layout", "responsive"],
-      "kinds": ["display"]
+      "tags": [
+        "layout",
+        "responsive"
+      ],
+      "kinds": [
+        "display"
+      ]
+    },
+    {
+      "name": "Unit economics chart",
+      "registry": "unit-economics-chart",
+      "cap": "Unit economics chart",
+      "category": "data-display",
+      "status": "stable",
+      "tags": [
+        "data",
+        "chart",
+        "finance"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Framework attribution",
@@ -1012,8 +972,13 @@
       "cap": "Framework attribution",
       "category": "layout",
       "status": "stable",
-      "tags": ["display", "branding"],
-      "kinds": ["display"]
+      "tags": [
+        "display",
+        "branding"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Timeline",
@@ -1021,8 +986,13 @@
       "cap": "Timeline",
       "category": "layout",
       "status": "stable",
-      "tags": ["display", "history"],
-      "kinds": ["display"]
+      "tags": [
+        "display",
+        "history"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Stepper",
@@ -1030,17 +1000,29 @@
       "cap": "Stepper",
       "category": "navigation",
       "status": "stable",
-      "tags": ["navigation", "interactive"],
-      "kinds": ["interactive"]
+      "tags": [
+        "navigation",
+        "interactive"
+      ],
+      "kinds": [
+        "interactive"
+      ]
     },
     {
       "name": "Filter toolbar",
       "registry": "filter-toolbar",
       "cap": "Filter toolbar",
-      "category": "data",
+      "category": "forms",
       "status": "stable",
-      "tags": ["form", "interactive", "data"],
-      "kinds": ["form", "interactive"]
+      "tags": [
+        "form",
+        "interactive",
+        "data"
+      ],
+      "kinds": [
+        "form",
+        "interactive"
+      ]
     },
     {
       "name": "Omnibar",
@@ -1048,8 +1030,17 @@
       "cap": "Omnibar",
       "category": "actions",
       "status": "stable",
-      "tags": ["form", "interactive", "command", "field-sourced"],
-      "kinds": ["form", "interactive", "mobile"]
+      "tags": [
+        "form",
+        "interactive",
+        "command",
+        "field-sourced"
+      ],
+      "kinds": [
+        "form",
+        "interactive",
+        "mobile"
+      ]
     },
     {
       "name": "Detail panel",
@@ -1057,14 +1048,22 @@
       "cap": "Detail panel",
       "category": "layout",
       "status": "stable",
-      "tags": ["display", "interactive", "inspection", "field-sourced"],
-      "kinds": ["interactive", "display"]
+      "tags": [
+        "display",
+        "interactive",
+        "inspection",
+        "field-sourced"
+      ],
+      "kinds": [
+        "interactive",
+        "display"
+      ]
     },
     {
       "name": "AI chat",
       "registry": "ai-chat",
       "cap": "AI chat · conversation",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
       "tags": [
         "interactive",
@@ -1080,10 +1079,16 @@
       "name": "Testimonial card",
       "registry": "testimonial-card",
       "cap": "Testimonial card",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
-      "tags": ["display", "field-sourced", "social-proof"],
-      "kinds": ["display"]
+      "tags": [
+        "display",
+        "field-sourced",
+        "social-proof"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Logo grid",
@@ -1091,17 +1096,30 @@
       "cap": "Logo grid",
       "category": "layout",
       "status": "stable",
-      "tags": ["display", "field-sourced", "identity"],
-      "kinds": ["display"]
+      "tags": [
+        "display",
+        "field-sourced",
+        "identity"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Activity feed",
       "registry": "activity-feed",
       "cap": "Activity feed",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
-      "tags": ["display", "field-sourced", "history", "updates"],
-      "kinds": ["display"]
+      "tags": [
+        "display",
+        "field-sourced",
+        "history",
+        "updates"
+      ],
+      "kinds": [
+        "display"
+      ]
     },
     {
       "name": "Dropzone",
@@ -1109,17 +1127,33 @@
       "cap": "Dropzone",
       "category": "actions",
       "status": "stable",
-      "tags": ["form", "interactive", "field-sourced", "upload"],
-      "kinds": ["form", "interactive"]
+      "tags": [
+        "form",
+        "interactive",
+        "field-sourced",
+        "upload"
+      ],
+      "kinds": [
+        "form",
+        "interactive"
+      ]
     },
     {
       "name": "Pricing card",
       "registry": "pricing-card",
       "cap": "Pricing card",
-      "category": "data",
+      "category": "data-display",
       "status": "stable",
-      "tags": ["display", "interactive", "field-sourced", "commerce"],
-      "kinds": ["display", "interactive"]
+      "tags": [
+        "display",
+        "interactive",
+        "field-sourced",
+        "commerce"
+      ],
+      "kinds": [
+        "display",
+        "interactive"
+      ]
     },
     {
       "name": "Templates",
@@ -1127,10 +1161,44 @@
       "cap": "Templates",
       "category": "layout",
       "status": "stable",
-      "tags": ["layout", "field-sourced", "templates"],
-      "kinds": ["display"]
+      "tags": [
+        "layout",
+        "field-sourced",
+        "templates"
+      ],
+      "kinds": [
+        "display"
+      ]
     }
   ],
+  "showcase": {
+    "exclude": [
+      "Button group",
+      "Avatar",
+      "Empty",
+      "Fonts",
+      "Item",
+      "Kbd",
+      "Marquee",
+      "Meter",
+      "Spinner",
+      "Collapsible",
+      "Field",
+      "Fieldset",
+      "Label",
+      "Aspect ratio",
+      "Separator",
+      "Breadcrumb",
+      "Menubar",
+      "Pagination",
+      "Drawer",
+      "Checkbox group",
+      "Keycap tiles",
+      "Profile header",
+      "Framework attribution",
+      "Logo grid"
+    ]
+  },
   "facets": [
     {
       "key": "interactive",

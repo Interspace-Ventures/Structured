@@ -49,6 +49,7 @@ function bindGallery() {
       .filter((c): c is typeof c & { registry: string } => "registry" in c && !!c.registry)
       .map((c) => [c.cap, c.registry] as const),
   );
+  const showcaseExclude = new Set<string>(catalog.showcase.exclude);
 
   const grid = document.createElement("div");
   grid.className = "kit-grid gallery";
@@ -57,7 +58,9 @@ function bindGallery() {
 
   const primaryCap = (cell: HTMLElement): string =>
     cell.querySelector<HTMLElement>(".kit-cap")?.textContent?.trim() ?? "";
-  const cells = Array.from(groups.querySelectorAll<HTMLElement>(".kit-cell"));
+  const cells = Array.from(groups.querySelectorAll<HTMLElement>(".kit-cell")).filter(
+    (cell) => !showcaseExclude.has(primaryCap(cell)),
+  );
   cells.sort((a, b) => {
     const la = labelOf(CAT_OF[primaryCap(a)] ?? "other").toLowerCase();
     const lb = labelOf(CAT_OF[primaryCap(b)] ?? "other").toLowerCase();

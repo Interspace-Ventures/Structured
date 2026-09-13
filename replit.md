@@ -1,6 +1,6 @@
 # Structured Liquidity
 
-A live, deployable specimen + landing page for **Structured Liquidity** — an open UI design language that pairs rigid containment (sharp 90° corners, flat blurless offset shadows, strict grid) with viscous depth (semi-transparent light-reflecting glass) and semantic clarity. The page is both the specimen and the documentation of the language, with a live in-page theme tweaker, and it **dogfoods its own React components**. It also publishes those components as a **shadcn-installable registry** at `/r/*.json`. Structured Liquidity is an Interspace Venture (est. 2026); the source is on GitHub at https://github.com/heyinterspace/Structured.
+A live, deployable specimen + landing page for **Structured Liquidity** — **Neobrutalist structure. Liquid motion. Scientific modern clarity.** Neobrutalist structure owns the physical frame of the interface: buttons, borders, navigation, footers, body containers, panels, square geometry, and selective flat shadows. Liquid Motion makes system behavior perceptible through shared markers and transitions between navbar actions, menu options, tabs, filters, overlays, and page areas without becoming the only carrier of meaning; default information surfaces remain flat, gradients are not shorthand for liquidity, and every interaction has a complete reduced-motion state. Scientific Modern Clarity organizes information and communicates meaning through rational grids, disciplined hierarchy, measured typography, captions, labeling, evidence, and purposeful whitespace. Swiss modernism and the International Typographic Style are the informing tradition: information should be legible, ordered, and unmistakable, and every screen remains complete without relying on color, glass, or motion. These three tenets form the Structured Liquidity trifecta, represented by the cube's three visible faces. The page is both the specimen and the documentation of the language, with a live in-page theme tweaker, and it **dogfoods its own React components**. It also publishes those components as a **shadcn-installable registry** at `/r/*.json`. Structured Liquidity is an Interspace Venture (est. 2026); the source is on GitHub at https://github.com/heyinterspace/Structured.
 
 ## Run & Operate
 
@@ -20,7 +20,7 @@ A live, deployable specimen + landing page for **Structured Liquidity** — an o
 ## Where things live
 
 - `artifacts/structured-liquidity/index.html` — minimal React shell (`<div id="root">` + `<script src="/src/main.tsx">`)
-- `artifacts/structured-liquidity/src/main.tsx`, `src/App.tsx` — entry + page composition (Nav, Hero, Pillars, Components/gallery, Templates, Showcase, Adopt, FooterCta, Footer, Tweaker, Toaster, overlays)
+- `artifacts/structured-liquidity/src/main.tsx`, `src/App.tsx` — entry + page composition (Nav, Hero, Tenets, Components/gallery, Templates, Showcase, Adopt, FooterCta, Footer, Tweaker, Toaster, overlays)
 - `artifacts/structured-liquidity/src/index.css` — Tailwind entry: `@theme` + imports of the SL styles in `src/styles/` (`10-tokens-base.css`, `20-components.css`, `30-kit.css`, `40-inline.css`)
 - `artifacts/structured-liquidity/src/components/ui/*` — ~64 shadcn-style SL components (Button, Badge, Input, Select, Tabs, Accordion, Dialog, …). **Plain React + `lucide-react`, no Radix** — each emits SL classes and uses `cn()` from `src/lib/utils.ts`.
 - `artifacts/structured-liquidity/src/components/templates/*` — installable page structures distilled from the production portfolio: marketing site, data dashboard, guided flow, and immersive app.
@@ -55,11 +55,11 @@ Cross-item URLs use `REGISTRY_BASE_URL` (default `https://structured.glass`). Th
 - **Showcase is a scalable product-card grid** (`.show-grid` of `.show-card`): each card is a clickable `<a class="show-card glass">` with a real screenshot from `public/`; description + Visit CTA reveal on hover/focus (persistent bottom panel on touch). Add a product = one `.show-card` + its screenshot.
 - Asset references are relative; the artifact is served at base `/`.
 - Public sites built with the framework must include a visible footer attribution to `https://structured.glass`; use `FrameworkAttribution` or the plain HTML recipe in `ATTRIBUTION.md`. Immersive full-viewport apps may put it in a persistent information panel.
-- Navigation and footer chrome use `--shell-w` and remain slightly wider than the `--content-w` reading/application column.
+- Navigation, body surface, and footer chrome share `--shell-w`. The body remains an independent near-background surface, while tenant layouts may set a narrower internal reading measure.
 
 ## Product
 
-A single-page specimen + reference for the Structured Liquidity design language: it explains the three pillars (each with its working rules), demonstrates a full component kit (the same React components it ships), lets visitors retheme it live (accent, glass blur, corner radius, border weight, flat-shadow offset, display font, dark/light mode), and lets them install it via shadcn.
+A single-page specimen + reference for the Structured Liquidity design language: it explains the trifecta in order—Neobrutalist structure as the physical frame, Liquid Motion as behavior, Scientific Modern Clarity as information and communication—demonstrates a curated component gallery backed by the full registry, lets visitors retheme it live, and lets them install it via shadcn. The cube's three visible faces represent the trifecta; there is no fourth group.
 
 ## Design language tokens (the knobs the page reads)
 
@@ -68,10 +68,10 @@ Defined in `src/styles/10-tokens-base.css` / `public/structured-liquidity.css` `
 - `--accent` (default `#a388ee`) + `--accent-ink` (luminance-derived black/white)
 - `--glass-blur` (18px), `--glass-tint` (rgb), `--glass-alpha`
 - `--border-w` (2px), `--hard-x`/`--hard-y` (7px, flat offset shadow), `--radius` (0px)
-- `--display` (Archivo, headings/buttons/brand — controlled by the live tweaker), `--mono` (Space Mono), `--body` (Outfit)
+- `--display` and `--body` (Inter), `--mono` (Space Mono)
 - `data-mode` attribute on `<html>`: `dark` | `light`
-- Tweaker ranges: blur 0–40, radius 0–40, border 0–5, shadow 0–16; accents `#a388ee #7c9cff #3dd7c8 #ffb454 #ff7a90`; fonts Archivo / Space Grotesk / Syne
-- **Font pairings** (Header · Body · Detail): `Archivo · Outfit · Space Mono` (Canonical, default), `Syne · Inter · IBM Plex Mono` (Editorial), `Bricolage Grotesque · Plus Jakarta Sans · JetBrains Mono` (Modern). Never two header faces; never body copy in the header face; detail mono only for labels/data/code.
+- Tweaker ranges: blur 0–40, radius 0–40, border 0–5, shadow 0–16; accents `#a388ee #7c9cff #3dd7c8 #ffb454 #ff7a90`; typography stays fixed.
+- **Canonical font roles** (Header · Body · Detail): `Inter · Inter · Space Mono`. Use Inter across hierarchy and reading; reserve mono for labels, evidence, data, and code.
 
 ## User preferences
 

@@ -17,8 +17,7 @@ export function NavigationMenuItem({
   return <div className={cn("nm-item", className)} {...props} />;
 }
 
-export interface NavigationMenuTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface NavigationMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** render the dropdown chevron */
   withChevron?: boolean;
 }
@@ -46,7 +45,16 @@ export function NavigationMenuContent({
 export const NavigationMenuLink = React.forwardRef<
   HTMLAnchorElement,
   React.AnchorHTMLAttributes<HTMLAnchorElement>
->(({ className, href = "#", ...props }, ref) => (
-  <a ref={ref} href={href} className={className} {...props} />
+>(({ className, href = "#", onClick, ...props }, ref) => (
+  <a
+    ref={ref}
+    href={href}
+    className={className}
+    onClick={(event) => {
+      if (href === "#") event.preventDefault();
+      onClick?.(event);
+    }}
+    {...props}
+  />
 ));
 NavigationMenuLink.displayName = "NavigationMenuLink";

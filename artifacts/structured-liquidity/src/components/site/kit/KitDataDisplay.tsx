@@ -32,6 +32,18 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Meter } from "@/components/ui/meter";
+import {
+  PortfolioCard,
+  PortfolioCardAction,
+  PortfolioCardBody,
+  PortfolioCardDescription,
+  PortfolioCardLogo,
+  PortfolioCardMedia,
+  PortfolioCardTag,
+  PortfolioCardTags,
+  PortfolioCardTitle,
+  PortfolioGrid,
+} from "@/components/ui/portfolio-card";
 
 export function KitDataDisplay() {
   return (
@@ -40,8 +52,8 @@ export function KitDataDisplay() {
         <span className="kg-name">Data display</span>
         <span className="kg-rule"></span>
         <span className="kg-count">
-          Alert · Avatar · Calendar · Card · Media player · Stat · Table ·
-          Waveform
+          Alert · Avatar · Calendar · Card · Media player · Portfolio card ·
+          Stat · Table · Waveform
         </span>
       </div>
       <div className="kit-grid">
@@ -50,25 +62,25 @@ export function KitDataDisplay() {
           <StatStrip>
             <Stat>
               <StatNumber>100+</StatNumber>
-              <StatCaption>Languages</StatCaption>
+              <StatCaption>Survey sectors</StatCaption>
             </Stat>
             <Stat>
               <StatNumber>1M+</StatNumber>
-              <StatCaption>Songs</StatCaption>
+              <StatCaption>Signals indexed</StatCaption>
             </Stat>
             <Stat>
               <StatNumber>2.7K</StatNumber>
-              <StatCaption>Words translated</StatCaption>
+              <StatCaption>Spectra classified</StatCaption>
             </Stat>
           </StatStrip>
           <StatCards>
             <StatCard>
               <StatNumber accent>200+</StatNumber>
-              <StatCaption>Operators in syndicate</StatCaption>
+              <StatCaption>Crew online</StatCaption>
             </StatCard>
             <StatCard>
               <StatNumber accent>60%</StatNumber>
-              <StatCaption>Scaled 0–100 FTEs</StatCaption>
+              <StatCaption>Survey complete</StatCaption>
             </StatCard>
           </StatCards>
         </div>
@@ -87,7 +99,9 @@ export function KitDataDisplay() {
               <TriangleAlert className="ai" />
               <div>
                 <AlertTitle>Build failed</AlertTitle>
-                <AlertDescription>Border weight must be ≥ 1px.</AlertDescription>
+                <AlertDescription>
+                  Border weight must be ≥ 1px.
+                </AlertDescription>
               </div>
             </Alert>
           </div>
@@ -97,14 +111,25 @@ export function KitDataDisplay() {
           <span className="kit-cap">Avatar</span>
           <div className="kit-row">
             <Avatar>SL</Avatar>
-            <Avatar style={{ background: "rgba(var(--glass-tint),0.1)", color: "var(--ink)" }}>
+            <Avatar
+              style={{
+                background: "rgba(var(--glass-tint),0.1)",
+                color: "var(--ink)",
+              }}
+            >
               JD
             </Avatar>
             <AvatarGroup>
               <Avatar>A</Avatar>
-              <Avatar style={{ background: "#ffffff", color: "#111111" }}>B</Avatar>
-              <Avatar style={{ background: "#8a8a93", color: "#ffffff" }}>C</Avatar>
-              <Avatar style={{ background: "#111111", color: "#ffffff" }}>+5</Avatar>
+              <Avatar style={{ background: "#ffffff", color: "#111111" }}>
+                B
+              </Avatar>
+              <Avatar style={{ background: "#8a8a93", color: "#ffffff" }}>
+                C
+              </Avatar>
+              <Avatar style={{ background: "#111111", color: "#ffffff" }}>
+                +5
+              </Avatar>
             </AvatarGroup>
           </div>
           <span className="kit-cap" style={{ marginTop: "0.4rem" }}>
@@ -119,23 +144,23 @@ export function KitDataDisplay() {
             <HoverCard
               content={
                 <div className="kit-row" style={{ gap: "0.6rem" }}>
-                  <Avatar>U</Avatar>
+                  <Avatar>KS</Avatar>
                   <div>
                     <div style={{ fontWeight: 700, fontSize: "0.85rem" }}>
-                      universe.audio
+                      Kepler Station
                     </div>
                     <div
                       className="mono"
                       style={{ fontSize: "0.7rem", color: "var(--ink-dim)" }}
                     >
-                      Built on SL
+                      Survey nominal
                     </div>
                   </div>
                 </div>
               }
             >
               <Button variant="ghost" size="sm">
-                @universe
+                Station profile
               </Button>
             </HoverCard>
           </div>
@@ -165,9 +190,49 @@ export function KitDataDisplay() {
           </Card>
         </div>
 
+        <div className="glass kit-cell w8">
+          <span className="kit-cap">Portfolio card</span>
+          <PortfolioGrid>
+            <PortfolioCard href="https://example.com" aria-label="Visit Northstar">
+              <PortfolioCardMedia>
+                <PortfolioCardTags>
+                  <PortfolioCardTag>Live</PortfolioCardTag>
+                  <PortfolioCardTag>Fintech</PortfolioCardTag>
+                </PortfolioCardTags>
+                <PortfolioCardLogo>NS</PortfolioCardLogo>
+              </PortfolioCardMedia>
+              <PortfolioCardBody>
+                <PortfolioCardTitle>Northstar</PortfolioCardTitle>
+                <PortfolioCardDescription>
+                  Infrastructure that helps operators move money with clarity.
+                </PortfolioCardDescription>
+                <PortfolioCardAction />
+              </PortfolioCardBody>
+            </PortfolioCard>
+            <PortfolioCard>
+              <PortfolioCardMedia>
+                <PortfolioCardTags>
+                  <PortfolioCardTag>Private preview</PortfolioCardTag>
+                </PortfolioCardTags>
+                <PortfolioCardLogo>FV</PortfolioCardLogo>
+              </PortfolioCardMedia>
+              <PortfolioCardBody>
+                <PortfolioCardTitle>Field View</PortfolioCardTitle>
+                <PortfolioCardDescription>
+                  A research surface for turning evidence into decisions.
+                </PortfolioCardDescription>
+              </PortfolioCardBody>
+            </PortfolioCard>
+          </PortfolioGrid>
+        </div>
+
         <div className="glass kit-cell w4">
           <span className="kit-cap">Waveform</span>
-          <Waveform bars={48} played={20} aria-label="Audio waveform, 42% played" />
+          <Waveform
+            bars={48}
+            played={20}
+            aria-label="Audio waveform, 42% played"
+          />
         </div>
 
         <div className="glass kit-cell w8">

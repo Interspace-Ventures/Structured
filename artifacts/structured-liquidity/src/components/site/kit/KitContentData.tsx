@@ -12,16 +12,6 @@ import {
   EmptyTitle,
   EmptyDescription,
 } from "@/components/ui/empty";
-import {
-  FontPairings,
-  FontPair,
-  FontPairTitle,
-  FontPairFonts,
-  FontSpecimen,
-  FontRole,
-  FontName,
-  FontPairNote,
-} from "@/components/ui/fonts";
 import { Item, ItemBody, ItemTitle, ItemSubtitle } from "@/components/ui/item";
 import {
   Typography,
@@ -38,7 +28,7 @@ export function KitContentData() {
         <span className="kg-name">Content &amp; data</span>
         <span className="kg-rule"></span>
         <span className="kg-count">
-          Carousel · Chart · Collapsible · Empty · Fonts · Item · Typography
+          Carousel · Chart · Collapsible · Empty · Item · Typography
         </span>
       </div>
       <div className="kit-grid">
@@ -71,38 +61,13 @@ export function KitContentData() {
         <div className="glass kit-cell w4">
           <span className="kit-cap">Empty</span>
           <Empty>
-            <EmptyIcon>♪</EmptyIcon>
-            <EmptyTitle>No tracks yet</EmptyTitle>
-            <EmptyDescription>Import audio to start a library.</EmptyDescription>
-            <Button size="sm">Import</Button>
+            <EmptyIcon>✦</EmptyIcon>
+            <EmptyTitle>No signals yet</EmptyTitle>
+            <EmptyDescription>
+              Connect an instrument to begin the survey.
+            </EmptyDescription>
+            <Button size="sm">Connect</Button>
           </Empty>
-        </div>
-
-        <div className="glass kit-cell w6 pairings-card">
-          <span className="kit-cap">Fonts</span>
-          <FontPairings>
-            <FontPair>
-              <FontPairTitle>Set 01 · Canonical</FontPairTitle>
-              <FontPairFonts>
-                <FontSpecimen role="header">
-                  <FontRole>Header</FontRole>
-                  <FontName className="ff-inter">Inter</FontName>
-                </FontSpecimen>
-                <FontSpecimen role="body">
-                  <FontRole>Body</FontRole>
-                  <FontName className="ff-inter">Inter</FontName>
-                </FontSpecimen>
-                <FontSpecimen role="detail">
-                  <FontRole>Detail</FontRole>
-                  <FontName className="ff-spacemono">Space Mono</FontName>
-                </FontSpecimen>
-              </FontPairFonts>
-              <FontPairNote>
-                One disciplined sans across hierarchy and reading, with technical mono reserved
-                for labels, data, and code.
-              </FontPairNote>
-            </FontPair>
-          </FontPairings>
         </div>
 
         <div className="glass kit-cell w6">
@@ -111,8 +76,8 @@ export function KitContentData() {
             <Item>
               <span className="sl-ava">U</span>
               <ItemBody>
-                <ItemTitle>universe.audio</ItemTitle>
-                <ItemSubtitle>Audio platform · Live</ItemSubtitle>
+                <ItemTitle>Kepler Station</ItemTitle>
+                <ItemSubtitle>Orbital survey · Live</ItemSubtitle>
               </ItemBody>
               <Button variant="outline" size="sm">
                 Open
@@ -129,8 +94,8 @@ export function KitContentData() {
                 SL
               </span>
               <ItemBody>
-                <ItemTitle>Structured Liquidity</ItemTitle>
-                <ItemSubtitle>Design language</ItemSubtitle>
+                <ItemTitle>Asteria Atlas</ItemTitle>
+                <ItemSubtitle>Survey catalogue</ItemSubtitle>
               </ItemBody>
               <Button variant="outline" size="sm">
                 Open
@@ -144,8 +109,8 @@ export function KitContentData() {
           <Typography>
             <TypographyTitle>Structure holds it.</TypographyTitle>
             <TypographyParagraph>
-              Heavy grotesk for impact, monospace for labels, and a measured
-              body that stays legible through the glass. Inline{" "}
+              Calibrated grotesk hierarchy, monospace evidence labels, and a
+              measured body that stays legible through every layer. Inline{" "}
               <TypographyCode>--accent</TypographyCode> tokens carry the system.
             </TypographyParagraph>
             <TypographyQuote>

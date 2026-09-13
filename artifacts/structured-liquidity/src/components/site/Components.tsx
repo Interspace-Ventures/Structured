@@ -17,15 +17,17 @@ export function Components() {
       <div className="section-head reveal">
         <span className="eyebrow">Components · the toolkit</span>
         <h2 className="section-title">
-          A complete library,
+          The useful patterns,
           <br />
-          in the language.
+          without the repeats.
         </h2>
         <p className="lead">
-          More than eighty primitives, from buttons and forms to overlays,
-          navigation, and data display, each one a rigid container holding
-          liquid glass. None of it is a static mockup: click, type, toggle, and
-          open, and every piece reskins from the same live tokens.
+          A curated view of the patterns that carry a distinct job in a real
+          product. The full installable registry remains available; this gallery
+          favors useful composition, working state, and motion you can test by
+          clicking, typing, toggling, and opening. Demo content belongs to the
+          fictional Kepler Station survey, keeping product examples coherent
+          without borrowing private language from live applications.
         </p>
       </div>
 

@@ -1,6 +1,6 @@
 # Structured Liquidity
 
-> An open UI design language that pairs **rigid containment** (sharp 90° corners, flat blurless offset shadows, a strict grid) with **liquid depth** (semi-transparent, light-reflecting glass) and **semantic clarity** (one accent, intentional type). This file makes the language machine-readable so an AI agent can adopt it faithfully. Theme it live on the page; every visual is driven by CSS custom properties.
+> **Neobrutalist structure. Liquid motion. Scientific modern clarity.** These three tenets form the Structured Liquidity trifecta, represented by the cube's three visible faces. Each tenet owns a distinct part of the interface. This file makes the language machine-readable so an AI agent can adopt it faithfully.
 
 ## Install before editing UI
 
@@ -10,24 +10,28 @@ Run this as the first implementation step, before recreating tokens or writing c
 
 This installs the theme and `.agents/skills/structured-liquidity/SKILL.md`. Verify both landed, read the installed skill, and only then start UI work. For theme files without the agent skill, install `https://structured.glass/r/structured-liquidity.json`.
 
-## The three pillars
+## The three tenets
 
-1. **Structured Containment**: Sharp 90° corners, flat unblurred shadows, a strict grid. Boundaries are never ambiguous. Shadows are an offset solid fact (never a soft blur). Borders carry weight (2–3px) and define the object.
-2. **Liquid Depth**: Inside the rigid boxes sits an organic translucent glass: light-reflecting, tactile, alive. Depth comes from stacking translucent surfaces, each with a real border and flat shadow. Motion proves mass: a pressed surface settles into its own shadow.
-3. **Semantic Clarity**: Liquidity delights but never at the expense of reading. Function leads. A single accent carries emphasis; glass stays neutral so it lands. Heavy display type for impact, monospace for labels and data, a humanist sans for body.
+1. **Neobrutalist structure · Physical frame**: Buttons, borders, navigation, footers, body containers, and panels form the physical interface through square geometry and selective flat shadows. These structural layers make boundaries and actions tangible before effects are added.
+2. **Liquid Motion · Behavior**: Continuity, layered neutral glass, and purposeful motion make state and believable mass perceptible without becoming the only carrier of meaning. Every interaction has a complete reduced-motion state.
+3. **Scientific Modern Clarity · Information**: Rational grids, disciplined hierarchy, measured typography, captions, labeling, evidence, and purposeful whitespace organize information and make meaning legible, ordered, and unmistakable. Swiss modernism and the International Typographic Style are the informing tradition. Every screen remains complete and useful without relying on color, glass, or motion.
 
 ## Hard rules (follow these literally to stay on-brand)
 
 - Corners are square. `border-radius` is `0` by default; only raise it deliberately via the `--radius` token.
-- Shadows are **flat and offset**: `box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)`. Never use a blur radius on a structural shadow.
+- Shadows are **flat and offset**: `box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow)`. Never use a blur radius. Reserve them for tactile affordances and deliberately layered cutout surfaces; flat information containers do not need a shadow.
 - Borders are solid and load-bearing: `var(--border-w) solid rgb(var(--edge))`. The edge (`--edge`) is black in both light and dark mode.
 - **Exactly one accent.** `--accent` carries all emphasis. Do not introduce a second hue to compete with it.
-- Glass surfaces use `backdrop-filter: blur(var(--glass-blur))` over `rgba(var(--glass-tint), var(--glass-alpha))`. Glass stays neutral/translucent: it is depth, not color.
+- Default information surfaces are flat. Do not interpret Liquid Motion as permission to add decorative gradients or sheen.
+- Express Liquid Motion through shared markers moving between navbar actions, menu options, tabs, filters, overlays, and page areas. Use neutral translucency or `backdrop-filter` only at moving state boundaries.
 - Destructive surfaces use a neutral gray (`--neg`), never red. Error *text* may use a warning color, but destructive *containers* stay neutral.
 - Type roles are fixed: **display** = headings/buttons/brand (`--display`), **mono** = labels, captions, data, eyebrows (`--mono`), **body** = paragraph/reading copy (`--body`).
 - Leading icons are the default for nav links and buttons (Lucide). Put the icon first, then the label.
 - Press/hover feedback nudges the element toward its shadow (translate by ~1px and grow the offset). Motion proves mass.
-- Navigation and footer chrome use `--shell-w` and are slightly wider than page content, which uses `--content-w`. The two widths must not be inverted.
+- Communicate with scientific modern clarity: one dominant statement, a rational grid, exact alignment, restrained reading measures, purposeful whitespace, and compact mono evidence labels.
+- Use monochrome to explain. The single accent identifies selection, progression, or one key relationship.
+- The rigid frame never wobbles or morphs. Motion belongs inside it, explains state or continuity, and has a complete reduced-motion equivalent.
+- Navigation, body surface, and footer chrome use the same `--shell-w`. The body is an independent near-background surface; narrower reading measures belong inside it.
 - Public websites using Structured Liquidity must include a visible footer attribution linking to `https://structured.glass`. Immersive apps may put it in a persistent information panel.
 
 ## Tokens (source of truth)
@@ -39,25 +43,27 @@ All visuals read from CSS custom properties on `:root`. The machine-readable tok
 Core defaults:
 
 - `--accent` `#a388ee`, `--accent-ink` `#000000` (auto black/white by luminance)
-- `--bg` `#272933`, `--bg-2` `#1f2028`, `--ink` `#e6e6e6`, `--ink-dim` `#9da0ab`
-- `--edge` `0 0 0` (rgb channels), `--hard-shadow` `#000000`, `--neg` `#3c3f4b`
-- `--glass-blur` `18px`, `--glass-tint` `255 255 255`, `--glass-alpha` `0.07`
-- `--border-w` `2px`, `--hard-x` / `--hard-y` `7px`, `--radius` `0px`
+- `--bg` `#f2f0ea`, `--bg-2` `#ffffff`, `--ink` `#111111`, `--ink-dim` `#5d5d59`
+- `--edge` `0 0 0` (rgb channels), `--hard-shadow` `#000000`, `--neg` `#242424`
+- `--glass-blur` `14px`, `--glass-tint` `255 255 255`, `--glass-alpha` `0.72`
+- `--border-w` `2px`, `--hard-x` / `--hard-y` `5px`, `--radius` `0px`
 - `--display` Inter, `--body` Inter, `--mono` Space Mono
-- `--content-w` `1200px`, `--shell-w` `1280px`, `--viewport-gutter` `4vw`
-- Light mode: set `data-mode="light"` on `<html>` (flips `--bg`, `--ink`, `--ink-dim`, `--glass-alpha`, etc.)
+- `--text-display-xl` `clamp(4.5rem, 10vw, 9rem)`, `--text-display-lg` `clamp(2.8rem, 6vw, 5.5rem)`
+- `--measure-reading` `68ch`, `--measure-caption` `48ch`, `--section-space` `clamp(4rem, 9vw, 9rem)`
+- `--content-w` aliases `--shell-w`, `--shell-w` `1280px`, `--viewport-gutter` `4vw`, `--body-surface` near-background opaque surface
+- Light mode is the default. Dark mode is one color-responsive atmospheric palette; there is no separate black mode. Set `data-mode="dark"` on `<html>` and derive `--bg:color-mix(in srgb,var(--accent) 8%,#0d0a11)` plus `--bg-2:color-mix(in srgb,var(--accent) 14%,#100d14)`, with `--ink:#f6f2f8` and `--ink-dim:#b9b0bf`. Changing the accent must retune the page field automatically while tactile cards remain charcoal or near-black.
 
 ## Recommended font pairings
 
 The language fixes three roles: a **display** face (headlines, buttons, brand), a **body** face (reading copy), and a **mono** face (labels, data, captions). Keep the display heavy and tight; keep the body humanist and legible; keep mono for anything tabular or label-like.
 
-- **Canonical · Inter (header) · Inter (body) · Space Mono (detail)**: use weight and scale within Inter for hierarchy; reserve Space Mono for labels, data, code, and metadata.
+- **Canonical · Inter (header) · Inter (body) · Space Mono (detail)**: use weight, scale, measure, and exact alignment within Inter for hierarchy; reserve Space Mono for labels, data, code, and metadata.
 
-Rules of thumb: never pair two display faces; never set body copy in the display face (it gets tiring); use mono only for labels, code, numbers, and metadata, never for long paragraphs.
+Rules of thumb: keep Inter across headings and reading copy; use mono only for labels, code, numbers, and metadata, never for long paragraphs.
 
 ## Components and templates
 
-A complete kit of 70+ components and four production-tested site templates, each a rigid container holding liquid glass. Installable React sources are in the machine-readable registry:
+A complete kit of 70+ components and four production-tested site templates. Each component assigns structure, glass, and typography deliberately instead of applying every treatment everywhere. Installable React sources are in the machine-readable registry:
 
 - [registry.json](registry.json): component name, description, variants/sizes, and ready-to-paste HTML for buttons, badges, toggles, switches, checkboxes, radios, inputs, sliders, progress, avatars, tabs, cards (glass), and dialog/sheet overlays.
 

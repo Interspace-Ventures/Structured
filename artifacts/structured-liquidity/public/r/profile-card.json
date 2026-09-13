@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "profile-card",
+  "type": "registry:ui",
+  "title": "Profile Card",
+  "description": "Structured Liquidity Profile Card — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/profile-card.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ProfileCardFact {\n  label: string;\n  value: React.ReactNode;\n}\n\nexport interface ProfileCardProps extends Omit<\n  React.HTMLAttributes<HTMLElement>,\n  \"title\"\n> {\n  label?: string;\n  status?: string;\n  imageSrc?: string;\n  imageAlt?: string;\n  initials?: string;\n  summary: React.ReactNode;\n  facts: ProfileCardFact[];\n}\n\n/** Field-sourced profile summary card: privacy-safe identity, concise positioning, and scannable facts. */\nexport const ProfileCard = React.forwardRef<HTMLElement, ProfileCardProps>(\n  (\n    {\n      label = \"Profile\",\n      status = \"Active\",\n      imageSrc,\n      imageAlt,\n      initials = \"SL\",\n      summary,\n      facts,\n      className,\n      ...props\n    },\n    ref,\n  ) => (\n    <article ref={ref} className={cn(\"sl-profile-card\", className)} {...props}>\n      <header className=\"sl-profile-card-head\">\n        <span>{label}</span>\n        <span className=\"sl-profile-card-status\">{status}</span>\n      </header>\n      <div className=\"sl-profile-card-image\">\n        {imageSrc ? (\n          <img src={imageSrc} alt={imageAlt ?? \"\"} />\n        ) : (\n          <span className=\"sl-profile-card-initials\" aria-label=\"Profile initials\">\n            {initials}\n          </span>\n        )}\n      </div>\n      <p className=\"sl-profile-card-summary\">{summary}</p>\n      <dl className=\"sl-profile-card-facts\">\n        {facts.map((fact) => (\n          <div key={fact.label}>\n            <dt>{fact.label}</dt>\n            <dd>{fact.value}</dd>\n          </div>\n        ))}\n      </dl>\n    </article>\n  ),\n);\nProfileCard.displayName = \"ProfileCard\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/profile-card.tsx"
+    }
+  ]
+}

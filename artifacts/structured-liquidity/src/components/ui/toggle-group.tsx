@@ -36,6 +36,7 @@ export function ToggleGroup({
   onValueChange,
   className,
   children,
+  style,
   ...props
 }: ToggleGroupProps) {
   const [internal, setInternal] = React.useState<string | string[]>(
@@ -56,9 +57,34 @@ export function ToggleGroup({
     (onValueChange as (value: string | string[]) => void)?.(next);
   };
 
+  const items = React.Children.toArray(children).filter(
+    (child): child is React.ReactElement<ToggleGroupItemProps> =>
+      React.isValidElement<ToggleGroupItemProps>(child) &&
+      typeof child.props.value === "string",
+  );
+  const selectedIndex =
+    type === "single"
+      ? items.findIndex((item) => item.props.value === val)
+      : -1;
+  const liquid = type === "single" && selectedIndex >= 0 && items.length > 0;
+
   return (
-    <div className={cn("sl-toggle-group", className)} data-toggle-group {...props}>
-      <Ctx.Provider value={{ type, value: val, toggle }}>{children}</Ctx.Provider>
+    <div
+      className={cn("sl-toggle-group", liquid && "is-liquid", className)}
+      data-toggle-group
+      style={
+        {
+          ...style,
+          "--toggle-index": selectedIndex,
+          "--toggle-count": Math.max(1, items.length),
+        } as React.CSSProperties
+      }
+      {...props}
+    >
+      {liquid ? <span className="sl-toggle-marker" aria-hidden="true" /> : null}
+      <Ctx.Provider value={{ type, value: val, toggle }}>
+        {children}
+      </Ctx.Provider>
     </div>
   );
 }
@@ -66,16 +92,26 @@ export function ToggleGroup({
 export interface ToggleGroupItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
-export function ToggleGroupItem({ value, className, ...props }: ToggleGroupItemProps) {
+export function ToggleGroupItem({
+  value,
+  className,
+  onClick,
+  ...props
+}: ToggleGroupItemProps) {
   const { type, value: val, toggle } = useTG();
   const pressed =
-    type === "single" ? val === value : ((val as string[]) ?? []).includes(value);
+    type === "single"
+      ? val === value
+      : ((val as string[]) ?? []).includes(value);
   return (
     <button
       type="button"
       aria-pressed={pressed}
       className={className}
-      onClick={() => toggle(value)}
+      onClick={(event) => {
+        toggle(value);
+        onClick?.(event);
+      }}
       {...props}
     />
   );

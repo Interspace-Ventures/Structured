@@ -5,11 +5,11 @@ description: How the tactile "liquid glass" interaction motion is built on the S
 
 # Liquid motion layer
 
-Tactile interaction motion (press ripples, liquid toggles/switch sheen, flowing tab marker, settling menus/dialogs/accordion, hover refraction) lives entirely in `index.html`'s inline `<style>` (gated under `@media (prefers-reduced-motion: no-preference)`) + three `mount*()` fns in `src/main.ts` (`mountRipples`, `mountTabFlow`, `mountRefraction`, each early-returns under `prefers-reduced-motion: reduce`). The verbatim `public/*` stays untouched — see the verbatim-public rule in `structured-liquidity.md`.
+Tactile interaction motion includes press feedback, flowing navbar/tab/filter markers, scroll continuity, settling menus/dialogs/accordions, and stateful toggles. Flat information surfaces do not refract on hover. Motion styles live in the layered source stylesheets and React/behavior hooks, with complete reduced-motion fallbacks; regenerate the distributable `public/*` files and registry after changes.
 
 ## Governing principle (content decision)
 The rigid **container** never bounces/squishes/morphs (sharp corners, flat offset shadow, grid hold). Only the **liquid inside** reacts — ripple, flood, settle with viscous overshoot, catch light. One shared easing token set (`--ease-liquid`, `--ease-liquid-over`, `--motion*`) so every motion feels like the same material.
-**Why:** generic bouncy UI or Apple's blurry-blob "Liquid Glass" both break "structured containment"; the frame must stay firm or the language loses its identity.
+**Why:** generic bouncy UI or Apple's blurry-blob treatment both break Neobrutalism; the physical frame must stay firm while Liquid Motion happens inside it.
 **Adoption note:** this motion is specimen-only — it can't go in the distributable `public` CSS (verbatim rule), so do NOT document it in `registry.json`/SKILL.md.
 
 ## Trap 1 — `mix-blend-mode: plus-lighter` blows out over a vivid backdrop

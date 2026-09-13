@@ -1,60 +1,91 @@
 /* ============================================================
-   STRUCTURED LIQUIDITY — a design language built on three
-   pillars: Rigid Containment (sharp 90° corners, flat blurless
-   shadows, grid discipline), Viscous Depth (semi-transparent
-   liquid glass that reflects light), and Semantic Clarity
-   (strict text + icon pairings). This stylesheet IS the specimen.
+   STRUCTURED LIQUIDITY — Neobrutalist structure. Liquid motion.
+   Scientific modern clarity. This stylesheet IS
+   the specimen.
    ============================================================ */
 
 :root {
   /* ---- tunable knobs (driven by Tweaks) ---- */
-  --accent: #a388ee;          /* neobrutalism.dev purple */
-  --accent-ink: #000000;      /* text that sits on accent */
-  --glass-blur: 18px;
-  --glass-tint: 255 255 255;  /* rgb channels for glass fill */
-  --glass-alpha: 0.07;
+  --accent: #a388ee; /* neobrutalism.dev purple */
+  --accent-ink: #000000; /* text that sits on accent */
+  --glass-blur: 14px;
+  --glass-tint: 255 255 255; /* rgb channels for glass fill */
+  --glass-alpha: 0.72;
   --border-w: 2px;
-  --hard-x: 7px;
-  --hard-y: 7px;
+  --hard-x: 5px;
+  --hard-y: 5px;
   --radius: 0px;
-  --content-w: 1200px;
   --shell-w: 1280px;
+  --content-w: var(--shell-w);
   --viewport-gutter: 4vw;
+  --body-surface: var(--bg);
   --floating-ui-clearance: 96px;
 
-  /* ---- fixed palette (neobrutalism.dev) ---- */
-  --bg: #272933;
-  --bg-2: #1f2028;
-  --ink: #e6e6e6;             /* foreground */
-  --ink-dim: #9da0ab;
-  --edge: 0 0 0;              /* neobrutalism black border (rgb) */
-  --hard-shadow: #000000;
-  --neg: #3c3f4b;             /* negative / destructive surface (gray, never red) */
-  --neg-ink: #f0f0f2;
+  /* ---- Scientific Modern Clarity, informed by Swiss modernism and the International Typographic Style ---- */
+  --text-display-xl: clamp(4.2rem, 10.5vw, 9.5rem);
+  --text-display-lg: clamp(2.6rem, 5.5vw, 5.25rem);
+  --measure-reading: 62ch;
+  --measure-caption: 48ch;
+  --grid-gutter: clamp(1rem, 2.5vw, 2.5rem);
+  --section-space: clamp(4rem, 9vw, 9rem);
+  --clarity-gap: clamp(1.25rem, 3vw, 3rem);
+  --rule-hairline: 1px;
+  --diagram-line: color-mix(in srgb, var(--ink) 72%, transparent);
+  --diagram-muted: color-mix(in srgb, var(--ink) 42%, transparent);
 
-  --display: "Inter", "Helvetica Neue", system-ui, sans-serif;
-  --body: "Inter", "Helvetica Neue", system-ui, sans-serif;
-  --mono: "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* ---- light-first paper palette ---- */
+  --bg: #f2f0ea;
+  --bg-2: #ffffff;
+  --ink: #111111; /* foreground */
+  --ink-dim: #5d5d59;
+  --edge: 0 0 0; /* neobrutalism black border (rgb) */
+  --hard-shadow: #000000;
+  --neg: #242424; /* negative / destructive surface (gray, never red) */
+  --neg-ink: #ffffff;
+
+  --display: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --body: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
 }
 
 /* tighter rhythm — denser, less airy */
 
 [data-mode="light"] {
-  --bg: #dfe5f2;
+  --bg: #f2f0ea;
   --bg-2: #ffffff;
-  --ink: #000000;
-  --ink-dim: #5b5f6b;
+  --ink: #111111;
+  --ink-dim: #5d5d59;
   --edge: 0 0 0;
   --hard-shadow: #000000;
-  --neg: #16171c;             /* near-black negative surface in light mode */
+  --neg: #16171c; /* near-black negative surface in light mode */
   --neg-ink: #ffffff;
   --glass-tint: 255 255 255;
-  --glass-alpha: 0.55;
+  --glass-alpha: 0.72;
 }
 
-* { box-sizing: border-box; }
+[data-mode="dark"] {
+  /* Dark mode is color-responsive: the active accent tints the atmospheric
+     field while tactile components remain charcoal. There is no black mode. */
+  --bg: color-mix(in srgb, var(--accent) 18%, #100b16);
+  --bg-2: color-mix(in srgb, var(--accent) 27%, #15101c);
+  --ink: #f6f2f8;
+  --ink-dim: #b9b0bf;
+  --edge: 0 0 0;
+  --hard-shadow: #000000;
+  --neg: #343434;
+  --neg-ink: #ffffff;
+  --glass-tint: 255 255 255;
+  --glass-alpha: 0.08;
+}
 
-html { scroll-behavior: auto; background: var(--bg); }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--bg);
+}
 
 body {
   margin: 0;
@@ -68,40 +99,33 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--accent); color: var(--accent-ink); }
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
 
 /* ============================================================
-   BACKDROP — a full-document-height iridescent field the glass
-   refracts. Not fixed (fixed/attachment:fixed only paint at the
-   document top in capture/print contexts) — it spans the whole
-   page so every section is tinted and nothing renders flat-black.
+   BACKDROP — flat paper plus a measured technical grid. Liquid
+   belongs to interaction and continuity, not decorative scenery.
    ============================================================ */
 
 .field {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   z-index: -2;
   overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(52vw 32vh at 12% 2%,  rgba(124, 60, 255, 0.50), transparent 70%),
-    radial-gradient(46vw 30vh at 90% 10%, rgba(176, 60, 255, 0.42), transparent 70%),
-    radial-gradient(52vw 30vh at 78% 30%, rgba(214, 70, 255, 0.30), transparent 72%),
-    radial-gradient(46vw 28vh at 16% 45%, rgba(91, 60, 255, 0.38), transparent 72%),
-    radial-gradient(50vw 28vh at 84% 60%, rgba(124, 60, 255, 0.34), transparent 72%),
-    radial-gradient(46vw 26vh at 22% 74%, rgba(176, 60, 255, 0.30), transparent 72%),
-    radial-gradient(52vw 30vh at 80% 90%, rgba(214, 70, 255, 0.26), transparent 72%),
-    radial-gradient(46vw 26vh at 18% 98%, rgba(91, 60, 255, 0.34), transparent 72%);
-  background-repeat: no-repeat;
-  animation: fieldshift 30s ease-in-out infinite alternate;
+  background: var(--bg);
 }
-[data-mode="light"] .field { opacity: 0.55; }
-@keyframes fieldshift {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-3vw); }
+[data-mode="light"] .field {
+  opacity: 1;
 }
-@media (prefers-reduced-motion: reduce) { .field { animation: none; } }
+[data-mode="dark"] .field {
+  opacity: 1;
+}
 
 .field .grid {
   position: absolute;
@@ -110,66 +134,40 @@ body {
     linear-gradient(rgba(var(--edge), 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--edge), 0.045) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: linear-gradient(180deg, #000, #000 40%, rgba(0,0,0,0.25) 75%, transparent);
-  -webkit-mask-image: linear-gradient(180deg, #000, #000 40%, rgba(0,0,0,0.25) 75%, transparent);
+  opacity: 0.7;
 }
 
 .grain {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  display: none;
 }
 
 /* ============================================================
-   GLASS-BRUTAL PRIMITIVE — frosted material + brutal edge
+   STRUCTURAL SURFACE — flat by default. Add blur only to transient
+   navigation, menus, overlays, and other moving state boundaries.
    ============================================================ */
 
 .glass {
   position: relative;
-  background:
-    linear-gradient(135deg, rgba(var(--glass-tint), calc(var(--glass-alpha) + 0.06)), rgba(var(--glass-tint), var(--glass-alpha)));
-  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  background: var(--bg-2);
   border: var(--border-w) solid rgb(var(--edge));
   border-radius: var(--radius);
-  box-shadow:
-    var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow),         /* the brutal hard shadow */
-    inset 0 1px 0 rgba(255,255,255,0.45),                        /* top specular */
-    inset 0 -1px 0 rgba(255,255,255,0.06),
-    inset 0 0 40px rgba(255,255,255,0.04);
+  box-shadow: none;
 }
 /* moving sheen + cursor specular */
-.glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(
-    180px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(255,255,255,0.22), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.glass:hover::before { opacity: 1; }
+.glass::before,
 .glass::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.10) 45%, transparent 55%);
-  background-size: 250% 250%;
-  background-position: 100% 100%;
-  opacity: 0.7;
+  content: none;
 }
 
-.flat {            /* brutalist flat (no glass) — for loud accent blocks */
+.flat {
+  /* brutalist flat (no glass) — for loud accent blocks */
   border: var(--border-w) solid rgb(var(--edge));
   border-radius: var(--radius);
   box-shadow: var(--hard-x) var(--hard-y) 0 0 var(--hard-shadow);
@@ -191,41 +189,128 @@ body {
 }
 .eyebrow::before {
   content: "";
-  width: 9px; height: 9px;
+  width: 9px;
+  height: 9px;
   background: var(--accent);
   display: inline-block;
 }
 
-h1, h2, h3 { font-weight: 800; line-height: 0.98; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
 
 .section-title {
-  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  font-size: clamp(2rem, 4.2vw, 4.25rem);
+  line-height: 0.93;
+  letter-spacing: -0.045em;
   margin: 0.25em 0 0.3em;
 }
-.lead { font-size: clamp(1rem, 1.3vw, 1.18rem); color: var(--ink-dim); max-width: 60ch; text-wrap: pretty; }
+.lead {
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  color: var(--ink-dim);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
 
-.accent { color: var(--accent); }
-.mono { font-family: var(--mono); }
+.accent {
+  color: var(--accent);
+}
+.mono {
+  font-family: var(--mono);
+}
 
 /* ============================================================
    LAYOUT
    ============================================================ */
 
 .wrap,
-.sl-site-content { width: min(var(--content-w), calc(100vw - (var(--viewport-gutter) * 2))); margin-inline: auto; }
-.shell,
-.sl-site-shell { width: min(var(--shell-w), calc(100vw - var(--viewport-gutter))); margin-inline: auto; }
-section { padding: clamp(1.5rem, 3.4vh, 2.7rem) 0; position: relative; }
-.section-head { max-width: 70ch; margin-bottom: 1.1rem; }
+.shell {
+  width: min(var(--shell-w), calc(100vw - var(--viewport-gutter)));
+  margin-inline: auto;
+}
+.sl-site-content,
+.sl-site-shell {
+  width: min(100%, var(--shell-w));
+  max-width: calc(100vw - var(--viewport-gutter));
+  margin-inline: auto;
+}
+.sl-site-body {
+  background: var(--body-surface);
+}
+section {
+  padding: clamp(3.5rem, 8vw, 7.5rem) 0;
+  position: relative;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(280px, 4fr);
+  grid-template-rows: auto auto;
+  column-gap: var(--grid-gutter);
+  max-width: none;
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+.section-head .eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin-bottom: 0.8rem;
+}
+.section-head .section-title {
+  grid-column: 1;
+  grid-row: 2;
+}
+.section-head .lead {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  margin: 0;
+}
+@media (max-width: 720px) {
+  .section-head {
+    grid-template-columns: 1fr;
+  }
+  .section-head .eyebrow,
+  .section-head .section-title,
+  .section-head .lead {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .section-head .lead { margin-top: 1rem; }
+}
 
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
-.reveal.in { opacity: 1; transform: none; }
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  html { scroll-behavior: auto; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @media print {
-  .reveal { opacity: 1 !important; transform: none !important; }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

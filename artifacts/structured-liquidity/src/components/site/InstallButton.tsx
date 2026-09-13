@@ -29,7 +29,7 @@ interface InstallButtonProps {
 export function InstallButton({
   item = DEFAULT_ITEM,
   className = "btn solid",
-  label = "Install for agents",
+  label = "Install",
   style,
   iconOnly = false,
 }: InstallButtonProps) {

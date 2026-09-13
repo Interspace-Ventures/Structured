@@ -7,13 +7,13 @@
       "name": "structured-liquidity",
       "type": "registry:style",
       "title": "Structured Liquidity",
-      "description": "The Structured Liquidity design language base: theme tokens plus the three distributable stylesheets and the kit interaction script. Install this first — every component depends on it."
+      "description": "The Structured Liquidity design language base: Neobrutalist structure, Liquid Motion, and Scientific Modern Clarity. Includes theme tokens, three distributable stylesheets, and the kit interaction script. Install this first — every component depends on it."
     },
     {
       "name": "structured-liquidity-agent",
       "type": "registry:item",
       "title": "Structured Liquidity Agent Bundle",
-      "description": "Install Structured Liquidity plus a persistent local agent skill before the first UI edit."
+      "description": "Install the Neobrutalist structure, Liquid Motion, and Scientific Modern Clarity language plus its persistent local agent skill before the first UI edit."
     },
     {
       "name": "accordion",
@@ -340,10 +340,22 @@
       "description": "Structured Liquidity Popover — React component driving the SL class system."
     },
     {
+      "name": "portfolio-card",
+      "type": "registry:ui",
+      "title": "Portfolio Card",
+      "description": "Structured Liquidity Portfolio Card — React component driving the SL class system."
+    },
+    {
       "name": "pricing-card",
       "type": "registry:ui",
       "title": "Pricing Card",
       "description": "Structured Liquidity Pricing Card — React component driving the SL class system."
+    },
+    {
+      "name": "profile-card",
+      "type": "registry:ui",
+      "title": "Profile Card",
+      "description": "Structured Liquidity Profile Card — React component driving the SL class system."
     },
     {
       "name": "profile-header",
@@ -512,6 +524,12 @@
       "type": "registry:ui",
       "title": "Typography",
       "description": "Structured Liquidity Typography — React component driving the SL class system."
+    },
+    {
+      "name": "unit-economics-chart",
+      "type": "registry:ui",
+      "title": "Unit Economics Chart",
+      "description": "Structured Liquidity Unit Economics Chart — React component driving the SL class system."
     },
     {
       "name": "waveform",

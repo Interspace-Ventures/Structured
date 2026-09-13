@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "unit-economics-chart",
+  "type": "registry:ui",
+  "title": "Unit Economics Chart",
+  "description": "Structured Liquidity Unit Economics Chart — React component driving the SL class system.",
+  "registryDependencies": [
+    "https://structured.glass/r/structured-liquidity.json",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/ui/unit-economics-chart.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface UnitEconomicsAllocation {\n  label: string;\n  value: string;\n  share: number;\n  description?: string;\n}\n\nexport interface UnitEconomicsChartProps\n  extends React.HTMLAttributes<HTMLElement> {\n  allocations: UnitEconomicsAllocation[];\n  totalLabel?: string;\n  totalValue?: string;\n  note?: string;\n}\n\n/**\n * A compact, accessible stacked allocation chart for explaining how a price,\n * budget, or unit of revenue is distributed.\n */\nexport const UnitEconomicsChart = React.forwardRef<\n  HTMLElement,\n  UnitEconomicsChartProps\n>(\n  (\n    {\n      allocations,\n      totalLabel = \"Total\",\n      totalValue,\n      note,\n      className,\n      ...props\n    },\n    ref,\n  ) => {\n    const totalShare = allocations.reduce(\n      (sum, allocation) => sum + Math.max(0, allocation.share),\n      0,\n    );\n    const chartLabel = allocations\n      .map((allocation) => `${allocation.label}: ${allocation.value}`)\n      .join(\", \");\n\n    return (\n      <figure ref={ref} className={cn(\"sl-unit-economics\", className)} {...props}>\n        <figcaption className=\"sl-unit-economics-head\">\n          <span>{totalLabel}</span>\n          {totalValue ? <strong>{totalValue}</strong> : null}\n        </figcaption>\n        <div className=\"sl-unit-economics-chart\" role=\"img\" aria-label={chartLabel}>\n          {allocations.map((allocation, index) => (\n            <span\n              key={`${allocation.label}-${index}`}\n              style={{\n                width: `${totalShare ? (Math.max(0, allocation.share) / totalShare) * 100 : 0}%`,\n                \"--allocation-strength\": `${Math.min(index, 3) * 16 + 34}%`,\n              } as React.CSSProperties}\n              title={`${allocation.label}: ${allocation.value}`}\n            />\n          ))}\n        </div>\n        <div className=\"sl-unit-economics-legend\">\n          {allocations.map((allocation, index) => (\n            <div key={`${allocation.label}-${index}`}>\n              <i\n                style={{\n                  \"--allocation-strength\": `${Math.min(index, 3) * 16 + 34}%`,\n                } as React.CSSProperties}\n              />\n              <span>\n                <strong>{allocation.label}</strong>\n                {allocation.description ? <small>{allocation.description}</small> : null}\n              </span>\n              <b>{allocation.value}</b>\n            </div>\n          ))}\n        </div>\n        {note ? <p className=\"sl-unit-economics-note\">{note}</p> : null}\n      </figure>\n    );\n  },\n);\nUnitEconomicsChart.displayName = \"UnitEconomicsChart\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/unit-economics-chart.tsx"
+    }
+  ]
+}
