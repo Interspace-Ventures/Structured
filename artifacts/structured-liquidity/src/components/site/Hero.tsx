@@ -1,7 +1,7 @@
 import { Sparkles, Github } from "lucide-react";
 import { LiquidWord } from "./liquid";
 import { InstallButton } from "./InstallButton";
-import { LiquidStaircase } from "./LiquidStaircase";
+import { ImpossibleStaircase } from "./ImpossibleStaircase";
 
 const GITHUB = "https://github.com/heyinterspace/Structured";
 
@@ -55,7 +55,7 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-cube-wrap">
-          <LiquidStaircase />
+          <ImpossibleStaircase />
         </div>
       </div>
     </header>

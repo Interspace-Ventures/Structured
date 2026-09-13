@@ -1256,76 +1256,20 @@ body {
 .hero-cube.is-cube .lw-cube-edge {
   stroke-width: 0.8;
 }
-.liquid-staircase {
+.impossible-staircase {
   display: block;
-  width: clamp(330px, 38vw, 560px);
+  width: min(100%, 560px);
   height: auto;
   overflow: visible;
-  color: var(--ink);
 }
-.liquid-staircase path { vector-effect: non-scaling-stroke; stroke-linejoin: bevel; }
-.liquid-staircase__top {
-  fill: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
-  stroke: rgb(var(--edge));
-  stroke-width: 2;
+.impossible-staircase polygon {
+  vector-effect: non-scaling-stroke;
+  stroke: var(--ink);
 }
-.liquid-staircase__rise {
-  fill: color-mix(in srgb, var(--accent) 42%, var(--bg-2));
-  stroke: rgb(var(--edge));
-  stroke-width: 2;
-}
-.liquid-staircase__side {
-  fill: color-mix(in srgb, var(--accent) 12%, var(--bg-2));
-  stroke: rgb(var(--edge));
-  stroke-width: 2;
-}
-.liquid-staircase__echo {
-  fill: none;
-  stroke: color-mix(in srgb, var(--ink) 28%, transparent);
-  stroke-width: 1;
-  stroke-dasharray: 4 7;
-}
-.liquid-staircase__flow path {
-  fill: none;
-  stroke: color-mix(in srgb, var(--accent) 78%, white);
-  stroke-width: 3;
-  stroke-linecap: square;
-  stroke-dasharray: 12 18;
-  animation: liquid-stair-flow 3.8s linear infinite;
-}
-.liquid-staircase__flow path:nth-child(2) { animation-delay: -1.25s; }
-.liquid-staircase__flow path:nth-child(3) { animation-delay: -2.5s; }
-.liquid-staircase__cube {
-  transform-origin: 364px 222px;
-  animation: liquid-stair-cube 3.8s var(--ease-liquid-over) infinite;
-  filter: drop-shadow(9px 11px 0 var(--hard-shadow));
-}
-.liquid-staircase__cube-top,
-.liquid-staircase__cube-left,
-.liquid-staircase__cube-right { stroke: rgb(var(--edge)); stroke-width: 2.4; }
-.liquid-staircase__cube-top { fill: color-mix(in srgb, var(--accent) 22%, var(--bg-2)); }
-.liquid-staircase__cube-left { fill: color-mix(in srgb, var(--accent) 68%, var(--bg-2)); }
-.liquid-staircase__cube-right { fill: color-mix(in srgb, var(--accent) 42%, var(--bg-2)); }
-.liquid-staircase__cube-glint {
-  fill: none;
-  stroke: color-mix(in srgb, white 72%, transparent);
-  stroke-width: 1.5;
-}
-.liquid-staircase__caption path { stroke: var(--ink); stroke-width: 1; }
-.liquid-staircase__caption text {
-  fill: var(--ink-dim);
-  font: 700 10px var(--mono);
-  letter-spacing: 1.2px;
-}
-@keyframes liquid-stair-flow { to { stroke-dashoffset: -60; } }
-@keyframes liquid-stair-cube {
-  0%, 100% { transform: translate3d(0, -4px, 0); }
-  50% { transform: translate3d(-7px, 8px, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .liquid-staircase__flow path,
-  .liquid-staircase__cube { animation: none; }
-}
+.impossible-staircase__tread { fill: var(--bg-2); }
+.impossible-staircase__riser { fill: color-mix(in srgb, var(--ink) 26%, var(--bg-2)); }
+.impossible-staircase__wall { fill: color-mix(in srgb, var(--ink) 12%, var(--bg-2)); }
+.impossible-staircase__wall-dark { fill: color-mix(in srgb, var(--ink) 40%, var(--bg-2)); }
 
 .tenets {
   gap: 0;
