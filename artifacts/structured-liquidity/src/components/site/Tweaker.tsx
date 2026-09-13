@@ -184,6 +184,7 @@ export function Tweaker() {
 
       <div
         className={"twk-panel" + (open ? " open" : "")}
+        hidden={!open}
         role="dialog"
         aria-label="Theme tweaks"
       >

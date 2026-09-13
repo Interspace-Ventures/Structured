@@ -51,7 +51,7 @@ export function App() {
       <FooterCta />
       <Footer />
       <Tweaker />
-      <Toaster />
+      <Toaster className="site-toast-stack" />
     </ToastProvider>
   );
 }
