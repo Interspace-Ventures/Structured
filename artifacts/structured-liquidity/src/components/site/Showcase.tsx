@@ -2,7 +2,7 @@ import adopterRegistry from "@/adopters.json";
 import {
   PortfolioGrid, PortfolioCard, PortfolioCardMedia, PortfolioCardBody,
   PortfolioCardTags, PortfolioCardTag, PortfolioCardTitle,
-  PortfolioCardDescription, PortfolioCardAction,
+  PortfolioCardDescription,
 } from "@/components/ui/portfolio-card";
 
 type Lifecycle = "live" | "staging";
@@ -33,6 +33,7 @@ const SHOWCASE_IDS = [
   "exobase",
   "construct",
   "rampart",
+  "2daysearly",
 ] as const;
 const SHOWCASE = SHOWCASE_IDS.map((id) => ADOPTERS.find((project) => project.id === id)).filter(
   (project): project is Adopter => Boolean(project),
@@ -74,7 +75,7 @@ function ProjectCard({ project }: { project: Adopter }) {
         <span className="showcase-project-domain">{project.domain}</span>
         <PortfolioCardTitle>{project.name}</PortfolioCardTitle>
         <PortfolioCardDescription>{project.description}</PortfolioCardDescription>
-        {project.href ? <PortfolioCardAction>Visit {project.name}</PortfolioCardAction> : null}
+        {project.href ? <span className="sl-portfolio-card-action">Visit <span aria-hidden="true">↗</span></span> : null}
       </PortfolioCardBody>
     </PortfolioCard>
   );

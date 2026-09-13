@@ -10,12 +10,12 @@ export function FooterCta() {
         <h2>
           Frame with <b>Structure</b>. Move with <b>Liquidity</b>. Communicate with <b>Clarity</b>.
         </h2>
-        <p className="lead" style={{ textAlign: "center" }}>
+        <p className="lead">
           Structured Liquidity is an open UI language: a complete kit of rigid containers and liquid
           glass, free to use with visible footer attribution. Adopt the three tenets, set your
           accent, and build something rigorous, tactile, and unmistakably clear.
         </p>
-        <div className="hero-cta" style={{ justifyContent: "center" }}>
+        <div className="hero-cta">
           <InstallButton />
           <a className="btn glassy" href="#components">
             <LayoutGrid />
