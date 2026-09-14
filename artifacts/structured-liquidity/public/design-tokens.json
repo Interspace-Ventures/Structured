@@ -109,39 +109,52 @@
   "fontFamily": {
     "$type": "fontFamily",
     "display": {
-      "$value": [
-        "Inter",
-        "Helvetica Neue",
-        "Arial",
-        "system-ui",
-        "sans-serif"
-      ],
+      "$value": ["Inter", "Helvetica Neue", "Arial", "system-ui", "sans-serif"],
       "$description": "Headings, buttons, and brand. Use weight, scale, and alignment to create hierarchy.",
       "$extensions": { "cssVar": "--display" }
     },
     "body": {
-      "$value": [
-        "Inter",
-        "Helvetica Neue",
-        "Arial",
-        "system-ui",
-        "sans-serif"
-      ],
+      "$value": ["Inter", "Helvetica Neue", "Arial", "system-ui", "sans-serif"],
       "$description": "Paragraph and reading copy. Neutral and legible.",
       "$extensions": { "cssVar": "--body" }
     },
     "mono": {
-      "$value": [
-        "Space Mono",
-        "SFMono-Regular",
-        "ui-monospace",
-        "monospace"
-      ],
+      "$value": ["Space Mono", "SFMono-Regular", "ui-monospace", "monospace"],
       "$description": "Labels, captions, data, eyebrows. Never long paragraphs.",
       "$extensions": { "cssVar": "--mono" }
     }
   },
   "scientificClarity": {
+    "detail": {
+      "$type": "dimension",
+      "$value": "0.72rem",
+      "$description": "Compact evidence labels, captions, eyebrows, and metadata.",
+      "$extensions": { "cssVar": "--text-detail" }
+    },
+    "body": {
+      "$type": "dimension",
+      "$value": "0.95rem",
+      "$description": "Default interface and reading copy.",
+      "$extensions": { "cssVar": "--text-body" }
+    },
+    "lead": {
+      "$type": "dimension",
+      "$value": "clamp(1rem, 1.3vw, 1.18rem)",
+      "$description": "Introductory copy that leads a section without becoming a heading.",
+      "$extensions": { "cssVar": "--text-lead" }
+    },
+    "section": {
+      "$type": "dimension",
+      "$value": "1.25rem",
+      "$description": "Compact section headings inside applications and surfaces.",
+      "$extensions": { "cssVar": "--text-section" }
+    },
+    "title": {
+      "$type": "dimension",
+      "$value": "1.75rem",
+      "$description": "Surface and panel titles below page-display scale.",
+      "$extensions": { "cssVar": "--text-title" }
+    },
     "displayXL": {
       "$type": "dimension",
       "$value": "clamp(4.2rem, 10.5vw, 9.5rem)",
@@ -179,6 +192,29 @@
       "$extensions": { "cssVar": "--grid-gutter" }
     }
   },
+  "fontWeight": {
+    "$type": "fontWeight",
+    "regular": {
+      "$value": 500,
+      "$description": "Default text weight.",
+      "$extensions": { "cssVar": "--weight-regular" }
+    },
+    "medium": {
+      "$value": 600,
+      "$description": "Quiet emphasis and titles.",
+      "$extensions": { "cssVar": "--weight-medium" }
+    },
+    "bold": {
+      "$value": 700,
+      "$description": "Labels and actionable emphasis.",
+      "$extensions": { "cssVar": "--weight-bold" }
+    },
+    "strong": {
+      "$value": 800,
+      "$description": "Dominant headings and high-contrast hierarchy.",
+      "$extensions": { "cssVar": "--weight-strong" }
+    }
+  },
   "motion": {
     "fast": {
       "$type": "duration",
@@ -204,8 +240,14 @@
       "$description": "Color-responsive dark-mode overrides applied when <html data-mode=\"dark\">. The page field is derived from the active accent; there is no separate black mode.",
       "color": {
         "$type": "color",
-        "bg": { "$value": "color-mix(in srgb, var(--accent) 18%, #100b16)", "$extensions": { "cssVar": "--bg" } },
-        "bg2": { "$value": "color-mix(in srgb, var(--accent) 27%, #15101c)", "$extensions": { "cssVar": "--bg-2" } },
+        "bg": {
+          "$value": "color-mix(in srgb, var(--accent) 18%, #100b16)",
+          "$extensions": { "cssVar": "--bg" }
+        },
+        "bg2": {
+          "$value": "color-mix(in srgb, var(--accent) 27%, #15101c)",
+          "$extensions": { "cssVar": "--bg-2" }
+        },
         "ink": { "$value": "#f6f2f8", "$extensions": { "cssVar": "--ink" } },
         "inkDim": {
           "$value": "#b9b0bf",

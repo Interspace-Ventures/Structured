@@ -22,8 +22,17 @@
   --floating-ui-clearance: 96px;
 
   /* ---- Scientific Modern Clarity, informed by Swiss modernism and the International Typographic Style ---- */
+  --text-detail: 0.72rem;
+  --text-body: 0.95rem;
+  --text-lead: clamp(1rem, 1.3vw, 1.18rem);
+  --text-section: 1.25rem;
+  --text-title: 1.75rem;
   --text-display-xl: clamp(4.2rem, 10.5vw, 9.5rem);
   --text-display-lg: clamp(2.6rem, 5.5vw, 5.25rem);
+  --weight-regular: 500;
+  --weight-medium: 600;
+  --weight-bold: 700;
+  --weight-strong: 800;
   --measure-reading: 62ch;
   --measure-caption: 48ch;
   --grid-gutter: clamp(1rem, 2.5vw, 2.5rem);
@@ -179,7 +188,7 @@ body {
 
 .eyebrow {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: var(--text-detail);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-dim);
@@ -212,7 +221,7 @@ h3 {
   margin: 0.25em 0 0.3em;
 }
 .lead {
-  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  font-size: var(--text-lead);
   color: var(--ink-dim);
   max-width: 60ch;
   text-wrap: pretty;

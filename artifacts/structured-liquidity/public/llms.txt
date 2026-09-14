@@ -39,6 +39,7 @@ This installs the theme and `.agents/skills/structured-liquidity/SKILL.md`. Veri
 All visuals read from CSS custom properties on `:root`. The machine-readable token set (W3C Design Tokens Community Group format, with the CSS variable name in each `$extensions.cssVar`) is at:
 
 - [design-tokens.json](design-tokens.json): the full token set, covering color, glass, border, radius, flat shadow, font families, plus light-mode overrides.
+- Typography is a controlled visual vocabulary: at most two actual typefaces across display/body/detail roles, seven semantic size tiers, and four semantic weights. New raw type or color declarations should fail a checked-in ratchet rather than silently expanding the system.
 
 Core defaults:
 
