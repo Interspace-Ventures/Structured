@@ -1,5 +1,8 @@
 # Structured Liquidity design ethos
 
+The machine-enforced typography and color limits are documented in
+[Visual vocabulary](visual-vocabulary.md).
+
 ## The operating model
 
 **Neobrutalist structure. Liquid motion. Scientific modern clarity.**
@@ -21,7 +24,8 @@ Structured Liquidity is a trifecta of three orthogonal design tenets, represente
 ## Expression rules
 
 - Use one accent for selection, progression, or a single key relationship. Monochrome does the explanatory work.
-- Establish one dominant typographic statement per view, then use a restrained body measure, exact baselines, and mono evidence labels.
+- Establish one dominant typographic statement per view, then use a restrained body measure, exact baselines, and mono evidence labels. Typography is a controlled vocabulary: use no more than two actual typefaces, map them to display/body/detail roles, and consume the seven semantic size tiers rather than inventing component-specific sizes.
+- Treat color as the same kind of controlled vocabulary. Components consume semantic palette tokens instead of introducing raw values.
 - Treat diagrams as explanatory figures: label them, number them when useful, and provide a caption or source state.
 - Let the grid, alignment, and hierarchy convey order before adding borders or glass.
 - Reserve hard shadows for tactile affordances and deliberately layered cutout surfaces; not every container needs one.

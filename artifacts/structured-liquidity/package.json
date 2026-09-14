@@ -10,6 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "registry": "node scripts/build-registry.mjs",
     "registry:check": "node scripts/check-registry.mjs",
+    "visual-vocabulary:check": "node scripts/check-visual-vocabulary.mjs",
+    "visual-vocabulary:baseline": "node scripts/check-visual-vocabulary.mjs --write-baseline",
     "adopters:check": "node scripts/check-adopters.mjs"
   },
   "devDependencies": {

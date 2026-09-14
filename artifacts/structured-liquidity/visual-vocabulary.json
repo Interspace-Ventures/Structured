@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "tokenSource": "src/styles/10-tokens-base.css",
+  "scanRoots": ["src"],
+  "extensions": [".css", ".tsx"],
+  "baseline": "visual-vocabulary-baseline.json",
+  "maxTypefaceFamilies": 2,
+  "typefaceRoles": {
+    "--display": "Inter",
+    "--body": "Inter",
+    "--mono": "Space Mono"
+  },
+  "additionalTypefaceVariables": [],
+  "typeSizes": {
+    "--text-detail": "0.72rem",
+    "--text-body": "0.95rem",
+    "--text-lead": "clamp(1rem, 1.3vw, 1.18rem)",
+    "--text-section": "1.25rem",
+    "--text-title": "1.75rem",
+    "--text-display-lg": "clamp(2.6rem, 5.5vw, 5.25rem)",
+    "--text-display-xl": "clamp(4.2rem, 10.5vw, 9.5rem)"
+  },
+  "fontWeights": {
+    "--weight-regular": "500",
+    "--weight-medium": "600",
+    "--weight-bold": "700",
+    "--weight-strong": "800"
+  },
+  "colorRoles": [
+    "--accent",
+    "--accent-ink",
+    "--bg",
+    "--bg-2",
+    "--ink",
+    "--ink-dim",
+    "--edge",
+    "--hard-shadow",
+    "--neg",
+    "--neg-ink"
+  ]
+}

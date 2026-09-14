@@ -23,7 +23,7 @@ Follow these literally — they are what keep generated output on-brand:
 4. **Exactly one accent.** `--accent` carries all emphasis. Never add a competing hue.
 5. **Liquid is movement, not a gradient treatment.** Default information surfaces are flat. Express liquidity through moving selection markers, menu and popover settling, tab changes, scroll continuity, and transitions between areas. Use neutral translucency or `backdrop-filter` only at moving state boundaries such as navigation, menus, and overlays—not on every card.
 6. **Destructive is gray, not red.** Destructive _containers_ use `--neg`. Error _text_ may warn in color.
-7. **Fixed type roles.** display (`--display`, Inter) = headings/buttons/brand; body (`--body`, Inter) = reading copy; mono (`--mono`, Space Mono) = labels/data/captions/eyebrows.
+7. **Fixed visual vocabulary.** Use no more than two actual typefaces across three roles: display (`--display`, Inter) for headings/buttons/brand; body (`--body`, Inter) for reading copy; mono (`--mono`, Space Mono) for labels/data/captions/eyebrows. Use the seven semantic size tiers and four weight tiers; do not add local font sizes or weights. Consume semantic color tokens instead of raw component colors.
 8. **Leading icons.** Nav links and buttons take a leading Lucide icon, then the label.
 9. **Motion proves mass.** On press/hover, nudge the element ~1px toward its shadow and grow the offset.
 10. **Communicate with scientific modern clarity.** Use a rational grid, exact alignment, asymmetric balance, measured line lengths, purposeful whitespace, and compact mono captions for sources, state, and evidence. Swiss modernism and the International Typographic Style are the reference tradition.
@@ -55,8 +55,17 @@ Apply these as CSS custom properties on `:root` (light-mode defaults):
   --display: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
   --body: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
   --mono: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
+  --text-detail: 0.72rem;
+  --text-body: 0.95rem;
+  --text-lead: clamp(1rem, 1.3vw, 1.18rem);
+  --text-section: 1.25rem;
+  --text-title: 1.75rem;
   --text-display-xl: clamp(4.2rem, 10.5vw, 9.5rem);
   --text-display-lg: clamp(2.6rem, 5.5vw, 5.25rem);
+  --weight-regular: 500;
+  --weight-medium: 600;
+  --weight-bold: 700;
+  --weight-strong: 800;
   --measure-reading: 62ch;
   --measure-caption: 48ch;
   --grid-gutter: clamp(1rem, 2.5vw, 2.5rem);
@@ -70,7 +79,7 @@ The canonical machine-readable set is `design-tokens.json` (W3C Design Tokens fo
 
 ## Type layout
 
-Three roles — header / body / detail (display / body / mono). Inter carries both sans-serif roles; use scale, weight, measure, and alignment for hierarchy. Use Space Mono only for labels, data, code, captions, and eyebrows. Prefer one dominant statement, a 12-column or similarly disciplined grid, short reading measures, and figure captions that identify evidence and state.
+Three roles — header / body / detail (display / body / mono) — resolve to at most two actual typefaces. Inter carries both sans-serif roles; use scale, weight, measure, and alignment for hierarchy. Use Space Mono only for labels, data, code, captions, and eyebrows. The seven allowed size tiers are detail, body, lead, section, title, display large, and display extra-large. Prefer one dominant statement, a 12-column or similarly disciplined grid, short reading measures, and figure captions that identify evidence and state. Existing raw declarations may be captured as migration debt, but a visual-vocabulary ratchet must prevent new raw type, size, weight, or color declarations.
 
 ## Motion contract
 
